@@ -1,2 +1,0 @@
-/usr/bin/ar cr libproto-fs.a  CMakeFiles/proto-fs.dir/fs.pb.cc.o
-/usr/bin/ranlib libproto-fs.a

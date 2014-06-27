@@ -1,5 +1,0 @@
-TRACE - 2014-05-19 18:36:51.951 - 5443 - poll:6,add event:0x7fff970c8d10,5_ET_IN_PRI_RDNORM_RDBAND_WRNORM_MSG_HUP,ret:0 - mio_poller.cpp:148:addEvent
-TRACE - 2014-05-19 18:36:51.951 - 5443 - poll:6,event:0x7fff970c8c38,4_WRNORM_HUP - mio_poller.cpp:80:poll
-WARN_ - 2014-05-19 18:36:51.951 - 5443 - Accept a bad socket:-1 - mio_acceptor.cpp:33:onEvent
-INFO_ - 2014-05-19 18:36:51.951 - 5441 - start logger file:a.log - log.cpp:180:Init
-TRACE - 2014-05-19 18:36:51.951 - 5441 - poll:6,add event:0x7fff970c8c38,4_ET_IN_PRI_WRNORM_MSG,ret:0 - mio_poller.cpp:148:addEvent
