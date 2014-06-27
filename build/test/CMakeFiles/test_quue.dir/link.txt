@@ -1,0 +1,1 @@
+/usr/bin/c++    -ggdb -msse -msse2 -msse3 -msse4.1 -g3 -fPIC -Wall -Wextra -Wno-unused-variable -Wno-unused-local-typedefs -Wno-unused-parameter -rdynamic -fpermissive -std=gnu++11  -g    CMakeFiles/test_quue.dir/test_quue.cpp.o  -o test_quue -rdynamic ../mio2/libmio2.a ../libjson/libjson.a ../../thirdparty/gtest/lib/libgtest.a -lpthread -lrt 

@@ -1,0 +1,2 @@
+/usr/bin/ar cr libjson.a  CMakeFiles/json.dir/json_value.cpp.o CMakeFiles/json.dir/json_reader.cpp.o CMakeFiles/json.dir/json_writer.cpp.o
+/usr/bin/ranlib libjson.a

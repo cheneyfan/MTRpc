@@ -1,0 +1,974 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+   <FileVersion major="1" minor="6" />
+   <Project>
+      <Option title="MIO" />
+      <Option makefile_is_custom="1" />
+      <Option compiler="gcc" />
+      <Option virtualFolders="CMake Files\;CMake Files\thirdparty\;CMake Files\libjson\;CMake Files\mio2\;CMake Files\test\;CMake Files\proto\;" />
+      <Build>
+      <Target title="all">
+         <Option working_dir="/home/guofutan/workspace/moduleframework/build" />
+         <Option type="4" />
+         <MakeCommands>
+            <Build command="/usr/bin/make -f &quot;/home/guofutan/workspace/moduleframework/build/Makefile&quot;  VERBOSE=1 all" />
+            <CompileFile command="/usr/bin/make -f &quot;/home/guofutan/workspace/moduleframework/build/Makefile&quot;  VERBOSE=1 &quot;$file&quot;" />
+            <Clean command="/usr/bin/make -f &quot;/home/guofutan/workspace/moduleframework/build/Makefile&quot;  VERBOSE=1 clean" />
+            <DistClean command="/usr/bin/make -f &quot;/home/guofutan/workspace/moduleframework/build/Makefile&quot;  VERBOSE=1 clean" />
+         </MakeCommands>
+      </Target>
+      <Target title="gmock_include">
+         <Option working_dir="/home/guofutan/workspace/moduleframework/build" />
+         <Option type="4" />
+         <MakeCommands>
+            <Build command="/usr/bin/make -f &quot;/home/guofutan/workspace/moduleframework/build/Makefile&quot;  VERBOSE=1 gmock_include" />
+            <CompileFile command="/usr/bin/make -f &quot;/home/guofutan/workspace/moduleframework/build/Makefile&quot;  VERBOSE=1 &quot;$file&quot;" />
+            <Clean command="/usr/bin/make -f &quot;/home/guofutan/workspace/moduleframework/build/Makefile&quot;  VERBOSE=1 clean" />
+            <DistClean command="/usr/bin/make -f &quot;/home/guofutan/workspace/moduleframework/build/Makefile&quot;  VERBOSE=1 clean" />
+         </MakeCommands>
+      </Target>
+      <Target title="gtest_include">
+         <Option working_dir="/home/guofutan/workspace/moduleframework/build" />
+         <Option type="4" />
+         <MakeCommands>
+            <Build command="/usr/bin/make -f &quot;/home/guofutan/workspace/moduleframework/build/Makefile&quot;  VERBOSE=1 gtest_include" />
+            <CompileFile command="/usr/bin/make -f &quot;/home/guofutan/workspace/moduleframework/build/Makefile&quot;  VERBOSE=1 &quot;$file&quot;" />
+            <Clean command="/usr/bin/make -f &quot;/home/guofutan/workspace/moduleframework/build/Makefile&quot;  VERBOSE=1 clean" />
+            <DistClean command="/usr/bin/make -f &quot;/home/guofutan/workspace/moduleframework/build/Makefile&quot;  VERBOSE=1 clean" />
+         </MakeCommands>
+      </Target>
+      <Target title="profiler_include">
+         <Option working_dir="/home/guofutan/workspace/moduleframework/build" />
+         <Option type="4" />
+         <MakeCommands>
+            <Build command="/usr/bin/make -f &quot;/home/guofutan/workspace/moduleframework/build/Makefile&quot;  VERBOSE=1 profiler_include" />
+            <CompileFile command="/usr/bin/make -f &quot;/home/guofutan/workspace/moduleframework/build/Makefile&quot;  VERBOSE=1 &quot;$file&quot;" />
+            <Clean command="/usr/bin/make -f &quot;/home/guofutan/workspace/moduleframework/build/Makefile&quot;  VERBOSE=1 clean" />
+            <DistClean command="/usr/bin/make -f &quot;/home/guofutan/workspace/moduleframework/build/Makefile&quot;  VERBOSE=1 clean" />
+         </MakeCommands>
+      </Target>
+      <Target title="protobuf_include">
+         <Option working_dir="/home/guofutan/workspace/moduleframework/build" />
+         <Option type="4" />
+         <MakeCommands>
+            <Build command="/usr/bin/make -f &quot;/home/guofutan/workspace/moduleframework/build/Makefile&quot;  VERBOSE=1 protobuf_include" />
+            <CompileFile command="/usr/bin/make -f &quot;/home/guofutan/workspace/moduleframework/build/Makefile&quot;  VERBOSE=1 &quot;$file&quot;" />
+            <Clean command="/usr/bin/make -f &quot;/home/guofutan/workspace/moduleframework/build/Makefile&quot;  VERBOSE=1 clean" />
+            <DistClean command="/usr/bin/make -f &quot;/home/guofutan/workspace/moduleframework/build/Makefile&quot;  VERBOSE=1 clean" />
+         </MakeCommands>
+      </Target>
+      <Target title="rebuild_cache">
+         <Option working_dir="/home/guofutan/workspace/moduleframework/build" />
+         <Option type="4" />
+         <MakeCommands>
+            <Build command="/usr/bin/make -f &quot;/home/guofutan/workspace/moduleframework/build/Makefile&quot;  VERBOSE=1 rebuild_cache" />
+            <CompileFile command="/usr/bin/make -f &quot;/home/guofutan/workspace/moduleframework/build/Makefile&quot;  VERBOSE=1 &quot;$file&quot;" />
+            <Clean command="/usr/bin/make -f &quot;/home/guofutan/workspace/moduleframework/build/Makefile&quot;  VERBOSE=1 clean" />
+            <DistClean command="/usr/bin/make -f &quot;/home/guofutan/workspace/moduleframework/build/Makefile&quot;  VERBOSE=1 clean" />
+         </MakeCommands>
+      </Target>
+      <Target title="tcmalloc_include">
+         <Option working_dir="/home/guofutan/workspace/moduleframework/build" />
+         <Option type="4" />
+         <MakeCommands>
+            <Build command="/usr/bin/make -f &quot;/home/guofutan/workspace/moduleframework/build/Makefile&quot;  VERBOSE=1 tcmalloc_include" />
+            <CompileFile command="/usr/bin/make -f &quot;/home/guofutan/workspace/moduleframework/build/Makefile&quot;  VERBOSE=1 &quot;$file&quot;" />
+            <Clean command="/usr/bin/make -f &quot;/home/guofutan/workspace/moduleframework/build/Makefile&quot;  VERBOSE=1 clean" />
+            <DistClean command="/usr/bin/make -f &quot;/home/guofutan/workspace/moduleframework/build/Makefile&quot;  VERBOSE=1 clean" />
+         </MakeCommands>
+      </Target>
+      <Target title="json">
+         <Option output="/home/guofutan/workspace/moduleframework/build/libjson/libjson.a" prefix_auto="0" extension_auto="0" />
+         <Option working_dir="/home/guofutan/workspace/moduleframework/build/libjson" />
+         <Option object_output="./" />
+         <Option type="2" />
+         <Option compiler="gcc" />
+         <Compiler>
+            <Add directory="/home/guofutan/workspace/moduleframework" />
+            <Add directory="/home/guofutan/workspace/moduleframework/libjson" />
+            <Add directory="/home/guofutan/workspace/moduleframework/thirdparty/gmock/include" />
+            <Add directory="/home/guofutan/workspace/moduleframework/thirdparty/gperf/include" />
+            <Add directory="/home/guofutan/workspace/moduleframework/thirdparty/gtest/include" />
+            <Add directory="/home/guofutan/workspace/moduleframework/thirdparty/protobuf/include" />
+         </Compiler>
+         <MakeCommands>
+            <Build command="/usr/bin/make -f &quot;/home/guofutan/workspace/moduleframework/build/libjson/Makefile&quot;  VERBOSE=1 json" />
+            <CompileFile command="/usr/bin/make -f &quot;/home/guofutan/workspace/moduleframework/build/libjson/Makefile&quot;  VERBOSE=1 &quot;$file&quot;" />
+            <Clean command="/usr/bin/make -f &quot;/home/guofutan/workspace/moduleframework/build/libjson/Makefile&quot;  VERBOSE=1 clean" />
+            <DistClean command="/usr/bin/make -f &quot;/home/guofutan/workspace/moduleframework/build/libjson/Makefile&quot;  VERBOSE=1 clean" />
+         </MakeCommands>
+      </Target>
+      <Target title="json/fast">
+         <Option output="/home/guofutan/workspace/moduleframework/build/libjson/libjson.a" prefix_auto="0" extension_auto="0" />
+         <Option working_dir="/home/guofutan/workspace/moduleframework/build/libjson" />
+         <Option object_output="./" />
+         <Option type="2" />
+         <Option compiler="gcc" />
+         <Compiler>
+            <Add directory="/home/guofutan/workspace/moduleframework" />
+            <Add directory="/home/guofutan/workspace/moduleframework/libjson" />
+            <Add directory="/home/guofutan/workspace/moduleframework/thirdparty/gmock/include" />
+            <Add directory="/home/guofutan/workspace/moduleframework/thirdparty/gperf/include" />
+            <Add directory="/home/guofutan/workspace/moduleframework/thirdparty/gtest/include" />
+            <Add directory="/home/guofutan/workspace/moduleframework/thirdparty/protobuf/include" />
+         </Compiler>
+         <MakeCommands>
+            <Build command="/usr/bin/make -f &quot;/home/guofutan/workspace/moduleframework/build/libjson/Makefile&quot;  VERBOSE=1 json/fast" />
+            <CompileFile command="/usr/bin/make -f &quot;/home/guofutan/workspace/moduleframework/build/libjson/Makefile&quot;  VERBOSE=1 &quot;$file&quot;" />
+            <Clean command="/usr/bin/make -f &quot;/home/guofutan/workspace/moduleframework/build/libjson/Makefile&quot;  VERBOSE=1 clean" />
+            <DistClean command="/usr/bin/make -f &quot;/home/guofutan/workspace/moduleframework/build/libjson/Makefile&quot;  VERBOSE=1 clean" />
+         </MakeCommands>
+      </Target>
+      <Target title="mio2">
+         <Option output="/home/guofutan/workspace/moduleframework/build/mio2/libmio2.a" prefix_auto="0" extension_auto="0" />
+         <Option working_dir="/home/guofutan/workspace/moduleframework/build/mio2" />
+         <Option object_output="./" />
+         <Option type="2" />
+         <Option compiler="gcc" />
+         <Compiler>
+            <Add directory="/home/guofutan/workspace/moduleframework" />
+            <Add directory="/home/guofutan/workspace/moduleframework/mio2" />
+            <Add directory="/home/guofutan/workspace/moduleframework/thirdparty/gmock/include" />
+            <Add directory="/home/guofutan/workspace/moduleframework/thirdparty/gperf/include" />
+            <Add directory="/home/guofutan/workspace/moduleframework/thirdparty/gtest/include" />
+            <Add directory="/home/guofutan/workspace/moduleframework/thirdparty/protobuf/include" />
+         </Compiler>
+         <MakeCommands>
+            <Build command="/usr/bin/make -f &quot;/home/guofutan/workspace/moduleframework/build/mio2/Makefile&quot;  VERBOSE=1 mio2" />
+            <CompileFile command="/usr/bin/make -f &quot;/home/guofutan/workspace/moduleframework/build/mio2/Makefile&quot;  VERBOSE=1 &quot;$file&quot;" />
+            <Clean command="/usr/bin/make -f &quot;/home/guofutan/workspace/moduleframework/build/mio2/Makefile&quot;  VERBOSE=1 clean" />
+            <DistClean command="/usr/bin/make -f &quot;/home/guofutan/workspace/moduleframework/build/mio2/Makefile&quot;  VERBOSE=1 clean" />
+         </MakeCommands>
+      </Target>
+      <Target title="mio2/fast">
+         <Option output="/home/guofutan/workspace/moduleframework/build/mio2/libmio2.a" prefix_auto="0" extension_auto="0" />
+         <Option working_dir="/home/guofutan/workspace/moduleframework/build/mio2" />
+         <Option object_output="./" />
+         <Option type="2" />
+         <Option compiler="gcc" />
+         <Compiler>
+            <Add directory="/home/guofutan/workspace/moduleframework" />
+            <Add directory="/home/guofutan/workspace/moduleframework/mio2" />
+            <Add directory="/home/guofutan/workspace/moduleframework/thirdparty/gmock/include" />
+            <Add directory="/home/guofutan/workspace/moduleframework/thirdparty/gperf/include" />
+            <Add directory="/home/guofutan/workspace/moduleframework/thirdparty/gtest/include" />
+            <Add directory="/home/guofutan/workspace/moduleframework/thirdparty/protobuf/include" />
+         </Compiler>
+         <MakeCommands>
+            <Build command="/usr/bin/make -f &quot;/home/guofutan/workspace/moduleframework/build/mio2/Makefile&quot;  VERBOSE=1 mio2/fast" />
+            <CompileFile command="/usr/bin/make -f &quot;/home/guofutan/workspace/moduleframework/build/mio2/Makefile&quot;  VERBOSE=1 &quot;$file&quot;" />
+            <Clean command="/usr/bin/make -f &quot;/home/guofutan/workspace/moduleframework/build/mio2/Makefile&quot;  VERBOSE=1 clean" />
+            <DistClean command="/usr/bin/make -f &quot;/home/guofutan/workspace/moduleframework/build/mio2/Makefile&quot;  VERBOSE=1 clean" />
+         </MakeCommands>
+      </Target>
+      <Target title="test_logger">
+         <Option output="/home/guofutan/workspace/moduleframework/build/test/test_logger" prefix_auto="0" extension_auto="0" />
+         <Option working_dir="/home/guofutan/workspace/moduleframework/build/test" />
+         <Option object_output="./" />
+         <Option type="1" />
+         <Option compiler="gcc" />
+         <Compiler>
+            <Add directory="/home/guofutan/workspace/moduleframework" />
+            <Add directory="/home/guofutan/workspace/moduleframework/test" />
+            <Add directory="/home/guofutan/workspace/moduleframework/thirdparty/gmock/include" />
+            <Add directory="/home/guofutan/workspace/moduleframework/thirdparty/gperf/include" />
+            <Add directory="/home/guofutan/workspace/moduleframework/thirdparty/gtest/include" />
+            <Add directory="/home/guofutan/workspace/moduleframework/thirdparty/protobuf/include" />
+         </Compiler>
+         <MakeCommands>
+            <Build command="/usr/bin/make -f &quot;/home/guofutan/workspace/moduleframework/build/test/Makefile&quot;  VERBOSE=1 test_logger" />
+            <CompileFile command="/usr/bin/make -f &quot;/home/guofutan/workspace/moduleframework/build/test/Makefile&quot;  VERBOSE=1 &quot;$file&quot;" />
+            <Clean command="/usr/bin/make -f &quot;/home/guofutan/workspace/moduleframework/build/test/Makefile&quot;  VERBOSE=1 clean" />
+            <DistClean command="/usr/bin/make -f &quot;/home/guofutan/workspace/moduleframework/build/test/Makefile&quot;  VERBOSE=1 clean" />
+         </MakeCommands>
+      </Target>
+      <Target title="test_logger/fast">
+         <Option output="/home/guofutan/workspace/moduleframework/build/test/test_logger" prefix_auto="0" extension_auto="0" />
+         <Option working_dir="/home/guofutan/workspace/moduleframework/build/test" />
+         <Option object_output="./" />
+         <Option type="1" />
+         <Option compiler="gcc" />
+         <Compiler>
+            <Add directory="/home/guofutan/workspace/moduleframework" />
+            <Add directory="/home/guofutan/workspace/moduleframework/test" />
+            <Add directory="/home/guofutan/workspace/moduleframework/thirdparty/gmock/include" />
+            <Add directory="/home/guofutan/workspace/moduleframework/thirdparty/gperf/include" />
+            <Add directory="/home/guofutan/workspace/moduleframework/thirdparty/gtest/include" />
+            <Add directory="/home/guofutan/workspace/moduleframework/thirdparty/protobuf/include" />
+         </Compiler>
+         <MakeCommands>
+            <Build command="/usr/bin/make -f &quot;/home/guofutan/workspace/moduleframework/build/test/Makefile&quot;  VERBOSE=1 test_logger/fast" />
+            <CompileFile command="/usr/bin/make -f &quot;/home/guofutan/workspace/moduleframework/build/test/Makefile&quot;  VERBOSE=1 &quot;$file&quot;" />
+            <Clean command="/usr/bin/make -f &quot;/home/guofutan/workspace/moduleframework/build/test/Makefile&quot;  VERBOSE=1 clean" />
+            <DistClean command="/usr/bin/make -f &quot;/home/guofutan/workspace/moduleframework/build/test/Makefile&quot;  VERBOSE=1 clean" />
+         </MakeCommands>
+      </Target>
+      <Target title="test_miobuffer">
+         <Option output="/home/guofutan/workspace/moduleframework/build/test/test_miobuffer" prefix_auto="0" extension_auto="0" />
+         <Option working_dir="/home/guofutan/workspace/moduleframework/build/test" />
+         <Option object_output="./" />
+         <Option type="1" />
+         <Option compiler="gcc" />
+         <Compiler>
+            <Add directory="/home/guofutan/workspace/moduleframework" />
+            <Add directory="/home/guofutan/workspace/moduleframework/test" />
+            <Add directory="/home/guofutan/workspace/moduleframework/thirdparty/gmock/include" />
+            <Add directory="/home/guofutan/workspace/moduleframework/thirdparty/gperf/include" />
+            <Add directory="/home/guofutan/workspace/moduleframework/thirdparty/gtest/include" />
+            <Add directory="/home/guofutan/workspace/moduleframework/thirdparty/protobuf/include" />
+         </Compiler>
+         <MakeCommands>
+            <Build command="/usr/bin/make -f &quot;/home/guofutan/workspace/moduleframework/build/test/Makefile&quot;  VERBOSE=1 test_miobuffer" />
+            <CompileFile command="/usr/bin/make -f &quot;/home/guofutan/workspace/moduleframework/build/test/Makefile&quot;  VERBOSE=1 &quot;$file&quot;" />
+            <Clean command="/usr/bin/make -f &quot;/home/guofutan/workspace/moduleframework/build/test/Makefile&quot;  VERBOSE=1 clean" />
+            <DistClean command="/usr/bin/make -f &quot;/home/guofutan/workspace/moduleframework/build/test/Makefile&quot;  VERBOSE=1 clean" />
+         </MakeCommands>
+      </Target>
+      <Target title="test_miobuffer/fast">
+         <Option output="/home/guofutan/workspace/moduleframework/build/test/test_miobuffer" prefix_auto="0" extension_auto="0" />
+         <Option working_dir="/home/guofutan/workspace/moduleframework/build/test" />
+         <Option object_output="./" />
+         <Option type="1" />
+         <Option compiler="gcc" />
+         <Compiler>
+            <Add directory="/home/guofutan/workspace/moduleframework" />
+            <Add directory="/home/guofutan/workspace/moduleframework/test" />
+            <Add directory="/home/guofutan/workspace/moduleframework/thirdparty/gmock/include" />
+            <Add directory="/home/guofutan/workspace/moduleframework/thirdparty/gperf/include" />
+            <Add directory="/home/guofutan/workspace/moduleframework/thirdparty/gtest/include" />
+            <Add directory="/home/guofutan/workspace/moduleframework/thirdparty/protobuf/include" />
+         </Compiler>
+         <MakeCommands>
+            <Build command="/usr/bin/make -f &quot;/home/guofutan/workspace/moduleframework/build/test/Makefile&quot;  VERBOSE=1 test_miobuffer/fast" />
+            <CompileFile command="/usr/bin/make -f &quot;/home/guofutan/workspace/moduleframework/build/test/Makefile&quot;  VERBOSE=1 &quot;$file&quot;" />
+            <Clean command="/usr/bin/make -f &quot;/home/guofutan/workspace/moduleframework/build/test/Makefile&quot;  VERBOSE=1 clean" />
+            <DistClean command="/usr/bin/make -f &quot;/home/guofutan/workspace/moduleframework/build/test/Makefile&quot;  VERBOSE=1 clean" />
+         </MakeCommands>
+      </Target>
+      <Target title="test_poller">
+         <Option output="/home/guofutan/workspace/moduleframework/build/test/test_poller" prefix_auto="0" extension_auto="0" />
+         <Option working_dir="/home/guofutan/workspace/moduleframework/build/test" />
+         <Option object_output="./" />
+         <Option type="1" />
+         <Option compiler="gcc" />
+         <Compiler>
+            <Add directory="/home/guofutan/workspace/moduleframework" />
+            <Add directory="/home/guofutan/workspace/moduleframework/test" />
+            <Add directory="/home/guofutan/workspace/moduleframework/thirdparty/gmock/include" />
+            <Add directory="/home/guofutan/workspace/moduleframework/thirdparty/gperf/include" />
+            <Add directory="/home/guofutan/workspace/moduleframework/thirdparty/gtest/include" />
+            <Add directory="/home/guofutan/workspace/moduleframework/thirdparty/protobuf/include" />
+         </Compiler>
+         <MakeCommands>
+            <Build command="/usr/bin/make -f &quot;/home/guofutan/workspace/moduleframework/build/test/Makefile&quot;  VERBOSE=1 test_poller" />
+            <CompileFile command="/usr/bin/make -f &quot;/home/guofutan/workspace/moduleframework/build/test/Makefile&quot;  VERBOSE=1 &quot;$file&quot;" />
+            <Clean command="/usr/bin/make -f &quot;/home/guofutan/workspace/moduleframework/build/test/Makefile&quot;  VERBOSE=1 clean" />
+            <DistClean command="/usr/bin/make -f &quot;/home/guofutan/workspace/moduleframework/build/test/Makefile&quot;  VERBOSE=1 clean" />
+         </MakeCommands>
+      </Target>
+      <Target title="test_poller/fast">
+         <Option output="/home/guofutan/workspace/moduleframework/build/test/test_poller" prefix_auto="0" extension_auto="0" />
+         <Option working_dir="/home/guofutan/workspace/moduleframework/build/test" />
+         <Option object_output="./" />
+         <Option type="1" />
+         <Option compiler="gcc" />
+         <Compiler>
+            <Add directory="/home/guofutan/workspace/moduleframework" />
+            <Add directory="/home/guofutan/workspace/moduleframework/test" />
+            <Add directory="/home/guofutan/workspace/moduleframework/thirdparty/gmock/include" />
+            <Add directory="/home/guofutan/workspace/moduleframework/thirdparty/gperf/include" />
+            <Add directory="/home/guofutan/workspace/moduleframework/thirdparty/gtest/include" />
+            <Add directory="/home/guofutan/workspace/moduleframework/thirdparty/protobuf/include" />
+         </Compiler>
+         <MakeCommands>
+            <Build command="/usr/bin/make -f &quot;/home/guofutan/workspace/moduleframework/build/test/Makefile&quot;  VERBOSE=1 test_poller/fast" />
+            <CompileFile command="/usr/bin/make -f &quot;/home/guofutan/workspace/moduleframework/build/test/Makefile&quot;  VERBOSE=1 &quot;$file&quot;" />
+            <Clean command="/usr/bin/make -f &quot;/home/guofutan/workspace/moduleframework/build/test/Makefile&quot;  VERBOSE=1 clean" />
+            <DistClean command="/usr/bin/make -f &quot;/home/guofutan/workspace/moduleframework/build/test/Makefile&quot;  VERBOSE=1 clean" />
+         </MakeCommands>
+      </Target>
+      <Target title="test_quue">
+         <Option output="/home/guofutan/workspace/moduleframework/build/test/test_quue" prefix_auto="0" extension_auto="0" />
+         <Option working_dir="/home/guofutan/workspace/moduleframework/build/test" />
+         <Option object_output="./" />
+         <Option type="1" />
+         <Option compiler="gcc" />
+         <Compiler>
+            <Add directory="/home/guofutan/workspace/moduleframework" />
+            <Add directory="/home/guofutan/workspace/moduleframework/test" />
+            <Add directory="/home/guofutan/workspace/moduleframework/thirdparty/gmock/include" />
+            <Add directory="/home/guofutan/workspace/moduleframework/thirdparty/gperf/include" />
+            <Add directory="/home/guofutan/workspace/moduleframework/thirdparty/gtest/include" />
+            <Add directory="/home/guofutan/workspace/moduleframework/thirdparty/protobuf/include" />
+         </Compiler>
+         <MakeCommands>
+            <Build command="/usr/bin/make -f &quot;/home/guofutan/workspace/moduleframework/build/test/Makefile&quot;  VERBOSE=1 test_quue" />
+            <CompileFile command="/usr/bin/make -f &quot;/home/guofutan/workspace/moduleframework/build/test/Makefile&quot;  VERBOSE=1 &quot;$file&quot;" />
+            <Clean command="/usr/bin/make -f &quot;/home/guofutan/workspace/moduleframework/build/test/Makefile&quot;  VERBOSE=1 clean" />
+            <DistClean command="/usr/bin/make -f &quot;/home/guofutan/workspace/moduleframework/build/test/Makefile&quot;  VERBOSE=1 clean" />
+         </MakeCommands>
+      </Target>
+      <Target title="test_quue/fast">
+         <Option output="/home/guofutan/workspace/moduleframework/build/test/test_quue" prefix_auto="0" extension_auto="0" />
+         <Option working_dir="/home/guofutan/workspace/moduleframework/build/test" />
+         <Option object_output="./" />
+         <Option type="1" />
+         <Option compiler="gcc" />
+         <Compiler>
+            <Add directory="/home/guofutan/workspace/moduleframework" />
+            <Add directory="/home/guofutan/workspace/moduleframework/test" />
+            <Add directory="/home/guofutan/workspace/moduleframework/thirdparty/gmock/include" />
+            <Add directory="/home/guofutan/workspace/moduleframework/thirdparty/gperf/include" />
+            <Add directory="/home/guofutan/workspace/moduleframework/thirdparty/gtest/include" />
+            <Add directory="/home/guofutan/workspace/moduleframework/thirdparty/protobuf/include" />
+         </Compiler>
+         <MakeCommands>
+            <Build command="/usr/bin/make -f &quot;/home/guofutan/workspace/moduleframework/build/test/Makefile&quot;  VERBOSE=1 test_quue/fast" />
+            <CompileFile command="/usr/bin/make -f &quot;/home/guofutan/workspace/moduleframework/build/test/Makefile&quot;  VERBOSE=1 &quot;$file&quot;" />
+            <Clean command="/usr/bin/make -f &quot;/home/guofutan/workspace/moduleframework/build/test/Makefile&quot;  VERBOSE=1 clean" />
+            <DistClean command="/usr/bin/make -f &quot;/home/guofutan/workspace/moduleframework/build/test/Makefile&quot;  VERBOSE=1 clean" />
+         </MakeCommands>
+      </Target>
+      <Target title="test_tasker">
+         <Option output="/home/guofutan/workspace/moduleframework/build/test/test_tasker" prefix_auto="0" extension_auto="0" />
+         <Option working_dir="/home/guofutan/workspace/moduleframework/build/test" />
+         <Option object_output="./" />
+         <Option type="1" />
+         <Option compiler="gcc" />
+         <Compiler>
+            <Add directory="/home/guofutan/workspace/moduleframework" />
+            <Add directory="/home/guofutan/workspace/moduleframework/test" />
+            <Add directory="/home/guofutan/workspace/moduleframework/thirdparty/gmock/include" />
+            <Add directory="/home/guofutan/workspace/moduleframework/thirdparty/gperf/include" />
+            <Add directory="/home/guofutan/workspace/moduleframework/thirdparty/gtest/include" />
+            <Add directory="/home/guofutan/workspace/moduleframework/thirdparty/protobuf/include" />
+         </Compiler>
+         <MakeCommands>
+            <Build command="/usr/bin/make -f &quot;/home/guofutan/workspace/moduleframework/build/test/Makefile&quot;  VERBOSE=1 test_tasker" />
+            <CompileFile command="/usr/bin/make -f &quot;/home/guofutan/workspace/moduleframework/build/test/Makefile&quot;  VERBOSE=1 &quot;$file&quot;" />
+            <Clean command="/usr/bin/make -f &quot;/home/guofutan/workspace/moduleframework/build/test/Makefile&quot;  VERBOSE=1 clean" />
+            <DistClean command="/usr/bin/make -f &quot;/home/guofutan/workspace/moduleframework/build/test/Makefile&quot;  VERBOSE=1 clean" />
+         </MakeCommands>
+      </Target>
+      <Target title="test_tasker/fast">
+         <Option output="/home/guofutan/workspace/moduleframework/build/test/test_tasker" prefix_auto="0" extension_auto="0" />
+         <Option working_dir="/home/guofutan/workspace/moduleframework/build/test" />
+         <Option object_output="./" />
+         <Option type="1" />
+         <Option compiler="gcc" />
+         <Compiler>
+            <Add directory="/home/guofutan/workspace/moduleframework" />
+            <Add directory="/home/guofutan/workspace/moduleframework/test" />
+            <Add directory="/home/guofutan/workspace/moduleframework/thirdparty/gmock/include" />
+            <Add directory="/home/guofutan/workspace/moduleframework/thirdparty/gperf/include" />
+            <Add directory="/home/guofutan/workspace/moduleframework/thirdparty/gtest/include" />
+            <Add directory="/home/guofutan/workspace/moduleframework/thirdparty/protobuf/include" />
+         </Compiler>
+         <MakeCommands>
+            <Build command="/usr/bin/make -f &quot;/home/guofutan/workspace/moduleframework/build/test/Makefile&quot;  VERBOSE=1 test_tasker/fast" />
+            <CompileFile command="/usr/bin/make -f &quot;/home/guofutan/workspace/moduleframework/build/test/Makefile&quot;  VERBOSE=1 &quot;$file&quot;" />
+            <Clean command="/usr/bin/make -f &quot;/home/guofutan/workspace/moduleframework/build/test/Makefile&quot;  VERBOSE=1 clean" />
+            <DistClean command="/usr/bin/make -f &quot;/home/guofutan/workspace/moduleframework/build/test/Makefile&quot;  VERBOSE=1 clean" />
+         </MakeCommands>
+      </Target>
+      <Target title="test_tcpclient">
+         <Option output="/home/guofutan/workspace/moduleframework/build/test/test_tcpclient" prefix_auto="0" extension_auto="0" />
+         <Option working_dir="/home/guofutan/workspace/moduleframework/build/test" />
+         <Option object_output="./" />
+         <Option type="1" />
+         <Option compiler="gcc" />
+         <Compiler>
+            <Add directory="/home/guofutan/workspace/moduleframework" />
+            <Add directory="/home/guofutan/workspace/moduleframework/test" />
+            <Add directory="/home/guofutan/workspace/moduleframework/thirdparty/gmock/include" />
+            <Add directory="/home/guofutan/workspace/moduleframework/thirdparty/gperf/include" />
+            <Add directory="/home/guofutan/workspace/moduleframework/thirdparty/gtest/include" />
+            <Add directory="/home/guofutan/workspace/moduleframework/thirdparty/protobuf/include" />
+         </Compiler>
+         <MakeCommands>
+            <Build command="/usr/bin/make -f &quot;/home/guofutan/workspace/moduleframework/build/test/Makefile&quot;  VERBOSE=1 test_tcpclient" />
+            <CompileFile command="/usr/bin/make -f &quot;/home/guofutan/workspace/moduleframework/build/test/Makefile&quot;  VERBOSE=1 &quot;$file&quot;" />
+            <Clean command="/usr/bin/make -f &quot;/home/guofutan/workspace/moduleframework/build/test/Makefile&quot;  VERBOSE=1 clean" />
+            <DistClean command="/usr/bin/make -f &quot;/home/guofutan/workspace/moduleframework/build/test/Makefile&quot;  VERBOSE=1 clean" />
+         </MakeCommands>
+      </Target>
+      <Target title="test_tcpclient/fast">
+         <Option output="/home/guofutan/workspace/moduleframework/build/test/test_tcpclient" prefix_auto="0" extension_auto="0" />
+         <Option working_dir="/home/guofutan/workspace/moduleframework/build/test" />
+         <Option object_output="./" />
+         <Option type="1" />
+         <Option compiler="gcc" />
+         <Compiler>
+            <Add directory="/home/guofutan/workspace/moduleframework" />
+            <Add directory="/home/guofutan/workspace/moduleframework/test" />
+            <Add directory="/home/guofutan/workspace/moduleframework/thirdparty/gmock/include" />
+            <Add directory="/home/guofutan/workspace/moduleframework/thirdparty/gperf/include" />
+            <Add directory="/home/guofutan/workspace/moduleframework/thirdparty/gtest/include" />
+            <Add directory="/home/guofutan/workspace/moduleframework/thirdparty/protobuf/include" />
+         </Compiler>
+         <MakeCommands>
+            <Build command="/usr/bin/make -f &quot;/home/guofutan/workspace/moduleframework/build/test/Makefile&quot;  VERBOSE=1 test_tcpclient/fast" />
+            <CompileFile command="/usr/bin/make -f &quot;/home/guofutan/workspace/moduleframework/build/test/Makefile&quot;  VERBOSE=1 &quot;$file&quot;" />
+            <Clean command="/usr/bin/make -f &quot;/home/guofutan/workspace/moduleframework/build/test/Makefile&quot;  VERBOSE=1 clean" />
+            <DistClean command="/usr/bin/make -f &quot;/home/guofutan/workspace/moduleframework/build/test/Makefile&quot;  VERBOSE=1 clean" />
+         </MakeCommands>
+      </Target>
+      <Target title="test_tcpserver">
+         <Option output="/home/guofutan/workspace/moduleframework/build/test/test_tcpserver" prefix_auto="0" extension_auto="0" />
+         <Option working_dir="/home/guofutan/workspace/moduleframework/build/test" />
+         <Option object_output="./" />
+         <Option type="1" />
+         <Option compiler="gcc" />
+         <Compiler>
+            <Add directory="/home/guofutan/workspace/moduleframework" />
+            <Add directory="/home/guofutan/workspace/moduleframework/test" />
+            <Add directory="/home/guofutan/workspace/moduleframework/thirdparty/gmock/include" />
+            <Add directory="/home/guofutan/workspace/moduleframework/thirdparty/gperf/include" />
+            <Add directory="/home/guofutan/workspace/moduleframework/thirdparty/gtest/include" />
+            <Add directory="/home/guofutan/workspace/moduleframework/thirdparty/protobuf/include" />
+         </Compiler>
+         <MakeCommands>
+            <Build command="/usr/bin/make -f &quot;/home/guofutan/workspace/moduleframework/build/test/Makefile&quot;  VERBOSE=1 test_tcpserver" />
+            <CompileFile command="/usr/bin/make -f &quot;/home/guofutan/workspace/moduleframework/build/test/Makefile&quot;  VERBOSE=1 &quot;$file&quot;" />
+            <Clean command="/usr/bin/make -f &quot;/home/guofutan/workspace/moduleframework/build/test/Makefile&quot;  VERBOSE=1 clean" />
+            <DistClean command="/usr/bin/make -f &quot;/home/guofutan/workspace/moduleframework/build/test/Makefile&quot;  VERBOSE=1 clean" />
+         </MakeCommands>
+      </Target>
+      <Target title="test_tcpserver/fast">
+         <Option output="/home/guofutan/workspace/moduleframework/build/test/test_tcpserver" prefix_auto="0" extension_auto="0" />
+         <Option working_dir="/home/guofutan/workspace/moduleframework/build/test" />
+         <Option object_output="./" />
+         <Option type="1" />
+         <Option compiler="gcc" />
+         <Compiler>
+            <Add directory="/home/guofutan/workspace/moduleframework" />
+            <Add directory="/home/guofutan/workspace/moduleframework/test" />
+            <Add directory="/home/guofutan/workspace/moduleframework/thirdparty/gmock/include" />
+            <Add directory="/home/guofutan/workspace/moduleframework/thirdparty/gperf/include" />
+            <Add directory="/home/guofutan/workspace/moduleframework/thirdparty/gtest/include" />
+            <Add directory="/home/guofutan/workspace/moduleframework/thirdparty/protobuf/include" />
+         </Compiler>
+         <MakeCommands>
+            <Build command="/usr/bin/make -f &quot;/home/guofutan/workspace/moduleframework/build/test/Makefile&quot;  VERBOSE=1 test_tcpserver/fast" />
+            <CompileFile command="/usr/bin/make -f &quot;/home/guofutan/workspace/moduleframework/build/test/Makefile&quot;  VERBOSE=1 &quot;$file&quot;" />
+            <Clean command="/usr/bin/make -f &quot;/home/guofutan/workspace/moduleframework/build/test/Makefile&quot;  VERBOSE=1 clean" />
+            <DistClean command="/usr/bin/make -f &quot;/home/guofutan/workspace/moduleframework/build/test/Makefile&quot;  VERBOSE=1 clean" />
+         </MakeCommands>
+      </Target>
+      <Target title="test_threadid">
+         <Option output="/home/guofutan/workspace/moduleframework/build/test/test_threadid" prefix_auto="0" extension_auto="0" />
+         <Option working_dir="/home/guofutan/workspace/moduleframework/build/test" />
+         <Option object_output="./" />
+         <Option type="1" />
+         <Option compiler="gcc" />
+         <Compiler>
+            <Add directory="/home/guofutan/workspace/moduleframework" />
+            <Add directory="/home/guofutan/workspace/moduleframework/test" />
+            <Add directory="/home/guofutan/workspace/moduleframework/thirdparty/gmock/include" />
+            <Add directory="/home/guofutan/workspace/moduleframework/thirdparty/gperf/include" />
+            <Add directory="/home/guofutan/workspace/moduleframework/thirdparty/gtest/include" />
+            <Add directory="/home/guofutan/workspace/moduleframework/thirdparty/protobuf/include" />
+         </Compiler>
+         <MakeCommands>
+            <Build command="/usr/bin/make -f &quot;/home/guofutan/workspace/moduleframework/build/test/Makefile&quot;  VERBOSE=1 test_threadid" />
+            <CompileFile command="/usr/bin/make -f &quot;/home/guofutan/workspace/moduleframework/build/test/Makefile&quot;  VERBOSE=1 &quot;$file&quot;" />
+            <Clean command="/usr/bin/make -f &quot;/home/guofutan/workspace/moduleframework/build/test/Makefile&quot;  VERBOSE=1 clean" />
+            <DistClean command="/usr/bin/make -f &quot;/home/guofutan/workspace/moduleframework/build/test/Makefile&quot;  VERBOSE=1 clean" />
+         </MakeCommands>
+      </Target>
+      <Target title="test_threadid/fast">
+         <Option output="/home/guofutan/workspace/moduleframework/build/test/test_threadid" prefix_auto="0" extension_auto="0" />
+         <Option working_dir="/home/guofutan/workspace/moduleframework/build/test" />
+         <Option object_output="./" />
+         <Option type="1" />
+         <Option compiler="gcc" />
+         <Compiler>
+            <Add directory="/home/guofutan/workspace/moduleframework" />
+            <Add directory="/home/guofutan/workspace/moduleframework/test" />
+            <Add directory="/home/guofutan/workspace/moduleframework/thirdparty/gmock/include" />
+            <Add directory="/home/guofutan/workspace/moduleframework/thirdparty/gperf/include" />
+            <Add directory="/home/guofutan/workspace/moduleframework/thirdparty/gtest/include" />
+            <Add directory="/home/guofutan/workspace/moduleframework/thirdparty/protobuf/include" />
+         </Compiler>
+         <MakeCommands>
+            <Build command="/usr/bin/make -f &quot;/home/guofutan/workspace/moduleframework/build/test/Makefile&quot;  VERBOSE=1 test_threadid/fast" />
+            <CompileFile command="/usr/bin/make -f &quot;/home/guofutan/workspace/moduleframework/build/test/Makefile&quot;  VERBOSE=1 &quot;$file&quot;" />
+            <Clean command="/usr/bin/make -f &quot;/home/guofutan/workspace/moduleframework/build/test/Makefile&quot;  VERBOSE=1 clean" />
+            <DistClean command="/usr/bin/make -f &quot;/home/guofutan/workspace/moduleframework/build/test/Makefile&quot;  VERBOSE=1 clean" />
+         </MakeCommands>
+      </Target>
+      <Target title="test_time">
+         <Option output="/home/guofutan/workspace/moduleframework/build/test/test_time" prefix_auto="0" extension_auto="0" />
+         <Option working_dir="/home/guofutan/workspace/moduleframework/build/test" />
+         <Option object_output="./" />
+         <Option type="1" />
+         <Option compiler="gcc" />
+         <Compiler>
+            <Add directory="/home/guofutan/workspace/moduleframework" />
+            <Add directory="/home/guofutan/workspace/moduleframework/test" />
+            <Add directory="/home/guofutan/workspace/moduleframework/thirdparty/gmock/include" />
+            <Add directory="/home/guofutan/workspace/moduleframework/thirdparty/gperf/include" />
+            <Add directory="/home/guofutan/workspace/moduleframework/thirdparty/gtest/include" />
+            <Add directory="/home/guofutan/workspace/moduleframework/thirdparty/protobuf/include" />
+         </Compiler>
+         <MakeCommands>
+            <Build command="/usr/bin/make -f &quot;/home/guofutan/workspace/moduleframework/build/test/Makefile&quot;  VERBOSE=1 test_time" />
+            <CompileFile command="/usr/bin/make -f &quot;/home/guofutan/workspace/moduleframework/build/test/Makefile&quot;  VERBOSE=1 &quot;$file&quot;" />
+            <Clean command="/usr/bin/make -f &quot;/home/guofutan/workspace/moduleframework/build/test/Makefile&quot;  VERBOSE=1 clean" />
+            <DistClean command="/usr/bin/make -f &quot;/home/guofutan/workspace/moduleframework/build/test/Makefile&quot;  VERBOSE=1 clean" />
+         </MakeCommands>
+      </Target>
+      <Target title="test_time/fast">
+         <Option output="/home/guofutan/workspace/moduleframework/build/test/test_time" prefix_auto="0" extension_auto="0" />
+         <Option working_dir="/home/guofutan/workspace/moduleframework/build/test" />
+         <Option object_output="./" />
+         <Option type="1" />
+         <Option compiler="gcc" />
+         <Compiler>
+            <Add directory="/home/guofutan/workspace/moduleframework" />
+            <Add directory="/home/guofutan/workspace/moduleframework/test" />
+            <Add directory="/home/guofutan/workspace/moduleframework/thirdparty/gmock/include" />
+            <Add directory="/home/guofutan/workspace/moduleframework/thirdparty/gperf/include" />
+            <Add directory="/home/guofutan/workspace/moduleframework/thirdparty/gtest/include" />
+            <Add directory="/home/guofutan/workspace/moduleframework/thirdparty/protobuf/include" />
+         </Compiler>
+         <MakeCommands>
+            <Build command="/usr/bin/make -f &quot;/home/guofutan/workspace/moduleframework/build/test/Makefile&quot;  VERBOSE=1 test_time/fast" />
+            <CompileFile command="/usr/bin/make -f &quot;/home/guofutan/workspace/moduleframework/build/test/Makefile&quot;  VERBOSE=1 &quot;$file&quot;" />
+            <Clean command="/usr/bin/make -f &quot;/home/guofutan/workspace/moduleframework/build/test/Makefile&quot;  VERBOSE=1 clean" />
+            <DistClean command="/usr/bin/make -f &quot;/home/guofutan/workspace/moduleframework/build/test/Makefile&quot;  VERBOSE=1 clean" />
+         </MakeCommands>
+      </Target>
+      <Target title="test_work">
+         <Option output="/home/guofutan/workspace/moduleframework/build/test/test_work" prefix_auto="0" extension_auto="0" />
+         <Option working_dir="/home/guofutan/workspace/moduleframework/build/test" />
+         <Option object_output="./" />
+         <Option type="1" />
+         <Option compiler="gcc" />
+         <Compiler>
+            <Add directory="/home/guofutan/workspace/moduleframework" />
+            <Add directory="/home/guofutan/workspace/moduleframework/test" />
+            <Add directory="/home/guofutan/workspace/moduleframework/thirdparty/gmock/include" />
+            <Add directory="/home/guofutan/workspace/moduleframework/thirdparty/gperf/include" />
+            <Add directory="/home/guofutan/workspace/moduleframework/thirdparty/gtest/include" />
+            <Add directory="/home/guofutan/workspace/moduleframework/thirdparty/protobuf/include" />
+         </Compiler>
+         <MakeCommands>
+            <Build command="/usr/bin/make -f &quot;/home/guofutan/workspace/moduleframework/build/test/Makefile&quot;  VERBOSE=1 test_work" />
+            <CompileFile command="/usr/bin/make -f &quot;/home/guofutan/workspace/moduleframework/build/test/Makefile&quot;  VERBOSE=1 &quot;$file&quot;" />
+            <Clean command="/usr/bin/make -f &quot;/home/guofutan/workspace/moduleframework/build/test/Makefile&quot;  VERBOSE=1 clean" />
+            <DistClean command="/usr/bin/make -f &quot;/home/guofutan/workspace/moduleframework/build/test/Makefile&quot;  VERBOSE=1 clean" />
+         </MakeCommands>
+      </Target>
+      <Target title="test_work/fast">
+         <Option output="/home/guofutan/workspace/moduleframework/build/test/test_work" prefix_auto="0" extension_auto="0" />
+         <Option working_dir="/home/guofutan/workspace/moduleframework/build/test" />
+         <Option object_output="./" />
+         <Option type="1" />
+         <Option compiler="gcc" />
+         <Compiler>
+            <Add directory="/home/guofutan/workspace/moduleframework" />
+            <Add directory="/home/guofutan/workspace/moduleframework/test" />
+            <Add directory="/home/guofutan/workspace/moduleframework/thirdparty/gmock/include" />
+            <Add directory="/home/guofutan/workspace/moduleframework/thirdparty/gperf/include" />
+            <Add directory="/home/guofutan/workspace/moduleframework/thirdparty/gtest/include" />
+            <Add directory="/home/guofutan/workspace/moduleframework/thirdparty/protobuf/include" />
+         </Compiler>
+         <MakeCommands>
+            <Build command="/usr/bin/make -f &quot;/home/guofutan/workspace/moduleframework/build/test/Makefile&quot;  VERBOSE=1 test_work/fast" />
+            <CompileFile command="/usr/bin/make -f &quot;/home/guofutan/workspace/moduleframework/build/test/Makefile&quot;  VERBOSE=1 &quot;$file&quot;" />
+            <Clean command="/usr/bin/make -f &quot;/home/guofutan/workspace/moduleframework/build/test/Makefile&quot;  VERBOSE=1 clean" />
+            <DistClean command="/usr/bin/make -f &quot;/home/guofutan/workspace/moduleframework/build/test/Makefile&quot;  VERBOSE=1 clean" />
+         </MakeCommands>
+      </Target>
+      <Target title="proto-fs">
+         <Option output="/home/guofutan/workspace/moduleframework/build/proto/libproto-fs.a" prefix_auto="0" extension_auto="0" />
+         <Option working_dir="/home/guofutan/workspace/moduleframework/build/proto" />
+         <Option object_output="./" />
+         <Option type="2" />
+         <Option compiler="gcc" />
+         <Compiler>
+            <Add directory="/home/guofutan/workspace/moduleframework/thirdparty/gmock/include" />
+            <Add directory="/home/guofutan/workspace/moduleframework/thirdparty/gperf/include" />
+            <Add directory="/home/guofutan/workspace/moduleframework/thirdparty/gtest/include" />
+            <Add directory="/home/guofutan/workspace/moduleframework/thirdparty/protobuf/include" />
+         </Compiler>
+         <MakeCommands>
+            <Build command="/usr/bin/make -f &quot;/home/guofutan/workspace/moduleframework/build/proto/Makefile&quot;  VERBOSE=1 proto-fs" />
+            <CompileFile command="/usr/bin/make -f &quot;/home/guofutan/workspace/moduleframework/build/proto/Makefile&quot;  VERBOSE=1 &quot;$file&quot;" />
+            <Clean command="/usr/bin/make -f &quot;/home/guofutan/workspace/moduleframework/build/proto/Makefile&quot;  VERBOSE=1 clean" />
+            <DistClean command="/usr/bin/make -f &quot;/home/guofutan/workspace/moduleframework/build/proto/Makefile&quot;  VERBOSE=1 clean" />
+         </MakeCommands>
+      </Target>
+      <Target title="proto-fs/fast">
+         <Option output="/home/guofutan/workspace/moduleframework/build/proto/libproto-fs.a" prefix_auto="0" extension_auto="0" />
+         <Option working_dir="/home/guofutan/workspace/moduleframework/build/proto" />
+         <Option object_output="./" />
+         <Option type="2" />
+         <Option compiler="gcc" />
+         <Compiler>
+            <Add directory="/home/guofutan/workspace/moduleframework/thirdparty/gmock/include" />
+            <Add directory="/home/guofutan/workspace/moduleframework/thirdparty/gperf/include" />
+            <Add directory="/home/guofutan/workspace/moduleframework/thirdparty/gtest/include" />
+            <Add directory="/home/guofutan/workspace/moduleframework/thirdparty/protobuf/include" />
+         </Compiler>
+         <MakeCommands>
+            <Build command="/usr/bin/make -f &quot;/home/guofutan/workspace/moduleframework/build/proto/Makefile&quot;  VERBOSE=1 proto-fs/fast" />
+            <CompileFile command="/usr/bin/make -f &quot;/home/guofutan/workspace/moduleframework/build/proto/Makefile&quot;  VERBOSE=1 &quot;$file&quot;" />
+            <Clean command="/usr/bin/make -f &quot;/home/guofutan/workspace/moduleframework/build/proto/Makefile&quot;  VERBOSE=1 clean" />
+            <DistClean command="/usr/bin/make -f &quot;/home/guofutan/workspace/moduleframework/build/proto/Makefile&quot;  VERBOSE=1 clean" />
+         </MakeCommands>
+      </Target>
+      </Build>
+      <Unit filename="/home/guofutan/workspace/moduleframework/libjson/json_reader.cpp">
+      </Unit>
+      <Unit filename="/home/guofutan/workspace/moduleframework/libjson/json_value.cpp">
+      </Unit>
+      <Unit filename="/home/guofutan/workspace/moduleframework/libjson/json_writer.cpp">
+      </Unit>
+      <Unit filename="/home/guofutan/workspace/moduleframework/mio2/covert.cpp">
+      </Unit>
+      <Unit filename="/home/guofutan/workspace/moduleframework/mio2/inspecter.cpp">
+      </Unit>
+      <Unit filename="/home/guofutan/workspace/moduleframework/mio2/log.cpp">
+      </Unit>
+      <Unit filename="/home/guofutan/workspace/moduleframework/mio2/mio_acceptor.cpp">
+      </Unit>
+      <Unit filename="/home/guofutan/workspace/moduleframework/mio2/mio_buffer.cpp">
+      </Unit>
+      <Unit filename="/home/guofutan/workspace/moduleframework/mio2/mio_connection.cpp">
+      </Unit>
+      <Unit filename="/home/guofutan/workspace/moduleframework/mio2/mio_event.cpp">
+      </Unit>
+      <Unit filename="/home/guofutan/workspace/moduleframework/mio2/mio_notify.cpp">
+      </Unit>
+      <Unit filename="/home/guofutan/workspace/moduleframework/mio2/mio_poller.cpp">
+      </Unit>
+      <Unit filename="/home/guofutan/workspace/moduleframework/mio2/mio_tcpclient.cpp">
+      </Unit>
+      <Unit filename="/home/guofutan/workspace/moduleframework/mio2/mio_tcpserver.cpp">
+      </Unit>
+      <Unit filename="/home/guofutan/workspace/moduleframework/mio2/mio_timer.cpp">
+      </Unit>
+      <Unit filename="/home/guofutan/workspace/moduleframework/mio2/ngx_rbtree.cpp">
+      </Unit>
+      <Unit filename="/home/guofutan/workspace/moduleframework/mio2/signalhelper.cpp">
+      </Unit>
+      <Unit filename="/home/guofutan/workspace/moduleframework/mio2/tcpsocket.cpp">
+      </Unit>
+      <Unit filename="/home/guofutan/workspace/moduleframework/mio2/timerhelper.cpp">
+      </Unit>
+      <Unit filename="/home/guofutan/workspace/moduleframework/mio2/workpool.cpp">
+      </Unit>
+      <Unit filename="/home/guofutan/workspace/moduleframework/proto/fs.pb.cc">
+      </Unit>
+      <Unit filename="/home/guofutan/workspace/moduleframework/test/test_logger.cpp">
+      </Unit>
+      <Unit filename="/home/guofutan/workspace/moduleframework/test/test_miobuffer.cpp">
+      </Unit>
+      <Unit filename="/home/guofutan/workspace/moduleframework/test/test_poller.cpp">
+      </Unit>
+      <Unit filename="/home/guofutan/workspace/moduleframework/test/test_quue.cpp">
+      </Unit>
+      <Unit filename="/home/guofutan/workspace/moduleframework/test/test_tasker.cpp">
+      </Unit>
+      <Unit filename="/home/guofutan/workspace/moduleframework/test/test_tcpclient.cpp">
+      </Unit>
+      <Unit filename="/home/guofutan/workspace/moduleframework/test/test_tcpserver.cpp">
+      </Unit>
+      <Unit filename="/home/guofutan/workspace/moduleframework/test/test_threadid.cpp">
+      </Unit>
+      <Unit filename="/home/guofutan/workspace/moduleframework/test/test_time.cpp">
+      </Unit>
+      <Unit filename="/home/guofutan/workspace/moduleframework/test/test_work.cpp">
+      </Unit>
+      <Unit filename="/home/guofutan/workspace/moduleframework/libjson/configure.h">
+      </Unit>
+      <Unit filename="/home/guofutan/workspace/moduleframework/libjson/json/autolink.h">
+      </Unit>
+      <Unit filename="/home/guofutan/workspace/moduleframework/libjson/json/config.h">
+      </Unit>
+      <Unit filename="/home/guofutan/workspace/moduleframework/libjson/json/features.h">
+      </Unit>
+      <Unit filename="/home/guofutan/workspace/moduleframework/libjson/json/forwards.h">
+      </Unit>
+      <Unit filename="/home/guofutan/workspace/moduleframework/libjson/json/json.h">
+      </Unit>
+      <Unit filename="/home/guofutan/workspace/moduleframework/libjson/json/reader.h">
+      </Unit>
+      <Unit filename="/home/guofutan/workspace/moduleframework/libjson/json/value.h">
+      </Unit>
+      <Unit filename="/home/guofutan/workspace/moduleframework/libjson/json/writer.h">
+      </Unit>
+      <Unit filename="/home/guofutan/workspace/moduleframework/libjson/json_batchallocator.h">
+      </Unit>
+      <Unit filename="/home/guofutan/workspace/moduleframework/mio2/atomic.h">
+      </Unit>
+      <Unit filename="/home/guofutan/workspace/moduleframework/mio2/covert.h">
+      </Unit>
+      <Unit filename="/home/guofutan/workspace/moduleframework/mio2/inspecter.h">
+      </Unit>
+      <Unit filename="/home/guofutan/workspace/moduleframework/mio2/log.h">
+      </Unit>
+      <Unit filename="/home/guofutan/workspace/moduleframework/mio2/mio_acceptor.h">
+      </Unit>
+      <Unit filename="/home/guofutan/workspace/moduleframework/mio2/mio_buffer.h">
+      </Unit>
+      <Unit filename="/home/guofutan/workspace/moduleframework/mio2/mio_connecter.h">
+      </Unit>
+      <Unit filename="/home/guofutan/workspace/moduleframework/mio2/mio_connection.h">
+      </Unit>
+      <Unit filename="/home/guofutan/workspace/moduleframework/mio2/mio_event.h">
+      </Unit>
+      <Unit filename="/home/guofutan/workspace/moduleframework/mio2/mio_filemoniter.h">
+      </Unit>
+      <Unit filename="/home/guofutan/workspace/moduleframework/mio2/mio_handler.h">
+      </Unit>
+      <Unit filename="/home/guofutan/workspace/moduleframework/mio2/mio_notify.h">
+      </Unit>
+      <Unit filename="/home/guofutan/workspace/moduleframework/mio2/mio_poller.h">
+      </Unit>
+      <Unit filename="/home/guofutan/workspace/moduleframework/mio2/mio_task.h">
+      </Unit>
+      <Unit filename="/home/guofutan/workspace/moduleframework/mio2/mio_tcpclient.h">
+      </Unit>
+      <Unit filename="/home/guofutan/workspace/moduleframework/mio2/mio_tcpserver.h">
+      </Unit>
+      <Unit filename="/home/guofutan/workspace/moduleframework/mio2/mio_timer.h">
+      </Unit>
+      <Unit filename="/home/guofutan/workspace/moduleframework/mio2/ngx_rbtree.h">
+      </Unit>
+      <Unit filename="/home/guofutan/workspace/moduleframework/mio2/rwlock.h">
+      </Unit>
+      <Unit filename="/home/guofutan/workspace/moduleframework/mio2/signalhelper.h">
+      </Unit>
+      <Unit filename="/home/guofutan/workspace/moduleframework/mio2/singleton.h">
+      </Unit>
+      <Unit filename="/home/guofutan/workspace/moduleframework/mio2/spinlist.h">
+      </Unit>
+      <Unit filename="/home/guofutan/workspace/moduleframework/mio2/tcpsocket.h">
+      </Unit>
+      <Unit filename="/home/guofutan/workspace/moduleframework/mio2/timerhelper.h">
+      </Unit>
+      <Unit filename="/home/guofutan/workspace/moduleframework/mio2/workpool.h">
+      </Unit>
+      <Unit filename="/home/guofutan/workspace/moduleframework/proto/fs.pb.h">
+      </Unit>
+      <Unit filename="/home/guofutan/workspace/moduleframework/thirdparty/gmock/include/gmock/gmock-actions.h">
+      </Unit>
+      <Unit filename="/home/guofutan/workspace/moduleframework/thirdparty/gmock/include/gmock/gmock-cardinalities.h">
+      </Unit>
+      <Unit filename="/home/guofutan/workspace/moduleframework/thirdparty/gmock/include/gmock/gmock-generated-actions.h">
+      </Unit>
+      <Unit filename="/home/guofutan/workspace/moduleframework/thirdparty/gmock/include/gmock/gmock-generated-function-mockers.h">
+      </Unit>
+      <Unit filename="/home/guofutan/workspace/moduleframework/thirdparty/gmock/include/gmock/gmock-generated-matchers.h">
+      </Unit>
+      <Unit filename="/home/guofutan/workspace/moduleframework/thirdparty/gmock/include/gmock/gmock-generated-nice-strict.h">
+      </Unit>
+      <Unit filename="/home/guofutan/workspace/moduleframework/thirdparty/gmock/include/gmock/gmock-matchers.h">
+      </Unit>
+      <Unit filename="/home/guofutan/workspace/moduleframework/thirdparty/gmock/include/gmock/gmock-more-actions.h">
+      </Unit>
+      <Unit filename="/home/guofutan/workspace/moduleframework/thirdparty/gmock/include/gmock/gmock-spec-builders.h">
+      </Unit>
+      <Unit filename="/home/guofutan/workspace/moduleframework/thirdparty/gmock/include/gmock/gmock.h">
+      </Unit>
+      <Unit filename="/home/guofutan/workspace/moduleframework/thirdparty/gmock/include/gmock/internal/gmock-generated-internal-utils.h">
+      </Unit>
+      <Unit filename="/home/guofutan/workspace/moduleframework/thirdparty/gmock/include/gmock/internal/gmock-internal-utils.h">
+      </Unit>
+      <Unit filename="/home/guofutan/workspace/moduleframework/thirdparty/gmock/include/gmock/internal/gmock-port.h">
+      </Unit>
+      <Unit filename="/home/guofutan/workspace/moduleframework/thirdparty/gperf/include/google/heap-checker.h">
+      </Unit>
+      <Unit filename="/home/guofutan/workspace/moduleframework/thirdparty/gperf/include/google/heap-profiler.h">
+      </Unit>
+      <Unit filename="/home/guofutan/workspace/moduleframework/thirdparty/gperf/include/google/malloc_extension.h">
+      </Unit>
+      <Unit filename="/home/guofutan/workspace/moduleframework/thirdparty/gperf/include/google/malloc_extension_c.h">
+      </Unit>
+      <Unit filename="/home/guofutan/workspace/moduleframework/thirdparty/gperf/include/google/malloc_hook.h">
+      </Unit>
+      <Unit filename="/home/guofutan/workspace/moduleframework/thirdparty/gperf/include/google/malloc_hook_c.h">
+      </Unit>
+      <Unit filename="/home/guofutan/workspace/moduleframework/thirdparty/gperf/include/google/profiler.h">
+      </Unit>
+      <Unit filename="/home/guofutan/workspace/moduleframework/thirdparty/gperf/include/google/stacktrace.h">
+      </Unit>
+      <Unit filename="/home/guofutan/workspace/moduleframework/thirdparty/gperf/include/google/tcmalloc.h">
+      </Unit>
+      <Unit filename="/home/guofutan/workspace/moduleframework/thirdparty/gperf/include/gperftools/heap-checker.h">
+      </Unit>
+      <Unit filename="/home/guofutan/workspace/moduleframework/thirdparty/gperf/include/gperftools/heap-profiler.h">
+      </Unit>
+      <Unit filename="/home/guofutan/workspace/moduleframework/thirdparty/gperf/include/gperftools/malloc_extension.h">
+      </Unit>
+      <Unit filename="/home/guofutan/workspace/moduleframework/thirdparty/gperf/include/gperftools/malloc_extension_c.h">
+      </Unit>
+      <Unit filename="/home/guofutan/workspace/moduleframework/thirdparty/gperf/include/gperftools/malloc_hook.h">
+      </Unit>
+      <Unit filename="/home/guofutan/workspace/moduleframework/thirdparty/gperf/include/gperftools/malloc_hook_c.h">
+      </Unit>
+      <Unit filename="/home/guofutan/workspace/moduleframework/thirdparty/gperf/include/gperftools/profiler.h">
+      </Unit>
+      <Unit filename="/home/guofutan/workspace/moduleframework/thirdparty/gperf/include/gperftools/stacktrace.h">
+      </Unit>
+      <Unit filename="/home/guofutan/workspace/moduleframework/thirdparty/gperf/include/gperftools/tcmalloc.h">
+      </Unit>
+      <Unit filename="/home/guofutan/workspace/moduleframework/thirdparty/gtest/include/gtest/gtest-death-test.h">
+      </Unit>
+      <Unit filename="/home/guofutan/workspace/moduleframework/thirdparty/gtest/include/gtest/gtest-message.h">
+      </Unit>
+      <Unit filename="/home/guofutan/workspace/moduleframework/thirdparty/gtest/include/gtest/gtest-param-test.h">
+      </Unit>
+      <Unit filename="/home/guofutan/workspace/moduleframework/thirdparty/gtest/include/gtest/gtest-printers.h">
+      </Unit>
+      <Unit filename="/home/guofutan/workspace/moduleframework/thirdparty/gtest/include/gtest/gtest-spi.h">
+      </Unit>
+      <Unit filename="/home/guofutan/workspace/moduleframework/thirdparty/gtest/include/gtest/gtest-test-part.h">
+      </Unit>
+      <Unit filename="/home/guofutan/workspace/moduleframework/thirdparty/gtest/include/gtest/gtest-typed-test.h">
+      </Unit>
+      <Unit filename="/home/guofutan/workspace/moduleframework/thirdparty/gtest/include/gtest/gtest.h">
+      </Unit>
+      <Unit filename="/home/guofutan/workspace/moduleframework/thirdparty/gtest/include/gtest/gtest_pred_impl.h">
+      </Unit>
+      <Unit filename="/home/guofutan/workspace/moduleframework/thirdparty/gtest/include/gtest/gtest_prod.h">
+      </Unit>
+      <Unit filename="/home/guofutan/workspace/moduleframework/thirdparty/gtest/include/gtest/internal/gtest-death-test-internal.h">
+      </Unit>
+      <Unit filename="/home/guofutan/workspace/moduleframework/thirdparty/gtest/include/gtest/internal/gtest-filepath.h">
+      </Unit>
+      <Unit filename="/home/guofutan/workspace/moduleframework/thirdparty/gtest/include/gtest/internal/gtest-internal.h">
+      </Unit>
+      <Unit filename="/home/guofutan/workspace/moduleframework/thirdparty/gtest/include/gtest/internal/gtest-linked_ptr.h">
+      </Unit>
+      <Unit filename="/home/guofutan/workspace/moduleframework/thirdparty/gtest/include/gtest/internal/gtest-param-util-generated.h">
+      </Unit>
+      <Unit filename="/home/guofutan/workspace/moduleframework/thirdparty/gtest/include/gtest/internal/gtest-param-util.h">
+      </Unit>
+      <Unit filename="/home/guofutan/workspace/moduleframework/thirdparty/gtest/include/gtest/internal/gtest-port.h">
+      </Unit>
+      <Unit filename="/home/guofutan/workspace/moduleframework/thirdparty/gtest/include/gtest/internal/gtest-string.h">
+      </Unit>
+      <Unit filename="/home/guofutan/workspace/moduleframework/thirdparty/gtest/include/gtest/internal/gtest-tuple.h">
+      </Unit>
+      <Unit filename="/home/guofutan/workspace/moduleframework/thirdparty/gtest/include/gtest/internal/gtest-type-util.h">
+      </Unit>
+      <Unit filename="/home/guofutan/workspace/moduleframework/thirdparty/protobuf/include/google/protobuf/compiler/code_generator.h">
+      </Unit>
+      <Unit filename="/home/guofutan/workspace/moduleframework/thirdparty/protobuf/include/google/protobuf/compiler/command_line_interface.h">
+      </Unit>
+      <Unit filename="/home/guofutan/workspace/moduleframework/thirdparty/protobuf/include/google/protobuf/compiler/cpp/cpp_generator.h">
+      </Unit>
+      <Unit filename="/home/guofutan/workspace/moduleframework/thirdparty/protobuf/include/google/protobuf/compiler/importer.h">
+      </Unit>
+      <Unit filename="/home/guofutan/workspace/moduleframework/thirdparty/protobuf/include/google/protobuf/compiler/java/java_generator.h">
+      </Unit>
+      <Unit filename="/home/guofutan/workspace/moduleframework/thirdparty/protobuf/include/google/protobuf/compiler/parser.h">
+      </Unit>
+      <Unit filename="/home/guofutan/workspace/moduleframework/thirdparty/protobuf/include/google/protobuf/compiler/plugin.h">
+      </Unit>
+      <Unit filename="/home/guofutan/workspace/moduleframework/thirdparty/protobuf/include/google/protobuf/compiler/plugin.pb.h">
+      </Unit>
+      <Unit filename="/home/guofutan/workspace/moduleframework/thirdparty/protobuf/include/google/protobuf/compiler/python/python_generator.h">
+      </Unit>
+      <Unit filename="/home/guofutan/workspace/moduleframework/thirdparty/protobuf/include/google/protobuf/descriptor.h">
+      </Unit>
+      <Unit filename="/home/guofutan/workspace/moduleframework/thirdparty/protobuf/include/google/protobuf/descriptor.pb.h">
+      </Unit>
+      <Unit filename="/home/guofutan/workspace/moduleframework/thirdparty/protobuf/include/google/protobuf/descriptor_database.h">
+      </Unit>
+      <Unit filename="/home/guofutan/workspace/moduleframework/thirdparty/protobuf/include/google/protobuf/dynamic_message.h">
+      </Unit>
+      <Unit filename="/home/guofutan/workspace/moduleframework/thirdparty/protobuf/include/google/protobuf/extension_set.h">
+      </Unit>
+      <Unit filename="/home/guofutan/workspace/moduleframework/thirdparty/protobuf/include/google/protobuf/generated_enum_reflection.h">
+      </Unit>
+      <Unit filename="/home/guofutan/workspace/moduleframework/thirdparty/protobuf/include/google/protobuf/generated_message_reflection.h">
+      </Unit>
+      <Unit filename="/home/guofutan/workspace/moduleframework/thirdparty/protobuf/include/google/protobuf/generated_message_util.h">
+      </Unit>
+      <Unit filename="/home/guofutan/workspace/moduleframework/thirdparty/protobuf/include/google/protobuf/io/coded_stream.h">
+      </Unit>
+      <Unit filename="/home/guofutan/workspace/moduleframework/thirdparty/protobuf/include/google/protobuf/io/gzip_stream.h">
+      </Unit>
+      <Unit filename="/home/guofutan/workspace/moduleframework/thirdparty/protobuf/include/google/protobuf/io/printer.h">
+      </Unit>
+      <Unit filename="/home/guofutan/workspace/moduleframework/thirdparty/protobuf/include/google/protobuf/io/tokenizer.h">
+      </Unit>
+      <Unit filename="/home/guofutan/workspace/moduleframework/thirdparty/protobuf/include/google/protobuf/io/zero_copy_stream.h">
+      </Unit>
+      <Unit filename="/home/guofutan/workspace/moduleframework/thirdparty/protobuf/include/google/protobuf/io/zero_copy_stream_impl.h">
+      </Unit>
+      <Unit filename="/home/guofutan/workspace/moduleframework/thirdparty/protobuf/include/google/protobuf/io/zero_copy_stream_impl_lite.h">
+      </Unit>
+      <Unit filename="/home/guofutan/workspace/moduleframework/thirdparty/protobuf/include/google/protobuf/message.h">
+      </Unit>
+      <Unit filename="/home/guofutan/workspace/moduleframework/thirdparty/protobuf/include/google/protobuf/message_lite.h">
+      </Unit>
+      <Unit filename="/home/guofutan/workspace/moduleframework/thirdparty/protobuf/include/google/protobuf/reflection_ops.h">
+      </Unit>
+      <Unit filename="/home/guofutan/workspace/moduleframework/thirdparty/protobuf/include/google/protobuf/repeated_field.h">
+      </Unit>
+      <Unit filename="/home/guofutan/workspace/moduleframework/thirdparty/protobuf/include/google/protobuf/service.h">
+      </Unit>
+      <Unit filename="/home/guofutan/workspace/moduleframework/thirdparty/protobuf/include/google/protobuf/stubs/atomicops.h">
+      </Unit>
+      <Unit filename="/home/guofutan/workspace/moduleframework/thirdparty/protobuf/include/google/protobuf/stubs/atomicops_internals_arm_gcc.h">
+      </Unit>
+      <Unit filename="/home/guofutan/workspace/moduleframework/thirdparty/protobuf/include/google/protobuf/stubs/atomicops_internals_arm_qnx.h">
+      </Unit>
+      <Unit filename="/home/guofutan/workspace/moduleframework/thirdparty/protobuf/include/google/protobuf/stubs/atomicops_internals_atomicword_compat.h">
+      </Unit>
+      <Unit filename="/home/guofutan/workspace/moduleframework/thirdparty/protobuf/include/google/protobuf/stubs/atomicops_internals_macosx.h">
+      </Unit>
+      <Unit filename="/home/guofutan/workspace/moduleframework/thirdparty/protobuf/include/google/protobuf/stubs/atomicops_internals_mips_gcc.h">
+      </Unit>
+      <Unit filename="/home/guofutan/workspace/moduleframework/thirdparty/protobuf/include/google/protobuf/stubs/atomicops_internals_pnacl.h">
+      </Unit>
+      <Unit filename="/home/guofutan/workspace/moduleframework/thirdparty/protobuf/include/google/protobuf/stubs/atomicops_internals_x86_gcc.h">
+      </Unit>
+      <Unit filename="/home/guofutan/workspace/moduleframework/thirdparty/protobuf/include/google/protobuf/stubs/atomicops_internals_x86_msvc.h">
+      </Unit>
+      <Unit filename="/home/guofutan/workspace/moduleframework/thirdparty/protobuf/include/google/protobuf/stubs/common.h">
+      </Unit>
+      <Unit filename="/home/guofutan/workspace/moduleframework/thirdparty/protobuf/include/google/protobuf/stubs/once.h">
+      </Unit>
+      <Unit filename="/home/guofutan/workspace/moduleframework/thirdparty/protobuf/include/google/protobuf/stubs/platform_macros.h">
+      </Unit>
+      <Unit filename="/home/guofutan/workspace/moduleframework/thirdparty/protobuf/include/google/protobuf/stubs/template_util.h">
+      </Unit>
+      <Unit filename="/home/guofutan/workspace/moduleframework/thirdparty/protobuf/include/google/protobuf/stubs/type_traits.h">
+      </Unit>
+      <Unit filename="/home/guofutan/workspace/moduleframework/thirdparty/protobuf/include/google/protobuf/text_format.h">
+      </Unit>
+      <Unit filename="/home/guofutan/workspace/moduleframework/thirdparty/protobuf/include/google/protobuf/unknown_field_set.h">
+      </Unit>
+      <Unit filename="/home/guofutan/workspace/moduleframework/thirdparty/protobuf/include/google/protobuf/wire_format.h">
+      </Unit>
+      <Unit filename="/home/guofutan/workspace/moduleframework/thirdparty/protobuf/include/google/protobuf/wire_format_lite.h">
+      </Unit>
+      <Unit filename="/home/guofutan/workspace/moduleframework/thirdparty/protobuf/include/google/protobuf/wire_format_lite_inl.h">
+      </Unit>
+      <Unit filename="/home/guofutan/workspace/moduleframework/CMakeLists.txt">
+          <Option virtualFolder="CMake Files\" />
+      </Unit>
+      <Unit filename="/home/guofutan/workspace/moduleframework/thirdparty/CMakeLists.txt">
+          <Option virtualFolder="CMake Files\thirdparty\" />
+      </Unit>
+      <Unit filename="/home/guofutan/workspace/moduleframework/libjson/CMakeLists.txt">
+          <Option virtualFolder="CMake Files\libjson\" />
+      </Unit>
+      <Unit filename="/home/guofutan/workspace/moduleframework/mio2/CMakeLists.txt">
+          <Option virtualFolder="CMake Files\mio2\" />
+      </Unit>
+      <Unit filename="/home/guofutan/workspace/moduleframework/test/CMakeLists.txt">
+          <Option virtualFolder="CMake Files\test\" />
+      </Unit>
+      <Unit filename="/home/guofutan/workspace/moduleframework/proto/CMakeLists.txt">
+          <Option virtualFolder="CMake Files\proto\" />
+      </Unit>
+   </Project>
+</CodeBlocks_project_file>
