@@ -64,6 +64,8 @@ public:
     /// All event use edge trigger
     IOEvent(){
       ev.events = EPOLLET;
+      wtimernode.key = 0;
+      rtimernode.key = 0;
     }
 
     /// the event add to epoller
@@ -75,6 +77,9 @@ public:
 
     /// to debug()
     char name[32];
+
+ngx_rbtree_node_t wtimernode;
+ngx_rbtree_node_t rtimernode;
 
 public:
     ///

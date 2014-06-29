@@ -18,7 +18,13 @@ int IOEvent::SetEvent(bool readable,bool writeable){
     else
         ev.events &= ~EPOLLOUT;
 
-    return !(old == ev.events);
+    if(old != ev.events)
+    {
+        UpdateName();
+        return true;
+    }
+
+    return false;
 }
 
 

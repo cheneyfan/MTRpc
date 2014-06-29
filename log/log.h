@@ -423,4 +423,8 @@ public:
 }while(0);
 
 
+
+#define CHECK_LOG(x,m) \
+            if(x){WARN(m<<",check failed:"##x);}
+
 #endif

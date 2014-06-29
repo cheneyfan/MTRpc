@@ -44,7 +44,7 @@ public:
     int DelEvent(IOEvent* ev);
 
     ///
-    /// \brief setTimeOut
+    /// \brief setTimeOut,must only run in poll thread
     /// \param ev
     /// \return
     ///
@@ -52,7 +52,7 @@ public:
 
 
     ///
-    /// \brief SetWriteTimeout
+    /// \brief SetWriteTimeout,must only run in poll thread
     /// \param ev
     /// \param wsec
     /// \return
@@ -60,7 +60,7 @@ public:
     int SetWriteTimeout(IOEvent* ev, uint32_t wsec);
 
     ///
-    /// \brief processTimeOut
+    /// \brief ProcessTimeOut
     /// \return
     ///
     int ProcessTimeOut();
@@ -92,7 +92,8 @@ public:
     volatile bool isruning;
 
     //
-    SpinLock splock;
+    //SpinLock splock;
+    /// only modify in poller thread
     ngx_rbtree_t rtimerroot;
     ngx_rbtree_t wtimerroot;
     static ngx_rbtree_node_t sentinel;
