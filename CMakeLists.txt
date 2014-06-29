@@ -1,4 +1,4 @@
-project(MIO CXX)
+project(MTRpc CXX)
 cmake_minimum_required(VERSION 2.8)
 
 
@@ -18,15 +18,22 @@ if(CMAKE_BUILD_RELEASE)
     set(CMAKE_CXX_FLAGS_ALL "${CMAKE_CXX_FLAGS} ${CMAKE_CXX_FLAGS_RELWITHDEBINFO}")
 endif()
 
+
 # add thirdparty to globle includes
 include(thirdparty/CMakeLists.txt)
 
 
-
-add_subdirectory(libjson)
-add_subdirectory(mio2)
-add_subdirectory(test)
+add_subdirectory(common)
+add_subdirectory(inspect)
+add_subdirectory(json)
+add_subdirectory(log)
+add_subdirectory(mio)
 add_subdirectory(proto)
+add_subdirectory(rpc)
+add_subdirectory(smart_ptr)
+add_subdirectory(test)
+add_subdirectory(thread)
+
 
 if(CMAKE_BUILD_TEST)
     # add test

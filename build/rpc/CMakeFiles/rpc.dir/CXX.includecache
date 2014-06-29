@@ -1,0 +1,16 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/tanguofu/MTRpc/rpc/rpc_channel.cpp
+
+/home/tanguofu/MTRpc/rpc/rpc_client.cpp
+
+/home/tanguofu/MTRpc/rpc/rpc_controller.cpp
+
+/home/tanguofu/MTRpc/rpc/rpc_server.cpp
+

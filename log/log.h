@@ -1,5 +1,5 @@
-#ifndef __MIO2_LOG_H_
-#define __MIO2_LOG_H_
+#ifndef __MTRPC_LOG_H_
+#define __MTRPC_LOG_H_
 
 
 #include <stdio.h>
@@ -12,7 +12,7 @@
 
 #include <algorithm>
 
-#include "libjson/configure.h"
+#include "json/configure.h"
 
 #define LOGBUFFER_MAX_NUM 10000
 #define LOGBUFFER_DEFAULT_SIZE 1024
@@ -23,9 +23,9 @@
 
 
 
-#include "spinlist.h"
-#include "workpool.h"
-#include "covert.h"
+#include "common/spinlist.h"
+#include "thread/workpool.h"
+#include "common/covert.h"
 
 //#define TRACE_STACK
 
@@ -33,7 +33,7 @@
     #define __PRETTY_FUNCTION__ __FUNCTION__
 #endif
 
-namespace mio2 {
+namespace mtrpc {
 
 extern const char* DEBUG_LEVEL;
 extern const char* TRACE_LEVEL;
@@ -337,89 +337,89 @@ public:
 
 #define DEBUG_FMG(format,args...) \
     do{ \
-    ::mio2::LogEntry * e = ::mio2::CacheManger::mallocEntry();\
-    e->Reset(::mio2::DEBUG_LEVEL,__FILE__,__LINE__,__PRETTY_FUNCTION__); \
+    ::mtrpc::LogEntry * e = ::mtrpc::CacheManger::mallocEntry();\
+    e->Reset(::mtrpc::DEBUG_LEVEL,__FILE__,__LINE__,__PRETTY_FUNCTION__); \
     e->Format(format,args); e->Format('\0');\
-    ::mio2::LogHelper::OutPut(e); \
+    ::mtrpc::LogHelper::OutPut(e); \
 }while(0);
 
 
 #define TRACE_FMG(format,args...) \
     do{ \
-    ::mio2::LogEntry * e = ::mio2::CacheManger::mallocEntry();\
-    e->Reset(::mio2::TRACE_LEVEL,__FILE__,__LINE__,__PRETTY_FUNCTION__); \
+    ::mtrpc::LogEntry * e = ::mtrpc::CacheManger::mallocEntry();\
+    e->Reset(::mtrpc::TRACE_LEVEL,__FILE__,__LINE__,__PRETTY_FUNCTION__); \
     e->Format(format,args);e->Format('\0'); \
-    ::mio2::LogHelper::OutPut(e); \
+    ::mtrpc::LogHelper::OutPut(e); \
 }while(0);
 
 #define INFO_FMG(format,args...) \
     do{ \
-    ::mio2::LogEntry * e = ::mio2::CacheManger::mallocEntry();\
-    e->Reset(::mio2::INFO__LEVEL,__FILE__,__LINE__,__PRETTY_FUNCTION__); \
+    ::mtrpc::LogEntry * e = ::mtrpc::CacheManger::mallocEntry();\
+    e->Reset(::mtrpc::INFO__LEVEL,__FILE__,__LINE__,__PRETTY_FUNCTION__); \
     e->Format(format,args);e->Format('\0'); \
-    ::mio2::LogHelper::OutPut(e); \
+    ::mtrpc::LogHelper::OutPut(e); \
 }while(0);
 
 #define WARN_FMG(format,args...) \
     do{ \
-    ::mio2::LogEntry * e = ::mio2::CacheManger::mallocEntry();\
-    e->Reset(::mio2::WARN__LEVEL,__FILE__,__LINE__,__PRETTY_FUNCTION__); \
+    ::mtrpc::LogEntry * e = ::mtrpc::CacheManger::mallocEntry();\
+    e->Reset(::mtrpc::WARN__LEVEL,__FILE__,__LINE__,__PRETTY_FUNCTION__); \
     e->Format(format,args);e->Format('\0');\
-    ::mio2::LogHelper::OutPut(e); \
+    ::mtrpc::LogHelper::OutPut(e); \
 }while(0);
 
 
 #define ERROR_FMG(format,args...) \
     do{ \
-    ::mio2::LogEntry * e = ::mio2::CacheManger::mallocEntry();\
-    e->Reset(::mio2::ERROR_LEVEL,__FILE__,__LINE__,__PRETTY_FUNCTION__); \
+    ::mtrpc::LogEntry * e = ::mtrpc::CacheManger::mallocEntry();\
+    e->Reset(::mtrpc::ERROR_LEVEL,__FILE__,__LINE__,__PRETTY_FUNCTION__); \
     e->Format(format,args);e->Format('\0'); \
-    ::mio2::LogHelper::OutPut(e); \
+    ::mtrpc::LogHelper::OutPut(e); \
 }while(0);
 
 
 
 #define DEBUG(x) \
     do{ \
-    ::mio2::LogEntry * e = ::mio2::CacheManger::mallocEntry();\
-    e->Reset(::mio2::DEBUG_LEVEL,__FILE__,__LINE__,__PRETTY_FUNCTION__); \
+    ::mtrpc::LogEntry * e = ::mtrpc::CacheManger::mallocEntry();\
+    e->Reset(::mtrpc::DEBUG_LEVEL,__FILE__,__LINE__,__PRETTY_FUNCTION__); \
     (*e)<<x<<'\0'; \
-    ::mio2::LogHelper::OutPut(e); \
+    ::mtrpc::LogHelper::OutPut(e); \
 }while(0);
 
 
 #define TRACE(x) \
     do{ \
-    ::mio2::LogEntry * e = ::mio2::CacheManger::mallocEntry();\
-    e->Reset(::mio2::TRACE_LEVEL,__FILE__,__LINE__,__PRETTY_FUNCTION__); \
+    ::mtrpc::LogEntry * e = ::mtrpc::CacheManger::mallocEntry();\
+    e->Reset(::mtrpc::TRACE_LEVEL,__FILE__,__LINE__,__PRETTY_FUNCTION__); \
     (*e)<<x<<'\0'; \
-    ::mio2::LogHelper::OutPut(e); \
+    ::mtrpc::LogHelper::OutPut(e); \
 }while(0);
 
 
 #define INFO(x) \
     do{ \
-    ::mio2::LogEntry * e = ::mio2::CacheManger::mallocEntry();\
-    e->Reset(::mio2::INFO__LEVEL,__FILE__,__LINE__, __PRETTY_FUNCTION__); \
+    ::mtrpc::LogEntry * e = ::mtrpc::CacheManger::mallocEntry();\
+    e->Reset(::mtrpc::INFO__LEVEL,__FILE__,__LINE__, __PRETTY_FUNCTION__); \
     (*e)<<x<<'\0';  \
-    ::mio2::LogHelper::OutPut(e); \
+    ::mtrpc::LogHelper::OutPut(e); \
 }while(0);
 
 
 #define WARN(x) \
     do{ \
-    ::mio2::LogEntry * e = ::mio2::CacheManger::mallocEntry();\
-    e->Reset(::mio2::WARN__LEVEL,__FILE__,__LINE__,__PRETTY_FUNCTION__); \
+    ::mtrpc::LogEntry * e = ::mtrpc::CacheManger::mallocEntry();\
+    e->Reset(::mtrpc::WARN__LEVEL,__FILE__,__LINE__,__PRETTY_FUNCTION__); \
     (*e)<<x<<'\0';  \
-    ::mio2::LogHelper::OutPut(e); \
+    ::mtrpc::LogHelper::OutPut(e); \
 }while(0);
 
 #define ERROR(x) \
     do{ \
-    ::mio2::LogEntry * e = ::mio2::CacheManger::mallocEntry();\
-    e->Reset(::mio2::ERROR_LEVEL,__FILE__,__LINE__,__PRETTY_FUNCTION__); \
+    ::mtrpc::LogEntry * e = ::mtrpc::CacheManger::mallocEntry();\
+    e->Reset(::mtrpc::ERROR_LEVEL,__FILE__,__LINE__,__PRETTY_FUNCTION__); \
     (*e)<<x<<'\0'; \
-    ::mio2::LogHelper::OutPut(e); \
+    ::mtrpc::LogHelper::OutPut(e); \
 }while(0);
 
 

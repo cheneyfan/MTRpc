@@ -1,9 +1,9 @@
 #ifndef _MIO_CONNECTION_HANDLER_H_
 #define _MIO_CONNECTION_HANDLER_H_
 
-#include "mio2/mio_buffer.h"
+#include "mio/mio_buffer.h"
 
-namespace mio2 {
+namespace mtrpc {
 
 class ConnectHandler
 {

@@ -18,9 +18,9 @@
 
 #include <vector>
 
-#include "workpool.h"
+#include "thread/workpool.h"
 
-namespace  mio2 {
+namespace  MTRpc {
 
 
 

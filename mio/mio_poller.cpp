@@ -1,9 +1,10 @@
 #include "mio_poller.h"
 #include <assert.h>
-#include "log.h"
-#include "rwlock.h"
 
-namespace  mio2 {
+#include "log/log.h"
+#include "common/rwlock.h"
+
+namespace  MTRpc {
 
 
 ngx_rbtree_node_t Epoller::sentinel;
@@ -40,9 +41,6 @@ Epoller::Epoller()
 
     ngx_rbtree_init(&rtimerroot, &sentinel, ngx_rbtree_insert_timer_value);
     ngx_rbtree_init(&wtimerroot, &sentinel, ngx_rbtree_insert_timer_value);
-
-
-
 }
 
 

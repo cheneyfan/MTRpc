@@ -3,13 +3,13 @@
 #include <sys/time.h>
 
 
-#include "mio2/log.h"
-#include "mio2/timerhelper.h"
+#include "log/log.h"
+#include "common/timerhelper.h"
 
-#include "mio2/signalhelper.h"
-#include "mio2/workpool.h"
+#include "common/signalhelper.h"
+#include "thread/workpool.h"
 
-using namespace mio2;
+using namespace mtrpc;
 int pp =0;
 
 #define TF "%s %d %u %ld %lu %f %lf %c %p %% "

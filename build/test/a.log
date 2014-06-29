@@ -1,0 +1,7 @@
+INFO_ - 2014-06-27 23:48:00.992 - 5471 - start logger file:a.log - log.cpp:181:Init
+WARN_ - 2014-06-27 23:48:01.147 - 5471 - long time: 155ms,test_snprintf - timerhelper.cpp:21:~TimeMoniter
+WARN_ - 2014-06-27 23:48:01.441 - 5471 - long time: 294ms,test_std_cout - timerhelper.cpp:21:~TimeMoniter
+DEBUG - 2014-06-27 23:48:01.823 - 5471 - a 10 4294967295 10000000 4294967286 1.000000 2.000000 c 0x63a4c4 %%  - test_logger.cpp:60:test_log_Fomart
+WARN_ - 2014-06-27 23:48:01.823 - 5471 - long time: 382ms,test_log_Fomart - timerhelper.cpp:21:~TimeMoniter
+DEBUG - 2014-06-27 23:48:02.067 - 5471 - %s %d %u %ld %lu %f %lf %c %p %% a10-110000000-101.0000002.000000c0x63A4C4 - test_logger.cpp:73:test_log_Stream
+WARN_ - 2014-06-27 23:48:02.067 - 5471 - long time: 244ms,test_log_Stream - timerhelper.cpp:21:~TimeMoniter

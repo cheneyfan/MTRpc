@@ -5,13 +5,13 @@
 #include<string>
 #include <map>
 
-#include "log.h"
-#include "mio_task.h"
+#include "log/log.h"
+#include "thread/mio_task.h"
 #include "mio_event.h"
 #include "mio_buffer.h"
 #include "mio_poller.h"
 
-namespace mio2 {
+namespace mtrpc {
 
 
 
@@ -31,7 +31,7 @@ public:
     void onEvent(Epoller* p,uint32_t events)
     {
         int premask = __sync_fetch_and_and(&ev.events, events);
-
+        uint32_t cache_event = ev.events;
         // event is in work pool queue or begin to run
         if(premask & EVENT_PENDING )
         {
@@ -41,12 +41,16 @@ public:
         {
             return ;
         }
+        uint32_t set_event = cache_event & EVENT_PENDING;
 
         //push to workpool
-        __sync_fetch_and_and(&ev.events,EVENT_PENDING);
-        poller = p;
-        Closure c = Closure::From<Connection<Handler>, &Connection<Handler>::processEvent>(this);
-        group->Post(c);
+        if(__sync_val_compare_and_swap(&ev.events,cache_event,set_event))
+        {
+            //__sync_fetch_and_and(&ev.events,EVENT_PENDING);
+            poller = p;
+            Closure c = Closure::From<Connection<Handler>, &Connection<Handler>::processEvent>(this);
+            group->Post(c);
+        }
     }
 
 

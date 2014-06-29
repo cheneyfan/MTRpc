@@ -1,10 +1,6 @@
 set(CMAKE_CXX_COMPILER "g++")
 
 include_directories("${CMAKE_CURRENT_SOURCE_DIR}")
-include_directories("${CMAKE_SOURCE_DIR}/public/aio")
-include_directories("${CMAKE_SOURCE_DIR}/public/log")
-include_directories("${CMAKE_SOURCE_DIR}/public/mio")
-include_directories("${CMAKE_SOURCE_DIR}/thirdparty/trmem_api_asn/include")
 
 file(GLOB_RECURSE SRC "*.cpp")
 file(GLOB_RECURSE HEADERS "*.h")

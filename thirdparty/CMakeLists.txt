@@ -16,8 +16,12 @@ macro(add_thirdparty_library DIR)
     endforeach()
 
     foreach(libname ${ARGN})
-        add_library(${libname} STATIC IMPORTED)
+
+
         add_custom_target("${libname}_include" SOURCES ${HEADERS_H} ${HEADERS_HPP})
+
+        add_library(${libname} STATIC IMPORTED)
+
         set_property(TARGET ${libname} PROPERTY
                             IMPORTED_LOCATION ${DIR}/lib/lib${libname}.a)
         MESSAGE("add thirdparty lib ${libname}")

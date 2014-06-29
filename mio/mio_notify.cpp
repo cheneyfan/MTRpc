@@ -1,7 +1,7 @@
 #include "mio_notify.h"
 #include "mio_poller.h"
 
-namespace mio2{
+namespace mtrpc{
 
 EventNotify::EventNotify(){
     ev._fd = eventfd(0, EFD_CLOEXEC|EFD_NONBLOCK);

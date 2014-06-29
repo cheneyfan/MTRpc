@@ -3,12 +3,13 @@
 
 #include "mio_event.h"
 #include "mio_notify.h"
-#include "rwlock.h"
-#include "spinlist.h"
+
+#include "common/rwlock.h"
+#include "common/spinlist.h"
 
 #define MAX_EVENT_PROCESS 1000
 
-namespace  mio2 {
+namespace  MTRpc {
 
 class Epoller {
 
@@ -19,21 +20,21 @@ public:
     ///
     /// \brief poll
     ///
-    void poll();
+    void Poll();
 
     ///
     /// \brief addEvent
     /// \param ev
     /// \return
     ///
-    int addEvent(IOEvent* ev, bool isRead, bool isWrite);
+    int AddEvent(IOEvent* ev);
 
     ///
     /// \brief ModEvent
     /// \param ev
     /// \return
     ///
-    int  ModEvent(IOEvent* ev, bool isRead, bool isWrite);
+    int  ModEvent(IOEvent* ev);
 
     ///
     /// \brief DelEvent, must only run in poll thread
@@ -47,21 +48,29 @@ public:
     /// \param ev
     /// \return
     ///
-    int setTimeOut(IOEvent* ev, uint32_t rsec, uint32_t wsec);
+    int SetReadTimeOut(IOEvent* ev, uint32_t rsec);
 
+
+    ///
+    /// \brief SetWriteTimeout
+    /// \param ev
+    /// \param wsec
+    /// \return
+    ///
+    int SetWriteTimeout(IOEvent* ev, uint32_t wsec);
 
     ///
     /// \brief processTimeOut
     /// \return
     ///
-    int processTimeOut();
+    int ProcessTimeOut();
 
     ///
     /// \brief runTask
     /// \param t
     /// \return
     ///
-    void runTask(const Closure & t);
+    void PostTask(const Closure & t);
 
     ///
     /// \brief Stop
@@ -74,21 +83,21 @@ public:
     /// \param counter
     /// \return
     ///
-    void onNotify();
+    void OnNotify();
 
 
 public:
 
     int epollfd;
-    bool isruning;
+    volatile bool isruning;
 
     //
     SpinLock splock;
     ngx_rbtree_t rtimerroot;
     ngx_rbtree_t wtimerroot;
-
     static ngx_rbtree_node_t sentinel;
 
+    ///
     EventNotify notify;
     SpinList<Closure,SpinLock> tasklist;
 

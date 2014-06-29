@@ -10,12 +10,12 @@
 #include <queue>
 
 
-#include "atomic.h"
-#include "mio_task.h"
+#include "common/atomic.h"
+#include "thread/mio_task.h"
 #include "mio_event.h"
 
 
-namespace  mio2 {
+namespace  MTRpc {
 
 class TimerTask{
 public:
@@ -152,7 +152,6 @@ public:
     std::map<int, TimerTask*> timerindex;
 public:
     IOEvent ev;
-
 };
 
 

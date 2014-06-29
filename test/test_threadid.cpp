@@ -1,7 +1,7 @@
-#include "stdio.h"
-#include "mio2/log.h"
-#include "mio2/workpool.h"
-#include "mio2/signalhelper.h"
+#include <stdio.h>
+#include "log/log.h"
+#include "thread/workpool.h"
+#include "common/signalhelper.h"
 
 class A{
 
@@ -37,7 +37,7 @@ int main(int argc,char*argv[]){
 
     atexit(hehe);
     Json::Value conf;
-    mio2::LogBacker::Init(conf);
+    mtrpc::LogBacker::Init(conf);
 
     A am("main");
 

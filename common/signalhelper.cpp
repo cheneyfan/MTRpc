@@ -1,5 +1,6 @@
 #include "signalhelper.h"
-#include "log.h"
+
+#include "log/log.h"
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -9,7 +10,7 @@
 #include <iostream>
 #include <cxxabi.h>
 
-using namespace mio2;
+using namespace mtrpc;
 /// static method
 std::vector<Closure> SignalHelper::callbacks;
 

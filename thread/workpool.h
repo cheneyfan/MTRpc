@@ -11,16 +11,17 @@
 
 #include <sys/syscall.h>
 #include <pthread.h>
-#include "rwlock.h"
-#include "spinlist.h"
-#include "singleton.h"
+
+#include "common/rwlock.h"
+#include "common/spinlist.h"
+#include "common/singleton.h"
 //#define ENABLE_WORK_POOL_LOG
 
 #define gettid() syscall(SYS_gettid)
 
 #include "mio_task.h"
 
-namespace mio2{
+namespace mtrpc{
 
 class WorkGroup;
 ///

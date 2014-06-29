@@ -2,10 +2,10 @@
 #include<iostream>
 #include <sys/time.h>
 
-#include "mio2/log.h"
-#include "mio2/timerhelper.h"
+#include "log/log.h"
+#include "common/timerhelper.h"
 
-using namespace mio2;
+using namespace mtrpc;
 
 inline uint64_t rdtsc() {
     uint32_t low, high;

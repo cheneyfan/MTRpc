@@ -5,10 +5,10 @@
 // Created: 2013-07-01
 // Description:
 
-#include "log.h"
+#include "log/log.h"
 #include "workpool.h"
 
-namespace  mio2 {
+namespace  MTRpc {
 
 pid_t Worker::pid = getpid();
 __thread Worker* Worker::thread_worker= NULL;

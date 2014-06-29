@@ -3,7 +3,7 @@
 
 #include <algorithm>
 
-namespace mio2 {
+namespace mtrpc {
 
 
 extern const char *digits;

@@ -1,13 +1,13 @@
 #include "stdio.h"
-#include "mio2/log.h"
-#include "mio2/workpool.h"
-#include "mio2/signalhelper.h"
-#include "mio2/mio_timer.h"
-#include "mio2/timerhelper.h"
+#include "log/log.h"
+#include "thread/workpool.h"
+#include "common/signalhelper.h"
+#include "mio/mio_timer.h"
+#include "common/timerhelper.h"
 
-#include "mio2/mio_poller.h"
+#include "mio/mio_poller.h"
 
-using namespace mio2;
+using namespace mtrpc;
 
 
 void hello(void *){

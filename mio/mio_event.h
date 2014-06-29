@@ -11,7 +11,7 @@
 #include <stdint.h>
 #include <string.h>
 
-#include "ngx_rbtree.h"
+#include "common/ngx_rbtree.h"
 
 
 #ifdef __compiler_offsetof
@@ -28,10 +28,10 @@
 
 #define IOEventEntryFromTimer(left) (container_of(left,IOEvent,timernode))
 
-#include "mio_task.h"
+#include "thread/mio_task.h"
 
 
-namespace mio2 {
+namespace mtrpc {
 
 ///
 ///
@@ -60,35 +60,38 @@ class IOEvent {
 
 
 public:
-    ngx_rbtree_node_t rtimernode;
-    ngx_rbtree_node_t wtimernode;
 
-public:
+    /// All event use edge trigger
     IOEvent(){
-
-      rtimernode.key = 0;
-      wtimernode.key = 0;
       ev.events = EPOLLET;
     }
 
+    /// the event add to epoller
     epoll_event ev;
-
     uint32_t _fd;
 
-    /** pending events*/
+    /// pending events
     volatile uint32_t events;
 
+    /// to debug()
+    char name[32];
 
 public:
-    Closure onEvent;
+    ///
+    /// \brief OnEvent use virtual make the class hierarchy clearly
+    /// \param p
+    /// \param event_mask
+    ///
+    virtual OnEvent(Epoller* p,uint32_t event_mask);
+
 public:
     //thread safe
-    int setEvent(bool readable,bool writeable);
+    int SetEvent(bool readable,bool writeable);
 
     //on debug
-    void updateName();
-    static void updateName(int fd, epoll_event* ev, char* buf);
-    char name[32];
+    void UpdateName();
+    static void UpdateName(int fd, epoll_event* ev, char* buf);
+
 };
 
 }

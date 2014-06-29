@@ -2,16 +2,16 @@
 #include<iostream>
 #include <sys/time.h>
 
-#include "mio2/log.h"
-#include "mio2/timerhelper.h"
+#include "log/log.h"
+#include "common/timerhelper.h"
 
-#include "mio2/workpool.h"
-#include "mio2/spinlist.h"
-#include "mio2/mio_event.h"
-#include "mio2/signalhelper.h"
-#include "mio2/mio_notify.h"
+#include "thread/workpool.h"
+#include "common/spinlist.h"
+#include "mio/mio_event.h"
+#include "common/signalhelper.h"
+#include "mio/mio_notify.h"
 
-using namespace mio2;
+using namespace mtrpc;
 
 
 
@@ -111,7 +111,7 @@ int main(int argv,char* argc[])
     WorkGroup group;
     group.Init(1);
 
-    mio2::SignalHelper::registerCallback<mio2::WorkGroup,&mio2::WorkGroup::Stop>(&group);
+    mtrpc::SignalHelper::registerCallback<mtrpc::WorkGroup,&mtrpc::WorkGroup::Stop>(&group);
 
     Closure t3=Closure::From(test_spin,NULL);
     Closure t0=Closure::From(test_mutex,NULL);

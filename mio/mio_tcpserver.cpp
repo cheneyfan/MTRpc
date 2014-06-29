@@ -1,6 +1,6 @@
 #include "mio_tcpserver.h"
 
-namespace mio2 {
+namespace mtrpc {
 
 
 TcpServer::~TcpServer(){
@@ -20,7 +20,7 @@ int TcpServer::Start(){
     accepter.onAccept = onAccept;
     poll.addEvent(&accepter.ev,true,false);
 
-    return accepter.startListen(host,port);
+    return accepter.StartListen(host,port);
 
 }
 

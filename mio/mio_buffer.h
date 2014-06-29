@@ -17,7 +17,7 @@
 #include <sys/uio.h>
 #include <vector>
 
-namespace mio2 {
+namespace mtrpc {
 
 
 #define DEFALUT_BUFFER_SIZE 4096

@@ -1,10 +1,10 @@
 #include "gtest/gtest.h"
 
 #include "stdio.h"
-#include "mio2/mio_buffer.h"
+#include "mio/mio_buffer.h"
 
 
-using namespace mio2;
+using namespace mtrpc;
 
 
 

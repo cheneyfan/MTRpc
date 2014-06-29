@@ -27,7 +27,7 @@
 #include <sstream>
 
 
-namespace mio2 {
+namespace mtrpc {
 /**
  * @brief The Timer class
  */

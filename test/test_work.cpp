@@ -1,14 +1,14 @@
-#include "stdio.h"
-#include "iostream"
+#include <stdio.h>
+#include <iostream>
 #include <sys/time.h>
 
 
-#include "mio2/log.h"
-#include "mio2/timerhelper.h"
+#include "log/log.h"
+#include "common/timerhelper.h"
 
-#include "mio2/workpool.h"
-#include "mio2/signalhelper.h"
-using namespace mio2;
+#include "thread/workpool.h"
+#include "common/signalhelper.h"
+using namespace mtrpc;
 
 
 
@@ -45,7 +45,7 @@ int main(int argc,char* argv[]){
           group.Post(t);
     }
 
-    mio2::SignalHelper::registerCallback<mio2::WorkGroup,&mio2::WorkGroup::Stop>(&group);
+    mtrpc::SignalHelper::registerCallback<mtrpc::WorkGroup,&mtrpc::WorkGroup::Stop>(&group);
 
     group.join();
 

@@ -9,7 +9,7 @@
 #include "mio_buffer.h"
 
 
-namespace mio2 {
+namespace mtrpc {
 
 template<class Handler>
 class Connecter

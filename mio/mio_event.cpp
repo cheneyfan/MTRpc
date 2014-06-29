@@ -1,8 +1,8 @@
 #include "mio_event.h"
-namespace mio2 {
+namespace mtrpc {
 
 
-int IOEvent::setEvent(bool readable,bool writeable){
+int IOEvent::SetEvent(bool readable,bool writeable){
 
     uint32_t old = ev.events;
 
@@ -22,11 +22,11 @@ int IOEvent::setEvent(bool readable,bool writeable){
 }
 
 
-void IOEvent::updateName(){
-    updateName(_fd,&ev,name);
+void IOEvent::UpdateName(){
+    UpdateName(_fd,&ev,name);
 }
 
-void IOEvent::updateName(int fd, epoll_event* ee, char* buf){
+void IOEvent::UpdateName(int fd, epoll_event* ee, char* buf){
 
     buf += snprintf(buf,
                     sizeof(name),

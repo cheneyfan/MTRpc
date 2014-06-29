@@ -1,19 +1,19 @@
-#include "stdio.h"
-#include "mio2/log.h"
-#include "mio2/workpool.h"
-#include "mio2/signalhelper.h"
-#include "mio2/mio_tcpserver.h"
-#include "mio2/mio_handler.h"
-using namespace mio2;
+#include <stdio.h>
+#include "log/log.h"
+#include "thread/workpool.h"
+#include "common/signalhelper.h"
+#include "mio/mio_tcpserver.h"
+#include "mio/mio_handler.h"
+using namespace mtrpc;
 
 int main(int argc,char*argv[]){
 
 
     Json::Value conf;
-    mio2::LogBacker::Init(conf);
+    mtrpc::LogBacker::Init(conf);
 
     TcpServer ts;
-    ts.Init<mio2::ConnectHandler>(conf);
+    ts.Init<mtrpc::ConnectHandler>(conf);
     ts.Start();
     ts.Join();
 }

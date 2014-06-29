@@ -7,4 +7,15 @@
 
 namespace  mio {
 
+
+///
+/// \brief The Inspect class
+///
+/// Inspect the server status
+class Inspect {
+public:
+
+
+};
+
 }

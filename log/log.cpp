@@ -1,12 +1,13 @@
-
-#include "log.h"
-#include "workpool.h"
-#include "singleton.h"
-#include "signalhelper.h"
-
 #include <unistd.h>
 
-namespace  mio2 {
+#include "log.h"
+
+#include "thread/workpool.h"
+#include "common/singleton.h"
+#include "common/signalhelper.h"
+
+
+namespace  MTRpc {
 
 
 const char* DEBUG_LEVEL = "DEBUG";
@@ -130,7 +131,6 @@ CacheManger::CacheManger(){
 
 CacheManger::~CacheManger(){
 
-
     LogBacker::unregisterThread(this);
 }
 
@@ -174,7 +174,7 @@ int LogBacker::Init(Json::Value & conf){
     worker.RunTask(Closure::From(DumperLogger,NULL));
     worker.start();
 
-    mio2::SignalHelper::registerCallback(LogBacker::Stop);
+    mtrpc::SignalHelper::registerCallback(LogBacker::Stop);
 
     // init logger in main thread
     INFO("start logger file:"<<logfile);
@@ -256,13 +256,14 @@ void LogBacker::OutPut(LogEntry* e){
 
     e->toIovec(iov,iov_size);
 
-    int ret = ::writev(fd,iov,iov_size);
-    //printf("%d\n",ret);
+    ::writev(fd,iov,iov_size);
+
 }
 
 void LogBacker::DumperLogger(void *ctx)
 {
 
+    //Trace every thread
     while(isruning)
     {
 
@@ -300,7 +301,6 @@ void LogBacker::DumperLogger(void *ctx)
         else
             usleep(1000*10);
 
-        //printf("checker logger\n");
     }
 }
 
@@ -310,7 +310,7 @@ int LogBacker::DumperDefault(void *ctx,int error)
 
 
     LogEntry* e  = NULL;
-    //printf("start DumperDefault empy:%d \n",LogBacker::_loglist.empty());
+
     while(LogBacker::_loglist.pop(e) && e)
     {
         LogBacker::OutPut(e);
