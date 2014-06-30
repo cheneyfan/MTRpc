@@ -11,6 +11,7 @@
 #include <stdint.h>
 #include <string.h>
 
+#include "common/atomic.h"
 #include "common/ngx_rbtree.h"
 
 
@@ -28,7 +29,7 @@
 
 #define IOEventEntryFromTimer(left) (container_of(left,IOEvent,timernode))
 
-#include "thread/mio_task.h"
+
 
 
 namespace mtrpc {
@@ -54,6 +55,7 @@ enum  EVENT_STATUS{
 
 
 class Epoller;
+class WorkGroup;
 
 /// only support the linux with epoll
 class IOEvent {
@@ -64,22 +66,45 @@ public:
     /// All event use edge trigger
     IOEvent(){
       ev.events = EPOLLET;
-      wtimernode.key = 0;
-      rtimernode.key = 0;
+      wtimernode.parent = NULL;
+      rtimernode.parent = NULL;
+      refcount = 0;
     }
+
+    virtual ~IOEvent();
 
     /// the event add to epoller
     epoll_event ev;
     uint32_t _fd;
 
     /// pending events
-    volatile uint32_t events;
+    AtomicInt32 events;
 
     /// to debug()
     char name[32];
 
-ngx_rbtree_node_t wtimernode;
-ngx_rbtree_node_t rtimernode;
+    /// the key
+    ngx_rbtree_node_t wtimernode;
+    ngx_rbtree_node_t rtimernode;
+
+public:
+
+    WorkGroup * group;
+
+    AtomicInt32 refcount;
+
+    void RequireRef(){
+
+        refcount.incrementAndGet();
+    }
+
+    void ReleaseRef()
+    {
+        if(refcount.decrementAndGet() == 0)
+        {
+            this->OnDelete();
+        }
+    }
 
 public:
     ///
@@ -87,7 +112,49 @@ public:
     /// \param p
     /// \param event_mask
     ///
-    virtual OnEvent(Epoller* p,uint32_t event_mask);
+    virtual void OnEvent(Epoller* p,uint32_t event_mask) = 0;
+
+
+
+    void OnEventWrapper(Epoller* p,uint32_t event_mask){
+        this->OnEvent(p,event_mask);
+    }
+
+    ///
+    /// \brief OnEventAsync
+    /// \param p
+    ///
+
+    virtual void  OnEventAsync(Epoller* p , uint32_t event_mask){
+
+      ClosureP2 c = ClosureP2::From<IOEvent,Epoller*,uint32_t,&IOEvent::OnEventWrapper>(this,p,event_mask);
+
+      if(group)
+      {
+          group->
+      }
+
+    }
+
+    ///
+    /// \brief OnDelete: the event will delete in pool thread
+    /// \param p
+    ///
+    virtual OnDelete(Epoller* p) {
+        delete * this;
+    }
+
+public:
+
+     /// A wrapper to make multi-thread safe.
+     /// here use epoller as input param ,so we can move a event between epollers.
+    int AddEventASync(Epoller* p,bool readable,bool wirteable);
+
+    int ModEventAsync(Epoller* p,bool readable,bool wirteable);
+    int DelEventAsync(Epoller* p);
+    int SetReadTimeOutAsync(Epoller* p, int time_sec);
+    int SetWriteTImeoutAsync(Epoller* p,int time_sec);
+
 
 public:
     //thread safe

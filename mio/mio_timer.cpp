@@ -3,7 +3,7 @@
 
 #include "log/log.h"
 
-namespace  MTRpc {
+namespace mtrpc {
 
 
 

@@ -4,9 +4,9 @@ SET(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 SET(CMAKE_DEPENDS_CHECK_CXX
-  "/home/tanguofu/MTRpc/proto/builtin_service.pb.cc" "/home/tanguofu/MTRpc/build/proto/CMakeFiles/proto.dir/builtin_service.pb.cc.o"
-  "/home/tanguofu/MTRpc/proto/rpc_meta.pb.cc" "/home/tanguofu/MTRpc/build/proto/CMakeFiles/proto.dir/rpc_meta.pb.cc.o"
-  "/home/tanguofu/MTRpc/proto/rpc_option.pb.cc" "/home/tanguofu/MTRpc/build/proto/CMakeFiles/proto.dir/rpc_option.pb.cc.o"
+  "/home/guofutan/workspace/MTRpc/proto/builtin_service.pb.cc" "/home/guofutan/workspace/MTRpc/build/proto/CMakeFiles/proto.dir/builtin_service.pb.cc.o"
+  "/home/guofutan/workspace/MTRpc/proto/rpc_meta.pb.cc" "/home/guofutan/workspace/MTRpc/build/proto/CMakeFiles/proto.dir/rpc_meta.pb.cc.o"
+  "/home/guofutan/workspace/MTRpc/proto/rpc_option.pb.cc" "/home/guofutan/workspace/MTRpc/build/proto/CMakeFiles/proto.dir/rpc_option.pb.cc.o"
   )
 SET(CMAKE_CXX_COMPILER_ID "GNU")
 

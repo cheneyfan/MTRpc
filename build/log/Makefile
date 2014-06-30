@@ -39,10 +39,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/tanguofu/MTRpc
+CMAKE_SOURCE_DIR = /home/guofutan/workspace/MTRpc
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/tanguofu/MTRpc/build
+CMAKE_BINARY_DIR = /home/guofutan/workspace/MTRpc/build
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -69,14 +69,14 @@ rebuild_cache/fast: rebuild_cache
 
 # The main all target
 all: cmake_check_build_system
-	cd /home/tanguofu/MTRpc/build && $(CMAKE_COMMAND) -E cmake_progress_start /home/tanguofu/MTRpc/build/CMakeFiles /home/tanguofu/MTRpc/build/log/CMakeFiles/progress.marks
-	cd /home/tanguofu/MTRpc/build && $(MAKE) -f CMakeFiles/Makefile2 log/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/tanguofu/MTRpc/build/CMakeFiles 0
+	cd /home/guofutan/workspace/MTRpc/build && $(CMAKE_COMMAND) -E cmake_progress_start /home/guofutan/workspace/MTRpc/build/CMakeFiles /home/guofutan/workspace/MTRpc/build/log/CMakeFiles/progress.marks
+	cd /home/guofutan/workspace/MTRpc/build && $(MAKE) -f CMakeFiles/Makefile2 log/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/guofutan/workspace/MTRpc/build/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
 clean:
-	cd /home/tanguofu/MTRpc/build && $(MAKE) -f CMakeFiles/Makefile2 log/clean
+	cd /home/guofutan/workspace/MTRpc/build && $(MAKE) -f CMakeFiles/Makefile2 log/clean
 .PHONY : clean
 
 # The main clean target
@@ -85,22 +85,22 @@ clean/fast: clean
 
 # Prepare targets for installation.
 preinstall: all
-	cd /home/tanguofu/MTRpc/build && $(MAKE) -f CMakeFiles/Makefile2 log/preinstall
+	cd /home/guofutan/workspace/MTRpc/build && $(MAKE) -f CMakeFiles/Makefile2 log/preinstall
 .PHONY : preinstall
 
 # Prepare targets for installation.
 preinstall/fast:
-	cd /home/tanguofu/MTRpc/build && $(MAKE) -f CMakeFiles/Makefile2 log/preinstall
+	cd /home/guofutan/workspace/MTRpc/build && $(MAKE) -f CMakeFiles/Makefile2 log/preinstall
 .PHONY : preinstall/fast
 
 # clear depends
 depend:
-	cd /home/tanguofu/MTRpc/build && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
+	cd /home/guofutan/workspace/MTRpc/build && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
 .PHONY : depend
 
 # Convenience name for target.
 log/CMakeFiles/log.dir/rule:
-	cd /home/tanguofu/MTRpc/build && $(MAKE) -f CMakeFiles/Makefile2 log/CMakeFiles/log.dir/rule
+	cd /home/guofutan/workspace/MTRpc/build && $(MAKE) -f CMakeFiles/Makefile2 log/CMakeFiles/log.dir/rule
 .PHONY : log/CMakeFiles/log.dir/rule
 
 # Convenience name for target.
@@ -109,7 +109,7 @@ log: log/CMakeFiles/log.dir/rule
 
 # fast build rule for target.
 log/fast:
-	cd /home/tanguofu/MTRpc/build && $(MAKE) -f log/CMakeFiles/log.dir/build.make log/CMakeFiles/log.dir/build
+	cd /home/guofutan/workspace/MTRpc/build && $(MAKE) -f log/CMakeFiles/log.dir/build.make log/CMakeFiles/log.dir/build
 .PHONY : log/fast
 
 log.o: log.cpp.o
@@ -117,7 +117,7 @@ log.o: log.cpp.o
 
 # target to build an object file
 log.cpp.o:
-	cd /home/tanguofu/MTRpc/build && $(MAKE) -f log/CMakeFiles/log.dir/build.make log/CMakeFiles/log.dir/log.cpp.o
+	cd /home/guofutan/workspace/MTRpc/build && $(MAKE) -f log/CMakeFiles/log.dir/build.make log/CMakeFiles/log.dir/log.cpp.o
 .PHONY : log.cpp.o
 
 log.i: log.cpp.i
@@ -125,7 +125,7 @@ log.i: log.cpp.i
 
 # target to preprocess a source file
 log.cpp.i:
-	cd /home/tanguofu/MTRpc/build && $(MAKE) -f log/CMakeFiles/log.dir/build.make log/CMakeFiles/log.dir/log.cpp.i
+	cd /home/guofutan/workspace/MTRpc/build && $(MAKE) -f log/CMakeFiles/log.dir/build.make log/CMakeFiles/log.dir/log.cpp.i
 .PHONY : log.cpp.i
 
 log.s: log.cpp.s
@@ -133,7 +133,7 @@ log.s: log.cpp.s
 
 # target to generate assembly for a file
 log.cpp.s:
-	cd /home/tanguofu/MTRpc/build && $(MAKE) -f log/CMakeFiles/log.dir/build.make log/CMakeFiles/log.dir/log.cpp.s
+	cd /home/guofutan/workspace/MTRpc/build && $(MAKE) -f log/CMakeFiles/log.dir/build.make log/CMakeFiles/log.dir/log.cpp.s
 .PHONY : log.cpp.s
 
 # Help Target
@@ -159,6 +159,6 @@ help:
 # No rule that depends on this can have commands that come from listfiles
 # because they might be regenerated.
 cmake_check_build_system:
-	cd /home/tanguofu/MTRpc/build && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
+	cd /home/guofutan/workspace/MTRpc/build && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
 .PHONY : cmake_check_build_system
 

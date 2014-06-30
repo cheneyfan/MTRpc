@@ -39,10 +39,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/tanguofu/MTRpc
+CMAKE_SOURCE_DIR = /home/guofutan/workspace/MTRpc
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/tanguofu/MTRpc/build
+CMAKE_BINARY_DIR = /home/guofutan/workspace/MTRpc/build
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -69,14 +69,14 @@ rebuild_cache/fast: rebuild_cache
 
 # The main all target
 all: cmake_check_build_system
-	cd /home/tanguofu/MTRpc/build && $(CMAKE_COMMAND) -E cmake_progress_start /home/tanguofu/MTRpc/build/CMakeFiles /home/tanguofu/MTRpc/build/json/CMakeFiles/progress.marks
-	cd /home/tanguofu/MTRpc/build && $(MAKE) -f CMakeFiles/Makefile2 json/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/tanguofu/MTRpc/build/CMakeFiles 0
+	cd /home/guofutan/workspace/MTRpc/build && $(CMAKE_COMMAND) -E cmake_progress_start /home/guofutan/workspace/MTRpc/build/CMakeFiles /home/guofutan/workspace/MTRpc/build/json/CMakeFiles/progress.marks
+	cd /home/guofutan/workspace/MTRpc/build && $(MAKE) -f CMakeFiles/Makefile2 json/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/guofutan/workspace/MTRpc/build/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
 clean:
-	cd /home/tanguofu/MTRpc/build && $(MAKE) -f CMakeFiles/Makefile2 json/clean
+	cd /home/guofutan/workspace/MTRpc/build && $(MAKE) -f CMakeFiles/Makefile2 json/clean
 .PHONY : clean
 
 # The main clean target
@@ -85,22 +85,22 @@ clean/fast: clean
 
 # Prepare targets for installation.
 preinstall: all
-	cd /home/tanguofu/MTRpc/build && $(MAKE) -f CMakeFiles/Makefile2 json/preinstall
+	cd /home/guofutan/workspace/MTRpc/build && $(MAKE) -f CMakeFiles/Makefile2 json/preinstall
 .PHONY : preinstall
 
 # Prepare targets for installation.
 preinstall/fast:
-	cd /home/tanguofu/MTRpc/build && $(MAKE) -f CMakeFiles/Makefile2 json/preinstall
+	cd /home/guofutan/workspace/MTRpc/build && $(MAKE) -f CMakeFiles/Makefile2 json/preinstall
 .PHONY : preinstall/fast
 
 # clear depends
 depend:
-	cd /home/tanguofu/MTRpc/build && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
+	cd /home/guofutan/workspace/MTRpc/build && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
 .PHONY : depend
 
 # Convenience name for target.
 json/CMakeFiles/json.dir/rule:
-	cd /home/tanguofu/MTRpc/build && $(MAKE) -f CMakeFiles/Makefile2 json/CMakeFiles/json.dir/rule
+	cd /home/guofutan/workspace/MTRpc/build && $(MAKE) -f CMakeFiles/Makefile2 json/CMakeFiles/json.dir/rule
 .PHONY : json/CMakeFiles/json.dir/rule
 
 # Convenience name for target.
@@ -109,7 +109,7 @@ json: json/CMakeFiles/json.dir/rule
 
 # fast build rule for target.
 json/fast:
-	cd /home/tanguofu/MTRpc/build && $(MAKE) -f json/CMakeFiles/json.dir/build.make json/CMakeFiles/json.dir/build
+	cd /home/guofutan/workspace/MTRpc/build && $(MAKE) -f json/CMakeFiles/json.dir/build.make json/CMakeFiles/json.dir/build
 .PHONY : json/fast
 
 json_reader.o: json_reader.cpp.o
@@ -117,7 +117,7 @@ json_reader.o: json_reader.cpp.o
 
 # target to build an object file
 json_reader.cpp.o:
-	cd /home/tanguofu/MTRpc/build && $(MAKE) -f json/CMakeFiles/json.dir/build.make json/CMakeFiles/json.dir/json_reader.cpp.o
+	cd /home/guofutan/workspace/MTRpc/build && $(MAKE) -f json/CMakeFiles/json.dir/build.make json/CMakeFiles/json.dir/json_reader.cpp.o
 .PHONY : json_reader.cpp.o
 
 json_reader.i: json_reader.cpp.i
@@ -125,7 +125,7 @@ json_reader.i: json_reader.cpp.i
 
 # target to preprocess a source file
 json_reader.cpp.i:
-	cd /home/tanguofu/MTRpc/build && $(MAKE) -f json/CMakeFiles/json.dir/build.make json/CMakeFiles/json.dir/json_reader.cpp.i
+	cd /home/guofutan/workspace/MTRpc/build && $(MAKE) -f json/CMakeFiles/json.dir/build.make json/CMakeFiles/json.dir/json_reader.cpp.i
 .PHONY : json_reader.cpp.i
 
 json_reader.s: json_reader.cpp.s
@@ -133,7 +133,7 @@ json_reader.s: json_reader.cpp.s
 
 # target to generate assembly for a file
 json_reader.cpp.s:
-	cd /home/tanguofu/MTRpc/build && $(MAKE) -f json/CMakeFiles/json.dir/build.make json/CMakeFiles/json.dir/json_reader.cpp.s
+	cd /home/guofutan/workspace/MTRpc/build && $(MAKE) -f json/CMakeFiles/json.dir/build.make json/CMakeFiles/json.dir/json_reader.cpp.s
 .PHONY : json_reader.cpp.s
 
 json_value.o: json_value.cpp.o
@@ -141,7 +141,7 @@ json_value.o: json_value.cpp.o
 
 # target to build an object file
 json_value.cpp.o:
-	cd /home/tanguofu/MTRpc/build && $(MAKE) -f json/CMakeFiles/json.dir/build.make json/CMakeFiles/json.dir/json_value.cpp.o
+	cd /home/guofutan/workspace/MTRpc/build && $(MAKE) -f json/CMakeFiles/json.dir/build.make json/CMakeFiles/json.dir/json_value.cpp.o
 .PHONY : json_value.cpp.o
 
 json_value.i: json_value.cpp.i
@@ -149,7 +149,7 @@ json_value.i: json_value.cpp.i
 
 # target to preprocess a source file
 json_value.cpp.i:
-	cd /home/tanguofu/MTRpc/build && $(MAKE) -f json/CMakeFiles/json.dir/build.make json/CMakeFiles/json.dir/json_value.cpp.i
+	cd /home/guofutan/workspace/MTRpc/build && $(MAKE) -f json/CMakeFiles/json.dir/build.make json/CMakeFiles/json.dir/json_value.cpp.i
 .PHONY : json_value.cpp.i
 
 json_value.s: json_value.cpp.s
@@ -157,7 +157,7 @@ json_value.s: json_value.cpp.s
 
 # target to generate assembly for a file
 json_value.cpp.s:
-	cd /home/tanguofu/MTRpc/build && $(MAKE) -f json/CMakeFiles/json.dir/build.make json/CMakeFiles/json.dir/json_value.cpp.s
+	cd /home/guofutan/workspace/MTRpc/build && $(MAKE) -f json/CMakeFiles/json.dir/build.make json/CMakeFiles/json.dir/json_value.cpp.s
 .PHONY : json_value.cpp.s
 
 json_writer.o: json_writer.cpp.o
@@ -165,7 +165,7 @@ json_writer.o: json_writer.cpp.o
 
 # target to build an object file
 json_writer.cpp.o:
-	cd /home/tanguofu/MTRpc/build && $(MAKE) -f json/CMakeFiles/json.dir/build.make json/CMakeFiles/json.dir/json_writer.cpp.o
+	cd /home/guofutan/workspace/MTRpc/build && $(MAKE) -f json/CMakeFiles/json.dir/build.make json/CMakeFiles/json.dir/json_writer.cpp.o
 .PHONY : json_writer.cpp.o
 
 json_writer.i: json_writer.cpp.i
@@ -173,7 +173,7 @@ json_writer.i: json_writer.cpp.i
 
 # target to preprocess a source file
 json_writer.cpp.i:
-	cd /home/tanguofu/MTRpc/build && $(MAKE) -f json/CMakeFiles/json.dir/build.make json/CMakeFiles/json.dir/json_writer.cpp.i
+	cd /home/guofutan/workspace/MTRpc/build && $(MAKE) -f json/CMakeFiles/json.dir/build.make json/CMakeFiles/json.dir/json_writer.cpp.i
 .PHONY : json_writer.cpp.i
 
 json_writer.s: json_writer.cpp.s
@@ -181,7 +181,7 @@ json_writer.s: json_writer.cpp.s
 
 # target to generate assembly for a file
 json_writer.cpp.s:
-	cd /home/tanguofu/MTRpc/build && $(MAKE) -f json/CMakeFiles/json.dir/build.make json/CMakeFiles/json.dir/json_writer.cpp.s
+	cd /home/guofutan/workspace/MTRpc/build && $(MAKE) -f json/CMakeFiles/json.dir/build.make json/CMakeFiles/json.dir/json_writer.cpp.s
 .PHONY : json_writer.cpp.s
 
 # Help Target
@@ -213,6 +213,6 @@ help:
 # No rule that depends on this can have commands that come from listfiles
 # because they might be regenerated.
 cmake_check_build_system:
-	cd /home/tanguofu/MTRpc/build && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
+	cd /home/guofutan/workspace/MTRpc/build && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
 .PHONY : cmake_check_build_system
 

@@ -10,8 +10,8 @@
 
 namespace mtrpc{
 
-class Epoller;
-class EventNotify{
+
+class EventNotify :public IOEvent {
 
 public:
     ///
@@ -23,7 +23,7 @@ public:
     EventNotify();
 
 
-    ~EventNotify();
+    virtual ~EventNotify();
 
 
 public:
@@ -33,7 +33,7 @@ public:
     /// \param p
     /// \param events
     ///
-    void onEvent(Epoller* p,uint32_t events);
+    virtual void onEvent(Epoller* p,uint32_t events);
 
     ///
     /// \brief notify_eventchannel
@@ -42,13 +42,9 @@ public:
     /// \return
     ///
     int Notify(uint64_t signalnum){
-
         return ::write(ev._fd, &signalnum,sizeof(signalnum));
     }
 
-public:
-    IOEvent ev;
-    Closure NotifyCallback;
 
 };
 

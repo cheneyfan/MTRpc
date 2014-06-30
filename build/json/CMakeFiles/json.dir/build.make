@@ -35,10 +35,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/tanguofu/MTRpc
+CMAKE_SOURCE_DIR = /home/guofutan/workspace/MTRpc
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/tanguofu/MTRpc/build
+CMAKE_BINARY_DIR = /home/guofutan/workspace/MTRpc/build
 
 # Include any dependencies generated for this target.
 include json/CMakeFiles/json.dir/depend.make
@@ -49,42 +49,19 @@ include json/CMakeFiles/json.dir/progress.make
 # Include the compile flags for this target's objects.
 include json/CMakeFiles/json.dir/flags.make
 
-json/CMakeFiles/json.dir/json_reader.cpp.o: json/CMakeFiles/json.dir/flags.make
-json/CMakeFiles/json.dir/json_reader.cpp.o: ../json/json_reader.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/tanguofu/MTRpc/build/CMakeFiles $(CMAKE_PROGRESS_1)
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object json/CMakeFiles/json.dir/json_reader.cpp.o"
-	cd /home/tanguofu/MTRpc/build/json && g++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/json.dir/json_reader.cpp.o -c /home/tanguofu/MTRpc/json/json_reader.cpp
-
-json/CMakeFiles/json.dir/json_reader.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/json.dir/json_reader.cpp.i"
-	cd /home/tanguofu/MTRpc/build/json && g++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/tanguofu/MTRpc/json/json_reader.cpp > CMakeFiles/json.dir/json_reader.cpp.i
-
-json/CMakeFiles/json.dir/json_reader.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/json.dir/json_reader.cpp.s"
-	cd /home/tanguofu/MTRpc/build/json && g++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/tanguofu/MTRpc/json/json_reader.cpp -o CMakeFiles/json.dir/json_reader.cpp.s
-
-json/CMakeFiles/json.dir/json_reader.cpp.o.requires:
-.PHONY : json/CMakeFiles/json.dir/json_reader.cpp.o.requires
-
-json/CMakeFiles/json.dir/json_reader.cpp.o.provides: json/CMakeFiles/json.dir/json_reader.cpp.o.requires
-	$(MAKE) -f json/CMakeFiles/json.dir/build.make json/CMakeFiles/json.dir/json_reader.cpp.o.provides.build
-.PHONY : json/CMakeFiles/json.dir/json_reader.cpp.o.provides
-
-json/CMakeFiles/json.dir/json_reader.cpp.o.provides.build: json/CMakeFiles/json.dir/json_reader.cpp.o
-
 json/CMakeFiles/json.dir/json_value.cpp.o: json/CMakeFiles/json.dir/flags.make
 json/CMakeFiles/json.dir/json_value.cpp.o: ../json/json_value.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/tanguofu/MTRpc/build/CMakeFiles $(CMAKE_PROGRESS_2)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/guofutan/workspace/MTRpc/build/CMakeFiles $(CMAKE_PROGRESS_1)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object json/CMakeFiles/json.dir/json_value.cpp.o"
-	cd /home/tanguofu/MTRpc/build/json && g++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/json.dir/json_value.cpp.o -c /home/tanguofu/MTRpc/json/json_value.cpp
+	cd /home/guofutan/workspace/MTRpc/build/json && g++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/json.dir/json_value.cpp.o -c /home/guofutan/workspace/MTRpc/json/json_value.cpp
 
 json/CMakeFiles/json.dir/json_value.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/json.dir/json_value.cpp.i"
-	cd /home/tanguofu/MTRpc/build/json && g++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/tanguofu/MTRpc/json/json_value.cpp > CMakeFiles/json.dir/json_value.cpp.i
+	cd /home/guofutan/workspace/MTRpc/build/json && g++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/guofutan/workspace/MTRpc/json/json_value.cpp > CMakeFiles/json.dir/json_value.cpp.i
 
 json/CMakeFiles/json.dir/json_value.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/json.dir/json_value.cpp.s"
-	cd /home/tanguofu/MTRpc/build/json && g++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/tanguofu/MTRpc/json/json_value.cpp -o CMakeFiles/json.dir/json_value.cpp.s
+	cd /home/guofutan/workspace/MTRpc/build/json && g++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/guofutan/workspace/MTRpc/json/json_value.cpp -o CMakeFiles/json.dir/json_value.cpp.s
 
 json/CMakeFiles/json.dir/json_value.cpp.o.requires:
 .PHONY : json/CMakeFiles/json.dir/json_value.cpp.o.requires
@@ -95,19 +72,42 @@ json/CMakeFiles/json.dir/json_value.cpp.o.provides: json/CMakeFiles/json.dir/jso
 
 json/CMakeFiles/json.dir/json_value.cpp.o.provides.build: json/CMakeFiles/json.dir/json_value.cpp.o
 
+json/CMakeFiles/json.dir/json_reader.cpp.o: json/CMakeFiles/json.dir/flags.make
+json/CMakeFiles/json.dir/json_reader.cpp.o: ../json/json_reader.cpp
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/guofutan/workspace/MTRpc/build/CMakeFiles $(CMAKE_PROGRESS_2)
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object json/CMakeFiles/json.dir/json_reader.cpp.o"
+	cd /home/guofutan/workspace/MTRpc/build/json && g++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/json.dir/json_reader.cpp.o -c /home/guofutan/workspace/MTRpc/json/json_reader.cpp
+
+json/CMakeFiles/json.dir/json_reader.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/json.dir/json_reader.cpp.i"
+	cd /home/guofutan/workspace/MTRpc/build/json && g++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/guofutan/workspace/MTRpc/json/json_reader.cpp > CMakeFiles/json.dir/json_reader.cpp.i
+
+json/CMakeFiles/json.dir/json_reader.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/json.dir/json_reader.cpp.s"
+	cd /home/guofutan/workspace/MTRpc/build/json && g++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/guofutan/workspace/MTRpc/json/json_reader.cpp -o CMakeFiles/json.dir/json_reader.cpp.s
+
+json/CMakeFiles/json.dir/json_reader.cpp.o.requires:
+.PHONY : json/CMakeFiles/json.dir/json_reader.cpp.o.requires
+
+json/CMakeFiles/json.dir/json_reader.cpp.o.provides: json/CMakeFiles/json.dir/json_reader.cpp.o.requires
+	$(MAKE) -f json/CMakeFiles/json.dir/build.make json/CMakeFiles/json.dir/json_reader.cpp.o.provides.build
+.PHONY : json/CMakeFiles/json.dir/json_reader.cpp.o.provides
+
+json/CMakeFiles/json.dir/json_reader.cpp.o.provides.build: json/CMakeFiles/json.dir/json_reader.cpp.o
+
 json/CMakeFiles/json.dir/json_writer.cpp.o: json/CMakeFiles/json.dir/flags.make
 json/CMakeFiles/json.dir/json_writer.cpp.o: ../json/json_writer.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/tanguofu/MTRpc/build/CMakeFiles $(CMAKE_PROGRESS_3)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/guofutan/workspace/MTRpc/build/CMakeFiles $(CMAKE_PROGRESS_3)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object json/CMakeFiles/json.dir/json_writer.cpp.o"
-	cd /home/tanguofu/MTRpc/build/json && g++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/json.dir/json_writer.cpp.o -c /home/tanguofu/MTRpc/json/json_writer.cpp
+	cd /home/guofutan/workspace/MTRpc/build/json && g++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/json.dir/json_writer.cpp.o -c /home/guofutan/workspace/MTRpc/json/json_writer.cpp
 
 json/CMakeFiles/json.dir/json_writer.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/json.dir/json_writer.cpp.i"
-	cd /home/tanguofu/MTRpc/build/json && g++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/tanguofu/MTRpc/json/json_writer.cpp > CMakeFiles/json.dir/json_writer.cpp.i
+	cd /home/guofutan/workspace/MTRpc/build/json && g++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/guofutan/workspace/MTRpc/json/json_writer.cpp > CMakeFiles/json.dir/json_writer.cpp.i
 
 json/CMakeFiles/json.dir/json_writer.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/json.dir/json_writer.cpp.s"
-	cd /home/tanguofu/MTRpc/build/json && g++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/tanguofu/MTRpc/json/json_writer.cpp -o CMakeFiles/json.dir/json_writer.cpp.s
+	cd /home/guofutan/workspace/MTRpc/build/json && g++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/guofutan/workspace/MTRpc/json/json_writer.cpp -o CMakeFiles/json.dir/json_writer.cpp.s
 
 json/CMakeFiles/json.dir/json_writer.cpp.o.requires:
 .PHONY : json/CMakeFiles/json.dir/json_writer.cpp.o.requires
@@ -120,36 +120,36 @@ json/CMakeFiles/json.dir/json_writer.cpp.o.provides.build: json/CMakeFiles/json.
 
 # Object files for target json
 json_OBJECTS = \
-"CMakeFiles/json.dir/json_reader.cpp.o" \
 "CMakeFiles/json.dir/json_value.cpp.o" \
+"CMakeFiles/json.dir/json_reader.cpp.o" \
 "CMakeFiles/json.dir/json_writer.cpp.o"
 
 # External object files for target json
 json_EXTERNAL_OBJECTS =
 
-json/libjson.a: json/CMakeFiles/json.dir/json_reader.cpp.o
 json/libjson.a: json/CMakeFiles/json.dir/json_value.cpp.o
+json/libjson.a: json/CMakeFiles/json.dir/json_reader.cpp.o
 json/libjson.a: json/CMakeFiles/json.dir/json_writer.cpp.o
 json/libjson.a: json/CMakeFiles/json.dir/build.make
 json/libjson.a: json/CMakeFiles/json.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --red --bold "Linking CXX static library libjson.a"
-	cd /home/tanguofu/MTRpc/build/json && $(CMAKE_COMMAND) -P CMakeFiles/json.dir/cmake_clean_target.cmake
-	cd /home/tanguofu/MTRpc/build/json && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/json.dir/link.txt --verbose=$(VERBOSE)
+	cd /home/guofutan/workspace/MTRpc/build/json && $(CMAKE_COMMAND) -P CMakeFiles/json.dir/cmake_clean_target.cmake
+	cd /home/guofutan/workspace/MTRpc/build/json && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/json.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
 json/CMakeFiles/json.dir/build: json/libjson.a
 .PHONY : json/CMakeFiles/json.dir/build
 
-json/CMakeFiles/json.dir/requires: json/CMakeFiles/json.dir/json_reader.cpp.o.requires
 json/CMakeFiles/json.dir/requires: json/CMakeFiles/json.dir/json_value.cpp.o.requires
+json/CMakeFiles/json.dir/requires: json/CMakeFiles/json.dir/json_reader.cpp.o.requires
 json/CMakeFiles/json.dir/requires: json/CMakeFiles/json.dir/json_writer.cpp.o.requires
 .PHONY : json/CMakeFiles/json.dir/requires
 
 json/CMakeFiles/json.dir/clean:
-	cd /home/tanguofu/MTRpc/build/json && $(CMAKE_COMMAND) -P CMakeFiles/json.dir/cmake_clean.cmake
+	cd /home/guofutan/workspace/MTRpc/build/json && $(CMAKE_COMMAND) -P CMakeFiles/json.dir/cmake_clean.cmake
 .PHONY : json/CMakeFiles/json.dir/clean
 
 json/CMakeFiles/json.dir/depend:
-	cd /home/tanguofu/MTRpc/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/tanguofu/MTRpc /home/tanguofu/MTRpc/json /home/tanguofu/MTRpc/build /home/tanguofu/MTRpc/build/json /home/tanguofu/MTRpc/build/json/CMakeFiles/json.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/guofutan/workspace/MTRpc/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/guofutan/workspace/MTRpc /home/guofutan/workspace/MTRpc/json /home/guofutan/workspace/MTRpc/build /home/guofutan/workspace/MTRpc/build/json /home/guofutan/workspace/MTRpc/build/json/CMakeFiles/json.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : json/CMakeFiles/json.dir/depend
 

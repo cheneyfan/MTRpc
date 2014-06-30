@@ -4,9 +4,9 @@
 #include "mio_event.h"
 #include "thread/mio_task.h"
 
-namespace  MTRpc {
+namespace mtrpc {
 
-class Acceptor{
+class Acceptor :public IOEvent{
 public:
 
     ///
@@ -17,7 +17,7 @@ public:
     ///
     /// \brief Acceptor
     ///
-    ~Acceptor();
+    virtual ~Acceptor();
 
 
     ///
@@ -25,7 +25,7 @@ public:
     /// \param p
     /// \param events
     ///
-    void onEvent(Epoller* p,uint32_t events);
+    virtual void onEvent(Epoller* p,uint32_t events);
 
     ///
     /// \brief Listen
@@ -35,9 +35,6 @@ public:
     ///
     int StartListen(const char* host,int port);
 
-public:
-    IOEvent ev;
-    Closure onAccept;
 };
 
 }

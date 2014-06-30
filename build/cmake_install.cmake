@@ -1,8 +1,8 @@
-# Install script for directory: /home/tanguofu/MTRpc
+# Install script for directory: /home/guofutan/workspace/MTRpc
 
 # Set the install prefix
 IF(NOT DEFINED CMAKE_INSTALL_PREFIX)
-  SET(CMAKE_INSTALL_PREFIX "/home/tanguofu/MTRpc/out")
+  SET(CMAKE_INSTALL_PREFIX "/home/guofutan/workspace/MTRpc/out")
 ENDIF(NOT DEFINED CMAKE_INSTALL_PREFIX)
 STRING(REGEX REPLACE "/$" "" CMAKE_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}")
 
@@ -34,16 +34,16 @@ ENDIF(NOT DEFINED CMAKE_INSTALL_SO_NO_EXE)
 
 IF(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for each subdirectory.
-  INCLUDE("/home/tanguofu/MTRpc/build/common/cmake_install.cmake")
-  INCLUDE("/home/tanguofu/MTRpc/build/inspect/cmake_install.cmake")
-  INCLUDE("/home/tanguofu/MTRpc/build/json/cmake_install.cmake")
-  INCLUDE("/home/tanguofu/MTRpc/build/log/cmake_install.cmake")
-  INCLUDE("/home/tanguofu/MTRpc/build/mio/cmake_install.cmake")
-  INCLUDE("/home/tanguofu/MTRpc/build/proto/cmake_install.cmake")
-  INCLUDE("/home/tanguofu/MTRpc/build/rpc/cmake_install.cmake")
-  INCLUDE("/home/tanguofu/MTRpc/build/smart_ptr/cmake_install.cmake")
-  INCLUDE("/home/tanguofu/MTRpc/build/test/cmake_install.cmake")
-  INCLUDE("/home/tanguofu/MTRpc/build/thread/cmake_install.cmake")
+  INCLUDE("/home/guofutan/workspace/MTRpc/build/common/cmake_install.cmake")
+  INCLUDE("/home/guofutan/workspace/MTRpc/build/inspect/cmake_install.cmake")
+  INCLUDE("/home/guofutan/workspace/MTRpc/build/json/cmake_install.cmake")
+  INCLUDE("/home/guofutan/workspace/MTRpc/build/log/cmake_install.cmake")
+  INCLUDE("/home/guofutan/workspace/MTRpc/build/mio/cmake_install.cmake")
+  INCLUDE("/home/guofutan/workspace/MTRpc/build/proto/cmake_install.cmake")
+  INCLUDE("/home/guofutan/workspace/MTRpc/build/rpc/cmake_install.cmake")
+  INCLUDE("/home/guofutan/workspace/MTRpc/build/smart_ptr/cmake_install.cmake")
+  INCLUDE("/home/guofutan/workspace/MTRpc/build/test/cmake_install.cmake")
+  INCLUDE("/home/guofutan/workspace/MTRpc/build/thread/cmake_install.cmake")
 
 ENDIF(NOT CMAKE_INSTALL_LOCAL_ONLY)
 
@@ -53,7 +53,7 @@ ELSE(CMAKE_INSTALL_COMPONENT)
   SET(CMAKE_INSTALL_MANIFEST "install_manifest.txt")
 ENDIF(CMAKE_INSTALL_COMPONENT)
 
-FILE(WRITE "/home/tanguofu/MTRpc/build/${CMAKE_INSTALL_MANIFEST}" "")
+FILE(WRITE "/home/guofutan/workspace/MTRpc/build/${CMAKE_INSTALL_MANIFEST}" "")
 FOREACH(file ${CMAKE_INSTALL_MANIFEST_FILES})
-  FILE(APPEND "/home/tanguofu/MTRpc/build/${CMAKE_INSTALL_MANIFEST}" "${file}\n")
+  FILE(APPEND "/home/guofutan/workspace/MTRpc/build/${CMAKE_INSTALL_MANIFEST}" "${file}\n")
 ENDFOREACH(file)

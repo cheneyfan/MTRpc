@@ -7,7 +7,7 @@
 #include "common/signalhelper.h"
 
 
-namespace  MTRpc {
+namespace mtrpc {
 
 
 const char* DEBUG_LEVEL = "DEBUG";

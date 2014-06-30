@@ -9,7 +9,7 @@
 
 #define MAX_EVENT_PROCESS 1000
 
-namespace  MTRpc {
+namespace mtrpc {
 
 class Epoller {
 
@@ -34,7 +34,7 @@ public:
     /// \param ev
     /// \return
     ///
-    int  ModEvent(IOEvent* ev);
+    int ModEvent(IOEvent* ev);
 
     ///
     /// \brief DelEvent, must only run in poll thread
@@ -48,7 +48,7 @@ public:
     /// \param ev
     /// \return
     ///
-    int SetReadTimeOut(IOEvent* ev, uint32_t rsec);
+    int SetReadTimeOut(IOEvent* ev);
 
 
     ///
@@ -57,7 +57,7 @@ public:
     /// \param wsec
     /// \return
     ///
-    int SetWriteTimeout(IOEvent* ev, uint32_t wsec);
+    int SetWriteTimeout(IOEvent* ev);
 
     ///
     /// \brief ProcessTimeOut
@@ -70,7 +70,8 @@ public:
     /// \param t
     /// \return
     ///
-    void PostTask(const Closure & t);
+    void PostTask(const ClosureP1 & t);
+
 
     ///
     /// \brief Stop
@@ -92,7 +93,7 @@ public:
     volatile bool isruning;
 
     //
-    //SpinLock splock;
+    // SpinLock splock;
     /// only modify in poller thread
     ngx_rbtree_t rtimerroot;
     ngx_rbtree_t wtimerroot;
@@ -100,7 +101,7 @@ public:
 
     ///
     EventNotify notify;
-    SpinList<Closure,SpinLock> tasklist;
+    SpinList<ClosureP1,SpinLock> tasklist;
 
 };
 

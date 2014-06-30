@@ -8,7 +8,7 @@
 #include "log/log.h"
 #include "workpool.h"
 
-namespace  MTRpc {
+namespace mtrpc {
 
 pid_t Worker::pid = getpid();
 __thread Worker* Worker::thread_worker= NULL;

@@ -1,7 +1,7 @@
 FILE(REMOVE_RECURSE
-  "CMakeFiles/proto.dir/rpc_meta.pb.cc.o"
   "CMakeFiles/proto.dir/builtin_service.pb.cc.o"
   "CMakeFiles/proto.dir/rpc_option.pb.cc.o"
+  "CMakeFiles/proto.dir/rpc_meta.pb.cc.o"
   "libproto.pdb"
   "libproto.a"
 )

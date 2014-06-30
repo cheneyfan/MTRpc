@@ -4,7 +4,7 @@
 #include "mio_connection.h"
 #include "mio_poller.h"
 
-namespace  MTRpc {
+namespace mtrpc {
 
 /**
  * @brief The TcpClient class

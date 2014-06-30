@@ -4,7 +4,7 @@ SET(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 SET(CMAKE_DEPENDS_CHECK_CXX
-  "/home/tanguofu/MTRpc/log/log.cpp" "/home/tanguofu/MTRpc/build/log/CMakeFiles/log.dir/log.cpp.o"
+  "/home/guofutan/workspace/MTRpc/log/log.cpp" "/home/guofutan/workspace/MTRpc/build/log/CMakeFiles/log.dir/log.cpp.o"
   )
 SET(CMAKE_CXX_COMPILER_ID "GNU")
 

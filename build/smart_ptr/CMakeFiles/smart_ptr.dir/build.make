@@ -35,10 +35,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/tanguofu/MTRpc
+CMAKE_SOURCE_DIR = /home/guofutan/workspace/MTRpc
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/tanguofu/MTRpc/build
+CMAKE_BINARY_DIR = /home/guofutan/workspace/MTRpc/build
 
 # Utility rule file for smart_ptr.
 
@@ -56,10 +56,10 @@ smart_ptr/CMakeFiles/smart_ptr.dir/build: smart_ptr
 .PHONY : smart_ptr/CMakeFiles/smart_ptr.dir/build
 
 smart_ptr/CMakeFiles/smart_ptr.dir/clean:
-	cd /home/tanguofu/MTRpc/build/smart_ptr && $(CMAKE_COMMAND) -P CMakeFiles/smart_ptr.dir/cmake_clean.cmake
+	cd /home/guofutan/workspace/MTRpc/build/smart_ptr && $(CMAKE_COMMAND) -P CMakeFiles/smart_ptr.dir/cmake_clean.cmake
 .PHONY : smart_ptr/CMakeFiles/smart_ptr.dir/clean
 
 smart_ptr/CMakeFiles/smart_ptr.dir/depend:
-	cd /home/tanguofu/MTRpc/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/tanguofu/MTRpc /home/tanguofu/MTRpc/smart_ptr /home/tanguofu/MTRpc/build /home/tanguofu/MTRpc/build/smart_ptr /home/tanguofu/MTRpc/build/smart_ptr/CMakeFiles/smart_ptr.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/guofutan/workspace/MTRpc/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/guofutan/workspace/MTRpc /home/guofutan/workspace/MTRpc/smart_ptr /home/guofutan/workspace/MTRpc/build /home/guofutan/workspace/MTRpc/build/smart_ptr /home/guofutan/workspace/MTRpc/build/smart_ptr/CMakeFiles/smart_ptr.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : smart_ptr/CMakeFiles/smart_ptr.dir/depend
 

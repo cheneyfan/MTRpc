@@ -35,10 +35,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/tanguofu/MTRpc
+CMAKE_SOURCE_DIR = /home/guofutan/workspace/MTRpc
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/tanguofu/MTRpc/build
+CMAKE_BINARY_DIR = /home/guofutan/workspace/MTRpc/build
 
 # Include any dependencies generated for this target.
 include mio/CMakeFiles/mio.dir/depend.make
@@ -49,226 +49,19 @@ include mio/CMakeFiles/mio.dir/progress.make
 # Include the compile flags for this target's objects.
 include mio/CMakeFiles/mio.dir/flags.make
 
-mio/CMakeFiles/mio.dir/mio_poller.cpp.o: mio/CMakeFiles/mio.dir/flags.make
-mio/CMakeFiles/mio.dir/mio_poller.cpp.o: ../mio/mio_poller.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/tanguofu/MTRpc/build/CMakeFiles $(CMAKE_PROGRESS_1)
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object mio/CMakeFiles/mio.dir/mio_poller.cpp.o"
-	cd /home/tanguofu/MTRpc/build/mio && g++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/mio.dir/mio_poller.cpp.o -c /home/tanguofu/MTRpc/mio/mio_poller.cpp
-
-mio/CMakeFiles/mio.dir/mio_poller.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/mio.dir/mio_poller.cpp.i"
-	cd /home/tanguofu/MTRpc/build/mio && g++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/tanguofu/MTRpc/mio/mio_poller.cpp > CMakeFiles/mio.dir/mio_poller.cpp.i
-
-mio/CMakeFiles/mio.dir/mio_poller.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/mio.dir/mio_poller.cpp.s"
-	cd /home/tanguofu/MTRpc/build/mio && g++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/tanguofu/MTRpc/mio/mio_poller.cpp -o CMakeFiles/mio.dir/mio_poller.cpp.s
-
-mio/CMakeFiles/mio.dir/mio_poller.cpp.o.requires:
-.PHONY : mio/CMakeFiles/mio.dir/mio_poller.cpp.o.requires
-
-mio/CMakeFiles/mio.dir/mio_poller.cpp.o.provides: mio/CMakeFiles/mio.dir/mio_poller.cpp.o.requires
-	$(MAKE) -f mio/CMakeFiles/mio.dir/build.make mio/CMakeFiles/mio.dir/mio_poller.cpp.o.provides.build
-.PHONY : mio/CMakeFiles/mio.dir/mio_poller.cpp.o.provides
-
-mio/CMakeFiles/mio.dir/mio_poller.cpp.o.provides.build: mio/CMakeFiles/mio.dir/mio_poller.cpp.o
-
-mio/CMakeFiles/mio.dir/mio_tcpclient.cpp.o: mio/CMakeFiles/mio.dir/flags.make
-mio/CMakeFiles/mio.dir/mio_tcpclient.cpp.o: ../mio/mio_tcpclient.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/tanguofu/MTRpc/build/CMakeFiles $(CMAKE_PROGRESS_2)
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object mio/CMakeFiles/mio.dir/mio_tcpclient.cpp.o"
-	cd /home/tanguofu/MTRpc/build/mio && g++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/mio.dir/mio_tcpclient.cpp.o -c /home/tanguofu/MTRpc/mio/mio_tcpclient.cpp
-
-mio/CMakeFiles/mio.dir/mio_tcpclient.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/mio.dir/mio_tcpclient.cpp.i"
-	cd /home/tanguofu/MTRpc/build/mio && g++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/tanguofu/MTRpc/mio/mio_tcpclient.cpp > CMakeFiles/mio.dir/mio_tcpclient.cpp.i
-
-mio/CMakeFiles/mio.dir/mio_tcpclient.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/mio.dir/mio_tcpclient.cpp.s"
-	cd /home/tanguofu/MTRpc/build/mio && g++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/tanguofu/MTRpc/mio/mio_tcpclient.cpp -o CMakeFiles/mio.dir/mio_tcpclient.cpp.s
-
-mio/CMakeFiles/mio.dir/mio_tcpclient.cpp.o.requires:
-.PHONY : mio/CMakeFiles/mio.dir/mio_tcpclient.cpp.o.requires
-
-mio/CMakeFiles/mio.dir/mio_tcpclient.cpp.o.provides: mio/CMakeFiles/mio.dir/mio_tcpclient.cpp.o.requires
-	$(MAKE) -f mio/CMakeFiles/mio.dir/build.make mio/CMakeFiles/mio.dir/mio_tcpclient.cpp.o.provides.build
-.PHONY : mio/CMakeFiles/mio.dir/mio_tcpclient.cpp.o.provides
-
-mio/CMakeFiles/mio.dir/mio_tcpclient.cpp.o.provides.build: mio/CMakeFiles/mio.dir/mio_tcpclient.cpp.o
-
-mio/CMakeFiles/mio.dir/mio_connection.cpp.o: mio/CMakeFiles/mio.dir/flags.make
-mio/CMakeFiles/mio.dir/mio_connection.cpp.o: ../mio/mio_connection.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/tanguofu/MTRpc/build/CMakeFiles $(CMAKE_PROGRESS_3)
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object mio/CMakeFiles/mio.dir/mio_connection.cpp.o"
-	cd /home/tanguofu/MTRpc/build/mio && g++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/mio.dir/mio_connection.cpp.o -c /home/tanguofu/MTRpc/mio/mio_connection.cpp
-
-mio/CMakeFiles/mio.dir/mio_connection.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/mio.dir/mio_connection.cpp.i"
-	cd /home/tanguofu/MTRpc/build/mio && g++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/tanguofu/MTRpc/mio/mio_connection.cpp > CMakeFiles/mio.dir/mio_connection.cpp.i
-
-mio/CMakeFiles/mio.dir/mio_connection.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/mio.dir/mio_connection.cpp.s"
-	cd /home/tanguofu/MTRpc/build/mio && g++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/tanguofu/MTRpc/mio/mio_connection.cpp -o CMakeFiles/mio.dir/mio_connection.cpp.s
-
-mio/CMakeFiles/mio.dir/mio_connection.cpp.o.requires:
-.PHONY : mio/CMakeFiles/mio.dir/mio_connection.cpp.o.requires
-
-mio/CMakeFiles/mio.dir/mio_connection.cpp.o.provides: mio/CMakeFiles/mio.dir/mio_connection.cpp.o.requires
-	$(MAKE) -f mio/CMakeFiles/mio.dir/build.make mio/CMakeFiles/mio.dir/mio_connection.cpp.o.provides.build
-.PHONY : mio/CMakeFiles/mio.dir/mio_connection.cpp.o.provides
-
-mio/CMakeFiles/mio.dir/mio_connection.cpp.o.provides.build: mio/CMakeFiles/mio.dir/mio_connection.cpp.o
-
-mio/CMakeFiles/mio.dir/mio_tcpserver.cpp.o: mio/CMakeFiles/mio.dir/flags.make
-mio/CMakeFiles/mio.dir/mio_tcpserver.cpp.o: ../mio/mio_tcpserver.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/tanguofu/MTRpc/build/CMakeFiles $(CMAKE_PROGRESS_4)
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object mio/CMakeFiles/mio.dir/mio_tcpserver.cpp.o"
-	cd /home/tanguofu/MTRpc/build/mio && g++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/mio.dir/mio_tcpserver.cpp.o -c /home/tanguofu/MTRpc/mio/mio_tcpserver.cpp
-
-mio/CMakeFiles/mio.dir/mio_tcpserver.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/mio.dir/mio_tcpserver.cpp.i"
-	cd /home/tanguofu/MTRpc/build/mio && g++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/tanguofu/MTRpc/mio/mio_tcpserver.cpp > CMakeFiles/mio.dir/mio_tcpserver.cpp.i
-
-mio/CMakeFiles/mio.dir/mio_tcpserver.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/mio.dir/mio_tcpserver.cpp.s"
-	cd /home/tanguofu/MTRpc/build/mio && g++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/tanguofu/MTRpc/mio/mio_tcpserver.cpp -o CMakeFiles/mio.dir/mio_tcpserver.cpp.s
-
-mio/CMakeFiles/mio.dir/mio_tcpserver.cpp.o.requires:
-.PHONY : mio/CMakeFiles/mio.dir/mio_tcpserver.cpp.o.requires
-
-mio/CMakeFiles/mio.dir/mio_tcpserver.cpp.o.provides: mio/CMakeFiles/mio.dir/mio_tcpserver.cpp.o.requires
-	$(MAKE) -f mio/CMakeFiles/mio.dir/build.make mio/CMakeFiles/mio.dir/mio_tcpserver.cpp.o.provides.build
-.PHONY : mio/CMakeFiles/mio.dir/mio_tcpserver.cpp.o.provides
-
-mio/CMakeFiles/mio.dir/mio_tcpserver.cpp.o.provides.build: mio/CMakeFiles/mio.dir/mio_tcpserver.cpp.o
-
-mio/CMakeFiles/mio.dir/mio_event.cpp.o: mio/CMakeFiles/mio.dir/flags.make
-mio/CMakeFiles/mio.dir/mio_event.cpp.o: ../mio/mio_event.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/tanguofu/MTRpc/build/CMakeFiles $(CMAKE_PROGRESS_5)
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object mio/CMakeFiles/mio.dir/mio_event.cpp.o"
-	cd /home/tanguofu/MTRpc/build/mio && g++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/mio.dir/mio_event.cpp.o -c /home/tanguofu/MTRpc/mio/mio_event.cpp
-
-mio/CMakeFiles/mio.dir/mio_event.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/mio.dir/mio_event.cpp.i"
-	cd /home/tanguofu/MTRpc/build/mio && g++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/tanguofu/MTRpc/mio/mio_event.cpp > CMakeFiles/mio.dir/mio_event.cpp.i
-
-mio/CMakeFiles/mio.dir/mio_event.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/mio.dir/mio_event.cpp.s"
-	cd /home/tanguofu/MTRpc/build/mio && g++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/tanguofu/MTRpc/mio/mio_event.cpp -o CMakeFiles/mio.dir/mio_event.cpp.s
-
-mio/CMakeFiles/mio.dir/mio_event.cpp.o.requires:
-.PHONY : mio/CMakeFiles/mio.dir/mio_event.cpp.o.requires
-
-mio/CMakeFiles/mio.dir/mio_event.cpp.o.provides: mio/CMakeFiles/mio.dir/mio_event.cpp.o.requires
-	$(MAKE) -f mio/CMakeFiles/mio.dir/build.make mio/CMakeFiles/mio.dir/mio_event.cpp.o.provides.build
-.PHONY : mio/CMakeFiles/mio.dir/mio_event.cpp.o.provides
-
-mio/CMakeFiles/mio.dir/mio_event.cpp.o.provides.build: mio/CMakeFiles/mio.dir/mio_event.cpp.o
-
-mio/CMakeFiles/mio.dir/tcpsocket.cpp.o: mio/CMakeFiles/mio.dir/flags.make
-mio/CMakeFiles/mio.dir/tcpsocket.cpp.o: ../mio/tcpsocket.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/tanguofu/MTRpc/build/CMakeFiles $(CMAKE_PROGRESS_6)
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object mio/CMakeFiles/mio.dir/tcpsocket.cpp.o"
-	cd /home/tanguofu/MTRpc/build/mio && g++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/mio.dir/tcpsocket.cpp.o -c /home/tanguofu/MTRpc/mio/tcpsocket.cpp
-
-mio/CMakeFiles/mio.dir/tcpsocket.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/mio.dir/tcpsocket.cpp.i"
-	cd /home/tanguofu/MTRpc/build/mio && g++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/tanguofu/MTRpc/mio/tcpsocket.cpp > CMakeFiles/mio.dir/tcpsocket.cpp.i
-
-mio/CMakeFiles/mio.dir/tcpsocket.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/mio.dir/tcpsocket.cpp.s"
-	cd /home/tanguofu/MTRpc/build/mio && g++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/tanguofu/MTRpc/mio/tcpsocket.cpp -o CMakeFiles/mio.dir/tcpsocket.cpp.s
-
-mio/CMakeFiles/mio.dir/tcpsocket.cpp.o.requires:
-.PHONY : mio/CMakeFiles/mio.dir/tcpsocket.cpp.o.requires
-
-mio/CMakeFiles/mio.dir/tcpsocket.cpp.o.provides: mio/CMakeFiles/mio.dir/tcpsocket.cpp.o.requires
-	$(MAKE) -f mio/CMakeFiles/mio.dir/build.make mio/CMakeFiles/mio.dir/tcpsocket.cpp.o.provides.build
-.PHONY : mio/CMakeFiles/mio.dir/tcpsocket.cpp.o.provides
-
-mio/CMakeFiles/mio.dir/tcpsocket.cpp.o.provides.build: mio/CMakeFiles/mio.dir/tcpsocket.cpp.o
-
-mio/CMakeFiles/mio.dir/mio_timer.cpp.o: mio/CMakeFiles/mio.dir/flags.make
-mio/CMakeFiles/mio.dir/mio_timer.cpp.o: ../mio/mio_timer.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/tanguofu/MTRpc/build/CMakeFiles $(CMAKE_PROGRESS_7)
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object mio/CMakeFiles/mio.dir/mio_timer.cpp.o"
-	cd /home/tanguofu/MTRpc/build/mio && g++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/mio.dir/mio_timer.cpp.o -c /home/tanguofu/MTRpc/mio/mio_timer.cpp
-
-mio/CMakeFiles/mio.dir/mio_timer.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/mio.dir/mio_timer.cpp.i"
-	cd /home/tanguofu/MTRpc/build/mio && g++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/tanguofu/MTRpc/mio/mio_timer.cpp > CMakeFiles/mio.dir/mio_timer.cpp.i
-
-mio/CMakeFiles/mio.dir/mio_timer.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/mio.dir/mio_timer.cpp.s"
-	cd /home/tanguofu/MTRpc/build/mio && g++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/tanguofu/MTRpc/mio/mio_timer.cpp -o CMakeFiles/mio.dir/mio_timer.cpp.s
-
-mio/CMakeFiles/mio.dir/mio_timer.cpp.o.requires:
-.PHONY : mio/CMakeFiles/mio.dir/mio_timer.cpp.o.requires
-
-mio/CMakeFiles/mio.dir/mio_timer.cpp.o.provides: mio/CMakeFiles/mio.dir/mio_timer.cpp.o.requires
-	$(MAKE) -f mio/CMakeFiles/mio.dir/build.make mio/CMakeFiles/mio.dir/mio_timer.cpp.o.provides.build
-.PHONY : mio/CMakeFiles/mio.dir/mio_timer.cpp.o.provides
-
-mio/CMakeFiles/mio.dir/mio_timer.cpp.o.provides.build: mio/CMakeFiles/mio.dir/mio_timer.cpp.o
-
-mio/CMakeFiles/mio.dir/mio_notify.cpp.o: mio/CMakeFiles/mio.dir/flags.make
-mio/CMakeFiles/mio.dir/mio_notify.cpp.o: ../mio/mio_notify.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/tanguofu/MTRpc/build/CMakeFiles $(CMAKE_PROGRESS_8)
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object mio/CMakeFiles/mio.dir/mio_notify.cpp.o"
-	cd /home/tanguofu/MTRpc/build/mio && g++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/mio.dir/mio_notify.cpp.o -c /home/tanguofu/MTRpc/mio/mio_notify.cpp
-
-mio/CMakeFiles/mio.dir/mio_notify.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/mio.dir/mio_notify.cpp.i"
-	cd /home/tanguofu/MTRpc/build/mio && g++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/tanguofu/MTRpc/mio/mio_notify.cpp > CMakeFiles/mio.dir/mio_notify.cpp.i
-
-mio/CMakeFiles/mio.dir/mio_notify.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/mio.dir/mio_notify.cpp.s"
-	cd /home/tanguofu/MTRpc/build/mio && g++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/tanguofu/MTRpc/mio/mio_notify.cpp -o CMakeFiles/mio.dir/mio_notify.cpp.s
-
-mio/CMakeFiles/mio.dir/mio_notify.cpp.o.requires:
-.PHONY : mio/CMakeFiles/mio.dir/mio_notify.cpp.o.requires
-
-mio/CMakeFiles/mio.dir/mio_notify.cpp.o.provides: mio/CMakeFiles/mio.dir/mio_notify.cpp.o.requires
-	$(MAKE) -f mio/CMakeFiles/mio.dir/build.make mio/CMakeFiles/mio.dir/mio_notify.cpp.o.provides.build
-.PHONY : mio/CMakeFiles/mio.dir/mio_notify.cpp.o.provides
-
-mio/CMakeFiles/mio.dir/mio_notify.cpp.o.provides.build: mio/CMakeFiles/mio.dir/mio_notify.cpp.o
-
-mio/CMakeFiles/mio.dir/mio_buffer.cpp.o: mio/CMakeFiles/mio.dir/flags.make
-mio/CMakeFiles/mio.dir/mio_buffer.cpp.o: ../mio/mio_buffer.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/tanguofu/MTRpc/build/CMakeFiles $(CMAKE_PROGRESS_9)
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object mio/CMakeFiles/mio.dir/mio_buffer.cpp.o"
-	cd /home/tanguofu/MTRpc/build/mio && g++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/mio.dir/mio_buffer.cpp.o -c /home/tanguofu/MTRpc/mio/mio_buffer.cpp
-
-mio/CMakeFiles/mio.dir/mio_buffer.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/mio.dir/mio_buffer.cpp.i"
-	cd /home/tanguofu/MTRpc/build/mio && g++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/tanguofu/MTRpc/mio/mio_buffer.cpp > CMakeFiles/mio.dir/mio_buffer.cpp.i
-
-mio/CMakeFiles/mio.dir/mio_buffer.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/mio.dir/mio_buffer.cpp.s"
-	cd /home/tanguofu/MTRpc/build/mio && g++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/tanguofu/MTRpc/mio/mio_buffer.cpp -o CMakeFiles/mio.dir/mio_buffer.cpp.s
-
-mio/CMakeFiles/mio.dir/mio_buffer.cpp.o.requires:
-.PHONY : mio/CMakeFiles/mio.dir/mio_buffer.cpp.o.requires
-
-mio/CMakeFiles/mio.dir/mio_buffer.cpp.o.provides: mio/CMakeFiles/mio.dir/mio_buffer.cpp.o.requires
-	$(MAKE) -f mio/CMakeFiles/mio.dir/build.make mio/CMakeFiles/mio.dir/mio_buffer.cpp.o.provides.build
-.PHONY : mio/CMakeFiles/mio.dir/mio_buffer.cpp.o.provides
-
-mio/CMakeFiles/mio.dir/mio_buffer.cpp.o.provides.build: mio/CMakeFiles/mio.dir/mio_buffer.cpp.o
-
 mio/CMakeFiles/mio.dir/mio_acceptor.cpp.o: mio/CMakeFiles/mio.dir/flags.make
 mio/CMakeFiles/mio.dir/mio_acceptor.cpp.o: ../mio/mio_acceptor.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/tanguofu/MTRpc/build/CMakeFiles $(CMAKE_PROGRESS_10)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/guofutan/workspace/MTRpc/build/CMakeFiles $(CMAKE_PROGRESS_1)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object mio/CMakeFiles/mio.dir/mio_acceptor.cpp.o"
-	cd /home/tanguofu/MTRpc/build/mio && g++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/mio.dir/mio_acceptor.cpp.o -c /home/tanguofu/MTRpc/mio/mio_acceptor.cpp
+	cd /home/guofutan/workspace/MTRpc/build/mio && g++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/mio.dir/mio_acceptor.cpp.o -c /home/guofutan/workspace/MTRpc/mio/mio_acceptor.cpp
 
 mio/CMakeFiles/mio.dir/mio_acceptor.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/mio.dir/mio_acceptor.cpp.i"
-	cd /home/tanguofu/MTRpc/build/mio && g++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/tanguofu/MTRpc/mio/mio_acceptor.cpp > CMakeFiles/mio.dir/mio_acceptor.cpp.i
+	cd /home/guofutan/workspace/MTRpc/build/mio && g++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/guofutan/workspace/MTRpc/mio/mio_acceptor.cpp > CMakeFiles/mio.dir/mio_acceptor.cpp.i
 
 mio/CMakeFiles/mio.dir/mio_acceptor.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/mio.dir/mio_acceptor.cpp.s"
-	cd /home/tanguofu/MTRpc/build/mio && g++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/tanguofu/MTRpc/mio/mio_acceptor.cpp -o CMakeFiles/mio.dir/mio_acceptor.cpp.s
+	cd /home/guofutan/workspace/MTRpc/build/mio && g++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/guofutan/workspace/MTRpc/mio/mio_acceptor.cpp -o CMakeFiles/mio.dir/mio_acceptor.cpp.s
 
 mio/CMakeFiles/mio.dir/mio_acceptor.cpp.o.requires:
 .PHONY : mio/CMakeFiles/mio.dir/mio_acceptor.cpp.o.requires
@@ -279,59 +72,266 @@ mio/CMakeFiles/mio.dir/mio_acceptor.cpp.o.provides: mio/CMakeFiles/mio.dir/mio_a
 
 mio/CMakeFiles/mio.dir/mio_acceptor.cpp.o.provides.build: mio/CMakeFiles/mio.dir/mio_acceptor.cpp.o
 
+mio/CMakeFiles/mio.dir/tcpsocket.cpp.o: mio/CMakeFiles/mio.dir/flags.make
+mio/CMakeFiles/mio.dir/tcpsocket.cpp.o: ../mio/tcpsocket.cpp
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/guofutan/workspace/MTRpc/build/CMakeFiles $(CMAKE_PROGRESS_2)
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object mio/CMakeFiles/mio.dir/tcpsocket.cpp.o"
+	cd /home/guofutan/workspace/MTRpc/build/mio && g++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/mio.dir/tcpsocket.cpp.o -c /home/guofutan/workspace/MTRpc/mio/tcpsocket.cpp
+
+mio/CMakeFiles/mio.dir/tcpsocket.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/mio.dir/tcpsocket.cpp.i"
+	cd /home/guofutan/workspace/MTRpc/build/mio && g++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/guofutan/workspace/MTRpc/mio/tcpsocket.cpp > CMakeFiles/mio.dir/tcpsocket.cpp.i
+
+mio/CMakeFiles/mio.dir/tcpsocket.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/mio.dir/tcpsocket.cpp.s"
+	cd /home/guofutan/workspace/MTRpc/build/mio && g++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/guofutan/workspace/MTRpc/mio/tcpsocket.cpp -o CMakeFiles/mio.dir/tcpsocket.cpp.s
+
+mio/CMakeFiles/mio.dir/tcpsocket.cpp.o.requires:
+.PHONY : mio/CMakeFiles/mio.dir/tcpsocket.cpp.o.requires
+
+mio/CMakeFiles/mio.dir/tcpsocket.cpp.o.provides: mio/CMakeFiles/mio.dir/tcpsocket.cpp.o.requires
+	$(MAKE) -f mio/CMakeFiles/mio.dir/build.make mio/CMakeFiles/mio.dir/tcpsocket.cpp.o.provides.build
+.PHONY : mio/CMakeFiles/mio.dir/tcpsocket.cpp.o.provides
+
+mio/CMakeFiles/mio.dir/tcpsocket.cpp.o.provides.build: mio/CMakeFiles/mio.dir/tcpsocket.cpp.o
+
+mio/CMakeFiles/mio.dir/mio_tcpserver.cpp.o: mio/CMakeFiles/mio.dir/flags.make
+mio/CMakeFiles/mio.dir/mio_tcpserver.cpp.o: ../mio/mio_tcpserver.cpp
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/guofutan/workspace/MTRpc/build/CMakeFiles $(CMAKE_PROGRESS_3)
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object mio/CMakeFiles/mio.dir/mio_tcpserver.cpp.o"
+	cd /home/guofutan/workspace/MTRpc/build/mio && g++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/mio.dir/mio_tcpserver.cpp.o -c /home/guofutan/workspace/MTRpc/mio/mio_tcpserver.cpp
+
+mio/CMakeFiles/mio.dir/mio_tcpserver.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/mio.dir/mio_tcpserver.cpp.i"
+	cd /home/guofutan/workspace/MTRpc/build/mio && g++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/guofutan/workspace/MTRpc/mio/mio_tcpserver.cpp > CMakeFiles/mio.dir/mio_tcpserver.cpp.i
+
+mio/CMakeFiles/mio.dir/mio_tcpserver.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/mio.dir/mio_tcpserver.cpp.s"
+	cd /home/guofutan/workspace/MTRpc/build/mio && g++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/guofutan/workspace/MTRpc/mio/mio_tcpserver.cpp -o CMakeFiles/mio.dir/mio_tcpserver.cpp.s
+
+mio/CMakeFiles/mio.dir/mio_tcpserver.cpp.o.requires:
+.PHONY : mio/CMakeFiles/mio.dir/mio_tcpserver.cpp.o.requires
+
+mio/CMakeFiles/mio.dir/mio_tcpserver.cpp.o.provides: mio/CMakeFiles/mio.dir/mio_tcpserver.cpp.o.requires
+	$(MAKE) -f mio/CMakeFiles/mio.dir/build.make mio/CMakeFiles/mio.dir/mio_tcpserver.cpp.o.provides.build
+.PHONY : mio/CMakeFiles/mio.dir/mio_tcpserver.cpp.o.provides
+
+mio/CMakeFiles/mio.dir/mio_tcpserver.cpp.o.provides.build: mio/CMakeFiles/mio.dir/mio_tcpserver.cpp.o
+
+mio/CMakeFiles/mio.dir/mio_timer.cpp.o: mio/CMakeFiles/mio.dir/flags.make
+mio/CMakeFiles/mio.dir/mio_timer.cpp.o: ../mio/mio_timer.cpp
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/guofutan/workspace/MTRpc/build/CMakeFiles $(CMAKE_PROGRESS_4)
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object mio/CMakeFiles/mio.dir/mio_timer.cpp.o"
+	cd /home/guofutan/workspace/MTRpc/build/mio && g++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/mio.dir/mio_timer.cpp.o -c /home/guofutan/workspace/MTRpc/mio/mio_timer.cpp
+
+mio/CMakeFiles/mio.dir/mio_timer.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/mio.dir/mio_timer.cpp.i"
+	cd /home/guofutan/workspace/MTRpc/build/mio && g++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/guofutan/workspace/MTRpc/mio/mio_timer.cpp > CMakeFiles/mio.dir/mio_timer.cpp.i
+
+mio/CMakeFiles/mio.dir/mio_timer.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/mio.dir/mio_timer.cpp.s"
+	cd /home/guofutan/workspace/MTRpc/build/mio && g++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/guofutan/workspace/MTRpc/mio/mio_timer.cpp -o CMakeFiles/mio.dir/mio_timer.cpp.s
+
+mio/CMakeFiles/mio.dir/mio_timer.cpp.o.requires:
+.PHONY : mio/CMakeFiles/mio.dir/mio_timer.cpp.o.requires
+
+mio/CMakeFiles/mio.dir/mio_timer.cpp.o.provides: mio/CMakeFiles/mio.dir/mio_timer.cpp.o.requires
+	$(MAKE) -f mio/CMakeFiles/mio.dir/build.make mio/CMakeFiles/mio.dir/mio_timer.cpp.o.provides.build
+.PHONY : mio/CMakeFiles/mio.dir/mio_timer.cpp.o.provides
+
+mio/CMakeFiles/mio.dir/mio_timer.cpp.o.provides.build: mio/CMakeFiles/mio.dir/mio_timer.cpp.o
+
+mio/CMakeFiles/mio.dir/mio_event.cpp.o: mio/CMakeFiles/mio.dir/flags.make
+mio/CMakeFiles/mio.dir/mio_event.cpp.o: ../mio/mio_event.cpp
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/guofutan/workspace/MTRpc/build/CMakeFiles $(CMAKE_PROGRESS_5)
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object mio/CMakeFiles/mio.dir/mio_event.cpp.o"
+	cd /home/guofutan/workspace/MTRpc/build/mio && g++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/mio.dir/mio_event.cpp.o -c /home/guofutan/workspace/MTRpc/mio/mio_event.cpp
+
+mio/CMakeFiles/mio.dir/mio_event.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/mio.dir/mio_event.cpp.i"
+	cd /home/guofutan/workspace/MTRpc/build/mio && g++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/guofutan/workspace/MTRpc/mio/mio_event.cpp > CMakeFiles/mio.dir/mio_event.cpp.i
+
+mio/CMakeFiles/mio.dir/mio_event.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/mio.dir/mio_event.cpp.s"
+	cd /home/guofutan/workspace/MTRpc/build/mio && g++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/guofutan/workspace/MTRpc/mio/mio_event.cpp -o CMakeFiles/mio.dir/mio_event.cpp.s
+
+mio/CMakeFiles/mio.dir/mio_event.cpp.o.requires:
+.PHONY : mio/CMakeFiles/mio.dir/mio_event.cpp.o.requires
+
+mio/CMakeFiles/mio.dir/mio_event.cpp.o.provides: mio/CMakeFiles/mio.dir/mio_event.cpp.o.requires
+	$(MAKE) -f mio/CMakeFiles/mio.dir/build.make mio/CMakeFiles/mio.dir/mio_event.cpp.o.provides.build
+.PHONY : mio/CMakeFiles/mio.dir/mio_event.cpp.o.provides
+
+mio/CMakeFiles/mio.dir/mio_event.cpp.o.provides.build: mio/CMakeFiles/mio.dir/mio_event.cpp.o
+
+mio/CMakeFiles/mio.dir/mio_buffer.cpp.o: mio/CMakeFiles/mio.dir/flags.make
+mio/CMakeFiles/mio.dir/mio_buffer.cpp.o: ../mio/mio_buffer.cpp
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/guofutan/workspace/MTRpc/build/CMakeFiles $(CMAKE_PROGRESS_6)
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object mio/CMakeFiles/mio.dir/mio_buffer.cpp.o"
+	cd /home/guofutan/workspace/MTRpc/build/mio && g++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/mio.dir/mio_buffer.cpp.o -c /home/guofutan/workspace/MTRpc/mio/mio_buffer.cpp
+
+mio/CMakeFiles/mio.dir/mio_buffer.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/mio.dir/mio_buffer.cpp.i"
+	cd /home/guofutan/workspace/MTRpc/build/mio && g++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/guofutan/workspace/MTRpc/mio/mio_buffer.cpp > CMakeFiles/mio.dir/mio_buffer.cpp.i
+
+mio/CMakeFiles/mio.dir/mio_buffer.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/mio.dir/mio_buffer.cpp.s"
+	cd /home/guofutan/workspace/MTRpc/build/mio && g++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/guofutan/workspace/MTRpc/mio/mio_buffer.cpp -o CMakeFiles/mio.dir/mio_buffer.cpp.s
+
+mio/CMakeFiles/mio.dir/mio_buffer.cpp.o.requires:
+.PHONY : mio/CMakeFiles/mio.dir/mio_buffer.cpp.o.requires
+
+mio/CMakeFiles/mio.dir/mio_buffer.cpp.o.provides: mio/CMakeFiles/mio.dir/mio_buffer.cpp.o.requires
+	$(MAKE) -f mio/CMakeFiles/mio.dir/build.make mio/CMakeFiles/mio.dir/mio_buffer.cpp.o.provides.build
+.PHONY : mio/CMakeFiles/mio.dir/mio_buffer.cpp.o.provides
+
+mio/CMakeFiles/mio.dir/mio_buffer.cpp.o.provides.build: mio/CMakeFiles/mio.dir/mio_buffer.cpp.o
+
+mio/CMakeFiles/mio.dir/mio_poller.cpp.o: mio/CMakeFiles/mio.dir/flags.make
+mio/CMakeFiles/mio.dir/mio_poller.cpp.o: ../mio/mio_poller.cpp
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/guofutan/workspace/MTRpc/build/CMakeFiles $(CMAKE_PROGRESS_7)
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object mio/CMakeFiles/mio.dir/mio_poller.cpp.o"
+	cd /home/guofutan/workspace/MTRpc/build/mio && g++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/mio.dir/mio_poller.cpp.o -c /home/guofutan/workspace/MTRpc/mio/mio_poller.cpp
+
+mio/CMakeFiles/mio.dir/mio_poller.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/mio.dir/mio_poller.cpp.i"
+	cd /home/guofutan/workspace/MTRpc/build/mio && g++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/guofutan/workspace/MTRpc/mio/mio_poller.cpp > CMakeFiles/mio.dir/mio_poller.cpp.i
+
+mio/CMakeFiles/mio.dir/mio_poller.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/mio.dir/mio_poller.cpp.s"
+	cd /home/guofutan/workspace/MTRpc/build/mio && g++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/guofutan/workspace/MTRpc/mio/mio_poller.cpp -o CMakeFiles/mio.dir/mio_poller.cpp.s
+
+mio/CMakeFiles/mio.dir/mio_poller.cpp.o.requires:
+.PHONY : mio/CMakeFiles/mio.dir/mio_poller.cpp.o.requires
+
+mio/CMakeFiles/mio.dir/mio_poller.cpp.o.provides: mio/CMakeFiles/mio.dir/mio_poller.cpp.o.requires
+	$(MAKE) -f mio/CMakeFiles/mio.dir/build.make mio/CMakeFiles/mio.dir/mio_poller.cpp.o.provides.build
+.PHONY : mio/CMakeFiles/mio.dir/mio_poller.cpp.o.provides
+
+mio/CMakeFiles/mio.dir/mio_poller.cpp.o.provides.build: mio/CMakeFiles/mio.dir/mio_poller.cpp.o
+
+mio/CMakeFiles/mio.dir/mio_connection.cpp.o: mio/CMakeFiles/mio.dir/flags.make
+mio/CMakeFiles/mio.dir/mio_connection.cpp.o: ../mio/mio_connection.cpp
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/guofutan/workspace/MTRpc/build/CMakeFiles $(CMAKE_PROGRESS_8)
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object mio/CMakeFiles/mio.dir/mio_connection.cpp.o"
+	cd /home/guofutan/workspace/MTRpc/build/mio && g++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/mio.dir/mio_connection.cpp.o -c /home/guofutan/workspace/MTRpc/mio/mio_connection.cpp
+
+mio/CMakeFiles/mio.dir/mio_connection.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/mio.dir/mio_connection.cpp.i"
+	cd /home/guofutan/workspace/MTRpc/build/mio && g++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/guofutan/workspace/MTRpc/mio/mio_connection.cpp > CMakeFiles/mio.dir/mio_connection.cpp.i
+
+mio/CMakeFiles/mio.dir/mio_connection.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/mio.dir/mio_connection.cpp.s"
+	cd /home/guofutan/workspace/MTRpc/build/mio && g++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/guofutan/workspace/MTRpc/mio/mio_connection.cpp -o CMakeFiles/mio.dir/mio_connection.cpp.s
+
+mio/CMakeFiles/mio.dir/mio_connection.cpp.o.requires:
+.PHONY : mio/CMakeFiles/mio.dir/mio_connection.cpp.o.requires
+
+mio/CMakeFiles/mio.dir/mio_connection.cpp.o.provides: mio/CMakeFiles/mio.dir/mio_connection.cpp.o.requires
+	$(MAKE) -f mio/CMakeFiles/mio.dir/build.make mio/CMakeFiles/mio.dir/mio_connection.cpp.o.provides.build
+.PHONY : mio/CMakeFiles/mio.dir/mio_connection.cpp.o.provides
+
+mio/CMakeFiles/mio.dir/mio_connection.cpp.o.provides.build: mio/CMakeFiles/mio.dir/mio_connection.cpp.o
+
+mio/CMakeFiles/mio.dir/mio_notify.cpp.o: mio/CMakeFiles/mio.dir/flags.make
+mio/CMakeFiles/mio.dir/mio_notify.cpp.o: ../mio/mio_notify.cpp
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/guofutan/workspace/MTRpc/build/CMakeFiles $(CMAKE_PROGRESS_9)
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object mio/CMakeFiles/mio.dir/mio_notify.cpp.o"
+	cd /home/guofutan/workspace/MTRpc/build/mio && g++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/mio.dir/mio_notify.cpp.o -c /home/guofutan/workspace/MTRpc/mio/mio_notify.cpp
+
+mio/CMakeFiles/mio.dir/mio_notify.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/mio.dir/mio_notify.cpp.i"
+	cd /home/guofutan/workspace/MTRpc/build/mio && g++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/guofutan/workspace/MTRpc/mio/mio_notify.cpp > CMakeFiles/mio.dir/mio_notify.cpp.i
+
+mio/CMakeFiles/mio.dir/mio_notify.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/mio.dir/mio_notify.cpp.s"
+	cd /home/guofutan/workspace/MTRpc/build/mio && g++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/guofutan/workspace/MTRpc/mio/mio_notify.cpp -o CMakeFiles/mio.dir/mio_notify.cpp.s
+
+mio/CMakeFiles/mio.dir/mio_notify.cpp.o.requires:
+.PHONY : mio/CMakeFiles/mio.dir/mio_notify.cpp.o.requires
+
+mio/CMakeFiles/mio.dir/mio_notify.cpp.o.provides: mio/CMakeFiles/mio.dir/mio_notify.cpp.o.requires
+	$(MAKE) -f mio/CMakeFiles/mio.dir/build.make mio/CMakeFiles/mio.dir/mio_notify.cpp.o.provides.build
+.PHONY : mio/CMakeFiles/mio.dir/mio_notify.cpp.o.provides
+
+mio/CMakeFiles/mio.dir/mio_notify.cpp.o.provides.build: mio/CMakeFiles/mio.dir/mio_notify.cpp.o
+
+mio/CMakeFiles/mio.dir/mio_tcpclient.cpp.o: mio/CMakeFiles/mio.dir/flags.make
+mio/CMakeFiles/mio.dir/mio_tcpclient.cpp.o: ../mio/mio_tcpclient.cpp
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/guofutan/workspace/MTRpc/build/CMakeFiles $(CMAKE_PROGRESS_10)
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object mio/CMakeFiles/mio.dir/mio_tcpclient.cpp.o"
+	cd /home/guofutan/workspace/MTRpc/build/mio && g++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/mio.dir/mio_tcpclient.cpp.o -c /home/guofutan/workspace/MTRpc/mio/mio_tcpclient.cpp
+
+mio/CMakeFiles/mio.dir/mio_tcpclient.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/mio.dir/mio_tcpclient.cpp.i"
+	cd /home/guofutan/workspace/MTRpc/build/mio && g++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/guofutan/workspace/MTRpc/mio/mio_tcpclient.cpp > CMakeFiles/mio.dir/mio_tcpclient.cpp.i
+
+mio/CMakeFiles/mio.dir/mio_tcpclient.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/mio.dir/mio_tcpclient.cpp.s"
+	cd /home/guofutan/workspace/MTRpc/build/mio && g++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/guofutan/workspace/MTRpc/mio/mio_tcpclient.cpp -o CMakeFiles/mio.dir/mio_tcpclient.cpp.s
+
+mio/CMakeFiles/mio.dir/mio_tcpclient.cpp.o.requires:
+.PHONY : mio/CMakeFiles/mio.dir/mio_tcpclient.cpp.o.requires
+
+mio/CMakeFiles/mio.dir/mio_tcpclient.cpp.o.provides: mio/CMakeFiles/mio.dir/mio_tcpclient.cpp.o.requires
+	$(MAKE) -f mio/CMakeFiles/mio.dir/build.make mio/CMakeFiles/mio.dir/mio_tcpclient.cpp.o.provides.build
+.PHONY : mio/CMakeFiles/mio.dir/mio_tcpclient.cpp.o.provides
+
+mio/CMakeFiles/mio.dir/mio_tcpclient.cpp.o.provides.build: mio/CMakeFiles/mio.dir/mio_tcpclient.cpp.o
+
 # Object files for target mio
 mio_OBJECTS = \
-"CMakeFiles/mio.dir/mio_poller.cpp.o" \
-"CMakeFiles/mio.dir/mio_tcpclient.cpp.o" \
-"CMakeFiles/mio.dir/mio_connection.cpp.o" \
-"CMakeFiles/mio.dir/mio_tcpserver.cpp.o" \
-"CMakeFiles/mio.dir/mio_event.cpp.o" \
+"CMakeFiles/mio.dir/mio_acceptor.cpp.o" \
 "CMakeFiles/mio.dir/tcpsocket.cpp.o" \
+"CMakeFiles/mio.dir/mio_tcpserver.cpp.o" \
 "CMakeFiles/mio.dir/mio_timer.cpp.o" \
-"CMakeFiles/mio.dir/mio_notify.cpp.o" \
+"CMakeFiles/mio.dir/mio_event.cpp.o" \
 "CMakeFiles/mio.dir/mio_buffer.cpp.o" \
-"CMakeFiles/mio.dir/mio_acceptor.cpp.o"
+"CMakeFiles/mio.dir/mio_poller.cpp.o" \
+"CMakeFiles/mio.dir/mio_connection.cpp.o" \
+"CMakeFiles/mio.dir/mio_notify.cpp.o" \
+"CMakeFiles/mio.dir/mio_tcpclient.cpp.o"
 
 # External object files for target mio
 mio_EXTERNAL_OBJECTS =
 
-mio/libmio.a: mio/CMakeFiles/mio.dir/mio_poller.cpp.o
-mio/libmio.a: mio/CMakeFiles/mio.dir/mio_tcpclient.cpp.o
-mio/libmio.a: mio/CMakeFiles/mio.dir/mio_connection.cpp.o
-mio/libmio.a: mio/CMakeFiles/mio.dir/mio_tcpserver.cpp.o
-mio/libmio.a: mio/CMakeFiles/mio.dir/mio_event.cpp.o
-mio/libmio.a: mio/CMakeFiles/mio.dir/tcpsocket.cpp.o
-mio/libmio.a: mio/CMakeFiles/mio.dir/mio_timer.cpp.o
-mio/libmio.a: mio/CMakeFiles/mio.dir/mio_notify.cpp.o
-mio/libmio.a: mio/CMakeFiles/mio.dir/mio_buffer.cpp.o
 mio/libmio.a: mio/CMakeFiles/mio.dir/mio_acceptor.cpp.o
+mio/libmio.a: mio/CMakeFiles/mio.dir/tcpsocket.cpp.o
+mio/libmio.a: mio/CMakeFiles/mio.dir/mio_tcpserver.cpp.o
+mio/libmio.a: mio/CMakeFiles/mio.dir/mio_timer.cpp.o
+mio/libmio.a: mio/CMakeFiles/mio.dir/mio_event.cpp.o
+mio/libmio.a: mio/CMakeFiles/mio.dir/mio_buffer.cpp.o
+mio/libmio.a: mio/CMakeFiles/mio.dir/mio_poller.cpp.o
+mio/libmio.a: mio/CMakeFiles/mio.dir/mio_connection.cpp.o
+mio/libmio.a: mio/CMakeFiles/mio.dir/mio_notify.cpp.o
+mio/libmio.a: mio/CMakeFiles/mio.dir/mio_tcpclient.cpp.o
 mio/libmio.a: mio/CMakeFiles/mio.dir/build.make
 mio/libmio.a: mio/CMakeFiles/mio.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --red --bold "Linking CXX static library libmio.a"
-	cd /home/tanguofu/MTRpc/build/mio && $(CMAKE_COMMAND) -P CMakeFiles/mio.dir/cmake_clean_target.cmake
-	cd /home/tanguofu/MTRpc/build/mio && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/mio.dir/link.txt --verbose=$(VERBOSE)
+	cd /home/guofutan/workspace/MTRpc/build/mio && $(CMAKE_COMMAND) -P CMakeFiles/mio.dir/cmake_clean_target.cmake
+	cd /home/guofutan/workspace/MTRpc/build/mio && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/mio.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
 mio/CMakeFiles/mio.dir/build: mio/libmio.a
 .PHONY : mio/CMakeFiles/mio.dir/build
 
-mio/CMakeFiles/mio.dir/requires: mio/CMakeFiles/mio.dir/mio_poller.cpp.o.requires
-mio/CMakeFiles/mio.dir/requires: mio/CMakeFiles/mio.dir/mio_tcpclient.cpp.o.requires
-mio/CMakeFiles/mio.dir/requires: mio/CMakeFiles/mio.dir/mio_connection.cpp.o.requires
-mio/CMakeFiles/mio.dir/requires: mio/CMakeFiles/mio.dir/mio_tcpserver.cpp.o.requires
-mio/CMakeFiles/mio.dir/requires: mio/CMakeFiles/mio.dir/mio_event.cpp.o.requires
-mio/CMakeFiles/mio.dir/requires: mio/CMakeFiles/mio.dir/tcpsocket.cpp.o.requires
-mio/CMakeFiles/mio.dir/requires: mio/CMakeFiles/mio.dir/mio_timer.cpp.o.requires
-mio/CMakeFiles/mio.dir/requires: mio/CMakeFiles/mio.dir/mio_notify.cpp.o.requires
-mio/CMakeFiles/mio.dir/requires: mio/CMakeFiles/mio.dir/mio_buffer.cpp.o.requires
 mio/CMakeFiles/mio.dir/requires: mio/CMakeFiles/mio.dir/mio_acceptor.cpp.o.requires
+mio/CMakeFiles/mio.dir/requires: mio/CMakeFiles/mio.dir/tcpsocket.cpp.o.requires
+mio/CMakeFiles/mio.dir/requires: mio/CMakeFiles/mio.dir/mio_tcpserver.cpp.o.requires
+mio/CMakeFiles/mio.dir/requires: mio/CMakeFiles/mio.dir/mio_timer.cpp.o.requires
+mio/CMakeFiles/mio.dir/requires: mio/CMakeFiles/mio.dir/mio_event.cpp.o.requires
+mio/CMakeFiles/mio.dir/requires: mio/CMakeFiles/mio.dir/mio_buffer.cpp.o.requires
+mio/CMakeFiles/mio.dir/requires: mio/CMakeFiles/mio.dir/mio_poller.cpp.o.requires
+mio/CMakeFiles/mio.dir/requires: mio/CMakeFiles/mio.dir/mio_connection.cpp.o.requires
+mio/CMakeFiles/mio.dir/requires: mio/CMakeFiles/mio.dir/mio_notify.cpp.o.requires
+mio/CMakeFiles/mio.dir/requires: mio/CMakeFiles/mio.dir/mio_tcpclient.cpp.o.requires
 .PHONY : mio/CMakeFiles/mio.dir/requires
 
 mio/CMakeFiles/mio.dir/clean:
-	cd /home/tanguofu/MTRpc/build/mio && $(CMAKE_COMMAND) -P CMakeFiles/mio.dir/cmake_clean.cmake
+	cd /home/guofutan/workspace/MTRpc/build/mio && $(CMAKE_COMMAND) -P CMakeFiles/mio.dir/cmake_clean.cmake
 .PHONY : mio/CMakeFiles/mio.dir/clean
 
 mio/CMakeFiles/mio.dir/depend:
-	cd /home/tanguofu/MTRpc/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/tanguofu/MTRpc /home/tanguofu/MTRpc/mio /home/tanguofu/MTRpc/build /home/tanguofu/MTRpc/build/mio /home/tanguofu/MTRpc/build/mio/CMakeFiles/mio.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/guofutan/workspace/MTRpc/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/guofutan/workspace/MTRpc /home/guofutan/workspace/MTRpc/mio /home/guofutan/workspace/MTRpc/build /home/guofutan/workspace/MTRpc/build/mio /home/guofutan/workspace/MTRpc/build/mio/CMakeFiles/mio.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : mio/CMakeFiles/mio.dir/depend
 

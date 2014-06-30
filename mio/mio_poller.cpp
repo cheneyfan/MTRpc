@@ -4,7 +4,7 @@
 #include "log/log.h"
 #include "common/rwlock.h"
 
-namespace  MTRpc {
+namespace mtrpc {
 
 
 ngx_rbtree_node_t Epoller::sentinel;
@@ -51,7 +51,8 @@ void Epoller::Poll()
     isruning = true;
 
     do{
-
+        // Pending Task may delete event or add timer
+        ProcessPendingTask();
 
         //process Timeout
         int waittime = ProcessTimeOut();
@@ -69,16 +70,20 @@ void Epoller::Poll()
             continue;
         }
 
+        char event_name[64]={0};
+
         //dispatch event
         for(int i= 0; i< nfds; ++i)
         {
             uint32_t revents = ev_arr[i].events;
             IOEvent* ev = (IOEvent*)ev_arr[i].data.ptr;
 
-            IOEvent::updateName(ev->_fd, &(ev_arr[i]), ev->name);
-            TRACE_FMG("poll:%u,event:%s",epollfd,ev->name);
-            uint32_t mask = EventToMask(revents);
+            if( ev == &notify)
+                continue;
 
+            IOEvent::updateName(ev->_fd, &(ev_arr[i]), event_name);
+            TRACE_FMG("poll:%u,event:%s",epollfd,event_name);
+            uint32_t mask = EventToMask(revents);
             ev->onEvent(this, mask);
         }
 
@@ -99,8 +104,7 @@ int  Epoller::ProcessTimeOut(){
 
     while(wleft->key > 0 && wleft->key < nowsec)
     {
-        IOEvent* ioev =
-                container_of(wleft,IOEvent,wtimernode);
+        IOEvent* ioev = wleft->data;
 
         ioev->onEvent(this, WRITE_TIME_OUT);
 
@@ -120,8 +124,8 @@ int  Epoller::ProcessTimeOut(){
     while(rleft->key > 0 && rleft->key < nowsec)
     {
 
-        IOEvent* ioev =
-                container_of(rleft,IOEvent,rtimernode);
+        IOEvent* ioev = rleft->data;
+
         ioev->onEvent(this, READ_TIME_OUT);
 
         ngx_rbtree_delete(&rtimerroot, rleft);
@@ -160,12 +164,12 @@ int Epoller::DelEvent(IOEvent* ev){
 
     int ret = epoll_ctl(epollfd, EPOLL_CTL_DEL, ev->_fd, &(ev->ev));
 
-    if(ev->wtimernode.key > 0)
+    if(ev->wtimernode.parent)
     {
         ngx_rbtree_delete(&wtimerroot, &ev->wtimernode);
     }
 
-    if(ev->rtimernode.key > 0)
+    if(ev->rtimernode.parent)
     {
        ngx_rbtree_delete(&rtimerroot, &ev->rtimernode);
     }
@@ -177,43 +181,46 @@ int Epoller::DelEvent(IOEvent* ev){
               ev->wtimernode.key,
               ret);
 
+    ev->ReleaseRef();
     return ret;
 }
 
-int Epoller::setTimeOut(IOEvent* ev, uint32_t rsec, uint32_t wsec){
-    // add to list
-    // nofiy
+int Epoller::SetReadTimeOut(IOEvent* ev){
 
-    if(rsec){
-        ev->rtimernode.key = time(NULL) + rsec;
+    // if exists delete
+    if(ev->rtimernode.parent)
+    {
+        ngx_rbtree_delete(&rtimerroot, &ev->rtimernode);
+    }
+    else{
+
         ev->rtimernode.left  = &sentinel;
         ev->rtimernode.right = &sentinel;
-
-        {
-            WriteLock<SpinLock> l(splock);
-            ngx_rbtree_insert(&rtimerroot, &ev->rtimernode);
-        }
     }
 
+     ngx_rbtree_insert(&rtimerroot, &ev->rtimernode);
 
-    if(wsec){
-        ev->wtimernode.key = time(NULL) + wsec;
+     TRACE_FMG("poll:%u,set Event:%u,ctx:%p,read timeout:%u,write timeout:%u",epollfd,ev->_fd,ev->ev.data.ptr,ev->rtimernode.key,ev->wtimernode.key);
+}
+
+int Epoller::SetWriteTimeout(IOEvent* ev){
+
+    // if exists delete
+    if(ev->wtimernode.parent)
+    {
+        ngx_rbtree_delete(&wtimerroot, &ev->wtimernode);
+    }
+    else{
+
         ev->wtimernode.left  = &sentinel;
         ev->wtimernode.right = &sentinel;
-
-        {
-            WriteLock<SpinLock> l(splock);
-            ngx_rbtree_insert(&wtimerroot, &ev->wtimernode);
-
-        }
     }
 
+     ngx_rbtree_insert(&wtimerroot, &ev->wtimernode);
 
+    //need update the wait time
 
     TRACE_FMG("poll:%u,set Event:%u,ctx:%p,read timeout:%u,write timeout:%u",epollfd,ev->_fd,ev->ev.data.ptr,ev->rtimernode.key,ev->wtimernode.key);
-    //need update the wait time
-    notify.Notify(1);
-
     return 0;
 }
 
@@ -223,14 +230,14 @@ void Epoller::Stop(){
 }
 
 
-void Epoller::RunTask(const Closure & t)
+void Epoller::PostTask(const ClosureP1 & t)
 {
     tasklist.push(t);
     notify.Notify(1);
 }
 
 
-void Epoller::OnNotify(){
+void Epoller::ProcessPendingTask(){
 
     if(tasklist.empty())
         return ;

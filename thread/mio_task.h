@@ -1,7 +1,7 @@
 #ifndef _MIO_TASK_H_
 #define _MIO_TASK_H_
 
-namespace  MTRpc {
+namespace mtrpc {
 
 #define likely(x) __builtin_expect(!!(x), 1)
 #define unlikely(x)	__builtin_expect(!!(x), 0)
@@ -28,7 +28,7 @@ force_inline To  AnyCast(From v) {
 ///
 /// \brief The Task struct
 ///
-class Closure{
+class Closure {
 public:
 
     Closure():
@@ -50,13 +50,13 @@ public:
     static Closure From(A* a)
     {
         Closure c;
-        c.h1 = (void*)(&TaskHelper0<A,f>);
+        c.h1 = (void*)(&TaskHelper<A,f>);
         c.ctx = (void*)a;
         return c;
     }
 
     template<class A,void(A::*f)(void)>
-    static void TaskHelper0(A* pa){
+    static void TaskHelper(A* pa){
         ((A*)pa->*f)();
     }
 
@@ -119,6 +119,37 @@ public:
 public:
     void* h1;
     void* ctx;
+};
+
+///
+/// \brief The ClosureP1 class
+///
+class ClosureP1: public Closure{
+public:
+
+    template<class A,class B, void(A::*f)(B b)>
+    static ClosureP1 From(A* a, B b)
+    {
+        ClosureP1 c;
+        c.h1  = (void*)(&TaskHelper<A,f>);
+        c.ctx = (void*)a;
+        c.p1  = (void*)b;
+        return c;
+    }
+
+    template<class A,class B,void(A::*f)(B)>
+    static void TaskHelper(void* pa,void* b){
+        ((A*)pa->*f)(AnyCast<B>(b));
+    }
+
+    inline void operator()(){
+        if(likely(h1))
+        {
+            ((TaskHandler2)h1)(ctx,p1);
+        }
+    }
+public:
+    void* p1;
 };
 
 

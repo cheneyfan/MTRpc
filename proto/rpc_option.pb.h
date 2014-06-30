@@ -26,7 +26,7 @@
 #include "google/protobuf/descriptor.pb.h"
 // @@protoc_insertion_point(includes)
 
-namespace mtrpc {
+namespace MTRpc {
 
 // Internal implementation detail -- do not call these.
 void  protobuf_AddDesc_rpc_5foption_2eproto();
@@ -71,11 +71,11 @@ extern ::google::protobuf::internal::ExtensionIdentifier< ::google::protobuf::Me
   method_timeout;
 static const int kRequestCompressTypeFieldNumber = 20001;
 extern ::google::protobuf::internal::ExtensionIdentifier< ::google::protobuf::MethodOptions,
-    ::google::protobuf::internal::EnumTypeTraits< ::mtrpc::CompressType, ::mtrpc::CompressType_IsValid>, 14, false >
+    ::google::protobuf::internal::EnumTypeTraits< ::MTRpc::CompressType, ::MTRpc::CompressType_IsValid>, 14, false >
   request_compress_type;
 static const int kResponseCompressTypeFieldNumber = 20002;
 extern ::google::protobuf::internal::ExtensionIdentifier< ::google::protobuf::MethodOptions,
-    ::google::protobuf::internal::EnumTypeTraits< ::mtrpc::CompressType, ::mtrpc::CompressType_IsValid>, 14, false >
+    ::google::protobuf::internal::EnumTypeTraits< ::MTRpc::CompressType, ::MTRpc::CompressType_IsValid>, 14, false >
   response_compress_type;
 
 // ===================================================================
@@ -83,15 +83,15 @@ extern ::google::protobuf::internal::ExtensionIdentifier< ::google::protobuf::Me
 
 // @@protoc_insertion_point(namespace_scope)
 
-}  // namespace mtrpc
+}  // namespace MTRpc
 
 #ifndef SWIG
 namespace google {
 namespace protobuf {
 
 template <>
-inline const EnumDescriptor* GetEnumDescriptor< ::mtrpc::CompressType>() {
-  return ::mtrpc::CompressType_descriptor();
+inline const EnumDescriptor* GetEnumDescriptor< ::MTRpc::CompressType>() {
+  return ::MTRpc::CompressType_descriptor();
 }
 
 }  // namespace google

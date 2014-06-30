@@ -1,6 +1,15 @@
 #include "mio_event.h"
+#include "log/log.h"
+#include "mio_poller.h"
+
+#include "thread/ext_closure.h"
+#include "thread/workpool.h"
+
 namespace mtrpc {
 
+IOEvent::~IOEvent(){
+    TRACE("event:"<<name<<" dead");
+}
 
 int IOEvent::SetEvent(bool readable,bool writeable){
 
@@ -31,6 +40,68 @@ int IOEvent::SetEvent(bool readable,bool writeable){
 void IOEvent::UpdateName(){
     UpdateName(_fd,&ev,name);
 }
+
+
+int IOEvent::AddEventASync(Epoller* p,bool readable,bool wirteable)
+{
+    ev.data.ptr = this;
+    this->SetEvent(readable,wirteable);
+
+    RequireRef();
+
+    ExtClosure<void ()> * closure = NewPermanentExtClosure(p,&Epoller::AddEvent,this);
+
+    p->PostTask(c);
+
+    return 0;
+}
+
+int IOEvent::ModEventAsync(Epoller* p,bool readable,bool wirteable)
+{
+    if(this->SetEvent(readable,wirteable))
+    {
+        ClosureP1 c =
+                ClosureP1::From<Epoller,IOEvent*,&Epoller::ModEvent>(p,this);
+
+        p->PostTask(c);
+    }
+
+    return 0;
+}
+
+int IOEvent::DelEventAsync(Epoller* p)
+{
+    ClosureP1 c =
+            ClosureP1::From<Epoller,IOEvent*,&Epoller::DelEvent>(p,this);
+
+    p->PostTask(c);
+}
+
+
+int IOEvent::SetReadTimeOutAsync(Epoller* p,uint32_t time_sec)
+{
+
+    rtimernode.data = this;
+    rtimernode.key = time(NULL) + time_sec;
+
+    ClosureP1 c =
+            ClosureP1::From<Epoller,IOEvent*,&Epoller::SetReadTimeOut>(p,this);
+
+    p->PostTask(c);
+}
+
+int IOEvent::SetWriteTImeoutAsync(Epoller* p,int time_sec)
+{
+
+    wtimernode.data = this;
+    wtimernode.key = time(NULL) + time_sec;
+
+    ClosureP1 c =
+            ClosureP1::From<Epoller,IOEvent*,&Epoller::SetWriteTimeout>(p,this);
+
+    p->PostTask(c);
+}
+
 
 void IOEvent::UpdateName(int fd, epoll_event* ee, char* buf){
 
@@ -124,8 +195,6 @@ void IOEvent::UpdateName(int fd, epoll_event* ee, char* buf){
         strncpy(buf, "_ERR", sizeof("_ERR"));
         buf += sizeof("_ERR") - 1;
     }
-
-
 }
 
 }

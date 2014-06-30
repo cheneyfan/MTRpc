@@ -39,10 +39,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/tanguofu/MTRpc
+CMAKE_SOURCE_DIR = /home/guofutan/workspace/MTRpc
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/tanguofu/MTRpc/build
+CMAKE_BINARY_DIR = /home/guofutan/workspace/MTRpc/build
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -69,14 +69,14 @@ rebuild_cache/fast: rebuild_cache
 
 # The main all target
 all: cmake_check_build_system
-	cd /home/tanguofu/MTRpc/build && $(CMAKE_COMMAND) -E cmake_progress_start /home/tanguofu/MTRpc/build/CMakeFiles /home/tanguofu/MTRpc/build/rpc/CMakeFiles/progress.marks
-	cd /home/tanguofu/MTRpc/build && $(MAKE) -f CMakeFiles/Makefile2 rpc/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/tanguofu/MTRpc/build/CMakeFiles 0
+	cd /home/guofutan/workspace/MTRpc/build && $(CMAKE_COMMAND) -E cmake_progress_start /home/guofutan/workspace/MTRpc/build/CMakeFiles /home/guofutan/workspace/MTRpc/build/rpc/CMakeFiles/progress.marks
+	cd /home/guofutan/workspace/MTRpc/build && $(MAKE) -f CMakeFiles/Makefile2 rpc/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/guofutan/workspace/MTRpc/build/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
 clean:
-	cd /home/tanguofu/MTRpc/build && $(MAKE) -f CMakeFiles/Makefile2 rpc/clean
+	cd /home/guofutan/workspace/MTRpc/build && $(MAKE) -f CMakeFiles/Makefile2 rpc/clean
 .PHONY : clean
 
 # The main clean target
@@ -85,22 +85,22 @@ clean/fast: clean
 
 # Prepare targets for installation.
 preinstall: all
-	cd /home/tanguofu/MTRpc/build && $(MAKE) -f CMakeFiles/Makefile2 rpc/preinstall
+	cd /home/guofutan/workspace/MTRpc/build && $(MAKE) -f CMakeFiles/Makefile2 rpc/preinstall
 .PHONY : preinstall
 
 # Prepare targets for installation.
 preinstall/fast:
-	cd /home/tanguofu/MTRpc/build && $(MAKE) -f CMakeFiles/Makefile2 rpc/preinstall
+	cd /home/guofutan/workspace/MTRpc/build && $(MAKE) -f CMakeFiles/Makefile2 rpc/preinstall
 .PHONY : preinstall/fast
 
 # clear depends
 depend:
-	cd /home/tanguofu/MTRpc/build && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
+	cd /home/guofutan/workspace/MTRpc/build && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
 .PHONY : depend
 
 # Convenience name for target.
 rpc/CMakeFiles/rpc.dir/rule:
-	cd /home/tanguofu/MTRpc/build && $(MAKE) -f CMakeFiles/Makefile2 rpc/CMakeFiles/rpc.dir/rule
+	cd /home/guofutan/workspace/MTRpc/build && $(MAKE) -f CMakeFiles/Makefile2 rpc/CMakeFiles/rpc.dir/rule
 .PHONY : rpc/CMakeFiles/rpc.dir/rule
 
 # Convenience name for target.
@@ -109,7 +109,7 @@ rpc: rpc/CMakeFiles/rpc.dir/rule
 
 # fast build rule for target.
 rpc/fast:
-	cd /home/tanguofu/MTRpc/build && $(MAKE) -f rpc/CMakeFiles/rpc.dir/build.make rpc/CMakeFiles/rpc.dir/build
+	cd /home/guofutan/workspace/MTRpc/build && $(MAKE) -f rpc/CMakeFiles/rpc.dir/build.make rpc/CMakeFiles/rpc.dir/build
 .PHONY : rpc/fast
 
 rpc_channel.o: rpc_channel.cpp.o
@@ -117,7 +117,7 @@ rpc_channel.o: rpc_channel.cpp.o
 
 # target to build an object file
 rpc_channel.cpp.o:
-	cd /home/tanguofu/MTRpc/build && $(MAKE) -f rpc/CMakeFiles/rpc.dir/build.make rpc/CMakeFiles/rpc.dir/rpc_channel.cpp.o
+	cd /home/guofutan/workspace/MTRpc/build && $(MAKE) -f rpc/CMakeFiles/rpc.dir/build.make rpc/CMakeFiles/rpc.dir/rpc_channel.cpp.o
 .PHONY : rpc_channel.cpp.o
 
 rpc_channel.i: rpc_channel.cpp.i
@@ -125,7 +125,7 @@ rpc_channel.i: rpc_channel.cpp.i
 
 # target to preprocess a source file
 rpc_channel.cpp.i:
-	cd /home/tanguofu/MTRpc/build && $(MAKE) -f rpc/CMakeFiles/rpc.dir/build.make rpc/CMakeFiles/rpc.dir/rpc_channel.cpp.i
+	cd /home/guofutan/workspace/MTRpc/build && $(MAKE) -f rpc/CMakeFiles/rpc.dir/build.make rpc/CMakeFiles/rpc.dir/rpc_channel.cpp.i
 .PHONY : rpc_channel.cpp.i
 
 rpc_channel.s: rpc_channel.cpp.s
@@ -133,7 +133,7 @@ rpc_channel.s: rpc_channel.cpp.s
 
 # target to generate assembly for a file
 rpc_channel.cpp.s:
-	cd /home/tanguofu/MTRpc/build && $(MAKE) -f rpc/CMakeFiles/rpc.dir/build.make rpc/CMakeFiles/rpc.dir/rpc_channel.cpp.s
+	cd /home/guofutan/workspace/MTRpc/build && $(MAKE) -f rpc/CMakeFiles/rpc.dir/build.make rpc/CMakeFiles/rpc.dir/rpc_channel.cpp.s
 .PHONY : rpc_channel.cpp.s
 
 rpc_channel_impl.o: rpc_channel_impl.cpp.o
@@ -141,7 +141,7 @@ rpc_channel_impl.o: rpc_channel_impl.cpp.o
 
 # target to build an object file
 rpc_channel_impl.cpp.o:
-	cd /home/tanguofu/MTRpc/build && $(MAKE) -f rpc/CMakeFiles/rpc.dir/build.make rpc/CMakeFiles/rpc.dir/rpc_channel_impl.cpp.o
+	cd /home/guofutan/workspace/MTRpc/build && $(MAKE) -f rpc/CMakeFiles/rpc.dir/build.make rpc/CMakeFiles/rpc.dir/rpc_channel_impl.cpp.o
 .PHONY : rpc_channel_impl.cpp.o
 
 rpc_channel_impl.i: rpc_channel_impl.cpp.i
@@ -149,7 +149,7 @@ rpc_channel_impl.i: rpc_channel_impl.cpp.i
 
 # target to preprocess a source file
 rpc_channel_impl.cpp.i:
-	cd /home/tanguofu/MTRpc/build && $(MAKE) -f rpc/CMakeFiles/rpc.dir/build.make rpc/CMakeFiles/rpc.dir/rpc_channel_impl.cpp.i
+	cd /home/guofutan/workspace/MTRpc/build && $(MAKE) -f rpc/CMakeFiles/rpc.dir/build.make rpc/CMakeFiles/rpc.dir/rpc_channel_impl.cpp.i
 .PHONY : rpc_channel_impl.cpp.i
 
 rpc_channel_impl.s: rpc_channel_impl.cpp.s
@@ -157,7 +157,7 @@ rpc_channel_impl.s: rpc_channel_impl.cpp.s
 
 # target to generate assembly for a file
 rpc_channel_impl.cpp.s:
-	cd /home/tanguofu/MTRpc/build && $(MAKE) -f rpc/CMakeFiles/rpc.dir/build.make rpc/CMakeFiles/rpc.dir/rpc_channel_impl.cpp.s
+	cd /home/guofutan/workspace/MTRpc/build && $(MAKE) -f rpc/CMakeFiles/rpc.dir/build.make rpc/CMakeFiles/rpc.dir/rpc_channel_impl.cpp.s
 .PHONY : rpc_channel_impl.cpp.s
 
 rpc_client.o: rpc_client.cpp.o
@@ -165,7 +165,7 @@ rpc_client.o: rpc_client.cpp.o
 
 # target to build an object file
 rpc_client.cpp.o:
-	cd /home/tanguofu/MTRpc/build && $(MAKE) -f rpc/CMakeFiles/rpc.dir/build.make rpc/CMakeFiles/rpc.dir/rpc_client.cpp.o
+	cd /home/guofutan/workspace/MTRpc/build && $(MAKE) -f rpc/CMakeFiles/rpc.dir/build.make rpc/CMakeFiles/rpc.dir/rpc_client.cpp.o
 .PHONY : rpc_client.cpp.o
 
 rpc_client.i: rpc_client.cpp.i
@@ -173,7 +173,7 @@ rpc_client.i: rpc_client.cpp.i
 
 # target to preprocess a source file
 rpc_client.cpp.i:
-	cd /home/tanguofu/MTRpc/build && $(MAKE) -f rpc/CMakeFiles/rpc.dir/build.make rpc/CMakeFiles/rpc.dir/rpc_client.cpp.i
+	cd /home/guofutan/workspace/MTRpc/build && $(MAKE) -f rpc/CMakeFiles/rpc.dir/build.make rpc/CMakeFiles/rpc.dir/rpc_client.cpp.i
 .PHONY : rpc_client.cpp.i
 
 rpc_client.s: rpc_client.cpp.s
@@ -181,7 +181,7 @@ rpc_client.s: rpc_client.cpp.s
 
 # target to generate assembly for a file
 rpc_client.cpp.s:
-	cd /home/tanguofu/MTRpc/build && $(MAKE) -f rpc/CMakeFiles/rpc.dir/build.make rpc/CMakeFiles/rpc.dir/rpc_client.cpp.s
+	cd /home/guofutan/workspace/MTRpc/build && $(MAKE) -f rpc/CMakeFiles/rpc.dir/build.make rpc/CMakeFiles/rpc.dir/rpc_client.cpp.s
 .PHONY : rpc_client.cpp.s
 
 rpc_client_impl.o: rpc_client_impl.cpp.o
@@ -189,7 +189,7 @@ rpc_client_impl.o: rpc_client_impl.cpp.o
 
 # target to build an object file
 rpc_client_impl.cpp.o:
-	cd /home/tanguofu/MTRpc/build && $(MAKE) -f rpc/CMakeFiles/rpc.dir/build.make rpc/CMakeFiles/rpc.dir/rpc_client_impl.cpp.o
+	cd /home/guofutan/workspace/MTRpc/build && $(MAKE) -f rpc/CMakeFiles/rpc.dir/build.make rpc/CMakeFiles/rpc.dir/rpc_client_impl.cpp.o
 .PHONY : rpc_client_impl.cpp.o
 
 rpc_client_impl.i: rpc_client_impl.cpp.i
@@ -197,7 +197,7 @@ rpc_client_impl.i: rpc_client_impl.cpp.i
 
 # target to preprocess a source file
 rpc_client_impl.cpp.i:
-	cd /home/tanguofu/MTRpc/build && $(MAKE) -f rpc/CMakeFiles/rpc.dir/build.make rpc/CMakeFiles/rpc.dir/rpc_client_impl.cpp.i
+	cd /home/guofutan/workspace/MTRpc/build && $(MAKE) -f rpc/CMakeFiles/rpc.dir/build.make rpc/CMakeFiles/rpc.dir/rpc_client_impl.cpp.i
 .PHONY : rpc_client_impl.cpp.i
 
 rpc_client_impl.s: rpc_client_impl.cpp.s
@@ -205,7 +205,7 @@ rpc_client_impl.s: rpc_client_impl.cpp.s
 
 # target to generate assembly for a file
 rpc_client_impl.cpp.s:
-	cd /home/tanguofu/MTRpc/build && $(MAKE) -f rpc/CMakeFiles/rpc.dir/build.make rpc/CMakeFiles/rpc.dir/rpc_client_impl.cpp.s
+	cd /home/guofutan/workspace/MTRpc/build && $(MAKE) -f rpc/CMakeFiles/rpc.dir/build.make rpc/CMakeFiles/rpc.dir/rpc_client_impl.cpp.s
 .PHONY : rpc_client_impl.cpp.s
 
 rpc_controller.o: rpc_controller.cpp.o
@@ -213,7 +213,7 @@ rpc_controller.o: rpc_controller.cpp.o
 
 # target to build an object file
 rpc_controller.cpp.o:
-	cd /home/tanguofu/MTRpc/build && $(MAKE) -f rpc/CMakeFiles/rpc.dir/build.make rpc/CMakeFiles/rpc.dir/rpc_controller.cpp.o
+	cd /home/guofutan/workspace/MTRpc/build && $(MAKE) -f rpc/CMakeFiles/rpc.dir/build.make rpc/CMakeFiles/rpc.dir/rpc_controller.cpp.o
 .PHONY : rpc_controller.cpp.o
 
 rpc_controller.i: rpc_controller.cpp.i
@@ -221,7 +221,7 @@ rpc_controller.i: rpc_controller.cpp.i
 
 # target to preprocess a source file
 rpc_controller.cpp.i:
-	cd /home/tanguofu/MTRpc/build && $(MAKE) -f rpc/CMakeFiles/rpc.dir/build.make rpc/CMakeFiles/rpc.dir/rpc_controller.cpp.i
+	cd /home/guofutan/workspace/MTRpc/build && $(MAKE) -f rpc/CMakeFiles/rpc.dir/build.make rpc/CMakeFiles/rpc.dir/rpc_controller.cpp.i
 .PHONY : rpc_controller.cpp.i
 
 rpc_controller.s: rpc_controller.cpp.s
@@ -229,7 +229,7 @@ rpc_controller.s: rpc_controller.cpp.s
 
 # target to generate assembly for a file
 rpc_controller.cpp.s:
-	cd /home/tanguofu/MTRpc/build && $(MAKE) -f rpc/CMakeFiles/rpc.dir/build.make rpc/CMakeFiles/rpc.dir/rpc_controller.cpp.s
+	cd /home/guofutan/workspace/MTRpc/build && $(MAKE) -f rpc/CMakeFiles/rpc.dir/build.make rpc/CMakeFiles/rpc.dir/rpc_controller.cpp.s
 .PHONY : rpc_controller.cpp.s
 
 rpc_controller_impl.o: rpc_controller_impl.cpp.o
@@ -237,7 +237,7 @@ rpc_controller_impl.o: rpc_controller_impl.cpp.o
 
 # target to build an object file
 rpc_controller_impl.cpp.o:
-	cd /home/tanguofu/MTRpc/build && $(MAKE) -f rpc/CMakeFiles/rpc.dir/build.make rpc/CMakeFiles/rpc.dir/rpc_controller_impl.cpp.o
+	cd /home/guofutan/workspace/MTRpc/build && $(MAKE) -f rpc/CMakeFiles/rpc.dir/build.make rpc/CMakeFiles/rpc.dir/rpc_controller_impl.cpp.o
 .PHONY : rpc_controller_impl.cpp.o
 
 rpc_controller_impl.i: rpc_controller_impl.cpp.i
@@ -245,7 +245,7 @@ rpc_controller_impl.i: rpc_controller_impl.cpp.i
 
 # target to preprocess a source file
 rpc_controller_impl.cpp.i:
-	cd /home/tanguofu/MTRpc/build && $(MAKE) -f rpc/CMakeFiles/rpc.dir/build.make rpc/CMakeFiles/rpc.dir/rpc_controller_impl.cpp.i
+	cd /home/guofutan/workspace/MTRpc/build && $(MAKE) -f rpc/CMakeFiles/rpc.dir/build.make rpc/CMakeFiles/rpc.dir/rpc_controller_impl.cpp.i
 .PHONY : rpc_controller_impl.cpp.i
 
 rpc_controller_impl.s: rpc_controller_impl.cpp.s
@@ -253,7 +253,7 @@ rpc_controller_impl.s: rpc_controller_impl.cpp.s
 
 # target to generate assembly for a file
 rpc_controller_impl.cpp.s:
-	cd /home/tanguofu/MTRpc/build && $(MAKE) -f rpc/CMakeFiles/rpc.dir/build.make rpc/CMakeFiles/rpc.dir/rpc_controller_impl.cpp.s
+	cd /home/guofutan/workspace/MTRpc/build && $(MAKE) -f rpc/CMakeFiles/rpc.dir/build.make rpc/CMakeFiles/rpc.dir/rpc_controller_impl.cpp.s
 .PHONY : rpc_controller_impl.cpp.s
 
 rpc_server.o: rpc_server.cpp.o
@@ -261,7 +261,7 @@ rpc_server.o: rpc_server.cpp.o
 
 # target to build an object file
 rpc_server.cpp.o:
-	cd /home/tanguofu/MTRpc/build && $(MAKE) -f rpc/CMakeFiles/rpc.dir/build.make rpc/CMakeFiles/rpc.dir/rpc_server.cpp.o
+	cd /home/guofutan/workspace/MTRpc/build && $(MAKE) -f rpc/CMakeFiles/rpc.dir/build.make rpc/CMakeFiles/rpc.dir/rpc_server.cpp.o
 .PHONY : rpc_server.cpp.o
 
 rpc_server.i: rpc_server.cpp.i
@@ -269,7 +269,7 @@ rpc_server.i: rpc_server.cpp.i
 
 # target to preprocess a source file
 rpc_server.cpp.i:
-	cd /home/tanguofu/MTRpc/build && $(MAKE) -f rpc/CMakeFiles/rpc.dir/build.make rpc/CMakeFiles/rpc.dir/rpc_server.cpp.i
+	cd /home/guofutan/workspace/MTRpc/build && $(MAKE) -f rpc/CMakeFiles/rpc.dir/build.make rpc/CMakeFiles/rpc.dir/rpc_server.cpp.i
 .PHONY : rpc_server.cpp.i
 
 rpc_server.s: rpc_server.cpp.s
@@ -277,7 +277,7 @@ rpc_server.s: rpc_server.cpp.s
 
 # target to generate assembly for a file
 rpc_server.cpp.s:
-	cd /home/tanguofu/MTRpc/build && $(MAKE) -f rpc/CMakeFiles/rpc.dir/build.make rpc/CMakeFiles/rpc.dir/rpc_server.cpp.s
+	cd /home/guofutan/workspace/MTRpc/build && $(MAKE) -f rpc/CMakeFiles/rpc.dir/build.make rpc/CMakeFiles/rpc.dir/rpc_server.cpp.s
 .PHONY : rpc_server.cpp.s
 
 rpc_server_impl.o: rpc_server_impl.cpp.o
@@ -285,7 +285,7 @@ rpc_server_impl.o: rpc_server_impl.cpp.o
 
 # target to build an object file
 rpc_server_impl.cpp.o:
-	cd /home/tanguofu/MTRpc/build && $(MAKE) -f rpc/CMakeFiles/rpc.dir/build.make rpc/CMakeFiles/rpc.dir/rpc_server_impl.cpp.o
+	cd /home/guofutan/workspace/MTRpc/build && $(MAKE) -f rpc/CMakeFiles/rpc.dir/build.make rpc/CMakeFiles/rpc.dir/rpc_server_impl.cpp.o
 .PHONY : rpc_server_impl.cpp.o
 
 rpc_server_impl.i: rpc_server_impl.cpp.i
@@ -293,7 +293,7 @@ rpc_server_impl.i: rpc_server_impl.cpp.i
 
 # target to preprocess a source file
 rpc_server_impl.cpp.i:
-	cd /home/tanguofu/MTRpc/build && $(MAKE) -f rpc/CMakeFiles/rpc.dir/build.make rpc/CMakeFiles/rpc.dir/rpc_server_impl.cpp.i
+	cd /home/guofutan/workspace/MTRpc/build && $(MAKE) -f rpc/CMakeFiles/rpc.dir/build.make rpc/CMakeFiles/rpc.dir/rpc_server_impl.cpp.i
 .PHONY : rpc_server_impl.cpp.i
 
 rpc_server_impl.s: rpc_server_impl.cpp.s
@@ -301,7 +301,7 @@ rpc_server_impl.s: rpc_server_impl.cpp.s
 
 # target to generate assembly for a file
 rpc_server_impl.cpp.s:
-	cd /home/tanguofu/MTRpc/build && $(MAKE) -f rpc/CMakeFiles/rpc.dir/build.make rpc/CMakeFiles/rpc.dir/rpc_server_impl.cpp.s
+	cd /home/guofutan/workspace/MTRpc/build && $(MAKE) -f rpc/CMakeFiles/rpc.dir/build.make rpc/CMakeFiles/rpc.dir/rpc_server_impl.cpp.s
 .PHONY : rpc_server_impl.cpp.s
 
 # Help Target
@@ -348,6 +348,6 @@ help:
 # No rule that depends on this can have commands that come from listfiles
 # because they might be regenerated.
 cmake_check_build_system:
-	cd /home/tanguofu/MTRpc/build && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
+	cd /home/guofutan/workspace/MTRpc/build && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
 .PHONY : cmake_check_build_system
 

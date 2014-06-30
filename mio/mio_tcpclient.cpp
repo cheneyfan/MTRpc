@@ -4,7 +4,7 @@
 #include "tcpsocket.h"
 #include "thread/workpool.h"
 
-namespace  MTRpc {
+namespace mtrpc {
 
 
 

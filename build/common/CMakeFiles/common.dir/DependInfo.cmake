@@ -4,10 +4,10 @@ SET(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 SET(CMAKE_DEPENDS_CHECK_CXX
-  "/home/tanguofu/MTRpc/common/covert.cpp" "/home/tanguofu/MTRpc/build/common/CMakeFiles/common.dir/covert.cpp.o"
-  "/home/tanguofu/MTRpc/common/ngx_rbtree.cpp" "/home/tanguofu/MTRpc/build/common/CMakeFiles/common.dir/ngx_rbtree.cpp.o"
-  "/home/tanguofu/MTRpc/common/signalhelper.cpp" "/home/tanguofu/MTRpc/build/common/CMakeFiles/common.dir/signalhelper.cpp.o"
-  "/home/tanguofu/MTRpc/common/timerhelper.cpp" "/home/tanguofu/MTRpc/build/common/CMakeFiles/common.dir/timerhelper.cpp.o"
+  "/home/guofutan/workspace/MTRpc/common/covert.cpp" "/home/guofutan/workspace/MTRpc/build/common/CMakeFiles/common.dir/covert.cpp.o"
+  "/home/guofutan/workspace/MTRpc/common/ngx_rbtree.cpp" "/home/guofutan/workspace/MTRpc/build/common/CMakeFiles/common.dir/ngx_rbtree.cpp.o"
+  "/home/guofutan/workspace/MTRpc/common/signalhelper.cpp" "/home/guofutan/workspace/MTRpc/build/common/CMakeFiles/common.dir/signalhelper.cpp.o"
+  "/home/guofutan/workspace/MTRpc/common/timerhelper.cpp" "/home/guofutan/workspace/MTRpc/build/common/CMakeFiles/common.dir/timerhelper.cpp.o"
   )
 SET(CMAKE_CXX_COMPILER_ID "GNU")
 

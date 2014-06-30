@@ -4,7 +4,7 @@ SET(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 SET(CMAKE_DEPENDS_CHECK_CXX
-  "/home/tanguofu/MTRpc/inspect/inspecter.cpp" "/home/tanguofu/MTRpc/build/inspect/CMakeFiles/inspect.dir/inspecter.cpp.o"
+  "/home/guofutan/workspace/MTRpc/inspect/inspecter.cpp" "/home/guofutan/workspace/MTRpc/build/inspect/CMakeFiles/inspect.dir/inspecter.cpp.o"
   )
 SET(CMAKE_CXX_COMPILER_ID "GNU")
 

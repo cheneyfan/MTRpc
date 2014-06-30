@@ -35,10 +35,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/tanguofu/MTRpc
+CMAKE_SOURCE_DIR = /home/guofutan/workspace/MTRpc
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/tanguofu/MTRpc/build
+CMAKE_BINARY_DIR = /home/guofutan/workspace/MTRpc/build
 
 # Include any dependencies generated for this target.
 include proto/CMakeFiles/proto.dir/depend.make
@@ -49,42 +49,19 @@ include proto/CMakeFiles/proto.dir/progress.make
 # Include the compile flags for this target's objects.
 include proto/CMakeFiles/proto.dir/flags.make
 
-proto/CMakeFiles/proto.dir/rpc_meta.pb.cc.o: proto/CMakeFiles/proto.dir/flags.make
-proto/CMakeFiles/proto.dir/rpc_meta.pb.cc.o: ../proto/rpc_meta.pb.cc
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/tanguofu/MTRpc/build/CMakeFiles $(CMAKE_PROGRESS_1)
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object proto/CMakeFiles/proto.dir/rpc_meta.pb.cc.o"
-	cd /home/tanguofu/MTRpc/build/proto && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/proto.dir/rpc_meta.pb.cc.o -c /home/tanguofu/MTRpc/proto/rpc_meta.pb.cc
-
-proto/CMakeFiles/proto.dir/rpc_meta.pb.cc.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/proto.dir/rpc_meta.pb.cc.i"
-	cd /home/tanguofu/MTRpc/build/proto && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/tanguofu/MTRpc/proto/rpc_meta.pb.cc > CMakeFiles/proto.dir/rpc_meta.pb.cc.i
-
-proto/CMakeFiles/proto.dir/rpc_meta.pb.cc.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/proto.dir/rpc_meta.pb.cc.s"
-	cd /home/tanguofu/MTRpc/build/proto && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/tanguofu/MTRpc/proto/rpc_meta.pb.cc -o CMakeFiles/proto.dir/rpc_meta.pb.cc.s
-
-proto/CMakeFiles/proto.dir/rpc_meta.pb.cc.o.requires:
-.PHONY : proto/CMakeFiles/proto.dir/rpc_meta.pb.cc.o.requires
-
-proto/CMakeFiles/proto.dir/rpc_meta.pb.cc.o.provides: proto/CMakeFiles/proto.dir/rpc_meta.pb.cc.o.requires
-	$(MAKE) -f proto/CMakeFiles/proto.dir/build.make proto/CMakeFiles/proto.dir/rpc_meta.pb.cc.o.provides.build
-.PHONY : proto/CMakeFiles/proto.dir/rpc_meta.pb.cc.o.provides
-
-proto/CMakeFiles/proto.dir/rpc_meta.pb.cc.o.provides.build: proto/CMakeFiles/proto.dir/rpc_meta.pb.cc.o
-
 proto/CMakeFiles/proto.dir/builtin_service.pb.cc.o: proto/CMakeFiles/proto.dir/flags.make
 proto/CMakeFiles/proto.dir/builtin_service.pb.cc.o: ../proto/builtin_service.pb.cc
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/tanguofu/MTRpc/build/CMakeFiles $(CMAKE_PROGRESS_2)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/guofutan/workspace/MTRpc/build/CMakeFiles $(CMAKE_PROGRESS_1)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object proto/CMakeFiles/proto.dir/builtin_service.pb.cc.o"
-	cd /home/tanguofu/MTRpc/build/proto && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/proto.dir/builtin_service.pb.cc.o -c /home/tanguofu/MTRpc/proto/builtin_service.pb.cc
+	cd /home/guofutan/workspace/MTRpc/build/proto && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/proto.dir/builtin_service.pb.cc.o -c /home/guofutan/workspace/MTRpc/proto/builtin_service.pb.cc
 
 proto/CMakeFiles/proto.dir/builtin_service.pb.cc.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/proto.dir/builtin_service.pb.cc.i"
-	cd /home/tanguofu/MTRpc/build/proto && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/tanguofu/MTRpc/proto/builtin_service.pb.cc > CMakeFiles/proto.dir/builtin_service.pb.cc.i
+	cd /home/guofutan/workspace/MTRpc/build/proto && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/guofutan/workspace/MTRpc/proto/builtin_service.pb.cc > CMakeFiles/proto.dir/builtin_service.pb.cc.i
 
 proto/CMakeFiles/proto.dir/builtin_service.pb.cc.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/proto.dir/builtin_service.pb.cc.s"
-	cd /home/tanguofu/MTRpc/build/proto && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/tanguofu/MTRpc/proto/builtin_service.pb.cc -o CMakeFiles/proto.dir/builtin_service.pb.cc.s
+	cd /home/guofutan/workspace/MTRpc/build/proto && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/guofutan/workspace/MTRpc/proto/builtin_service.pb.cc -o CMakeFiles/proto.dir/builtin_service.pb.cc.s
 
 proto/CMakeFiles/proto.dir/builtin_service.pb.cc.o.requires:
 .PHONY : proto/CMakeFiles/proto.dir/builtin_service.pb.cc.o.requires
@@ -97,17 +74,17 @@ proto/CMakeFiles/proto.dir/builtin_service.pb.cc.o.provides.build: proto/CMakeFi
 
 proto/CMakeFiles/proto.dir/rpc_option.pb.cc.o: proto/CMakeFiles/proto.dir/flags.make
 proto/CMakeFiles/proto.dir/rpc_option.pb.cc.o: ../proto/rpc_option.pb.cc
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/tanguofu/MTRpc/build/CMakeFiles $(CMAKE_PROGRESS_3)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/guofutan/workspace/MTRpc/build/CMakeFiles $(CMAKE_PROGRESS_2)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object proto/CMakeFiles/proto.dir/rpc_option.pb.cc.o"
-	cd /home/tanguofu/MTRpc/build/proto && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/proto.dir/rpc_option.pb.cc.o -c /home/tanguofu/MTRpc/proto/rpc_option.pb.cc
+	cd /home/guofutan/workspace/MTRpc/build/proto && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/proto.dir/rpc_option.pb.cc.o -c /home/guofutan/workspace/MTRpc/proto/rpc_option.pb.cc
 
 proto/CMakeFiles/proto.dir/rpc_option.pb.cc.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/proto.dir/rpc_option.pb.cc.i"
-	cd /home/tanguofu/MTRpc/build/proto && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/tanguofu/MTRpc/proto/rpc_option.pb.cc > CMakeFiles/proto.dir/rpc_option.pb.cc.i
+	cd /home/guofutan/workspace/MTRpc/build/proto && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/guofutan/workspace/MTRpc/proto/rpc_option.pb.cc > CMakeFiles/proto.dir/rpc_option.pb.cc.i
 
 proto/CMakeFiles/proto.dir/rpc_option.pb.cc.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/proto.dir/rpc_option.pb.cc.s"
-	cd /home/tanguofu/MTRpc/build/proto && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/tanguofu/MTRpc/proto/rpc_option.pb.cc -o CMakeFiles/proto.dir/rpc_option.pb.cc.s
+	cd /home/guofutan/workspace/MTRpc/build/proto && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/guofutan/workspace/MTRpc/proto/rpc_option.pb.cc -o CMakeFiles/proto.dir/rpc_option.pb.cc.s
 
 proto/CMakeFiles/proto.dir/rpc_option.pb.cc.o.requires:
 .PHONY : proto/CMakeFiles/proto.dir/rpc_option.pb.cc.o.requires
@@ -118,38 +95,61 @@ proto/CMakeFiles/proto.dir/rpc_option.pb.cc.o.provides: proto/CMakeFiles/proto.d
 
 proto/CMakeFiles/proto.dir/rpc_option.pb.cc.o.provides.build: proto/CMakeFiles/proto.dir/rpc_option.pb.cc.o
 
+proto/CMakeFiles/proto.dir/rpc_meta.pb.cc.o: proto/CMakeFiles/proto.dir/flags.make
+proto/CMakeFiles/proto.dir/rpc_meta.pb.cc.o: ../proto/rpc_meta.pb.cc
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/guofutan/workspace/MTRpc/build/CMakeFiles $(CMAKE_PROGRESS_3)
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object proto/CMakeFiles/proto.dir/rpc_meta.pb.cc.o"
+	cd /home/guofutan/workspace/MTRpc/build/proto && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/proto.dir/rpc_meta.pb.cc.o -c /home/guofutan/workspace/MTRpc/proto/rpc_meta.pb.cc
+
+proto/CMakeFiles/proto.dir/rpc_meta.pb.cc.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/proto.dir/rpc_meta.pb.cc.i"
+	cd /home/guofutan/workspace/MTRpc/build/proto && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/guofutan/workspace/MTRpc/proto/rpc_meta.pb.cc > CMakeFiles/proto.dir/rpc_meta.pb.cc.i
+
+proto/CMakeFiles/proto.dir/rpc_meta.pb.cc.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/proto.dir/rpc_meta.pb.cc.s"
+	cd /home/guofutan/workspace/MTRpc/build/proto && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/guofutan/workspace/MTRpc/proto/rpc_meta.pb.cc -o CMakeFiles/proto.dir/rpc_meta.pb.cc.s
+
+proto/CMakeFiles/proto.dir/rpc_meta.pb.cc.o.requires:
+.PHONY : proto/CMakeFiles/proto.dir/rpc_meta.pb.cc.o.requires
+
+proto/CMakeFiles/proto.dir/rpc_meta.pb.cc.o.provides: proto/CMakeFiles/proto.dir/rpc_meta.pb.cc.o.requires
+	$(MAKE) -f proto/CMakeFiles/proto.dir/build.make proto/CMakeFiles/proto.dir/rpc_meta.pb.cc.o.provides.build
+.PHONY : proto/CMakeFiles/proto.dir/rpc_meta.pb.cc.o.provides
+
+proto/CMakeFiles/proto.dir/rpc_meta.pb.cc.o.provides.build: proto/CMakeFiles/proto.dir/rpc_meta.pb.cc.o
+
 # Object files for target proto
 proto_OBJECTS = \
-"CMakeFiles/proto.dir/rpc_meta.pb.cc.o" \
 "CMakeFiles/proto.dir/builtin_service.pb.cc.o" \
-"CMakeFiles/proto.dir/rpc_option.pb.cc.o"
+"CMakeFiles/proto.dir/rpc_option.pb.cc.o" \
+"CMakeFiles/proto.dir/rpc_meta.pb.cc.o"
 
 # External object files for target proto
 proto_EXTERNAL_OBJECTS =
 
-proto/libproto.a: proto/CMakeFiles/proto.dir/rpc_meta.pb.cc.o
 proto/libproto.a: proto/CMakeFiles/proto.dir/builtin_service.pb.cc.o
 proto/libproto.a: proto/CMakeFiles/proto.dir/rpc_option.pb.cc.o
+proto/libproto.a: proto/CMakeFiles/proto.dir/rpc_meta.pb.cc.o
 proto/libproto.a: proto/CMakeFiles/proto.dir/build.make
 proto/libproto.a: proto/CMakeFiles/proto.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --red --bold "Linking CXX static library libproto.a"
-	cd /home/tanguofu/MTRpc/build/proto && $(CMAKE_COMMAND) -P CMakeFiles/proto.dir/cmake_clean_target.cmake
-	cd /home/tanguofu/MTRpc/build/proto && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/proto.dir/link.txt --verbose=$(VERBOSE)
+	cd /home/guofutan/workspace/MTRpc/build/proto && $(CMAKE_COMMAND) -P CMakeFiles/proto.dir/cmake_clean_target.cmake
+	cd /home/guofutan/workspace/MTRpc/build/proto && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/proto.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
 proto/CMakeFiles/proto.dir/build: proto/libproto.a
 .PHONY : proto/CMakeFiles/proto.dir/build
 
-proto/CMakeFiles/proto.dir/requires: proto/CMakeFiles/proto.dir/rpc_meta.pb.cc.o.requires
 proto/CMakeFiles/proto.dir/requires: proto/CMakeFiles/proto.dir/builtin_service.pb.cc.o.requires
 proto/CMakeFiles/proto.dir/requires: proto/CMakeFiles/proto.dir/rpc_option.pb.cc.o.requires
+proto/CMakeFiles/proto.dir/requires: proto/CMakeFiles/proto.dir/rpc_meta.pb.cc.o.requires
 .PHONY : proto/CMakeFiles/proto.dir/requires
 
 proto/CMakeFiles/proto.dir/clean:
-	cd /home/tanguofu/MTRpc/build/proto && $(CMAKE_COMMAND) -P CMakeFiles/proto.dir/cmake_clean.cmake
+	cd /home/guofutan/workspace/MTRpc/build/proto && $(CMAKE_COMMAND) -P CMakeFiles/proto.dir/cmake_clean.cmake
 .PHONY : proto/CMakeFiles/proto.dir/clean
 
 proto/CMakeFiles/proto.dir/depend:
-	cd /home/tanguofu/MTRpc/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/tanguofu/MTRpc /home/tanguofu/MTRpc/proto /home/tanguofu/MTRpc/build /home/tanguofu/MTRpc/build/proto /home/tanguofu/MTRpc/build/proto/CMakeFiles/proto.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/guofutan/workspace/MTRpc/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/guofutan/workspace/MTRpc /home/guofutan/workspace/MTRpc/proto /home/guofutan/workspace/MTRpc/build /home/guofutan/workspace/MTRpc/build/proto /home/guofutan/workspace/MTRpc/build/proto/CMakeFiles/proto.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : proto/CMakeFiles/proto.dir/depend
 

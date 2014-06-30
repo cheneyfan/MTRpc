@@ -39,10 +39,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/tanguofu/MTRpc
+CMAKE_SOURCE_DIR = /home/guofutan/workspace/MTRpc
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/tanguofu/MTRpc/build
+CMAKE_BINARY_DIR = /home/guofutan/workspace/MTRpc/build
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -69,14 +69,14 @@ rebuild_cache/fast: rebuild_cache
 
 # The main all target
 all: cmake_check_build_system
-	cd /home/tanguofu/MTRpc/build && $(CMAKE_COMMAND) -E cmake_progress_start /home/tanguofu/MTRpc/build/CMakeFiles /home/tanguofu/MTRpc/build/proto/CMakeFiles/progress.marks
-	cd /home/tanguofu/MTRpc/build && $(MAKE) -f CMakeFiles/Makefile2 proto/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/tanguofu/MTRpc/build/CMakeFiles 0
+	cd /home/guofutan/workspace/MTRpc/build && $(CMAKE_COMMAND) -E cmake_progress_start /home/guofutan/workspace/MTRpc/build/CMakeFiles /home/guofutan/workspace/MTRpc/build/proto/CMakeFiles/progress.marks
+	cd /home/guofutan/workspace/MTRpc/build && $(MAKE) -f CMakeFiles/Makefile2 proto/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/guofutan/workspace/MTRpc/build/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
 clean:
-	cd /home/tanguofu/MTRpc/build && $(MAKE) -f CMakeFiles/Makefile2 proto/clean
+	cd /home/guofutan/workspace/MTRpc/build && $(MAKE) -f CMakeFiles/Makefile2 proto/clean
 .PHONY : clean
 
 # The main clean target
@@ -85,22 +85,22 @@ clean/fast: clean
 
 # Prepare targets for installation.
 preinstall: all
-	cd /home/tanguofu/MTRpc/build && $(MAKE) -f CMakeFiles/Makefile2 proto/preinstall
+	cd /home/guofutan/workspace/MTRpc/build && $(MAKE) -f CMakeFiles/Makefile2 proto/preinstall
 .PHONY : preinstall
 
 # Prepare targets for installation.
 preinstall/fast:
-	cd /home/tanguofu/MTRpc/build && $(MAKE) -f CMakeFiles/Makefile2 proto/preinstall
+	cd /home/guofutan/workspace/MTRpc/build && $(MAKE) -f CMakeFiles/Makefile2 proto/preinstall
 .PHONY : preinstall/fast
 
 # clear depends
 depend:
-	cd /home/tanguofu/MTRpc/build && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
+	cd /home/guofutan/workspace/MTRpc/build && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
 .PHONY : depend
 
 # Convenience name for target.
 proto/CMakeFiles/PROTO_FILES.dir/rule:
-	cd /home/tanguofu/MTRpc/build && $(MAKE) -f CMakeFiles/Makefile2 proto/CMakeFiles/PROTO_FILES.dir/rule
+	cd /home/guofutan/workspace/MTRpc/build && $(MAKE) -f CMakeFiles/Makefile2 proto/CMakeFiles/PROTO_FILES.dir/rule
 .PHONY : proto/CMakeFiles/PROTO_FILES.dir/rule
 
 # Convenience name for target.
@@ -109,12 +109,12 @@ PROTO_FILES: proto/CMakeFiles/PROTO_FILES.dir/rule
 
 # fast build rule for target.
 PROTO_FILES/fast:
-	cd /home/tanguofu/MTRpc/build && $(MAKE) -f proto/CMakeFiles/PROTO_FILES.dir/build.make proto/CMakeFiles/PROTO_FILES.dir/build
+	cd /home/guofutan/workspace/MTRpc/build && $(MAKE) -f proto/CMakeFiles/PROTO_FILES.dir/build.make proto/CMakeFiles/PROTO_FILES.dir/build
 .PHONY : PROTO_FILES/fast
 
 # Convenience name for target.
 proto/CMakeFiles/proto.dir/rule:
-	cd /home/tanguofu/MTRpc/build && $(MAKE) -f CMakeFiles/Makefile2 proto/CMakeFiles/proto.dir/rule
+	cd /home/guofutan/workspace/MTRpc/build && $(MAKE) -f CMakeFiles/Makefile2 proto/CMakeFiles/proto.dir/rule
 .PHONY : proto/CMakeFiles/proto.dir/rule
 
 # Convenience name for target.
@@ -123,7 +123,7 @@ proto: proto/CMakeFiles/proto.dir/rule
 
 # fast build rule for target.
 proto/fast:
-	cd /home/tanguofu/MTRpc/build && $(MAKE) -f proto/CMakeFiles/proto.dir/build.make proto/CMakeFiles/proto.dir/build
+	cd /home/guofutan/workspace/MTRpc/build && $(MAKE) -f proto/CMakeFiles/proto.dir/build.make proto/CMakeFiles/proto.dir/build
 .PHONY : proto/fast
 
 builtin_service.pb.o: builtin_service.pb.cc.o
@@ -131,7 +131,7 @@ builtin_service.pb.o: builtin_service.pb.cc.o
 
 # target to build an object file
 builtin_service.pb.cc.o:
-	cd /home/tanguofu/MTRpc/build && $(MAKE) -f proto/CMakeFiles/proto.dir/build.make proto/CMakeFiles/proto.dir/builtin_service.pb.cc.o
+	cd /home/guofutan/workspace/MTRpc/build && $(MAKE) -f proto/CMakeFiles/proto.dir/build.make proto/CMakeFiles/proto.dir/builtin_service.pb.cc.o
 .PHONY : builtin_service.pb.cc.o
 
 builtin_service.pb.i: builtin_service.pb.cc.i
@@ -139,7 +139,7 @@ builtin_service.pb.i: builtin_service.pb.cc.i
 
 # target to preprocess a source file
 builtin_service.pb.cc.i:
-	cd /home/tanguofu/MTRpc/build && $(MAKE) -f proto/CMakeFiles/proto.dir/build.make proto/CMakeFiles/proto.dir/builtin_service.pb.cc.i
+	cd /home/guofutan/workspace/MTRpc/build && $(MAKE) -f proto/CMakeFiles/proto.dir/build.make proto/CMakeFiles/proto.dir/builtin_service.pb.cc.i
 .PHONY : builtin_service.pb.cc.i
 
 builtin_service.pb.s: builtin_service.pb.cc.s
@@ -147,7 +147,7 @@ builtin_service.pb.s: builtin_service.pb.cc.s
 
 # target to generate assembly for a file
 builtin_service.pb.cc.s:
-	cd /home/tanguofu/MTRpc/build && $(MAKE) -f proto/CMakeFiles/proto.dir/build.make proto/CMakeFiles/proto.dir/builtin_service.pb.cc.s
+	cd /home/guofutan/workspace/MTRpc/build && $(MAKE) -f proto/CMakeFiles/proto.dir/build.make proto/CMakeFiles/proto.dir/builtin_service.pb.cc.s
 .PHONY : builtin_service.pb.cc.s
 
 rpc_meta.pb.o: rpc_meta.pb.cc.o
@@ -155,7 +155,7 @@ rpc_meta.pb.o: rpc_meta.pb.cc.o
 
 # target to build an object file
 rpc_meta.pb.cc.o:
-	cd /home/tanguofu/MTRpc/build && $(MAKE) -f proto/CMakeFiles/proto.dir/build.make proto/CMakeFiles/proto.dir/rpc_meta.pb.cc.o
+	cd /home/guofutan/workspace/MTRpc/build && $(MAKE) -f proto/CMakeFiles/proto.dir/build.make proto/CMakeFiles/proto.dir/rpc_meta.pb.cc.o
 .PHONY : rpc_meta.pb.cc.o
 
 rpc_meta.pb.i: rpc_meta.pb.cc.i
@@ -163,7 +163,7 @@ rpc_meta.pb.i: rpc_meta.pb.cc.i
 
 # target to preprocess a source file
 rpc_meta.pb.cc.i:
-	cd /home/tanguofu/MTRpc/build && $(MAKE) -f proto/CMakeFiles/proto.dir/build.make proto/CMakeFiles/proto.dir/rpc_meta.pb.cc.i
+	cd /home/guofutan/workspace/MTRpc/build && $(MAKE) -f proto/CMakeFiles/proto.dir/build.make proto/CMakeFiles/proto.dir/rpc_meta.pb.cc.i
 .PHONY : rpc_meta.pb.cc.i
 
 rpc_meta.pb.s: rpc_meta.pb.cc.s
@@ -171,7 +171,7 @@ rpc_meta.pb.s: rpc_meta.pb.cc.s
 
 # target to generate assembly for a file
 rpc_meta.pb.cc.s:
-	cd /home/tanguofu/MTRpc/build && $(MAKE) -f proto/CMakeFiles/proto.dir/build.make proto/CMakeFiles/proto.dir/rpc_meta.pb.cc.s
+	cd /home/guofutan/workspace/MTRpc/build && $(MAKE) -f proto/CMakeFiles/proto.dir/build.make proto/CMakeFiles/proto.dir/rpc_meta.pb.cc.s
 .PHONY : rpc_meta.pb.cc.s
 
 rpc_option.pb.o: rpc_option.pb.cc.o
@@ -179,7 +179,7 @@ rpc_option.pb.o: rpc_option.pb.cc.o
 
 # target to build an object file
 rpc_option.pb.cc.o:
-	cd /home/tanguofu/MTRpc/build && $(MAKE) -f proto/CMakeFiles/proto.dir/build.make proto/CMakeFiles/proto.dir/rpc_option.pb.cc.o
+	cd /home/guofutan/workspace/MTRpc/build && $(MAKE) -f proto/CMakeFiles/proto.dir/build.make proto/CMakeFiles/proto.dir/rpc_option.pb.cc.o
 .PHONY : rpc_option.pb.cc.o
 
 rpc_option.pb.i: rpc_option.pb.cc.i
@@ -187,7 +187,7 @@ rpc_option.pb.i: rpc_option.pb.cc.i
 
 # target to preprocess a source file
 rpc_option.pb.cc.i:
-	cd /home/tanguofu/MTRpc/build && $(MAKE) -f proto/CMakeFiles/proto.dir/build.make proto/CMakeFiles/proto.dir/rpc_option.pb.cc.i
+	cd /home/guofutan/workspace/MTRpc/build && $(MAKE) -f proto/CMakeFiles/proto.dir/build.make proto/CMakeFiles/proto.dir/rpc_option.pb.cc.i
 .PHONY : rpc_option.pb.cc.i
 
 rpc_option.pb.s: rpc_option.pb.cc.s
@@ -195,7 +195,7 @@ rpc_option.pb.s: rpc_option.pb.cc.s
 
 # target to generate assembly for a file
 rpc_option.pb.cc.s:
-	cd /home/tanguofu/MTRpc/build && $(MAKE) -f proto/CMakeFiles/proto.dir/build.make proto/CMakeFiles/proto.dir/rpc_option.pb.cc.s
+	cd /home/guofutan/workspace/MTRpc/build && $(MAKE) -f proto/CMakeFiles/proto.dir/build.make proto/CMakeFiles/proto.dir/rpc_option.pb.cc.s
 .PHONY : rpc_option.pb.cc.s
 
 # Help Target
@@ -228,6 +228,6 @@ help:
 # No rule that depends on this can have commands that come from listfiles
 # because they might be regenerated.
 cmake_check_build_system:
-	cd /home/tanguofu/MTRpc/build && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
+	cd /home/guofutan/workspace/MTRpc/build && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
 .PHONY : cmake_check_build_system
 

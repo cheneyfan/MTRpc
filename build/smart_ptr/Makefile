@@ -39,10 +39,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/tanguofu/MTRpc
+CMAKE_SOURCE_DIR = /home/guofutan/workspace/MTRpc
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/tanguofu/MTRpc/build
+CMAKE_BINARY_DIR = /home/guofutan/workspace/MTRpc/build
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -69,14 +69,14 @@ rebuild_cache/fast: rebuild_cache
 
 # The main all target
 all: cmake_check_build_system
-	cd /home/tanguofu/MTRpc/build && $(CMAKE_COMMAND) -E cmake_progress_start /home/tanguofu/MTRpc/build/CMakeFiles /home/tanguofu/MTRpc/build/smart_ptr/CMakeFiles/progress.marks
-	cd /home/tanguofu/MTRpc/build && $(MAKE) -f CMakeFiles/Makefile2 smart_ptr/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/tanguofu/MTRpc/build/CMakeFiles 0
+	cd /home/guofutan/workspace/MTRpc/build && $(CMAKE_COMMAND) -E cmake_progress_start /home/guofutan/workspace/MTRpc/build/CMakeFiles /home/guofutan/workspace/MTRpc/build/smart_ptr/CMakeFiles/progress.marks
+	cd /home/guofutan/workspace/MTRpc/build && $(MAKE) -f CMakeFiles/Makefile2 smart_ptr/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/guofutan/workspace/MTRpc/build/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
 clean:
-	cd /home/tanguofu/MTRpc/build && $(MAKE) -f CMakeFiles/Makefile2 smart_ptr/clean
+	cd /home/guofutan/workspace/MTRpc/build && $(MAKE) -f CMakeFiles/Makefile2 smart_ptr/clean
 .PHONY : clean
 
 # The main clean target
@@ -85,22 +85,22 @@ clean/fast: clean
 
 # Prepare targets for installation.
 preinstall: all
-	cd /home/tanguofu/MTRpc/build && $(MAKE) -f CMakeFiles/Makefile2 smart_ptr/preinstall
+	cd /home/guofutan/workspace/MTRpc/build && $(MAKE) -f CMakeFiles/Makefile2 smart_ptr/preinstall
 .PHONY : preinstall
 
 # Prepare targets for installation.
 preinstall/fast:
-	cd /home/tanguofu/MTRpc/build && $(MAKE) -f CMakeFiles/Makefile2 smart_ptr/preinstall
+	cd /home/guofutan/workspace/MTRpc/build && $(MAKE) -f CMakeFiles/Makefile2 smart_ptr/preinstall
 .PHONY : preinstall/fast
 
 # clear depends
 depend:
-	cd /home/tanguofu/MTRpc/build && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
+	cd /home/guofutan/workspace/MTRpc/build && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
 .PHONY : depend
 
 # Convenience name for target.
 smart_ptr/CMakeFiles/smart_ptr.dir/rule:
-	cd /home/tanguofu/MTRpc/build && $(MAKE) -f CMakeFiles/Makefile2 smart_ptr/CMakeFiles/smart_ptr.dir/rule
+	cd /home/guofutan/workspace/MTRpc/build && $(MAKE) -f CMakeFiles/Makefile2 smart_ptr/CMakeFiles/smart_ptr.dir/rule
 .PHONY : smart_ptr/CMakeFiles/smart_ptr.dir/rule
 
 # Convenience name for target.
@@ -109,7 +109,7 @@ smart_ptr: smart_ptr/CMakeFiles/smart_ptr.dir/rule
 
 # fast build rule for target.
 smart_ptr/fast:
-	cd /home/tanguofu/MTRpc/build && $(MAKE) -f smart_ptr/CMakeFiles/smart_ptr.dir/build.make smart_ptr/CMakeFiles/smart_ptr.dir/build
+	cd /home/guofutan/workspace/MTRpc/build && $(MAKE) -f smart_ptr/CMakeFiles/smart_ptr.dir/build.make smart_ptr/CMakeFiles/smart_ptr.dir/build
 .PHONY : smart_ptr/fast
 
 # Help Target
@@ -132,6 +132,6 @@ help:
 # No rule that depends on this can have commands that come from listfiles
 # because they might be regenerated.
 cmake_check_build_system:
-	cd /home/tanguofu/MTRpc/build && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
+	cd /home/guofutan/workspace/MTRpc/build && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
 .PHONY : cmake_check_build_system
 

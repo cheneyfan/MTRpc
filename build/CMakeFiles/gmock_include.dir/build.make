@@ -35,10 +35,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/tanguofu/MTRpc
+CMAKE_SOURCE_DIR = /home/guofutan/workspace/MTRpc
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/tanguofu/MTRpc/build
+CMAKE_BINARY_DIR = /home/guofutan/workspace/MTRpc/build
 
 # Utility rule file for gmock_include.
 
@@ -60,6 +60,6 @@ CMakeFiles/gmock_include.dir/clean:
 .PHONY : CMakeFiles/gmock_include.dir/clean
 
 CMakeFiles/gmock_include.dir/depend:
-	cd /home/tanguofu/MTRpc/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/tanguofu/MTRpc /home/tanguofu/MTRpc /home/tanguofu/MTRpc/build /home/tanguofu/MTRpc/build /home/tanguofu/MTRpc/build/CMakeFiles/gmock_include.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/guofutan/workspace/MTRpc/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/guofutan/workspace/MTRpc /home/guofutan/workspace/MTRpc /home/guofutan/workspace/MTRpc/build /home/guofutan/workspace/MTRpc/build /home/guofutan/workspace/MTRpc/build/CMakeFiles/gmock_include.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : CMakeFiles/gmock_include.dir/depend
 

@@ -4,9 +4,9 @@ SET(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 SET(CMAKE_DEPENDS_CHECK_CXX
-  "/home/tanguofu/MTRpc/json/json_reader.cpp" "/home/tanguofu/MTRpc/build/json/CMakeFiles/json.dir/json_reader.cpp.o"
-  "/home/tanguofu/MTRpc/json/json_value.cpp" "/home/tanguofu/MTRpc/build/json/CMakeFiles/json.dir/json_value.cpp.o"
-  "/home/tanguofu/MTRpc/json/json_writer.cpp" "/home/tanguofu/MTRpc/build/json/CMakeFiles/json.dir/json_writer.cpp.o"
+  "/home/guofutan/workspace/MTRpc/json/json_reader.cpp" "/home/guofutan/workspace/MTRpc/build/json/CMakeFiles/json.dir/json_reader.cpp.o"
+  "/home/guofutan/workspace/MTRpc/json/json_value.cpp" "/home/guofutan/workspace/MTRpc/build/json/CMakeFiles/json.dir/json_value.cpp.o"
+  "/home/guofutan/workspace/MTRpc/json/json_writer.cpp" "/home/guofutan/workspace/MTRpc/build/json/CMakeFiles/json.dir/json_writer.cpp.o"
   )
 SET(CMAKE_CXX_COMPILER_ID "GNU")
 

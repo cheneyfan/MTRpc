@@ -15,7 +15,7 @@
 #include "mio_event.h"
 
 
-namespace  MTRpc {
+namespace mtrpc {
 
 class TimerTask{
 public:

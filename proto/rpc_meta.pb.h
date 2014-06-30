@@ -28,7 +28,7 @@
 #include "rpc_option.pb.h"
 // @@protoc_insertion_point(includes)
 
-namespace mtrpc {
+namespace MTRpc {
 
 // Internal implementation detail -- do not call these.
 void  protobuf_AddDesc_rpc_5fmeta_2eproto();
@@ -140,8 +140,8 @@ class RpcMeta : public ::google::protobuf::Message {
   inline bool has_type() const;
   inline void clear_type();
   static const int kTypeFieldNumber = 1;
-  inline ::mtrpc::RpcMeta_Type type() const;
-  inline void set_type(::mtrpc::RpcMeta_Type value);
+  inline ::MTRpc::RpcMeta_Type type() const;
+  inline void set_type(::MTRpc::RpcMeta_Type value);
 
   // required uint64 sequence_id = 2;
   inline bool has_sequence_id() const;
@@ -192,15 +192,15 @@ class RpcMeta : public ::google::protobuf::Message {
   inline bool has_compress_type() const;
   inline void clear_compress_type();
   static const int kCompressTypeFieldNumber = 300;
-  inline ::mtrpc::CompressType compress_type() const;
-  inline void set_compress_type(::mtrpc::CompressType value);
+  inline ::MTRpc::CompressType compress_type() const;
+  inline void set_compress_type(::MTRpc::CompressType value);
 
   // optional .MTRpc.CompressType expected_response_compress_type = 301;
   inline bool has_expected_response_compress_type() const;
   inline void clear_expected_response_compress_type();
   static const int kExpectedResponseCompressTypeFieldNumber = 301;
-  inline ::mtrpc::CompressType expected_response_compress_type() const;
-  inline void set_expected_response_compress_type(::mtrpc::CompressType value);
+  inline ::MTRpc::CompressType expected_response_compress_type() const;
+  inline void set_expected_response_compress_type(::MTRpc::CompressType value);
 
   // @@protoc_insertion_point(class_scope:MTRpc.RpcMeta)
  private:
@@ -263,11 +263,11 @@ inline void RpcMeta::clear_type() {
   type_ = 0;
   clear_has_type();
 }
-inline ::mtrpc::RpcMeta_Type RpcMeta::type() const {
-  return static_cast< ::mtrpc::RpcMeta_Type >(type_);
+inline ::MTRpc::RpcMeta_Type RpcMeta::type() const {
+  return static_cast< ::MTRpc::RpcMeta_Type >(type_);
 }
-inline void RpcMeta::set_type(::mtrpc::RpcMeta_Type value) {
-  assert(::mtrpc::RpcMeta_Type_IsValid(value));
+inline void RpcMeta::set_type(::MTRpc::RpcMeta_Type value) {
+  assert(::MTRpc::RpcMeta_Type_IsValid(value));
   set_has_type();
   type_ = value;
 }
@@ -492,11 +492,11 @@ inline void RpcMeta::clear_compress_type() {
   compress_type_ = 0;
   clear_has_compress_type();
 }
-inline ::mtrpc::CompressType RpcMeta::compress_type() const {
-  return static_cast< ::mtrpc::CompressType >(compress_type_);
+inline ::MTRpc::CompressType RpcMeta::compress_type() const {
+  return static_cast< ::MTRpc::CompressType >(compress_type_);
 }
-inline void RpcMeta::set_compress_type(::mtrpc::CompressType value) {
-  assert(::mtrpc::CompressType_IsValid(value));
+inline void RpcMeta::set_compress_type(::MTRpc::CompressType value) {
+  assert(::MTRpc::CompressType_IsValid(value));
   set_has_compress_type();
   compress_type_ = value;
 }
@@ -515,11 +515,11 @@ inline void RpcMeta::clear_expected_response_compress_type() {
   expected_response_compress_type_ = 0;
   clear_has_expected_response_compress_type();
 }
-inline ::mtrpc::CompressType RpcMeta::expected_response_compress_type() const {
-  return static_cast< ::mtrpc::CompressType >(expected_response_compress_type_);
+inline ::MTRpc::CompressType RpcMeta::expected_response_compress_type() const {
+  return static_cast< ::MTRpc::CompressType >(expected_response_compress_type_);
 }
-inline void RpcMeta::set_expected_response_compress_type(::mtrpc::CompressType value) {
-  assert(::mtrpc::CompressType_IsValid(value));
+inline void RpcMeta::set_expected_response_compress_type(::MTRpc::CompressType value) {
+  assert(::MTRpc::CompressType_IsValid(value));
   set_has_expected_response_compress_type();
   expected_response_compress_type_ = value;
 }
@@ -527,15 +527,15 @@ inline void RpcMeta::set_expected_response_compress_type(::mtrpc::CompressType v
 
 // @@protoc_insertion_point(namespace_scope)
 
-}  // namespace mtrpc
+}  // namespace MTRpc
 
 #ifndef SWIG
 namespace google {
 namespace protobuf {
 
 template <>
-inline const EnumDescriptor* GetEnumDescriptor< ::mtrpc::RpcMeta_Type>() {
-  return ::mtrpc::RpcMeta_Type_descriptor();
+inline const EnumDescriptor* GetEnumDescriptor< ::MTRpc::RpcMeta_Type>() {
+  return ::MTRpc::RpcMeta_Type_descriptor();
 }
 
 }  // namespace google

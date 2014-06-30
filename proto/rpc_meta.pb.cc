@@ -16,7 +16,7 @@
 #include <google/protobuf/wire_format.h>
 // @@protoc_insertion_point(includes)
 
-namespace mtrpc {
+namespace MTRpc {
 
 namespace {
 
@@ -86,7 +86,7 @@ void protobuf_AddDesc_rpc_5fmeta_2eproto() {
   already_here = true;
   GOOGLE_PROTOBUF_VERIFY_VERSION;
 
-  ::mtrpc::protobuf_AddDesc_rpc_5foption_2eproto();
+  ::MTRpc::protobuf_AddDesc_rpc_5foption_2eproto();
   ::google::protobuf::DescriptorPool::InternalAddGeneratedFile(
     "\n\016rpc_meta.proto\022\005MTRpc\032\020rpc_option.prot"
     "o\"\227\002\n\007RpcMeta\022!\n\004type\030\001 \002(\0162\023.MTRpc.RpcM"
@@ -245,8 +245,8 @@ bool RpcMeta::MergePartialFromCodedStream(
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    int, ::google::protobuf::internal::WireFormatLite::TYPE_ENUM>(
                  input, &value)));
-          if (::mtrpc::RpcMeta_Type_IsValid(value)) {
-            set_type(static_cast< ::mtrpc::RpcMeta_Type >(value));
+          if (::MTRpc::RpcMeta_Type_IsValid(value)) {
+            set_type(static_cast< ::MTRpc::RpcMeta_Type >(value));
           } else {
             mutable_unknown_fields()->AddVarint(1, value);
           }
@@ -348,8 +348,8 @@ bool RpcMeta::MergePartialFromCodedStream(
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    int, ::google::protobuf::internal::WireFormatLite::TYPE_ENUM>(
                  input, &value)));
-          if (::mtrpc::CompressType_IsValid(value)) {
-            set_compress_type(static_cast< ::mtrpc::CompressType >(value));
+          if (::MTRpc::CompressType_IsValid(value)) {
+            set_compress_type(static_cast< ::MTRpc::CompressType >(value));
           } else {
             mutable_unknown_fields()->AddVarint(300, value);
           }
@@ -369,8 +369,8 @@ bool RpcMeta::MergePartialFromCodedStream(
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    int, ::google::protobuf::internal::WireFormatLite::TYPE_ENUM>(
                  input, &value)));
-          if (::mtrpc::CompressType_IsValid(value)) {
-            set_expected_response_compress_type(static_cast< ::mtrpc::CompressType >(value));
+          if (::MTRpc::CompressType_IsValid(value)) {
+            set_expected_response_compress_type(static_cast< ::MTRpc::CompressType >(value));
           } else {
             mutable_unknown_fields()->AddVarint(301, value);
           }
@@ -673,6 +673,6 @@ void RpcMeta::Swap(RpcMeta* other) {
 
 // @@protoc_insertion_point(namespace_scope)
 
-}  // namespace mtrpc
+}  // namespace MTRpc
 
 // @@protoc_insertion_point(global_scope)

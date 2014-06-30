@@ -1,2 +1,2 @@
-/usr/bin/ar cr libproto.a  CMakeFiles/proto.dir/rpc_meta.pb.cc.o CMakeFiles/proto.dir/builtin_service.pb.cc.o CMakeFiles/proto.dir/rpc_option.pb.cc.o
+/usr/bin/ar cr libproto.a  CMakeFiles/proto.dir/builtin_service.pb.cc.o CMakeFiles/proto.dir/rpc_option.pb.cc.o CMakeFiles/proto.dir/rpc_meta.pb.cc.o
 /usr/bin/ranlib libproto.a

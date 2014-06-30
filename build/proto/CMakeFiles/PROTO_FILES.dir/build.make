@@ -35,10 +35,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/tanguofu/MTRpc
+CMAKE_SOURCE_DIR = /home/guofutan/workspace/MTRpc
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/tanguofu/MTRpc/build
+CMAKE_BINARY_DIR = /home/guofutan/workspace/MTRpc/build
 
 # Utility rule file for PROTO_FILES.
 
@@ -56,10 +56,10 @@ proto/CMakeFiles/PROTO_FILES.dir/build: PROTO_FILES
 .PHONY : proto/CMakeFiles/PROTO_FILES.dir/build
 
 proto/CMakeFiles/PROTO_FILES.dir/clean:
-	cd /home/tanguofu/MTRpc/build/proto && $(CMAKE_COMMAND) -P CMakeFiles/PROTO_FILES.dir/cmake_clean.cmake
+	cd /home/guofutan/workspace/MTRpc/build/proto && $(CMAKE_COMMAND) -P CMakeFiles/PROTO_FILES.dir/cmake_clean.cmake
 .PHONY : proto/CMakeFiles/PROTO_FILES.dir/clean
 
 proto/CMakeFiles/PROTO_FILES.dir/depend:
-	cd /home/tanguofu/MTRpc/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/tanguofu/MTRpc /home/tanguofu/MTRpc/proto /home/tanguofu/MTRpc/build /home/tanguofu/MTRpc/build/proto /home/tanguofu/MTRpc/build/proto/CMakeFiles/PROTO_FILES.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/guofutan/workspace/MTRpc/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/guofutan/workspace/MTRpc /home/guofutan/workspace/MTRpc/proto /home/guofutan/workspace/MTRpc/build /home/guofutan/workspace/MTRpc/build/proto /home/guofutan/workspace/MTRpc/build/proto/CMakeFiles/PROTO_FILES.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : proto/CMakeFiles/PROTO_FILES.dir/depend
 

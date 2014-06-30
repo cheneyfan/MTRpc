@@ -35,10 +35,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/tanguofu/MTRpc
+CMAKE_SOURCE_DIR = /home/guofutan/workspace/MTRpc
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/tanguofu/MTRpc/build
+CMAKE_BINARY_DIR = /home/guofutan/workspace/MTRpc/build
 
 # Include any dependencies generated for this target.
 include rpc/CMakeFiles/rpc.dir/depend.make
@@ -49,42 +49,42 @@ include rpc/CMakeFiles/rpc.dir/progress.make
 # Include the compile flags for this target's objects.
 include rpc/CMakeFiles/rpc.dir/flags.make
 
-rpc/CMakeFiles/rpc.dir/rpc_controller_impl.cpp.o: rpc/CMakeFiles/rpc.dir/flags.make
-rpc/CMakeFiles/rpc.dir/rpc_controller_impl.cpp.o: ../rpc/rpc_controller_impl.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/tanguofu/MTRpc/build/CMakeFiles $(CMAKE_PROGRESS_1)
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object rpc/CMakeFiles/rpc.dir/rpc_controller_impl.cpp.o"
-	cd /home/tanguofu/MTRpc/build/rpc && g++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/rpc.dir/rpc_controller_impl.cpp.o -c /home/tanguofu/MTRpc/rpc/rpc_controller_impl.cpp
+rpc/CMakeFiles/rpc.dir/rpc_controller.cpp.o: rpc/CMakeFiles/rpc.dir/flags.make
+rpc/CMakeFiles/rpc.dir/rpc_controller.cpp.o: ../rpc/rpc_controller.cpp
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/guofutan/workspace/MTRpc/build/CMakeFiles $(CMAKE_PROGRESS_1)
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object rpc/CMakeFiles/rpc.dir/rpc_controller.cpp.o"
+	cd /home/guofutan/workspace/MTRpc/build/rpc && g++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/rpc.dir/rpc_controller.cpp.o -c /home/guofutan/workspace/MTRpc/rpc/rpc_controller.cpp
 
-rpc/CMakeFiles/rpc.dir/rpc_controller_impl.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/rpc.dir/rpc_controller_impl.cpp.i"
-	cd /home/tanguofu/MTRpc/build/rpc && g++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/tanguofu/MTRpc/rpc/rpc_controller_impl.cpp > CMakeFiles/rpc.dir/rpc_controller_impl.cpp.i
+rpc/CMakeFiles/rpc.dir/rpc_controller.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/rpc.dir/rpc_controller.cpp.i"
+	cd /home/guofutan/workspace/MTRpc/build/rpc && g++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/guofutan/workspace/MTRpc/rpc/rpc_controller.cpp > CMakeFiles/rpc.dir/rpc_controller.cpp.i
 
-rpc/CMakeFiles/rpc.dir/rpc_controller_impl.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/rpc.dir/rpc_controller_impl.cpp.s"
-	cd /home/tanguofu/MTRpc/build/rpc && g++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/tanguofu/MTRpc/rpc/rpc_controller_impl.cpp -o CMakeFiles/rpc.dir/rpc_controller_impl.cpp.s
+rpc/CMakeFiles/rpc.dir/rpc_controller.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/rpc.dir/rpc_controller.cpp.s"
+	cd /home/guofutan/workspace/MTRpc/build/rpc && g++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/guofutan/workspace/MTRpc/rpc/rpc_controller.cpp -o CMakeFiles/rpc.dir/rpc_controller.cpp.s
 
-rpc/CMakeFiles/rpc.dir/rpc_controller_impl.cpp.o.requires:
-.PHONY : rpc/CMakeFiles/rpc.dir/rpc_controller_impl.cpp.o.requires
+rpc/CMakeFiles/rpc.dir/rpc_controller.cpp.o.requires:
+.PHONY : rpc/CMakeFiles/rpc.dir/rpc_controller.cpp.o.requires
 
-rpc/CMakeFiles/rpc.dir/rpc_controller_impl.cpp.o.provides: rpc/CMakeFiles/rpc.dir/rpc_controller_impl.cpp.o.requires
-	$(MAKE) -f rpc/CMakeFiles/rpc.dir/build.make rpc/CMakeFiles/rpc.dir/rpc_controller_impl.cpp.o.provides.build
-.PHONY : rpc/CMakeFiles/rpc.dir/rpc_controller_impl.cpp.o.provides
+rpc/CMakeFiles/rpc.dir/rpc_controller.cpp.o.provides: rpc/CMakeFiles/rpc.dir/rpc_controller.cpp.o.requires
+	$(MAKE) -f rpc/CMakeFiles/rpc.dir/build.make rpc/CMakeFiles/rpc.dir/rpc_controller.cpp.o.provides.build
+.PHONY : rpc/CMakeFiles/rpc.dir/rpc_controller.cpp.o.provides
 
-rpc/CMakeFiles/rpc.dir/rpc_controller_impl.cpp.o.provides.build: rpc/CMakeFiles/rpc.dir/rpc_controller_impl.cpp.o
+rpc/CMakeFiles/rpc.dir/rpc_controller.cpp.o.provides.build: rpc/CMakeFiles/rpc.dir/rpc_controller.cpp.o
 
 rpc/CMakeFiles/rpc.dir/rpc_client_impl.cpp.o: rpc/CMakeFiles/rpc.dir/flags.make
 rpc/CMakeFiles/rpc.dir/rpc_client_impl.cpp.o: ../rpc/rpc_client_impl.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/tanguofu/MTRpc/build/CMakeFiles $(CMAKE_PROGRESS_2)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/guofutan/workspace/MTRpc/build/CMakeFiles $(CMAKE_PROGRESS_2)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object rpc/CMakeFiles/rpc.dir/rpc_client_impl.cpp.o"
-	cd /home/tanguofu/MTRpc/build/rpc && g++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/rpc.dir/rpc_client_impl.cpp.o -c /home/tanguofu/MTRpc/rpc/rpc_client_impl.cpp
+	cd /home/guofutan/workspace/MTRpc/build/rpc && g++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/rpc.dir/rpc_client_impl.cpp.o -c /home/guofutan/workspace/MTRpc/rpc/rpc_client_impl.cpp
 
 rpc/CMakeFiles/rpc.dir/rpc_client_impl.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/rpc.dir/rpc_client_impl.cpp.i"
-	cd /home/tanguofu/MTRpc/build/rpc && g++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/tanguofu/MTRpc/rpc/rpc_client_impl.cpp > CMakeFiles/rpc.dir/rpc_client_impl.cpp.i
+	cd /home/guofutan/workspace/MTRpc/build/rpc && g++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/guofutan/workspace/MTRpc/rpc/rpc_client_impl.cpp > CMakeFiles/rpc.dir/rpc_client_impl.cpp.i
 
 rpc/CMakeFiles/rpc.dir/rpc_client_impl.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/rpc.dir/rpc_client_impl.cpp.s"
-	cd /home/tanguofu/MTRpc/build/rpc && g++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/tanguofu/MTRpc/rpc/rpc_client_impl.cpp -o CMakeFiles/rpc.dir/rpc_client_impl.cpp.s
+	cd /home/guofutan/workspace/MTRpc/build/rpc && g++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/guofutan/workspace/MTRpc/rpc/rpc_client_impl.cpp -o CMakeFiles/rpc.dir/rpc_client_impl.cpp.s
 
 rpc/CMakeFiles/rpc.dir/rpc_client_impl.cpp.o.requires:
 .PHONY : rpc/CMakeFiles/rpc.dir/rpc_client_impl.cpp.o.requires
@@ -95,42 +95,19 @@ rpc/CMakeFiles/rpc.dir/rpc_client_impl.cpp.o.provides: rpc/CMakeFiles/rpc.dir/rp
 
 rpc/CMakeFiles/rpc.dir/rpc_client_impl.cpp.o.provides.build: rpc/CMakeFiles/rpc.dir/rpc_client_impl.cpp.o
 
-rpc/CMakeFiles/rpc.dir/rpc_channel.cpp.o: rpc/CMakeFiles/rpc.dir/flags.make
-rpc/CMakeFiles/rpc.dir/rpc_channel.cpp.o: ../rpc/rpc_channel.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/tanguofu/MTRpc/build/CMakeFiles $(CMAKE_PROGRESS_3)
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object rpc/CMakeFiles/rpc.dir/rpc_channel.cpp.o"
-	cd /home/tanguofu/MTRpc/build/rpc && g++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/rpc.dir/rpc_channel.cpp.o -c /home/tanguofu/MTRpc/rpc/rpc_channel.cpp
-
-rpc/CMakeFiles/rpc.dir/rpc_channel.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/rpc.dir/rpc_channel.cpp.i"
-	cd /home/tanguofu/MTRpc/build/rpc && g++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/tanguofu/MTRpc/rpc/rpc_channel.cpp > CMakeFiles/rpc.dir/rpc_channel.cpp.i
-
-rpc/CMakeFiles/rpc.dir/rpc_channel.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/rpc.dir/rpc_channel.cpp.s"
-	cd /home/tanguofu/MTRpc/build/rpc && g++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/tanguofu/MTRpc/rpc/rpc_channel.cpp -o CMakeFiles/rpc.dir/rpc_channel.cpp.s
-
-rpc/CMakeFiles/rpc.dir/rpc_channel.cpp.o.requires:
-.PHONY : rpc/CMakeFiles/rpc.dir/rpc_channel.cpp.o.requires
-
-rpc/CMakeFiles/rpc.dir/rpc_channel.cpp.o.provides: rpc/CMakeFiles/rpc.dir/rpc_channel.cpp.o.requires
-	$(MAKE) -f rpc/CMakeFiles/rpc.dir/build.make rpc/CMakeFiles/rpc.dir/rpc_channel.cpp.o.provides.build
-.PHONY : rpc/CMakeFiles/rpc.dir/rpc_channel.cpp.o.provides
-
-rpc/CMakeFiles/rpc.dir/rpc_channel.cpp.o.provides.build: rpc/CMakeFiles/rpc.dir/rpc_channel.cpp.o
-
 rpc/CMakeFiles/rpc.dir/rpc_channel_impl.cpp.o: rpc/CMakeFiles/rpc.dir/flags.make
 rpc/CMakeFiles/rpc.dir/rpc_channel_impl.cpp.o: ../rpc/rpc_channel_impl.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/tanguofu/MTRpc/build/CMakeFiles $(CMAKE_PROGRESS_4)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/guofutan/workspace/MTRpc/build/CMakeFiles $(CMAKE_PROGRESS_3)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object rpc/CMakeFiles/rpc.dir/rpc_channel_impl.cpp.o"
-	cd /home/tanguofu/MTRpc/build/rpc && g++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/rpc.dir/rpc_channel_impl.cpp.o -c /home/tanguofu/MTRpc/rpc/rpc_channel_impl.cpp
+	cd /home/guofutan/workspace/MTRpc/build/rpc && g++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/rpc.dir/rpc_channel_impl.cpp.o -c /home/guofutan/workspace/MTRpc/rpc/rpc_channel_impl.cpp
 
 rpc/CMakeFiles/rpc.dir/rpc_channel_impl.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/rpc.dir/rpc_channel_impl.cpp.i"
-	cd /home/tanguofu/MTRpc/build/rpc && g++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/tanguofu/MTRpc/rpc/rpc_channel_impl.cpp > CMakeFiles/rpc.dir/rpc_channel_impl.cpp.i
+	cd /home/guofutan/workspace/MTRpc/build/rpc && g++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/guofutan/workspace/MTRpc/rpc/rpc_channel_impl.cpp > CMakeFiles/rpc.dir/rpc_channel_impl.cpp.i
 
 rpc/CMakeFiles/rpc.dir/rpc_channel_impl.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/rpc.dir/rpc_channel_impl.cpp.s"
-	cd /home/tanguofu/MTRpc/build/rpc && g++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/tanguofu/MTRpc/rpc/rpc_channel_impl.cpp -o CMakeFiles/rpc.dir/rpc_channel_impl.cpp.s
+	cd /home/guofutan/workspace/MTRpc/build/rpc && g++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/guofutan/workspace/MTRpc/rpc/rpc_channel_impl.cpp -o CMakeFiles/rpc.dir/rpc_channel_impl.cpp.s
 
 rpc/CMakeFiles/rpc.dir/rpc_channel_impl.cpp.o.requires:
 .PHONY : rpc/CMakeFiles/rpc.dir/rpc_channel_impl.cpp.o.requires
@@ -141,19 +118,88 @@ rpc/CMakeFiles/rpc.dir/rpc_channel_impl.cpp.o.provides: rpc/CMakeFiles/rpc.dir/r
 
 rpc/CMakeFiles/rpc.dir/rpc_channel_impl.cpp.o.provides.build: rpc/CMakeFiles/rpc.dir/rpc_channel_impl.cpp.o
 
+rpc/CMakeFiles/rpc.dir/rpc_server.cpp.o: rpc/CMakeFiles/rpc.dir/flags.make
+rpc/CMakeFiles/rpc.dir/rpc_server.cpp.o: ../rpc/rpc_server.cpp
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/guofutan/workspace/MTRpc/build/CMakeFiles $(CMAKE_PROGRESS_4)
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object rpc/CMakeFiles/rpc.dir/rpc_server.cpp.o"
+	cd /home/guofutan/workspace/MTRpc/build/rpc && g++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/rpc.dir/rpc_server.cpp.o -c /home/guofutan/workspace/MTRpc/rpc/rpc_server.cpp
+
+rpc/CMakeFiles/rpc.dir/rpc_server.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/rpc.dir/rpc_server.cpp.i"
+	cd /home/guofutan/workspace/MTRpc/build/rpc && g++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/guofutan/workspace/MTRpc/rpc/rpc_server.cpp > CMakeFiles/rpc.dir/rpc_server.cpp.i
+
+rpc/CMakeFiles/rpc.dir/rpc_server.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/rpc.dir/rpc_server.cpp.s"
+	cd /home/guofutan/workspace/MTRpc/build/rpc && g++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/guofutan/workspace/MTRpc/rpc/rpc_server.cpp -o CMakeFiles/rpc.dir/rpc_server.cpp.s
+
+rpc/CMakeFiles/rpc.dir/rpc_server.cpp.o.requires:
+.PHONY : rpc/CMakeFiles/rpc.dir/rpc_server.cpp.o.requires
+
+rpc/CMakeFiles/rpc.dir/rpc_server.cpp.o.provides: rpc/CMakeFiles/rpc.dir/rpc_server.cpp.o.requires
+	$(MAKE) -f rpc/CMakeFiles/rpc.dir/build.make rpc/CMakeFiles/rpc.dir/rpc_server.cpp.o.provides.build
+.PHONY : rpc/CMakeFiles/rpc.dir/rpc_server.cpp.o.provides
+
+rpc/CMakeFiles/rpc.dir/rpc_server.cpp.o.provides.build: rpc/CMakeFiles/rpc.dir/rpc_server.cpp.o
+
+rpc/CMakeFiles/rpc.dir/rpc_controller_impl.cpp.o: rpc/CMakeFiles/rpc.dir/flags.make
+rpc/CMakeFiles/rpc.dir/rpc_controller_impl.cpp.o: ../rpc/rpc_controller_impl.cpp
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/guofutan/workspace/MTRpc/build/CMakeFiles $(CMAKE_PROGRESS_5)
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object rpc/CMakeFiles/rpc.dir/rpc_controller_impl.cpp.o"
+	cd /home/guofutan/workspace/MTRpc/build/rpc && g++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/rpc.dir/rpc_controller_impl.cpp.o -c /home/guofutan/workspace/MTRpc/rpc/rpc_controller_impl.cpp
+
+rpc/CMakeFiles/rpc.dir/rpc_controller_impl.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/rpc.dir/rpc_controller_impl.cpp.i"
+	cd /home/guofutan/workspace/MTRpc/build/rpc && g++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/guofutan/workspace/MTRpc/rpc/rpc_controller_impl.cpp > CMakeFiles/rpc.dir/rpc_controller_impl.cpp.i
+
+rpc/CMakeFiles/rpc.dir/rpc_controller_impl.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/rpc.dir/rpc_controller_impl.cpp.s"
+	cd /home/guofutan/workspace/MTRpc/build/rpc && g++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/guofutan/workspace/MTRpc/rpc/rpc_controller_impl.cpp -o CMakeFiles/rpc.dir/rpc_controller_impl.cpp.s
+
+rpc/CMakeFiles/rpc.dir/rpc_controller_impl.cpp.o.requires:
+.PHONY : rpc/CMakeFiles/rpc.dir/rpc_controller_impl.cpp.o.requires
+
+rpc/CMakeFiles/rpc.dir/rpc_controller_impl.cpp.o.provides: rpc/CMakeFiles/rpc.dir/rpc_controller_impl.cpp.o.requires
+	$(MAKE) -f rpc/CMakeFiles/rpc.dir/build.make rpc/CMakeFiles/rpc.dir/rpc_controller_impl.cpp.o.provides.build
+.PHONY : rpc/CMakeFiles/rpc.dir/rpc_controller_impl.cpp.o.provides
+
+rpc/CMakeFiles/rpc.dir/rpc_controller_impl.cpp.o.provides.build: rpc/CMakeFiles/rpc.dir/rpc_controller_impl.cpp.o
+
+rpc/CMakeFiles/rpc.dir/rpc_channel.cpp.o: rpc/CMakeFiles/rpc.dir/flags.make
+rpc/CMakeFiles/rpc.dir/rpc_channel.cpp.o: ../rpc/rpc_channel.cpp
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/guofutan/workspace/MTRpc/build/CMakeFiles $(CMAKE_PROGRESS_6)
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object rpc/CMakeFiles/rpc.dir/rpc_channel.cpp.o"
+	cd /home/guofutan/workspace/MTRpc/build/rpc && g++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/rpc.dir/rpc_channel.cpp.o -c /home/guofutan/workspace/MTRpc/rpc/rpc_channel.cpp
+
+rpc/CMakeFiles/rpc.dir/rpc_channel.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/rpc.dir/rpc_channel.cpp.i"
+	cd /home/guofutan/workspace/MTRpc/build/rpc && g++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/guofutan/workspace/MTRpc/rpc/rpc_channel.cpp > CMakeFiles/rpc.dir/rpc_channel.cpp.i
+
+rpc/CMakeFiles/rpc.dir/rpc_channel.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/rpc.dir/rpc_channel.cpp.s"
+	cd /home/guofutan/workspace/MTRpc/build/rpc && g++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/guofutan/workspace/MTRpc/rpc/rpc_channel.cpp -o CMakeFiles/rpc.dir/rpc_channel.cpp.s
+
+rpc/CMakeFiles/rpc.dir/rpc_channel.cpp.o.requires:
+.PHONY : rpc/CMakeFiles/rpc.dir/rpc_channel.cpp.o.requires
+
+rpc/CMakeFiles/rpc.dir/rpc_channel.cpp.o.provides: rpc/CMakeFiles/rpc.dir/rpc_channel.cpp.o.requires
+	$(MAKE) -f rpc/CMakeFiles/rpc.dir/build.make rpc/CMakeFiles/rpc.dir/rpc_channel.cpp.o.provides.build
+.PHONY : rpc/CMakeFiles/rpc.dir/rpc_channel.cpp.o.provides
+
+rpc/CMakeFiles/rpc.dir/rpc_channel.cpp.o.provides.build: rpc/CMakeFiles/rpc.dir/rpc_channel.cpp.o
+
 rpc/CMakeFiles/rpc.dir/rpc_server_impl.cpp.o: rpc/CMakeFiles/rpc.dir/flags.make
 rpc/CMakeFiles/rpc.dir/rpc_server_impl.cpp.o: ../rpc/rpc_server_impl.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/tanguofu/MTRpc/build/CMakeFiles $(CMAKE_PROGRESS_5)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/guofutan/workspace/MTRpc/build/CMakeFiles $(CMAKE_PROGRESS_7)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object rpc/CMakeFiles/rpc.dir/rpc_server_impl.cpp.o"
-	cd /home/tanguofu/MTRpc/build/rpc && g++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/rpc.dir/rpc_server_impl.cpp.o -c /home/tanguofu/MTRpc/rpc/rpc_server_impl.cpp
+	cd /home/guofutan/workspace/MTRpc/build/rpc && g++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/rpc.dir/rpc_server_impl.cpp.o -c /home/guofutan/workspace/MTRpc/rpc/rpc_server_impl.cpp
 
 rpc/CMakeFiles/rpc.dir/rpc_server_impl.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/rpc.dir/rpc_server_impl.cpp.i"
-	cd /home/tanguofu/MTRpc/build/rpc && g++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/tanguofu/MTRpc/rpc/rpc_server_impl.cpp > CMakeFiles/rpc.dir/rpc_server_impl.cpp.i
+	cd /home/guofutan/workspace/MTRpc/build/rpc && g++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/guofutan/workspace/MTRpc/rpc/rpc_server_impl.cpp > CMakeFiles/rpc.dir/rpc_server_impl.cpp.i
 
 rpc/CMakeFiles/rpc.dir/rpc_server_impl.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/rpc.dir/rpc_server_impl.cpp.s"
-	cd /home/tanguofu/MTRpc/build/rpc && g++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/tanguofu/MTRpc/rpc/rpc_server_impl.cpp -o CMakeFiles/rpc.dir/rpc_server_impl.cpp.s
+	cd /home/guofutan/workspace/MTRpc/build/rpc && g++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/guofutan/workspace/MTRpc/rpc/rpc_server_impl.cpp -o CMakeFiles/rpc.dir/rpc_server_impl.cpp.s
 
 rpc/CMakeFiles/rpc.dir/rpc_server_impl.cpp.o.requires:
 .PHONY : rpc/CMakeFiles/rpc.dir/rpc_server_impl.cpp.o.requires
@@ -166,17 +212,17 @@ rpc/CMakeFiles/rpc.dir/rpc_server_impl.cpp.o.provides.build: rpc/CMakeFiles/rpc.
 
 rpc/CMakeFiles/rpc.dir/rpc_client.cpp.o: rpc/CMakeFiles/rpc.dir/flags.make
 rpc/CMakeFiles/rpc.dir/rpc_client.cpp.o: ../rpc/rpc_client.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/tanguofu/MTRpc/build/CMakeFiles $(CMAKE_PROGRESS_6)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/guofutan/workspace/MTRpc/build/CMakeFiles $(CMAKE_PROGRESS_8)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object rpc/CMakeFiles/rpc.dir/rpc_client.cpp.o"
-	cd /home/tanguofu/MTRpc/build/rpc && g++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/rpc.dir/rpc_client.cpp.o -c /home/tanguofu/MTRpc/rpc/rpc_client.cpp
+	cd /home/guofutan/workspace/MTRpc/build/rpc && g++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/rpc.dir/rpc_client.cpp.o -c /home/guofutan/workspace/MTRpc/rpc/rpc_client.cpp
 
 rpc/CMakeFiles/rpc.dir/rpc_client.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/rpc.dir/rpc_client.cpp.i"
-	cd /home/tanguofu/MTRpc/build/rpc && g++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/tanguofu/MTRpc/rpc/rpc_client.cpp > CMakeFiles/rpc.dir/rpc_client.cpp.i
+	cd /home/guofutan/workspace/MTRpc/build/rpc && g++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/guofutan/workspace/MTRpc/rpc/rpc_client.cpp > CMakeFiles/rpc.dir/rpc_client.cpp.i
 
 rpc/CMakeFiles/rpc.dir/rpc_client.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/rpc.dir/rpc_client.cpp.s"
-	cd /home/tanguofu/MTRpc/build/rpc && g++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/tanguofu/MTRpc/rpc/rpc_client.cpp -o CMakeFiles/rpc.dir/rpc_client.cpp.s
+	cd /home/guofutan/workspace/MTRpc/build/rpc && g++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/guofutan/workspace/MTRpc/rpc/rpc_client.cpp -o CMakeFiles/rpc.dir/rpc_client.cpp.s
 
 rpc/CMakeFiles/rpc.dir/rpc_client.cpp.o.requires:
 .PHONY : rpc/CMakeFiles/rpc.dir/rpc_client.cpp.o.requires
@@ -187,99 +233,53 @@ rpc/CMakeFiles/rpc.dir/rpc_client.cpp.o.provides: rpc/CMakeFiles/rpc.dir/rpc_cli
 
 rpc/CMakeFiles/rpc.dir/rpc_client.cpp.o.provides.build: rpc/CMakeFiles/rpc.dir/rpc_client.cpp.o
 
-rpc/CMakeFiles/rpc.dir/rpc_controller.cpp.o: rpc/CMakeFiles/rpc.dir/flags.make
-rpc/CMakeFiles/rpc.dir/rpc_controller.cpp.o: ../rpc/rpc_controller.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/tanguofu/MTRpc/build/CMakeFiles $(CMAKE_PROGRESS_7)
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object rpc/CMakeFiles/rpc.dir/rpc_controller.cpp.o"
-	cd /home/tanguofu/MTRpc/build/rpc && g++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/rpc.dir/rpc_controller.cpp.o -c /home/tanguofu/MTRpc/rpc/rpc_controller.cpp
-
-rpc/CMakeFiles/rpc.dir/rpc_controller.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/rpc.dir/rpc_controller.cpp.i"
-	cd /home/tanguofu/MTRpc/build/rpc && g++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/tanguofu/MTRpc/rpc/rpc_controller.cpp > CMakeFiles/rpc.dir/rpc_controller.cpp.i
-
-rpc/CMakeFiles/rpc.dir/rpc_controller.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/rpc.dir/rpc_controller.cpp.s"
-	cd /home/tanguofu/MTRpc/build/rpc && g++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/tanguofu/MTRpc/rpc/rpc_controller.cpp -o CMakeFiles/rpc.dir/rpc_controller.cpp.s
-
-rpc/CMakeFiles/rpc.dir/rpc_controller.cpp.o.requires:
-.PHONY : rpc/CMakeFiles/rpc.dir/rpc_controller.cpp.o.requires
-
-rpc/CMakeFiles/rpc.dir/rpc_controller.cpp.o.provides: rpc/CMakeFiles/rpc.dir/rpc_controller.cpp.o.requires
-	$(MAKE) -f rpc/CMakeFiles/rpc.dir/build.make rpc/CMakeFiles/rpc.dir/rpc_controller.cpp.o.provides.build
-.PHONY : rpc/CMakeFiles/rpc.dir/rpc_controller.cpp.o.provides
-
-rpc/CMakeFiles/rpc.dir/rpc_controller.cpp.o.provides.build: rpc/CMakeFiles/rpc.dir/rpc_controller.cpp.o
-
-rpc/CMakeFiles/rpc.dir/rpc_server.cpp.o: rpc/CMakeFiles/rpc.dir/flags.make
-rpc/CMakeFiles/rpc.dir/rpc_server.cpp.o: ../rpc/rpc_server.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/tanguofu/MTRpc/build/CMakeFiles $(CMAKE_PROGRESS_8)
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object rpc/CMakeFiles/rpc.dir/rpc_server.cpp.o"
-	cd /home/tanguofu/MTRpc/build/rpc && g++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/rpc.dir/rpc_server.cpp.o -c /home/tanguofu/MTRpc/rpc/rpc_server.cpp
-
-rpc/CMakeFiles/rpc.dir/rpc_server.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/rpc.dir/rpc_server.cpp.i"
-	cd /home/tanguofu/MTRpc/build/rpc && g++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/tanguofu/MTRpc/rpc/rpc_server.cpp > CMakeFiles/rpc.dir/rpc_server.cpp.i
-
-rpc/CMakeFiles/rpc.dir/rpc_server.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/rpc.dir/rpc_server.cpp.s"
-	cd /home/tanguofu/MTRpc/build/rpc && g++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/tanguofu/MTRpc/rpc/rpc_server.cpp -o CMakeFiles/rpc.dir/rpc_server.cpp.s
-
-rpc/CMakeFiles/rpc.dir/rpc_server.cpp.o.requires:
-.PHONY : rpc/CMakeFiles/rpc.dir/rpc_server.cpp.o.requires
-
-rpc/CMakeFiles/rpc.dir/rpc_server.cpp.o.provides: rpc/CMakeFiles/rpc.dir/rpc_server.cpp.o.requires
-	$(MAKE) -f rpc/CMakeFiles/rpc.dir/build.make rpc/CMakeFiles/rpc.dir/rpc_server.cpp.o.provides.build
-.PHONY : rpc/CMakeFiles/rpc.dir/rpc_server.cpp.o.provides
-
-rpc/CMakeFiles/rpc.dir/rpc_server.cpp.o.provides.build: rpc/CMakeFiles/rpc.dir/rpc_server.cpp.o
-
 # Object files for target rpc
 rpc_OBJECTS = \
-"CMakeFiles/rpc.dir/rpc_controller_impl.cpp.o" \
-"CMakeFiles/rpc.dir/rpc_client_impl.cpp.o" \
-"CMakeFiles/rpc.dir/rpc_channel.cpp.o" \
-"CMakeFiles/rpc.dir/rpc_channel_impl.cpp.o" \
-"CMakeFiles/rpc.dir/rpc_server_impl.cpp.o" \
-"CMakeFiles/rpc.dir/rpc_client.cpp.o" \
 "CMakeFiles/rpc.dir/rpc_controller.cpp.o" \
-"CMakeFiles/rpc.dir/rpc_server.cpp.o"
+"CMakeFiles/rpc.dir/rpc_client_impl.cpp.o" \
+"CMakeFiles/rpc.dir/rpc_channel_impl.cpp.o" \
+"CMakeFiles/rpc.dir/rpc_server.cpp.o" \
+"CMakeFiles/rpc.dir/rpc_controller_impl.cpp.o" \
+"CMakeFiles/rpc.dir/rpc_channel.cpp.o" \
+"CMakeFiles/rpc.dir/rpc_server_impl.cpp.o" \
+"CMakeFiles/rpc.dir/rpc_client.cpp.o"
 
 # External object files for target rpc
 rpc_EXTERNAL_OBJECTS =
 
-rpc/librpc.a: rpc/CMakeFiles/rpc.dir/rpc_controller_impl.cpp.o
+rpc/librpc.a: rpc/CMakeFiles/rpc.dir/rpc_controller.cpp.o
 rpc/librpc.a: rpc/CMakeFiles/rpc.dir/rpc_client_impl.cpp.o
-rpc/librpc.a: rpc/CMakeFiles/rpc.dir/rpc_channel.cpp.o
 rpc/librpc.a: rpc/CMakeFiles/rpc.dir/rpc_channel_impl.cpp.o
+rpc/librpc.a: rpc/CMakeFiles/rpc.dir/rpc_server.cpp.o
+rpc/librpc.a: rpc/CMakeFiles/rpc.dir/rpc_controller_impl.cpp.o
+rpc/librpc.a: rpc/CMakeFiles/rpc.dir/rpc_channel.cpp.o
 rpc/librpc.a: rpc/CMakeFiles/rpc.dir/rpc_server_impl.cpp.o
 rpc/librpc.a: rpc/CMakeFiles/rpc.dir/rpc_client.cpp.o
-rpc/librpc.a: rpc/CMakeFiles/rpc.dir/rpc_controller.cpp.o
-rpc/librpc.a: rpc/CMakeFiles/rpc.dir/rpc_server.cpp.o
 rpc/librpc.a: rpc/CMakeFiles/rpc.dir/build.make
 rpc/librpc.a: rpc/CMakeFiles/rpc.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --red --bold "Linking CXX static library librpc.a"
-	cd /home/tanguofu/MTRpc/build/rpc && $(CMAKE_COMMAND) -P CMakeFiles/rpc.dir/cmake_clean_target.cmake
-	cd /home/tanguofu/MTRpc/build/rpc && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/rpc.dir/link.txt --verbose=$(VERBOSE)
+	cd /home/guofutan/workspace/MTRpc/build/rpc && $(CMAKE_COMMAND) -P CMakeFiles/rpc.dir/cmake_clean_target.cmake
+	cd /home/guofutan/workspace/MTRpc/build/rpc && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/rpc.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
 rpc/CMakeFiles/rpc.dir/build: rpc/librpc.a
 .PHONY : rpc/CMakeFiles/rpc.dir/build
 
-rpc/CMakeFiles/rpc.dir/requires: rpc/CMakeFiles/rpc.dir/rpc_controller_impl.cpp.o.requires
+rpc/CMakeFiles/rpc.dir/requires: rpc/CMakeFiles/rpc.dir/rpc_controller.cpp.o.requires
 rpc/CMakeFiles/rpc.dir/requires: rpc/CMakeFiles/rpc.dir/rpc_client_impl.cpp.o.requires
-rpc/CMakeFiles/rpc.dir/requires: rpc/CMakeFiles/rpc.dir/rpc_channel.cpp.o.requires
 rpc/CMakeFiles/rpc.dir/requires: rpc/CMakeFiles/rpc.dir/rpc_channel_impl.cpp.o.requires
+rpc/CMakeFiles/rpc.dir/requires: rpc/CMakeFiles/rpc.dir/rpc_server.cpp.o.requires
+rpc/CMakeFiles/rpc.dir/requires: rpc/CMakeFiles/rpc.dir/rpc_controller_impl.cpp.o.requires
+rpc/CMakeFiles/rpc.dir/requires: rpc/CMakeFiles/rpc.dir/rpc_channel.cpp.o.requires
 rpc/CMakeFiles/rpc.dir/requires: rpc/CMakeFiles/rpc.dir/rpc_server_impl.cpp.o.requires
 rpc/CMakeFiles/rpc.dir/requires: rpc/CMakeFiles/rpc.dir/rpc_client.cpp.o.requires
-rpc/CMakeFiles/rpc.dir/requires: rpc/CMakeFiles/rpc.dir/rpc_controller.cpp.o.requires
-rpc/CMakeFiles/rpc.dir/requires: rpc/CMakeFiles/rpc.dir/rpc_server.cpp.o.requires
 .PHONY : rpc/CMakeFiles/rpc.dir/requires
 
 rpc/CMakeFiles/rpc.dir/clean:
-	cd /home/tanguofu/MTRpc/build/rpc && $(CMAKE_COMMAND) -P CMakeFiles/rpc.dir/cmake_clean.cmake
+	cd /home/guofutan/workspace/MTRpc/build/rpc && $(CMAKE_COMMAND) -P CMakeFiles/rpc.dir/cmake_clean.cmake
 .PHONY : rpc/CMakeFiles/rpc.dir/clean
 
 rpc/CMakeFiles/rpc.dir/depend:
-	cd /home/tanguofu/MTRpc/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/tanguofu/MTRpc /home/tanguofu/MTRpc/rpc /home/tanguofu/MTRpc/build /home/tanguofu/MTRpc/build/rpc /home/tanguofu/MTRpc/build/rpc/CMakeFiles/rpc.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/guofutan/workspace/MTRpc/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/guofutan/workspace/MTRpc /home/guofutan/workspace/MTRpc/rpc /home/guofutan/workspace/MTRpc/build /home/guofutan/workspace/MTRpc/build/rpc /home/guofutan/workspace/MTRpc/build/rpc/CMakeFiles/rpc.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : rpc/CMakeFiles/rpc.dir/depend
 

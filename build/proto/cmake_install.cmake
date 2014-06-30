@@ -1,8 +1,8 @@
-# Install script for directory: /home/tanguofu/MTRpc/proto
+# Install script for directory: /home/guofutan/workspace/MTRpc/proto
 
 # Set the install prefix
 IF(NOT DEFINED CMAKE_INSTALL_PREFIX)
-  SET(CMAKE_INSTALL_PREFIX "/home/tanguofu/MTRpc/out")
+  SET(CMAKE_INSTALL_PREFIX "/home/guofutan/workspace/MTRpc/out")
 ENDIF(NOT DEFINED CMAKE_INSTALL_PREFIX)
 STRING(REGEX REPLACE "/$" "" CMAKE_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}")
 

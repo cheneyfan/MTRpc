@@ -3,20 +3,17 @@
 #include "mio_acceptor.h"
 #include "mio_poller.h"
 
-namespace  MTRpc {
+namespace mtrpc {
 
 Acceptor::Acceptor(){
-    ev._fd = TcpSocket::socket();
-    ev.ev.data.ptr = &ev;
 
+    _fd = TcpSocket::socket();
     TcpSocket::setNoblock(ev._fd, true);
     TcpSocket::setNoTcpDelay(ev._fd, true);
-
-    ev.onEvent = Closure::From<Acceptor,Epoller*,uint32_t,&Acceptor::onEvent>(this);
 }
 
-Acceptor::~Acceptor(){
-    ::close(ev._fd);
+virtual Acceptor::~Acceptor(){
+    ::close(_fd);
 }
 
 
