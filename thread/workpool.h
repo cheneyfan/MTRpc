@@ -19,9 +19,12 @@
 
 #define gettid() syscall(SYS_gettid)
 
-#include "mio_task.h"
+#include "ext_closure.h"
 
 namespace mtrpc{
+
+
+
 
 class WorkGroup;
 ///
@@ -82,13 +85,13 @@ public:
 
 
     SpinLock spin;
-    Closure task;
+    MioTask* task;
 
     WorkGroup* _group;
     Worker *next;
 
-    SpinList<Closure,MutexLock> * taskqueue;
-    SpinList<Worker*,MutexLock> *idleWorker;
+    SpinList<MioTask*,MutexLock>* taskqueue;
+    SpinList<Worker*,MutexLock>* idleWorker;
 
 
     MutexLock mutex;
@@ -129,7 +132,7 @@ public:
     /// \param task
     /// \return
     ///
-    int Post(const Closure& task);
+    int Post(MioTask* task);
 
     ///
     /// \brief Loop
@@ -148,7 +151,7 @@ public:
 
 public:
     Worker* workerlist;
-    SpinList<Closure,MutexLock> taskQueue;
+    SpinList<MioTask*,MutexLock> taskQueue;
     SpinList<Worker*,MutexLock> idleWorker;
 
 };

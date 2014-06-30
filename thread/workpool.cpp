@@ -63,20 +63,20 @@ void Worker::loop()
     for(;isruning;)
     {
         //first job to avoid lock
-        Closure tmp;
+        MioTask* tmp = NULL;
 
-        {
-            WriteLock<SpinLock> wl(spin);
-            tmp = task;
-            task.h1 = NULL;
+        { // acquire barrier : 不允许将barrier之后的内存读取指令移到barrier之前（wmb()）。
+          // release barrier : 不允许将barrier之前的内存读取指令移到barrier之后 (rmb())。
+          // full barrier   : 以上两种barrier的合集(linux kernel中的mb())。
+          // __sync_lock_test_and_set is acquire
+
+            tmp =  __sync_lock_test_and_set(&task,NULL);
+            if(tmp)
+            {
+                tmp->Run();
+                continue;
+            }
         }
-
-        if(tmp.h1)
-        {
-            tmp();
-            continue;
-        }
-
 
         if(taskqueue && taskqueue->pop(tmp))
         {
@@ -98,17 +98,16 @@ void Worker::loop()
 }
 
 
-void Worker::RunTask(const Closure &t)
+void Worker::RunTask(MioTask* t)
 {
-    WriteLock<MutexLock> wl(mutex);
+    // avoid the thread is moving to idleWorker list
+    MioTask* tmp = __sync_lock_test_and_set(&task, t);
 
-    {   // guard the assign is atomic
-        WriteLock<SpinLock> ws(spin);
-        if(task.h1)
-        {
-            ERROR("already has assign");
-        }
-        task = t;
+    if(tmp)
+    {
+        // this should be never happen
+        WARN("worker has a undone task,repost to WorkGroup");
+        _group->Post(tmp);
     }
 
     cv.notifyOne();
@@ -177,20 +176,25 @@ void WorkGroup::AddWork(Worker* w)
 }
 
 
-int WorkGroup::Post(const Closure& task)
+int WorkGroup::Post(MioTask* task)
 {
     Worker* w = NULL;
     int ret = 0;
+
+    // if some worker is idle, wake up to do work
     if(idleWorker.pop(w))
     {
         w->RunTask(task);
         return 0;
     }
 
+    // all working is doing,just push to task queue
     {
         ret = taskQueue.push(task);
     }
 
+
+    // some work may be miss the task pushed
     if(idleWorker.pop(w))
     {
         w->cv.notifyOne();
