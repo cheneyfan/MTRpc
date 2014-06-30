@@ -7,9 +7,13 @@
 #include "common/rwlock.h"
 #include "common/spinlist.h"
 
+#include "thread/ext_closure.h"
+
 #define MAX_EVENT_PROCESS 1000
 
 namespace mtrpc {
+
+
 
 class Epoller {
 
@@ -57,7 +61,7 @@ public:
     /// \param wsec
     /// \return
     ///
-    int SetWriteTimeout(IOEvent* ev);
+    int SetWriteTimeOut(IOEvent* ev);
 
     ///
     /// \brief ProcessTimeOut
@@ -70,7 +74,7 @@ public:
     /// \param t
     /// \return
     ///
-    void PostTask(const ClosureP1 & t);
+    void PostTask(MioTask* t);
 
 
     ///
@@ -101,7 +105,7 @@ public:
 
     ///
     EventNotify notify;
-    SpinList<ClosureP1,SpinLock> tasklist;
+    SpinList<MioTask*,SpinLock> tasklist;
 
 };
 

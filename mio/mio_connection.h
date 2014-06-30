@@ -30,7 +30,7 @@ public:
 
     void onEvent(Epoller* p,uint32_t events)
     {
-        int premask = __sync_fetch_and_and(&ev.events, events);
+        int premask = __sync_fetch_and_and(&ev.events, events |EVENT_PENDING);
         uint32_t cache_event = ev.events;
         // event is in work pool queue or begin to run
         if(premask & EVENT_PENDING )

@@ -78,7 +78,7 @@ public:
     uint32_t _fd;
 
     /// pending events
-    AtomicInt32 events;
+    volatile uint32_t events;
 
     /// to debug()
     char name[32];
@@ -89,12 +89,13 @@ public:
 
 public:
 
+    /// if NULL OnEvent run sync,other wise run in group
     WorkGroup * group;
 
     AtomicInt32 refcount;
 
-    void RequireRef(){
-
+    void RequireRef()
+    {
         refcount.incrementAndGet();
     }
 
@@ -102,7 +103,7 @@ public:
     {
         if(refcount.decrementAndGet() == 0)
         {
-            this->OnDelete();
+            delete* this;
         }
     }
 
@@ -112,39 +113,23 @@ public:
     /// \param p
     /// \param event_mask
     ///
-    virtual void OnEvent(Epoller* p,uint32_t event_mask) = 0;
+    virtual void OnEvent(Epoller* p, uint32_t event_mask) = 0;
 
-
-
-    void OnEventWrapper(Epoller* p,uint32_t event_mask){
-        this->OnEvent(p,event_mask);
-    }
+    ///
+    /// \brief OnEventWrapper forward to onEvent
+    ///        because onevent is virtual
+    /// \param p
+    /// \param event_mask
+    ///
+    void OnEventWrapper(Epoller* p);
 
     ///
     /// \brief OnEventAsync
     /// \param p
     ///
 
-    virtual void  OnEventAsync(Epoller* p , uint32_t event_mask){
+    void  OnEventAsync(Epoller* p , uint32_t event_mask);
 
-      ClosureP2 c = ClosureP2::From<IOEvent,Epoller*,uint32_t,&IOEvent::OnEventWrapper>(this,p,event_mask);
-
-      if(group)
-      {
-          group->
-      }
-
-    }
-
-    ///
-    /// \brief OnDelete: the event will delete in pool thread
-    /// \param p
-    ///
-    virtual OnDelete(Epoller* p) {
-        delete * this;
-    }
-
-public:
 
      /// A wrapper to make multi-thread safe.
      /// here use epoller as input param ,so we can move a event between epollers.
@@ -153,7 +138,7 @@ public:
     int ModEventAsync(Epoller* p,bool readable,bool wirteable);
     int DelEventAsync(Epoller* p);
     int SetReadTimeOutAsync(Epoller* p, int time_sec);
-    int SetWriteTImeoutAsync(Epoller* p,int time_sec);
+    int SetWriteTimeOutAsync(Epoller* p,int time_sec);
 
 
 public:

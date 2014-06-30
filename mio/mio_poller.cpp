@@ -126,7 +126,7 @@ int  Epoller::ProcessTimeOut(){
 
         IOEvent* ioev = rleft->data;
 
-        ioev->onEvent(this, READ_TIME_OUT);
+        ioev->OnEventAsync(this, READ_TIME_OUT);
 
         ngx_rbtree_delete(&rtimerroot, rleft);
         rleft = ngx_rbtree_min(rtimerroot.root, &sentinel);
@@ -196,6 +196,7 @@ int Epoller::SetReadTimeOut(IOEvent* ev){
 
         ev->rtimernode.left  = &sentinel;
         ev->rtimernode.right = &sentinel;
+        ev->RequireRef();
     }
 
      ngx_rbtree_insert(&rtimerroot, &ev->rtimernode);
@@ -203,7 +204,7 @@ int Epoller::SetReadTimeOut(IOEvent* ev){
      TRACE_FMG("poll:%u,set Event:%u,ctx:%p,read timeout:%u,write timeout:%u",epollfd,ev->_fd,ev->ev.data.ptr,ev->rtimernode.key,ev->wtimernode.key);
 }
 
-int Epoller::SetWriteTimeout(IOEvent* ev){
+int Epoller::SetWriteTimeOut(IOEvent* ev){
 
     // if exists delete
     if(ev->wtimernode.parent)
@@ -214,6 +215,7 @@ int Epoller::SetWriteTimeout(IOEvent* ev){
 
         ev->wtimernode.left  = &sentinel;
         ev->wtimernode.right = &sentinel;
+        ev->RequireRef();
     }
 
      ngx_rbtree_insert(&wtimerroot, &ev->wtimernode);
@@ -230,7 +232,7 @@ void Epoller::Stop(){
 }
 
 
-void Epoller::PostTask(const ClosureP1 & t)
+void Epoller::PostTask(MioTask *t)
 {
     tasklist.push(t);
     notify.Notify(1);
@@ -242,14 +244,14 @@ void Epoller::ProcessPendingTask(){
     if(tasklist.empty())
         return ;
 
-    SpinList<Closure,SpinLock> tmp;
+    SpinList<MioTask*,SpinLock> tmp;
     tasklist.MoveTo(tmp);
 
     /// only at here,modify the timer root
-    Closure t;
+    MioTask* t;
     while(!tmp.empty() && tmp.pop(t) && t.h1)
     {
-        t();
+        t->Run();
     }
 
 }
