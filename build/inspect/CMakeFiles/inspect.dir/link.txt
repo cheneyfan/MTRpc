@@ -1,2 +1,0 @@
-/usr/bin/ar cr libinspect.a  CMakeFiles/inspect.dir/inspecter.cpp.o
-/usr/bin/ranlib libinspect.a

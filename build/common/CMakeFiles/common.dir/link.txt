@@ -1,2 +1,0 @@
-/usr/bin/ar cr libcommon.a  CMakeFiles/common.dir/covert.cpp.o CMakeFiles/common.dir/signalhelper.cpp.o CMakeFiles/common.dir/ngx_rbtree.cpp.o CMakeFiles/common.dir/timerhelper.cpp.o
-/usr/bin/ranlib libcommon.a
