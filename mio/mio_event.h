@@ -11,6 +11,7 @@
 #include <stdint.h>
 #include <string.h>
 
+#include "mio_error_code.h"
 #include "common/atomic.h"
 #include "common/ngx_rbtree.h"
 
@@ -115,6 +116,8 @@ public:
     ///
     virtual void OnEvent(Epoller* p, uint32_t event_mask) = 0;
 
+
+public:
     ///
     /// \brief OnEventWrapper forward to onEvent
     ///        because onevent is virtual
@@ -131,10 +134,10 @@ public:
     void  OnEventAsync(Epoller* p , uint32_t event_mask);
 
 
+public:
      /// A wrapper to make multi-thread safe.
      /// here use epoller as input param ,so we can move a event between epollers.
     int AddEventASync(Epoller* p,bool readable,bool wirteable);
-
     int ModEventAsync(Epoller* p,bool readable,bool wirteable);
     int DelEventAsync(Epoller* p);
     int SetReadTimeOutAsync(Epoller* p, int time_sec);

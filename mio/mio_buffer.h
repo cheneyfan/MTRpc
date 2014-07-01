@@ -8,9 +8,9 @@
 #ifndef _MIO_TCP_BUFFER_H_
 #define _MIO_TCP_BUFFER_H_
 
-#define DEFINE_BUFFER_SIZE 4096
+#define DEFAULT_BUFFER_SIZE 4096
 #define MAX_BUFFER_SIZE 4096*4096
-#define MAX_BUFFER_PIECES 32
+#define MAX_BUFFER_PIECES 16
 
 #include <stdint.h>
 #include <stdio.h>
@@ -18,11 +18,10 @@
 #include <sys/uio.h>
 #include <vector>
 
+
+#include <google/protobuf/io/zero_copy_stream.h>
+
 namespace mtrpc {
-
-
-
-
 
 class BufferPieces
 {
@@ -30,31 +29,19 @@ public:
 
     BufferPieces():
         buffer(NULL),
-        size(0),
-        readpos(0),
-        writepos(0),
-        pre(NULL),
-        next(NULL)
+        size(0)
     {
     }
 
     BufferPieces(uint32_t s):
         buffer(new char[s]),
-        size(s),
-        readpos(0),
-        writepos(0),
-        pre(NULL),
-        next(NULL)
+        size(s)
     {
     }
 
     BufferPieces(char* buf,uint32_t s):
         buffer(buf),
-        size(s),
-        readpos(0),
-        writepos(0),
-        pre(NULL),
-        next(NULL)
+        size(s)
     {
     }
 
@@ -62,12 +49,10 @@ public:
     {
         delete buffer;
     }
-public:
 
+public:
     char* buffer;
     uint32_t size;
-    uint32_t readpos;
-    uint32_t writepos;
 };
 
 class CircleQueue
@@ -166,96 +151,99 @@ public:
     BufferPieces* que[MAX_BUFFER_PIECES];
     unsigned short head;
     unsigned short tail;
-
 };
 
-class ReadBuffer : public google::protobuf::io::ZeroCopyInputStream
+class IOBuffer
 {
 public:
 
-    ReadBuffer();
+    IOBuffer():
+        readidx(0),
+        readpos(0),
+        writeidx(0),
+        writepos(0)
+    {
 
-    virtual ~ReadBuffer(){}
+    }
 
-    ReadBuffer(uint32_t size)
+    virtual ~IOBuffer(){}
+
+    IOBuffer(uint32_t size):readidx(0),readpos(0),writeidx(0),writepos(0)
     {
         BufferPieces* p = new BufferPieces(size);
         que.reset(p);
+
     }
 
+    //use read buffer from socket
+    bool GetReciveBuffer(struct iovec* iov,int& iov_num);
+    bool MoveRecivePtr(int size);
 
+
+
+    //use write buffer to socket
+    bool GetSendBuffer(struct iovec* iov,int& iov_num);
+    bool MoveSendPtr(int size);
+
+    uint32_t GetBufferLeft();
+    uint32_t GetBufferUsed();
+
+    // just keep the first buffer
+    void Reset();
+
+    //
+    bool Extend(int radio);
+public:
+
+    class Iterator
+    {
+    public:
+
+
+
+    public:
+       int idx;
+       int pos;
+    };
+
+    Iterator begin();
+    Iterator end();
+public:
+    CircleQueue que;
+    int readidx;
+    int readpos;
+    int writeidx;
+    int writepos;
+
+
+
+};
+
+
+class ReadBuffer : public IOBuffer,
+                   public google::protobuf::io::ZeroCopyInputStream
+{
+public:
 
     // implements ZeroCopyInputStream
     bool Next(const void** data, int* size);
     void BackUp(int count);
     bool Skip(int count);
     int64 ByteCount() const;
+};
 
-    void Reset();
-
+class WriteBuffer: public IOBuffer,
+                   public google::protobuf::io::ZeroCopyOutputStream {
 public:
 
-    CircleQueue que;
+    // implements ZeroCopyOutputStream ---------------------------------
+    bool Next(void** data, int* size);
+    void BackUp(int count);
+    int64 ByteCount() const;
 
 };
 
-class MioBufferOut
-{
 
-public:
-
-    MioBufferOut();
-
-    ~MioBufferOut();
-    ///
-    /// \brief Append
-    /// \param buf
-    /// \param size
-    ///
-    void Append(char* buf,uint32_t size);
-
-
-    ///
-    /// \brief GetBuffer
-    /// \param size
-    /// \param resbuf
-    /// \param ressize
-    ///
-    void GetBuffer(uint32_t size, char *&resbuf, uint32_t & ressize);
-
-
-    ///
-    /// \brief Consume
-    /// \param size
-    ///
-    void  Consume(uint32_t size);
-
-    ///
-    /// \brief GetIovec
-    /// \param vec
-    ///
-    void GetIovec(std::vector<iovec> &vec);
-
-    ///
-    /// \brief empty
-    /// \return
-    ///
-    bool Empty();
-
-    ///
-    /// \brief clear
-    ///
-    void clear();
-public:
-    BufferPieces* head;
-    BufferPieces* tail;
-};
-
-
-class ReadBuffer {
-public:
-
-};
 
 }
 #endif

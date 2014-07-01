@@ -8,7 +8,8 @@
 #define _MTRPC_RPC_SERVER_H_
 
 #include <google/protobuf/service.h>
-
+#include "thread/ext_closure.h"
+#include "mio/mio_error_code.h"
 
 namespace mtrpc {
 
@@ -65,6 +66,9 @@ struct RpcServerOptions {
     {}
 };
 
+///
+/// \brief The RpcServer class
+///
 class RpcServer
 {
 public:
@@ -79,7 +83,7 @@ public:
         // The "error_code" may be:
         //     RPC_ERROR_TOO_MANY_OPEN_FILES
         //     RPC_ERROR_UNKNOWN
-        virtual void NotifyAcceptFailed(RpcErrorCode error_code, const std::string& error_text) = 0;
+        virtual void NotifyAcceptFailed(ErrorCode error_code, const std::string& error_text) = 0;
     };
 
 public:
@@ -160,18 +164,16 @@ public:
     bool IsListening();
 
 public:
-    const sofa::pbrpc::shared_ptr<RpcServerImpl>& impl() const
+    const RpcServerImpl* impl() const
     {
         return _impl;
     }
-
 private:
-    sofa::pbrpc::shared_ptr<RpcServerImpl> _impl;
+    RpcServerImpl* _impl;
 
-    SOFA_PBRPC_DISALLOW_EVIL_CONSTRUCTORS(RpcServer);
 }; // class RpcServer
 
-} // namespace sofa
+} // namespace mtrpc
 
 #endif // _SOFA_PBRPC_RPC_SERVER_H_
 

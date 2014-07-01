@@ -8,21 +8,12 @@
 #define _SOFA_PBRPC_RPC_SERVER_IMPL_H_
 
 #include <deque>
+#include "rpc_server.h"
 
-#include <sofa/pbrpc/common_internal.h>
-#include <sofa/pbrpc/rpc_controller.h>
-#include <sofa/pbrpc/rpc_server.h>
-#include <sofa/pbrpc/rpc_server_stream.h>
-#include <sofa/pbrpc/rpc_endpoint.h>
-#include <sofa/pbrpc/rpc_listener.h>
-#include <sofa/pbrpc/service_pool.h>
-#include <sofa/pbrpc/thread_group_impl.h>
-#include <sofa/pbrpc/timer_worker.h>
 
-namespace sofa {
-namespace pbrpc {
+namespace mtrpc{
 
-class RpcServerImpl : public sofa::pbrpc::enable_shared_from_this<RpcServerImpl>
+class RpcServerImpl
 {
 public:
     static const int MAINTAIN_INTERVAL_IN_MS = 100;
@@ -57,6 +48,7 @@ public:
     bool RestartListen();
 
 private:
+
     void OnCreated(const RpcServerStreamPtr& stream);
 
     void OnAccepted(const RpcServerStreamPtr& stream);
@@ -122,49 +114,11 @@ private:
 
 private:
     RpcServerOptions _options;
-    RpcServer::EventHandler* _event_handler;
-    volatile bool _is_running;
-    MutexLock _start_stop_lock;
 
-    PTime _epoch_time;
-    int64 _ticks_per_second;
-    int64 _last_maintain_ticks;
-    int64 _last_restart_listen_ticks;
-    int64 _last_switch_stat_slot_ticks;
-    int64 _last_print_connection_ticks;
-
-    int64 _slice_count;
-    int64 _slice_quota_in;
-    int64 _slice_quota_out;
-    int64 _max_pending_buffer_size;
-    int64 _keep_alive_ticks;
-    int64 _restart_listen_interval_ticks;
-    int64 _switch_stat_slot_interval_ticks;
-    int64 _print_connection_interval_ticks;
-
-    ServicePoolPtr _service_pool;
-
-    FlowControllerPtr _flow_controller;
-
-    ThreadGroupImplPtr _maintain_thread_group;
-    ThreadGroupImplPtr _work_thread_group;
-
-    std::string _server_address;
-    RpcEndpoint _listen_endpoint;
-    RpcListenerPtr _listener;
-
-    TimerWorkerPtr _timer_worker;
-
-    typedef std::deque<RpcServerStreamPtr> StreamList;
-    StreamList _stream_list;
-    FastLock _stream_list_lock;
-    volatile int _live_stream_count;
-
-    SOFA_PBRPC_DISALLOW_EVIL_CONSTRUCTORS(RpcServerImpl);
 }; // class RpcServerImpl
 
-} // namespace pbrpc
-} // namespace sofa
+} // namespace mtrpc
+
 
 #endif // _SOFA_PBRPC_RPC_SERVER_IMPL_H_
 
