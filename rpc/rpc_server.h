@@ -72,27 +72,12 @@ struct RpcServerOptions {
 class RpcServer
 {
 public:
-    class EventHandler {
-    public:
-        virtual ~EventHandler() {}
-
-        // This function is used to notify that some error has ocurred when accepting connections.
-        // The reason is passed by "error_code" and "error_text".  If needed, the listener may be
-        // restarted to recover to usable state.
-        //
-        // The "error_code" may be:
-        //     RPC_ERROR_TOO_MANY_OPEN_FILES
-        //     RPC_ERROR_UNKNOWN
-        virtual void NotifyAcceptFailed(ErrorCode error_code, const std::string& error_text) = 0;
-    };
-
-public:
     // Constructor.
     // @param options The rpc server options.
     // @param handler The event handler.  It will be taken overby the rpc server and will be
     //                deleted when the server destroys.
-    explicit RpcServer(const RpcServerOptions& options = RpcServerOptions(),
-                       EventHandler* handler = NULL);
+    explicit RpcServer(const RpcServerOptions& options = RpcServerOptions());
+
     virtual ~RpcServer();
 
     // Start the server, and listen on the "server_address".  If succeed started

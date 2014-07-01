@@ -2,7 +2,7 @@
 #define __MIO_ACCEPTOR_H_
 
 #include "mio_event.h"
-#include "thread/mio_task.h"
+#include "thread/ext_closure.h"
 
 namespace mtrpc {
 
@@ -34,7 +34,10 @@ public:
     /// \return
     ///
     int StartListen(const char* host,int port);
-
+    int StartListen(std::string service_addres);
+public:
+    bool isListening;
+    ExtClosure<void(int)> onAccept;
 };
 
 }

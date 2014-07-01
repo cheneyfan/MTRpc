@@ -8,8 +8,8 @@ namespace mtrpc {
 Acceptor::Acceptor(){
 
     _fd = TcpSocket::socket();
-    TcpSocket::setNoblock(ev._fd, true);
-    TcpSocket::setNoTcpDelay(ev._fd, true);
+    TcpSocket::setNoblock(_fd, true);
+    TcpSocket::setNoTcpDelay(_fd, true);
 }
 
 virtual Acceptor::~Acceptor(){
@@ -23,7 +23,7 @@ void Acceptor::onEvent(Epoller* p,uint32_t events)
     struct sockaddr_in addr;
     socklen_t socksize = sizeof(sockaddr_in);
 
-    int sockfd = TcpSocket::accept(ev._fd,(sockaddr*)&addr, socksize);
+    int sockfd = TcpSocket::accept(_fd,(sockaddr*)&addr, socksize);
 
     if(sockfd < 0)
     {
@@ -31,7 +31,7 @@ void Acceptor::onEvent(Epoller* p,uint32_t events)
         return;
     }
 
-    onAccept(sockfd);
+    onAccept.Run(sockfd);
 
     TRACE_FMG("accept a new connection: sockfd:%u",sockfd);
 }
@@ -58,4 +58,15 @@ int Acceptor::StartListen(const char* host,int port){
     return 0;
 }
 
+
+int Acceptor::StartListen(std::string service_addres){
+
+    char host[64]= {0};
+    int  port = 0;
+
+    sscanf(service_addres.c_str(),"%[^:]:%d",host,&port);
+
+
+    return StartListen(host,port);
+}
 }

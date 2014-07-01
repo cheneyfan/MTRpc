@@ -3,7 +3,7 @@
 
 namespace  mtrpc {
 
-RpcServer::RpcServer(const RpcServerOptions& options, EventHandler* handler)
+RpcServer::RpcServer(const RpcServerOptions& options)
     : _impl(new RpcServerImpl(options, handler))
 {
 }
