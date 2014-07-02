@@ -3,7 +3,7 @@
 
 #include <google/protobuf/message.h>
 #include "proto/rpc_http_header.h"
-
+#include "thread/ext_closure.h"
 namespace mtrpc {
 
 typedef ::google::protobuf::Message Message;
@@ -12,16 +12,26 @@ class MessageStream  :public SocketStream {
 
 public :
 
+
+    MessageStream(int sockfd);
+
+
     virtual int OnRecived(Epoller* p);
     virtual int OnSended(Epoller* p);
 
 
 
-    virtual int OnMessage(Epoller* p);
 public:
 
-    Message* req;
-    Message* res;
-    HttpHeader header;
+    ExtClosure<void(MessageStream* sream,Epoller* p)>*  handerMessageRecived;
+
+    ExtClosure<void(MessageStream* sream,Epoller* p)>*  handerMessageSended;
+
+    HttpHeader reqheader;
+    HttpHeader resheader;
+
+    WriteBuffer::Iterator packetstart;
+    WriteBuffer::Iterator packetend;
+
 };
 }

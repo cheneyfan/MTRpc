@@ -6,205 +6,216 @@
 // Description:
 
 #include "log/log.h"
-
 #include "mio_buffer.h"
 
+
+#define MOD_PIECES(x) ((x)%MAX_BUFFER_PIECES)
 
 namespace mtrpc {
 
 
-MioBufferIn::MioBufferIn():
-    buffer(new char[DEFALUT_BUFFER_SIZE]),
-    size(DEFALUT_BUFFER_SIZE),
-    rptr(buffer),
-    wptr(buffer)
+IOBuffer::IOBuffer():
+    readpos(0,0,NULL),
+    writepos(0,0,NULL)
 {
+    //
+    que = new BufferPieces*[MAX_BUFFER_PIECES];
+
+    //fill the buffer
+    for(int i=0; i<MAX_BUFFER_PIECES; ++i)
+        que[i] = new BufferPieces(DEFAULT_BUFFER_SIZE);
+
+    readpos._que = que;
+    writepos._que = que;
 }
 
-MioBufferIn::~MioBufferIn(){
-    delete [] buffer;
+virtual IOBuffer::~IOBuffer(){
+    for(int i=0; i<MAX_BUFFER_PIECES; ++i)
+        delete que[i];
+    delete que;
 }
 
-void MioBufferIn::WriteSkip(uint32_t num){
 
-    wptr += num;
-}
+IOBuffer::Iterator IOBuffer::reserve(){
 
-void MioBufferIn::ReadSkip(uint32_t num)
-{
-    rptr += num;
-}
-
-uint32_t MioBufferIn::MidSize(){
-    return wptr - rptr;
-}
-
-uint32_t MioBufferIn::TailSize(){
-    return size - (wptr - buffer);
-}
-
-uint32_t MioBufferIn::HeadSize(){
-    return rptr - buffer;
-}
-
-void MioBufferIn::Append(char * buff,uint32_t num)
-{
-    //just append;
-    if(TailSize() >= num )
+    if(writepos._pos > 0)
     {
-        memcpy(wptr,buff,num);
-        wptr+=num;
-        return;
+        que[writepos._idx]->writepos = writepos._pos;
+        writepos._idx = MOD_PIECES(writepos._idx + 1);
+        writepos._pos = 0;
     }
 
-    //move buffer
-    if(HeadSize() + TailSize() >= num)
-    {
-        memmove(buffer,rptr, MidSize());
-        wptr =  buffer + (wptr -rptr);
-        rptr = buffer;
+    Iterator it = writepos;
 
-        memmove(wptr,buff,num);
-        wptr+= num;
-        return;
+    writepos._idx = MOD_PIECES(writepos._idx +1);
+
+    return it;
+}
+
+bool IOBuffer::GetReciveBuffer(struct iovec* iov,int& iov_num){
+
+    int idx = 0;
+
+    iov[idx].iov_base = que[writepos._idx]->buffer + writepos._pos;
+    iov[idx].iov_len  = que[writepos._idx]->writepos - writepos._pos;
+
+
+    int start_idx = MOD_PIECES(writepos._idx+1);
+    int end_idx = readpos._idx;
+
+    if(end_idx < start_idx)
+        end_idx += MAX_BUFFER_PIECES;
+
+    for(int tidx = start_idx; tidx < end_idx;++tidx){
+        ++idx;
+        iov[idx].iov_base = que[MOD_PIECES(tidx)]->buffer;
+        iov[idx].iov_len    = que[MOD_PIECES(tidx)]->writepos;
     }
 
-    while(size < (num + MidSize()) )
-        size*=DEFALUT_BUFFER_RESIZE;
+    if(readpos._pos > 0)
+    {
+        ++idx;
+        iov[idx].iov_base = que[readpos._idx]->buffer;
+        iov[idx].iov_len  = readpos._pos;
+    }
 
-    //malloc bigsize;
-    char * tmp = new char [size];
-    memmove(tmp,rptr, MidSize());
-    wptr  = tmp + (wptr -rptr);
-    rptr =tmp;
-    delete[]  buffer;
-    buffer = tmp;
+    return  true;
 }
 
 
-void MioBufferIn::clear(){
-    delete buffer;
-    buffer = NULL;
+bool IOBuffer::MoveRecivePtr(int size){
+    writepos  += size;
+    return true;
 }
 
 
-MioBufferOut::MioBufferOut():
-    head(NULL),tail(NULL)
+
+//use keep write buffer to socket
+bool IOBuffer::GetSendBuffer(struct iovec* iov,int& iov_num){
+
+    int idx = 0;
+
+    iov[idx].iov_base = que[readpos._idx]->buffer + readpos._pos;
+    iov[idx].iov_len  = que[readpos._idx]->writepos - readpos._pos;
+
+    int start_idx = MOD_PIECES((readpos._idx+1);
+            int end_idx = writepos._idx;
+
+    if(end_idx < start_idx)
+        end_idx += MAX_BUFFER_PIECES;
+
+    for(int tidx = start_idx; tidx < end_idx;++tidx){
+        ++idx;
+        iov[idx].iov_base = que[MOD_PIECES(tidx)]->buffer;
+        iov[idx].iov_len    = que[MOD_PIECES(tidx)]->writepos;
+    }
+
+    /*
+    if(readpos._pos > 0)
+    {
+        ++idx;
+        iov[idx].iov_base = que[writepos._idx]->buffer;
+        iov[idx].iov_len  = writepos._pos;
+    }
+*/
+
+    return true;
+}
+
+bool IOBuffer::MoveSendPtr(int size){
+    readpos += size;
+    return true;
+}
+
+
+int IOBuffer::GetBufferLeft(){
+
+    return  (readpos  - writepos) - readpos._pos;
+}
+
+int IOBuffer::GetBufferUsed(){
+
+    return  writepos  - readpos;
+}
+
+bool IOBuffer::isFull(){
+
+    return ( MOD_PIECES(writepos._idx +1) == readpos._idx)
+            && ((writepos._pos +1) == que[readpos._pos]->writepos);
+
+}
+
+bool IOBuffer::isEmpty()
 {
+    return readpos == writepos;
 }
 
-MioBufferOut::~MioBufferOut()
+bool ReadBuffer::Next(const void** data, int* size)
 {
-    clear();
+    if(isEmpty())
+        return false;
+
+    *data = que[readpos._idx]->buffer + readpos._pos;
+    *size = que[readpos._idx]->writepos - readpos._pos;
+
+    _read_bytes+= *size;
+    return true;
 }
 
-void  MioBufferOut::Append(char* buf,uint32_t size)
+void ReadBuffer::BackUp(int count){
+    readpos -= count;
+    _read_bytes -= *size;
+}
+
+bool ReadBuffer::Skip(int count){
+
+    int tmp_idx = readpos._idx;
+    int tmp_pos = readpos._pos + count;
+
+    while(tmp_pos >= que[tmp_idx]->writepos )
+    {
+        bool isempty = (tmp_idx == writepos._idx)
+                && (tmp_pos >= writepos._pos);
+
+        if(isempty)
+            return false;
+
+        tmp_pos -= que[tmp_idx]->writepos;
+        tmp_idx = MOD_PIECES(tmp_idx +1);
+    }
+
+     readpos._idx = tmp_idx;
+     readpos._pos = tmp_pos;
+     return true;
+}
+
+int64_t ReadBuffer::ByteCount(){
+    return _read_bytes;
+}
+
+
+
+// implements ZeroCopyOutputStream ---------------------------------
+bool WriteBuffer::Next(void** data, int* size)
 {
-    BufferPieces * bp = new BufferPieces(buf,size);
-    if(!head)
-    {
-        head = bp;
-        tail = bp;
-    }else{
-        tail->next = bp;
-        tail= bp;
-    }
-}
 
-void MioBufferOut::GetBuffer(uint32_t size,char* &resbuf,uint32_t & ressize)
+    if(isFull())
+        return false;
+
+    *data = que[writepos._idx]->buffer + writepos._pos;
+    *size = que[writepos._idx]->writepos - writepos._pos;
+    return true;
+
+}
+void WriteBuffer::BackUp(int count)
 {
-    // if get the head
-    if(size <= head->size)
-    {
-        resbuf = head->buffer;
-        ressize = head->size;
-        return;
-    }
-
-
-    BufferPieces* tmp = new BufferPieces();
-    BufferPieces* ptr = head;
-
-    while(tmp->size < size && ptr)
-    {
-        tmp->size += ptr->size;
-        ptr= ptr->next;
-    }
-
-    tmp->buffer = new char[tmp->size];
-    uint32_t tmpsize = 0;
-    while(tmpsize < tmp->size && head)
-    {
-        memcpy(tmp->buffer+tmpsize,head->buffer,head->size);
-        tmpsize += head->size;
-        BufferPieces* back = head;
-        head = head->next;
-        delete back;
-    }
-
-    //append the first;
-    tmp->next = head;
-    head = tmp;
-
-    //if size exceed the last pieces, reset the tail
-    if(tmp->next == NULL)
-        tail = head;
-
-    resbuf = head->buffer;
-    ressize = head->size;
+    writepos -= count;
 }
 
-void MioBufferOut::Consume(uint32_t size){
-
-    // remove the whole buffer
-    while(size >= head->size && head)
-    {
-        size -= head->size;
-        BufferPieces* back = head;
-        head = head->next;
-        delete back;
-    }
-
-    //move to left
-    if(size > 0 && head)
-    {
-        memmove(head->buffer,head->buffer+size, head->size - size);
-        head->size = size;
-    }
-
-    // if head is last buffer
-    if(head  && head->next == NULL)
-        tail = head;
+int64_t WriteBuffer::ByteCount(){
+    return writepos - readpos;
+}
 
 }
 
-void MioBufferOut::GetIovec(std::vector<iovec> &vec)
-{
-    BufferPieces* ptr = head;
 
-    while(ptr)
-    {
-        iovec v = {ptr->buffer,ptr->size};
-        vec.push_back(v);
-        ptr = ptr->next;
-    }
-}
-
-
-bool MioBufferOut::Empty()
-{
-    return head !=NULL;
-}
-
-
-void MioBufferOut::clear(){
-
-     while(head)
-     {
-         tail  = head;
-         delete head;
-         head = tail->next;
-     }
-     tail = NULL;
-}
-}

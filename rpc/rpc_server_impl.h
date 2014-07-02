@@ -9,12 +9,14 @@
 
 #include <deque>
 #include "rpc_server.h"
-
+#include "mio/mio_acceptor.h"
 
 namespace mtrpc{
 
 class EPoller;
 class WorkGroup;
+class MessageStream;
+class ServicePool;
 
 class RpcServerImpl
 {
@@ -41,16 +43,20 @@ public:
     int ConnectionCount();
 
 
-    bool IsListening();
+public:
+
+    void OnAccept(int sockfd);
+    int  OnMessageRecived(MessageStream* stream);
+
 
 private:
 
     EPoller * poller;
     WorkGroup* group;
     Acceptor acceptor;
-
 private:
     RpcServerOptions _options;
+    ServicePool* pool;
 
 }; // class RpcServerImpl
 

@@ -14,10 +14,10 @@
 #include <google/protobuf/service.h>
 #include <google/protobuf/descriptor.h>
 
-#include <sofa/pbrpc/common_internal.h>
-#include <sofa/pbrpc/builtin_service.pb.h>
-#include <sofa/pbrpc/counter.h>
-#include <sofa/pbrpc/murmurhash.h>
+
+#include "proto/builtin_service.pb.h"
+
+#include "common/murmurhash.h"
 
 
 #define SERVICE_CACHE_SLOT_COUNT 1019
@@ -393,7 +393,6 @@ private:
     int _count;
     ServiceBoard* _cache[SERVICE_CACHE_SLOT_COUNT];
 
-    SOFA_PBRPC_DISALLOW_EVIL_CONSTRUCTORS(ServicePool);
 }; // class ServicePool
 
 

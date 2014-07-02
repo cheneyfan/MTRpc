@@ -10,6 +10,7 @@ Acceptor::Acceptor(){
     _fd = TcpSocket::socket();
     TcpSocket::setNoblock(_fd, true);
     TcpSocket::setNoTcpDelay(_fd, true);
+    isListening = false;
 }
 
 virtual Acceptor::~Acceptor(){
@@ -23,15 +24,15 @@ void Acceptor::onEvent(Epoller* p,uint32_t events)
     struct sockaddr_in addr;
     socklen_t socksize = sizeof(sockaddr_in);
 
-    int sockfd = TcpSocket::accept(_fd,(sockaddr*)&addr, socksize);
+    int sockfd = TcpSocket::accept(_fd, (sockaddr*)&addr, socksize);
 
     if(sockfd < 0)
     {
-        WARN("Accept a bad socket:"<<sockfd);
+        WARN("Accept a bad socket:"<<sockfd<<",errno:"<<errno<<","<<strerror(errno));
         return;
     }
 
-    onAccept.Run(sockfd);
+    onAccept->Run(sockfd);
 
     TRACE_FMG("accept a new connection: sockfd:%u",sockfd);
 }
@@ -55,17 +56,17 @@ int Acceptor::StartListen(const char* host,int port){
         return -1;
     }
 
+    isListening = true;
     return 0;
 }
 
 
-int Acceptor::StartListen(std::string service_addres){
+int Acceptor::StartListen(const std::string &service_addres){
 
     char host[64]= {0};
     int  port = 0;
 
     sscanf(service_addres.c_str(),"%[^:]:%d",host,&port);
-
 
     return StartListen(host,port);
 }

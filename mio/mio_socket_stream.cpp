@@ -4,12 +4,10 @@
 
 namespace mtrpc{
 
-SocketStream::SocketStream():buf_alloc_size(DEFAULT_BUFFER_SIZE),
+SocketStream::SocketStream():buf_alloc_size(DEFAULT_BUFFER_SIZE),buf_alloc_radio(1),
     readbuf(DEFAULT_BUFFER_SIZE),
     writebuf(DEFAULT_BUFFER_SIZE)
 {
-    _fd = TcpSocket::socket();
-    TcpSocket::setNoTcpDelay(_fd);
 }
 
 int SocketStream::onReadable(Epoller *p)
@@ -95,7 +93,8 @@ int SocketStream::onWriteable(Epoller *p)
 
 int SocketStream::onClose(Epoller *p){
 
-     DelEventAsync(p);
+    TRACE(name<<":closed");
+    DelEventAsync(p);
 }
 
 }

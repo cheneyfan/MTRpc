@@ -1,7 +1,16 @@
 #include "mio_message_stream.h"
-
+#include "mio/tcpsocket.h"
 
 namespace mtrpc {
+
+
+
+MessageStream::MessageStream(int sockfd)
+{
+    _fd  = sockfd;
+    TcpSocket::setNoblock(_fd,true);
+    TcpSocket::setNoTcpDelay(_fd,true);
+}
 
 
 int MessageStream::OnRecived(Epoller *p){
@@ -25,10 +34,19 @@ int MessageStream::OnRecived(Epoller *p){
         return 0;
     }
 
-
-
-
+    // a
+    handerMessageRecived->Run(this, p);
 }
 
+
+int MessageStream::OnSended(Epoller *p)
+{
+
+    if(packetend  > writebuf.WritePos())
+    {
+        handerMessageSended->Run(this,p);
+    }
+
+}
 
 }

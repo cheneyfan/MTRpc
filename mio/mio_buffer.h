@@ -10,7 +10,7 @@
 
 #define DEFAULT_BUFFER_SIZE 4096
 #define MAX_BUFFER_SIZE 4096*4096
-#define MAX_BUFFER_PIECES 16
+#define MAX_BUFFER_PIECES 64
 
 #include <stdint.h>
 #include <stdio.h>
@@ -23,200 +23,164 @@
 
 namespace mtrpc {
 
+/// Every Buffer has same size
+///
 class BufferPieces
 {
 public:
 
     BufferPieces():
         buffer(NULL),
-        size(0)
-    {
-    }
-
-    BufferPieces(uint32_t s):
-        buffer(new char[s]),
-        size(s)
-    {
-    }
-
-    BufferPieces(char* buf,uint32_t s):
-        buffer(buf),
-        size(s)
+        writepos(DEFAULT_BUFFER_SIZE)
     {
     }
 
     ~BufferPieces()
     {
-        delete buffer;
+        delete[] buffer;
     }
 
 public:
     char* buffer;
-    uint32_t size;
+    uint32_t writepos ;
 };
 
-class CircleQueue
-{
-public:
-
-    CircleQueue()
-    {
-
-        memset(que,0,sizeof(que));
-        head = tail =  0;
-    }
-
-    ~CircleQueue()
-    {
-
-        clear();
-    }
-
-    BufferPieces * Head(){
-        return que[head];
-    }
-
-    BufferPieces * Tail(){
-        return que[tail];
-    }
-
-    BufferPieces * Get(int i){
-       return que[i];
-    }
-
-    unsigned short PiecesSize(){
-         return (head + MAX_BUFFER_PIECES-tail) % MAX_BUFFER_PIECES ;
-    }
-
-    bool IsFull()
-    {
-        return ((head + 1)% MAX_BUFFER_PIECES) == tail;
-    }
-
-    bool IsEmpty()
-    {
-        return head  == tail;
-    }
-
-    bool clear(){
-
-         BufferPieces* p = NULL;
-         while(PopTail(p))
-         {
-             delete p;
-         }
-    }
-
-    bool reset(BufferPieces* p){
-
-        BufferPieces* tmp;
-        while(PopTail(tmp))
-        {
-            if(tmp == p)
-                continue;
-            delete tmp;
-        }
-
-        que[0] = p;
-        head =tail = 0;
-
-        return true;
-
-    }
-
-    bool PushHead(BufferPieces* p)
-    {
-        if(IsFull())
-            return false;
-
-        head = (head +1 )% MAX_BUFFER_PIECES;
-        que[head] = p;
-        return true;
-    }
-
-
-    bool PopTail(BufferPieces* &p)
-    {
-        if(IsEmpty())
-            return false;
-
-        p = que[tail];
-        que[tail] = NULL;
-
-        tail = (tail +1 )% MAX_BUFFER_PIECES;
-
-        return true;
-    }
-public:
-    BufferPieces* que[MAX_BUFFER_PIECES];
-    unsigned short head;
-    unsigned short tail;
-};
 
 class IOBuffer
 {
 public:
-
-    IOBuffer():
-        readidx(0),
-        readpos(0),
-        writeidx(0),
-        writepos(0)
+    class Iterator
     {
+    public:
 
+        Iterator(int idx,int pos,BufferPieces** que):
+            _idx(idx),_pos(pos),_que(que)
+        {
+        }
+
+        int operator - (const Iterator& it)
+        {
+            //
+            int size = que[it._idx]->writepos - it._pos;
+
+            int end_idx =  _idx;
+            int start_idx = (it._idx+1)%MAX_BUFFER_PIECES;
+
+            if(end_idx < start_idx)
+                    end_idx += MAX_BUFFER_PIECES;
+
+            for(int idx = start_idx ; idx < end_idx; ++idx)
+            {
+                //map be some pieces not use whole
+                 size +=que[idx%MAX_BUFFER_PIECES]->writepos;
+            }
+
+            size+= _pos;
+            return size;
+        }
+
+        Iterator& operator += (int size)
+        {
+            _pos += size;
+
+            while(_pos >= que[_idx]->writepos )
+            {
+                _pos -= que[_idx]->writepos;
+                _idx = (_idx + 1)%MAX_BUFFER_PIECES;
+            }
+
+            return *this;
+        }
+
+        Iterator& operator -= (int size)
+        {
+            _pos -= size;
+            while(_pos < 0 )
+            {
+                _pos += que[_idx]->writepos;
+                _idx = (_idx -1)%MAX_BUFFER_PIECES;
+            }
+            return *this;
+        }
+
+       char operator*(){
+           return _que[_idx][_pos];
+       }
+
+       Iterator& operator ++ (){
+           if(++_pos < que[_idx]->writepos)
+               return *this;
+
+           _pos = 0;
+           _idx = (_idx+1) % MAX_BUFFER_PIECES;
+           return *this;
+       }
+
+       Iterator& operator ++ (int){
+           if(++_pos < que[_idx]->writepos)
+               return *this;
+
+           _pos = 0;
+           _idx = (_idx+1) % MAX_BUFFER_PIECES;
+           return *this;
+       }
+
+       bool operator == (Iterator& it){
+           return (_idx == it._idx) && (_pos == it._pos);
+       }
+
+    public:
+       int _idx;
+       int _pos;
+       BufferPieces** _que;
+    };
+
+public:
+
+    ///
+    /// \brief IOBuffer
+    ///
+    IOBuffer();
+
+    ///
+    /// \brief ~IOBuffer
+    ///
+    virtual ~IOBuffer();
+
+
+    Iterator begin()
+    {
+        return readpos;
     }
 
-    virtual ~IOBuffer(){}
+    Iterator reserve();
 
-    IOBuffer(uint32_t size):readidx(0),readpos(0),writeidx(0),writepos(0)
+    Iterator end()
     {
-        BufferPieces* p = new BufferPieces(size);
-        que.reset(p);
-
+        return writepos;
     }
 
-    //use read buffer from socket
+    //use keep readed buffer from socket
     bool GetReciveBuffer(struct iovec* iov,int& iov_num);
     bool MoveRecivePtr(int size);
 
 
 
-    //use write buffer to socket
+    //use keep write buffer to socket
     bool GetSendBuffer(struct iovec* iov,int& iov_num);
     bool MoveSendPtr(int size);
 
-    uint32_t GetBufferLeft();
-    uint32_t GetBufferUsed();
+    //use size
+    int GetBufferLeft();
+    int GetBufferUsed();
 
-    // just keep the first buffer
-    void Reset();
 
-    //
-    bool Extend(int radio);
+
+
 public:
-
-    class Iterator
-    {
-    public:
-
-
-
-    public:
-       int idx;
-       int pos;
-    };
-
-    Iterator begin();
-    Iterator end();
-public:
-    CircleQueue que;
-    int readidx;
-    int readpos;
-    int writeidx;
-    int writepos;
-
-
-
+    BufferPieces** que;
+    Iterator readpos;
+    Iterator writepos;
 };
 
 
@@ -230,6 +194,8 @@ public:
     void BackUp(int count);
     bool Skip(int count);
     int64 ByteCount() const;
+
+    int64 _read_bytes;
 };
 
 class WriteBuffer: public IOBuffer,

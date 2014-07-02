@@ -34,10 +34,9 @@ public:
     /// \return
     ///
     int StartListen(const char* host,int port);
-    int StartListen(std::string service_addres);
+    int StartListen(const std::string& service_addres);
 public:
-    bool isListening;
-    ExtClosure<void(int)> onAccept;
+    ExtClosure<void(int)>* handerAccept;
 };
 
 }
