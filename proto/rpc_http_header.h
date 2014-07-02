@@ -10,11 +10,14 @@ public:
     HttpHeader();
 
     /// load
-    bool ParserHeader(ReadBuffer & buf);
-    bool ParserBody(ReadBuffer & buf, Message* req);
+    bool ParserRequestHeader(ReadBuffer & buf);
 
-    bool SerializeHeader(WriteBuffer& buf,WriteBuffer::Iterator& it);
-    bool SerializeBody(WriteBuffer& buf, Message* res);
+    bool ParserReponseHeader(ReadBuffer & buf);
+
+
+    bool SerializeReponseHeader(WriteBuffer& buf,WriteBuffer::Iterator& it);
+
+    bool SerializeReponseHeader(WriteBuffer& buf,WriteBuffer::Iterator& it);
 
     void clear(){
         parser->reset();
@@ -31,7 +34,9 @@ public:
 
 public:
     std::string method;
+
     std::string path;
+        std::string version;
     std::string content_type;
     uint32_t content_length;
     std::map<std::string,std::string> headers;

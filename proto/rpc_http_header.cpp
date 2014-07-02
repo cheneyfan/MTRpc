@@ -1,49 +1,23 @@
 #include "rpc_http_header.h"
-
+#include "mio/mio_error_code.h"
 namespace mtrpc {
 
 
-enum HTTP_PASER_STATE{
+enum HTTP_REQ_STATE{
     START  = 0,
     METHOD = 1,
     PATH   = 2,
-    KEY    = 3,
-    VALUE  = 4,
-    END    = 5,
+    VESION_R =3,
+    VESION_N =4,
+    KEY    = 5,
+    VALUE_R  = 6,
+    VALUE_N = 7,
+    END_R    = 8,
+    END_N   = 9,
 };
-enum TOKEN_TYPE {
-    INVAILD = 0,
-    BLANK   = 1,
-    NEWLINE = 2,
-};
 
 
-static bool getNextToken(ReadBuffer &buf,IOBuffer::Iterator &it, char& c1,char& c2)
-{
-    if(it != buf.end())
-    {
-        c1 = *it;
-        ++it;
-    }else{
-        return false;
-    }
 
-    if(c1='\r')
-    {
-        if(it != buf.end())
-        {
-            c1 = *it;
-            ++it;
-        }else {
-            // save back '\r'
-            --it;
-            return false;
-        }
-    }
-
-    return true;
-
-}
 
 class HttpParser
 {
@@ -51,55 +25,175 @@ public :
 
     HttpParser(){
         state = START;
-        tokentype = INVAILD;
+
+         memset(buf,0,2048);
+         pos =buf;
     }
 
+    void reset(){
+        state = START;
+         memset(buf,0,2048);
+        pos = buf;
+    }
+
+    void MoveBufTo(std::string& s)
+    {
+        s.reserve(pos - buf);
+        char * ptr = buf;
+        while(*ptr++ ==' ');
+        while(*ptr!= '\0')
+        {
+            s+=*ptr;
+            *ptr='0';
+            ptr++;
+        }
+        pos =buf;
+    }
+
+    int Parser(ReadBuffer::Iterator& begin,ReadBuffer::Iterator& end)
+    {
+        std::string key;
+        std::string value;
+
+        for(ReadBuffer::Iterator it = begin; it!=end; ++it)
+        {
+            char c = *it;
+
+            switch(state)
+            {
+
+            case METHOD:
+
+                switch(c)
+                {
+                 case ' ':
+                    MoveBufTo(method);
+                    parser->state = PATH;
+                    break;
+                 default:
+                    *pos++ = c;
+                    break;
+                }
+
+                break;
+           case   PATH:
+
+                switch(c)
+                {
+                 case ' ':
+                    MoveBufTo(path);
+                    parser->state = VESION_R;
+                    break;
+                 default:
+                    *pos++ = c;
+                    break;
+                }
+
+                break;
+            case  VESION_R:
+
+                switch(c)
+                {
+                 case '\r':
+                    MoveBufTo(version);
+                    parser->state = VESION_N;
+                    break;
+                 default:
+                    *pos++ = c;
+                    break;
+                }
+                 break;
+            case  VESION_N:
+
+                switch(c)
+                {
+                 case '\n':
+                    parser->state = KEY;
+                    break;
+                 default:
+                    return HTTP_PARSER_FAIL;
+                }
+                break;
+
+            case  KEY:
+                switch(c)
+                {
+                 case ':':
+                    MoveBufTo(key);
+                    parser->state = VALUE_R;
+                    break;
+                 case '\r':
+                    parser->state = END_R;
+                    break;
+                 default:
+                    *pos++ = c;
+                    break;
+                }
+                break;
+            case   VALUE_R:
+
+                switch(c)
+                {
+                 case '\r':
+                    MoveBufTo(value);
+                    headers.insert(std::make_pair(key,value));
+
+                    key.clear();
+                    value.clear();
+                    parser->state = VALUE_R;
+                    break;
+                 default:
+                    *pos++ = c;
+                    break;
+                }
+                break;
+            case  VALUE_N:
+                switch(c)
+                {
+                 case '\n':
+                    parser->state = KEY;
+                    break;
+
+                 default:
+                    return HTTP_PARSER_FAIL;
+                }
+                break;
+            case   END_R:
+                switch(c)
+                {
+                 case '\n':
+                    parser->state = END_N;
+                    break;
+                 default:
+                    return HTTP_PARSER_FAIL;
+                }
+                break;
+            }// switch
+
+        }//end for
+
+        if(state == END_N )
+            return state == END_N ? HTTP_PASER_FINISH : HTTP_PASER_HALF;
+    }
 
     int state;
-    int tokentype;
     char buf[2048];
-    int  pos;
-
+    char* pos;
     int reset();
-    int Scan(char c1,char c2);
-
 };
 
 
 HttpHeader::HttpHeader(){
-
     parser = new HttpParser();
 }
 
 HttpHeader::ParserHeader(ReadBuffer &buf)
 {
 
-    while(getNextToken(buf,it,c1,c2,))
-    {
-        if(c1==' ')
-            tokentype = BLANK;
-        else if(c1=='\r' && c2=='\n')
-            tokentype = NEWLINE;
-        else
-            tokentype = INVAILD;
+     ReadBuffer::Iterator& begin = buf.begin();
+     ReadBuffer::Iterator& end = buf.end();
 
 
-        switch(state):
-        {
-         case START:
-
-            break;
-         case METHOD:
-            break;
-
-         case PATH:
-            break;
-
-         case KEY:
-            break;
-        }
-
-    }
 
 
 

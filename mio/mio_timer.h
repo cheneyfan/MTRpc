@@ -91,7 +91,7 @@ public:
 };
 
 
-class EventTimer {
+class EventTimer : public IOEvent {
 public:
 
     EventTimer();
@@ -99,7 +99,7 @@ public:
 
 
 
-     void onEvent(Epoller* p,uint32_t events);
+     virtual void onEvent(Epoller* p,uint32_t mask);
 
 
 
@@ -150,8 +150,6 @@ public:
     std::priority_queue<TimerTask*,
     std::vector<TimerTask*>, TimerTaskCmp> timertasks;
     std::map<int, TimerTask*> timerindex;
-public:
-    IOEvent ev;
 };
 
 

@@ -139,14 +139,11 @@ bool TimerTaskCmp::operator () (const TimerTask* t1, const TimerTask* t2){
 
 EventTimer::EventTimer()
 {
-    ev._fd = timerfd_create(CLOCK_REALTIME, TFD_NONBLOCK|TFD_CLOEXEC);
-    ev.ev.data.ptr = &ev;
-
-    ev.onEvent = Closure::From<EventTimer,Epoller*,uint32_t, &EventTimer::onTimer>(this);
+    _fd = timerfd_create(CLOCK_REALTIME, TFD_NONBLOCK|TFD_CLOEXEC);
 }
 
 EventTimer::~EventTimer(){
-    ::close(ev._fd);
+    ::close(_fd);
 }
 
 
@@ -294,7 +291,7 @@ int EventTimer::updateTimer()
     {
         struct itimerspec null ={{0,0},{0,0}};
         //TRACE("set next timer:("<<null.it_value.tv_sec<<","<<null.it_value.tv_nsec<<")");
-        return ::timerfd_settime(ev._fd, TFD_TIMER_ABSTIME,&null,NULL);
+        return ::timerfd_settime(_fd, TFD_TIMER_ABSTIME,&null,NULL);
     }
 
     struct itimerspec next;
@@ -303,7 +300,7 @@ int EventTimer::updateTimer()
     next.it_interval= timertasks.top()->nowInterval();
 
     // set new timer
-    return ::timerfd_settime(ev._fd, TFD_TIMER_ABSTIME, &next, NULL);
+    return ::timerfd_settime(_fd, TFD_TIMER_ABSTIME, &next, NULL);
 
 }
 

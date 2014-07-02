@@ -32,38 +32,7 @@ public:
     /// \param p
     /// \param events
     ///
-    virtual void onEvent(Epoller* p,uint32_t mask)
-    {
-        int ret = 0;
-
-        if(mask & EVENT_READ)
-        {
-            ret |= onReadable(p);
-        }
-
-        if(mask & EVENT_WRITE)
-        {
-            ret |= onWriteable(p);
-        }
-
-        if(mask & EVENT_CLOSE)
-        {
-            ret |= -1;
-        }
-
-        if(mask & READ_TIME_OUT)
-        {
-            ret |= onReadTimeOut(p);
-        }
-
-        if(mask & WRITE_TIME_OUT)
-        {
-            ret |= onWriteimeOut(p);
-        }
-
-        if(ret < 0 )
-            onClose(p);
-    }
+    virtual void onEvent(Epoller* p,uint32_t mask);
 
 
     virtual int onReadable(Epoller* p);

@@ -10,6 +10,40 @@ SocketStream::SocketStream():buf_alloc_size(DEFAULT_BUFFER_SIZE),buf_alloc_radio
 {
 }
 
+
+virtual void SocketStream::onEvent(Epoller* p,uint32_t mask)
+{
+    int ret = 0;
+
+    if(mask & EVENT_READ)
+    {
+        ret |= onReadable(p);
+    }
+
+    if(mask & EVENT_WRITE)
+    {
+        ret |= onWriteable(p);
+    }
+
+    if(mask & EVENT_CLOSE)
+    {
+        ret |= -1;
+    }
+
+    if(mask & READ_TIME_OUT)
+    {
+        ret |= onReadTimeOut(p);
+    }
+
+    if(mask & WRITE_TIME_OUT)
+    {
+        ret |= onWriteimeOut(p);
+    }
+
+    if(ret < 0 )
+        onClose(p);
+}
+
 int SocketStream::onReadable(Epoller *p)
 {
 
