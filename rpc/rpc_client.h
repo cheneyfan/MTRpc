@@ -68,13 +68,9 @@ public:
     void Shutdown();
 
 public:
-    const mtrpc::shared_ptr<RpcClientImpl>& impl() const
-    {
-        return _impl;
-    }
 
 private:
-    mtrpc::shared_ptr<RpcClientImpl> _impl;
+    RpcClientImpl* _impl;
 
 }; // class RpcClient
 
