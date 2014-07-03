@@ -45,7 +45,6 @@ public:
     Epoller* poller;
     WorkGroup* group;
 
-
 }; // class RpcClientImpl
 }
 

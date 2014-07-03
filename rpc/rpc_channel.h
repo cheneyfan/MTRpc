@@ -17,7 +17,6 @@ public:
       RpcChannelOptions():connect_timeout(10)
       {
       }
-
 };
 
 
@@ -47,14 +46,10 @@ public:
                             ::google::protobuf::Message* response,
                             ::google::protobuf::Closure* done);
 
-public:
-    const mtrpc::shared_ptr<RpcChannelImpl>& impl() const
-    {
-        return _impl;
-    }
+
 
 private:
-    mtrpc::shared_ptr<RpcChannelImpl> _impl;
+    RpcChannelImpl* _impl;
 };
 
 }

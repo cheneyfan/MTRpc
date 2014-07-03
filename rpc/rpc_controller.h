@@ -1,6 +1,7 @@
 #ifndef_MTRPC_RPC_CONTROLLER_H_
 #define _MTRPC_RPC_CONTROLLER_H_
 
+#include <google/protobuf/service.h>
 namespace mtrpc {
 
 
