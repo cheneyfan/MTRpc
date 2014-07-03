@@ -61,7 +61,7 @@ public:
         int operator - (const Iterator& it)
         {
             //
-            int size = que[it._idx]->writepos - it._pos;
+            int size = _que[it._idx]->writepos - it._pos;
 
             int end_idx =  _idx;
             int start_idx = (it._idx+1)%MAX_BUFFER_PIECES;
@@ -72,7 +72,7 @@ public:
             for(int idx = start_idx ; idx < end_idx; ++idx)
             {
                 //map be some pieces not use whole
-                 size +=que[idx%MAX_BUFFER_PIECES]->writepos;
+                 size +=_que[idx%MAX_BUFFER_PIECES]->writepos;
             }
 
             size+= _pos;
@@ -83,9 +83,9 @@ public:
         {
             _pos += size;
 
-            while(_pos >= que[_idx]->writepos )
+            while(_pos >= _que[_idx]->writepos )
             {
-                _pos -= que[_idx]->writepos;
+                _pos -= _que[_idx]->writepos;
                 _idx = (_idx + 1)%MAX_BUFFER_PIECES;
             }
 
@@ -97,18 +97,22 @@ public:
             _pos -= size;
             while(_pos < 0 )
             {
-                _pos += que[_idx]->writepos;
+                _pos += _que[_idx]->writepos;
                 _idx = (_idx -1)%MAX_BUFFER_PIECES;
             }
             return *this;
         }
 
        char operator*(){
-           return _que[_idx][_pos];
+           return _que[_idx]->buffer[_pos];
+       }
+
+       BufferPieces* get(){
+           return _que[_idx];
        }
 
        Iterator& operator ++ (){
-           if(++_pos < que[_idx]->writepos)
+           if(++_pos < _que[_idx]->writepos)
                return *this;
 
            _pos = 0;
@@ -117,7 +121,7 @@ public:
        }
 
        Iterator& operator ++ (int){
-           if(++_pos < que[_idx]->writepos)
+           if(++_pos < _que[_idx]->writepos)
                return *this;
 
            _pos = 0;
