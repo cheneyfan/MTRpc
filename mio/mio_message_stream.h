@@ -30,8 +30,5 @@ public:
     HttpHeader reqheader;
     HttpHeader resheader;
 
-    WriteBuffer::Iterator packetstart;
-    WriteBuffer::Iterator packetend;
-
 };
 }

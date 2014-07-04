@@ -68,7 +68,13 @@ public:
     /// \return
     ///
     static int getpeer(int sockfd,char* ip,int& port);
-
+    static int getpeer(int sockfd, std::string& ip,int& port)
+    {
+        char buf[32]={0};
+        int ret = getpeer(sockfd,buf,port);
+        ip=buf;
+        return ret;
+    }
     ///
     /// \brief getlocal
     /// \param sockfd
@@ -77,7 +83,13 @@ public:
     /// \return
     ///
     static int getlocal(int sockfd, char* ip,int& port);
-
+    static int getlocal(int sockfd, std::string& ip,int& port)
+    {
+        char buf[32]={0};
+        int ret = getlocal(sockfd,buf,port);
+        ip=buf;
+        return ret;
+    }
     ///
     /// \brief getConnectName
     /// \param sockfd

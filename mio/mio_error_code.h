@@ -11,6 +11,10 @@ enum ErrorCode {
     HTTP_PASER_HALF   = 101,
     HTTP_PASER_FINISH = 102,
 
+    CONNECT_OK        = 1000,
+    CONNECT_FAIL      = 1001,
+    CONNECT_IPROCESS  = 10002,
+
 };
 
 // Convert rpc error code to human readable string.

@@ -35,6 +35,7 @@ public:
     virtual void onEvent(Epoller* p,uint32_t mask);
 
 
+    virtual int OnConnect(Epoller* p);
     virtual int onReadable(Epoller* p);
     virtual int onWriteable(Epoller* p);
 
@@ -49,12 +50,18 @@ public:
     virtual int OnSended(Epoller* p);
 
 public:
+    std::string peer_ip;
+    int32_t peer_port;
+    std::string local_ip;
+    int32_t local_port;
 
     uint32_t buf_alloc_size;
     uint32_t buf_alloc_radio;
 
     ReadBuffer readbuf;
     WriteBuffer writebuf;
+
+
 };
 
 }

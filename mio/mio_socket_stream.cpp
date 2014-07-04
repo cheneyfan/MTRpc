@@ -4,7 +4,9 @@
 
 namespace mtrpc{
 
-SocketStream::SocketStream():buf_alloc_size(DEFAULT_BUFFER_SIZE),buf_alloc_radio(1),
+SocketStream::SocketStream():
+    buf_alloc_size(DEFAULT_BUFFER_SIZE),
+    buf_alloc_radio(1),
     readbuf(DEFAULT_BUFFER_SIZE),
     writebuf(DEFAULT_BUFFER_SIZE)
 {
@@ -14,6 +16,19 @@ SocketStream::SocketStream():buf_alloc_size(DEFAULT_BUFFER_SIZE),buf_alloc_radio
 virtual void SocketStream::onEvent(Epoller* p,uint32_t mask)
 {
     int ret = 0;
+
+    if(!_isConnected && (mask &(EVENT_READ|EVENT_WRITE)))
+    {
+       ret = OnConnect(p);
+
+       if(ret <0 )
+       {
+           onClose(p);
+           return;
+       }
+
+       _isConnected = true;
+    }
 
     if(mask & EVENT_READ)
     {
@@ -42,6 +57,13 @@ virtual void SocketStream::onEvent(Epoller* p,uint32_t mask)
 
     if(ret < 0 )
         onClose(p);
+}
+
+int SocketStream::SocketStream::OnConnect(Epoller* p)
+{
+    TcpSocket::getlocal(_fd,&local_ip,&local_port);
+    TcpSocket::getpeer(_fd,&peer_ip,&peer_port);
+    return 0;
 }
 
 int SocketStream::onReadable(Epoller *p)

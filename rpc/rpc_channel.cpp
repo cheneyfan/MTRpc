@@ -1,27 +1,22 @@
 #include "rpc_channel.h"
-#include <sstream>
+#include "rpc_channel_impl.h"
 
 namespace mtrpc {
 
-RpcChannel::RpcChannel(RpcClient* rpc_client,
-        const std::string& server_address,
-        const RpcChannelOptions& options)
-    : _impl(new RpcChannelImpl(rpc_client->impl(), server_address, options))
+RpcChannel::RpcChannel(const RpcChannelOptions& options)
+    : _impl(new RpcChannelImpl(options))
 {
 }
 
-RpcChannel::RpcChannel(RpcClient* rpc_client,
-        const std::string& server_ip,
-        uint32 server_port,
-        const RpcChannelOptions& options)
+int RpcChannel::Connect(const std::string& server_ip,
+        uint32_t server_port)
 {
-    std::ostringstream os;
-    os << server_ip << ":" << server_port;
-    _impl.reset(new RpcChannelImpl(rpc_client->impl(), os.str(), options));
+      return _impl->Connect(server_ip,server_port);
 }
 
 RpcChannel::~RpcChannel()
 {
+     delete _impl;
 }
 
 bool RpcChannel::IsAddressValid()

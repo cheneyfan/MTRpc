@@ -16,7 +16,7 @@ class RpcClientImpl
 
 
 public:
-    explicit RpcClientImpl(const RpcClientOptions& options);
+    explicit RpcClientImpl(const RpcClientOptions& opt);
 
     virtual ~RpcClientImpl();
 
@@ -30,20 +30,16 @@ public:
 
     int ConnectionCount();
 
-    // Rpc call method to remote endpoint.
-    //
-    // The call can be done in following cases:
-    // * send failed
-    // * timeouted
-    // * response received
-    void CallMethod(const google::protobuf::Message* request,
-            google::protobuf::Message* response,
-            const RpcControllerImpl*& cntl);
 
- private:
+
+public:
+    RpcClientOptions _options;
+
+private:
 
     Epoller* poller;
     WorkGroup* group;
+
 
 }; // class RpcClientImpl
 }

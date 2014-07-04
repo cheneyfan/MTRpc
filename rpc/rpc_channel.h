@@ -13,7 +13,6 @@ class RpcChannelImpl;
 class RpcChannelOptions{
 public:
       uint64_t connect_timeout;
-
       RpcChannelOptions():connect_timeout(10)
       {
       }
@@ -24,14 +23,16 @@ class RpcChannel : public google::protobuf::RpcChannel
 {
 public:
     // The "server_address" should be in format of "ip:port".
-    RpcChannel(RpcClient* rpc_client,
-               const std::string& server_address,
-               const RpcChannelOptions& options = RpcChannelOptions());
-    RpcChannel(RpcClient* rpc_client,
-               const std::string& server_ip,
-               uint32 server_port,
-               const RpcChannelOptions& options = RpcChannelOptions());
+    RpcChannel(const RpcChannelOptions& options = RpcChannelOptions());
     virtual ~RpcChannel();
+
+    ///
+    /// \brief Connect
+    /// \param server_ip
+    /// \param server_port
+    /// \return
+    ///
+    int Connect(const std::string& server_ip,int32_t server_port);
 
     // Check the channel's address is valid.  If not valid, the following invoke
     // of "CallMethod()" will return RPC_ERROR_RESOLVE_ADDRESS.
