@@ -45,7 +45,7 @@ int ConnectStream::OnConnect(Epoller* p){
 
     _ConnectStatus = CONNECT_Ok;
 
-    _stream->AddEventASync(_p,true,true);
+    _stream->AddEventASync(_p,false,false);
     return 0;
 }
 

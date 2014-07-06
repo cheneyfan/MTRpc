@@ -1,4 +1,4 @@
-#include "mio_socket_stream.h"
+#include "mio/mio_message_stream.h"
 
 #include <google/protobuf/message.h>
 #include "proto/rpc_http_header.h"
@@ -16,7 +16,7 @@ enum CONNECT_STATUS {
 
 typedef ::google::protobuf::Message Message;
 
-class ConnectStream : public SocketStream {
+class ConnectStream : public MessageStream {
 
 public :
     ConnectStream();
@@ -30,17 +30,9 @@ public :
     int Connect(const std::string& server_ip,int32_t server_port);
 
     virtual int OnConnect(Epoller* p);
-public:
 
+public:
     int _ConnectStatus;
-    ExtClosure<void(ConnectStream* sream, Epoller* p)>*  handerConnected;
-    ExtClosure<void(ConnectStream* sream, Epoller* p)>*  handerMessageRecived;
-
-    ExtClosure<void(ConnectStream* sream, Epoller* p)>*  handerMessageSended;
-
-public:
-    HttpHeader reqheader;
-    HttpHeader resheader;
 
 };
 }

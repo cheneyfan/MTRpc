@@ -10,13 +10,13 @@ EventNotify::EventNotify(){
 
 
 EventNotify::~EventNotify(){
-    ::close(ev._fd);
+    ::close(_fd);
 }
 
-void EventNotify::onEvent(Epoller* p,uint32_t events){
+void EventNotify::onEvent(Epoller* p,uint32_t mask){
 
     uint64_t counter = 0;
-    int ret = ::read(ev._fd, (char*) &counter,sizeof(counter));
+    int ret = ::read(_fd, (char*) &counter,sizeof(counter));
 }
 
 }

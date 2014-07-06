@@ -53,5 +53,5 @@ size_t convertHex(char buf[], T* value)
     return p - buf;
 }
 
-};
+}
 #endif

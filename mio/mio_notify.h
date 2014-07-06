@@ -33,7 +33,7 @@ public:
     /// \param p
     /// \param events
     ///
-    virtual void onEvent(Epoller* p,uint32_t events);
+    virtual void onEvent(Epoller* p,uint32_t mask);
 
     ///
     /// \brief notify_eventchannel
@@ -42,7 +42,7 @@ public:
     /// \return
     ///
     int Notify(uint64_t signalnum){
-        return ::write(ev._fd, &signalnum,sizeof(signalnum));
+        return ::write(_fd, &signalnum,sizeof(signalnum));
     }
 
 

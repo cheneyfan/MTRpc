@@ -9,14 +9,12 @@ set(CMAKE_BUILD_TYPE debug)
 set(CMAKE_CXX_FLAGS_ALL "${CMAKE_CXX_FLAGS} ${CMAKE_CXX_FLAGS_DEBUG} ")
 
 
-
-set(CMAKE_INSTALL_PREFIX "${CMAKE_SOURCE_DIR}/out")
-
-
 if(CMAKE_BUILD_RELEASE)
     set(CMAKE_BUILD_TYPE relwithdebinfo)
     set(CMAKE_CXX_FLAGS_ALL "${CMAKE_CXX_FLAGS} ${CMAKE_CXX_FLAGS_RELWITHDEBINFO}")
 endif()
+
+set(CMAKE_INSTALL_PREFIX "${CMAKE_SOURCE_DIR}/out")
 
 
 # add thirdparty to globle includes

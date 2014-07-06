@@ -36,6 +36,8 @@ int MessageStream::OnRecived(Epoller *p){
 
     // a
     handerMessageRecived->Run(this, p);
+
+    return 0;
 }
 
 
@@ -47,6 +49,13 @@ int MessageStream::OnSended(Epoller *p)
         handerMessageSended->Run(this,p);
     }
 
+    return 0;
 }
 
+int MessageStream::OnConnect(Epoller *p){
+
+    handerConnected->Run(this,p);
+
+    return 0;
+}
 }

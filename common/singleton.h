@@ -15,6 +15,8 @@
 //for aexit
 #include <stdlib.h>
 
+namespace mtrpc {
+
 
 /**
  * use pthread_once to implement singleton.
@@ -173,4 +175,5 @@ __thread T* ThreadLocalSingleton<T>::t_value_ = 0;
 template<typename T>
 ThreadLocal<T> ThreadLocalSingleton<T>::deleter_;
 
+}
 #endif

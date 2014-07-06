@@ -16,12 +16,19 @@ public :
     MessageStream(int sockfd);
 
 
+    ///
+    /// \brief OnRecived
+    /// \param p
+    /// \return
+    ///
     virtual int OnRecived(Epoller* p);
     virtual int OnSended(Epoller* p);
-
+    virtual int OnConnect(Epoller *p);
 
 
 public:
+
+    ExtClosure<void(MessageStream* sream, Epoller* p)>*  handerConnected;
 
     ExtClosure<void(MessageStream* sream,Epoller* p)>*  handerMessageRecived;
 

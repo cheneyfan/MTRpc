@@ -1,16 +1,19 @@
 #ifndef _MTPRC_RPC_CHANNEL_IMPL_H_
 #define _MTPRC_RPC_CHANNEL_IMPL_H_
 
+#include <queue>
+
+
 #include <google/protobuf/service.h>
 #include "rpc_client.h"
-
+#include "common/rwlock.h"
 
 namespace mtrpc {
 class RpcClient;
 class RpcChannelImpl;
 class ConnectStream;
 class Epoller;
-
+class MioTask;
 class RpcChannelImpl
 {
 public:
@@ -42,10 +45,39 @@ public:
                     const ::google::protobuf::Message* request,
                     ::google::protobuf::Message* response,
                     ::google::protobuf::Closure* done);
+
+public:
+
+    struct CallParams {
+        ::google::protobuf::MethodDescriptor* method;
+        ::google::protobuf::RpcController* controller;
+        ::google::protobuf::Message* request;
+        ::google::protobuf::Message* response;
+        ::google::protobuf::Closure* done;
+    };
+
+    void OnCallDone(ConnectStream *_stream){
+
+        // if pending call size > 0 ,pop and do
+
+    }
+
+   int SendToServer(::google::protobuf::MethodDescriptor* method,::google::protobuf::RpcController* controller,::google::protobuf::Message* request);
+public:
+
+  void OnMessageRecived(MessageStream* sream,Epoller* p);
+
+  void OnMessageSended(MessageStream* sream,Epoller* p);
+
+
 public:
     RpcClientOptions _options;
     ConnectStream * _stream;
     Epoller* _poller;
+
+
+    MutexLock pendinglock;
+    std::queue<CallParams*> pendingcall;
 
 };
 

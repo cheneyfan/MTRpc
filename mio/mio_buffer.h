@@ -31,7 +31,7 @@ public:
 
     BufferPieces():
         buffer(NULL),
-        writepos(DEFAULT_BUFFER_SIZE)
+        size(DEFAULT_BUFFER_SIZE)
     {
     }
 
@@ -42,7 +42,8 @@ public:
 
 public:
     char* buffer;
-    uint32_t writepos ;
+    /// the buffer current used max size;
+    uint32_t size;
 };
 
 
@@ -53,7 +54,7 @@ public:
     {
     public:
 
-        Iterator(int idx,int pos,BufferPieces** que):
+        Iterator(int idx,int pos,BufferPieces** que =NULL):
             _idx(idx),_pos(pos),_que(que)
         {
         }
@@ -61,21 +62,28 @@ public:
         int operator - (const Iterator& it)
         {
             //
-            int size = _que[it._idx]->writepos - it._pos;
+            int size = 0;
+
 
             int end_idx =  _idx;
-            int start_idx = (it._idx+1)%MAX_BUFFER_PIECES;
+            int start_idx = it._idx;
 
-            if(end_idx < start_idx)
-                    end_idx += MAX_BUFFER_PIECES;
-
-            for(int idx = start_idx ; idx < end_idx; ++idx)
+            if(end_idx == start_idx && it._pos <= _pos)
             {
-                //map be some pieces not use whole
-                 size +=_que[idx%MAX_BUFFER_PIECES]->writepos;
+                return _pos - it._pos;
             }
 
-            size+= _pos;
+            size += _que[it._idx]->size - it._pos;
+
+            for(int idx  = start_idx ;
+                idx != end_idx;
+                idx  = (idx +1)%MAX_BUFFER_PIECES)
+            {
+                //map be some pieces not use whole
+                size +=_que[idx%MAX_BUFFER_PIECES]->size;
+            }
+
+            size+=  _pos;
             return size;
         }
 
@@ -83,10 +91,10 @@ public:
         {
             _pos += size;
 
-            while(_pos >= _que[_idx]->writepos )
+            while(_pos >= _que[_idx]->size )
             {
-                _pos -= _que[_idx]->writepos;
-                _idx = (_idx + 1)%MAX_BUFFER_PIECES;
+                _pos -= _que[_idx]->size;
+                _idx  = (_idx + 1)%MAX_BUFFER_PIECES;
             }
 
             return *this;
@@ -98,7 +106,7 @@ public:
             while(_pos < 0 )
             {
                 _pos += _que[_idx]->writepos;
-                _idx = (_idx -1)%MAX_BUFFER_PIECES;
+                _idx = (_idx -1 + MAX_BUFFER_PIECES)%MAX_BUFFER_PIECES;
             }
             return *this;
         }
@@ -112,7 +120,8 @@ public:
        }
 
        Iterator& operator ++ (){
-           if(++_pos < _que[_idx]->writepos)
+
+           if(++_pos < _que[_idx]->size)
                return *this;
 
            _pos = 0;
@@ -157,7 +166,7 @@ public:
         return readpos;
     }
 
-    Iterator reserve();
+    Iterator Reserve();
 
     Iterator end()
     {
@@ -178,8 +187,8 @@ public:
     int GetBufferLeft();
     int GetBufferUsed();
 
-
-
+    bool isFull();
+    bool isEmpty();
 
 public:
     BufferPieces** que;
@@ -198,8 +207,10 @@ public:
     void BackUp(int count);
     bool Skip(int count);
     int64 ByteCount() const;
-
-    int64 _read_bytes;
+    void begin(){
+        beginRead = readpos;
+    }
+    Iterator beginRead;
 };
 
 class WriteBuffer: public IOBuffer,
@@ -210,6 +221,11 @@ public:
     bool Next(void** data, int* size);
     void BackUp(int count);
     int64 ByteCount() const;
+
+    void begin(){
+        writeRead = readpos;
+    }
+    Iterator writeRead;
 
 };
 

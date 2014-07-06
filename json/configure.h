@@ -1,10 +1,3 @@
-// Copyright (c) 2013, Tencent Inc.
-// All rights reserved.
-//
-// Author: <guofutan@tencent.com>
-// Created: 2013-07-01
-// Description:
-
 #ifndef _configure_h_
 #define _configure_h_
 
@@ -12,6 +5,9 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+
+namespace mtrpc {
+
 
 ///
 /// \brief The Configure class
@@ -62,5 +58,8 @@ public:
     int isload;
 
 };
+
+
+}
 
 #endif

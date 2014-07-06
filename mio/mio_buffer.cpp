@@ -36,11 +36,11 @@ virtual IOBuffer::~IOBuffer(){
 }
 
 
-IOBuffer::Iterator IOBuffer::reserve(){
+IOBuffer::Iterator IOBuffer::Reserve(){
 
     if(writepos._pos > 0)
     {
-        que[writepos._idx]->writepos = writepos._pos;
+        que[writepos._idx]->size = writepos._pos;
         writepos._idx = MOD_PIECES(writepos._idx + 1);
         writepos._pos = 0;
     }
@@ -54,32 +54,46 @@ IOBuffer::Iterator IOBuffer::reserve(){
 
 bool IOBuffer::GetReciveBuffer(struct iovec* iov,int& iov_num){
 
+    if(isFull())
+        return false;
+
     int idx = 0;
 
+    int end_idx =  readpos._idx;
+    int start_idx = writepos._idx;
+
+    if(end_idx == start_idx && writepos._pos <= readpos._pos)
+    {
+
+        iov[idx].iov_base = que[writepos._idx]->buffer + writepos._pos;
+        iov[idx].iov_len  =  readpos._pos - writepos._pos -1;
+        iov_num = idx +1;
+        return true;
+    }
+
+
     iov[idx].iov_base = que[writepos._idx]->buffer + writepos._pos;
-    iov[idx].iov_len  = que[writepos._idx]->writepos - writepos._pos;
+    iov[idx].iov_len  = que[writepos._idx]->size   - writepos._pos;
 
 
-    int start_idx = MOD_PIECES(writepos._idx+1);
-    int end_idx = readpos._idx;
-
-    if(end_idx < start_idx)
-        end_idx += MAX_BUFFER_PIECES;
-
-    for(int tidx = start_idx; tidx < end_idx;++tidx){
+    for(int tidx  = start_idx ;
+        tidx != end_idx;
+        tidx  = (tidx +1)%MAX_BUFFER_PIECES)
+    {
         ++idx;
-        iov[idx].iov_base = que[MOD_PIECES(tidx)]->buffer;
-        iov[idx].iov_len    = que[MOD_PIECES(tidx)]->writepos;
+        iov[idx].iov_base = que[tidx]->buffer;
+        iov[idx].iov_len    = que[tidx]->size;
     }
 
     if(readpos._pos > 0)
     {
         ++idx;
         iov[idx].iov_base = que[readpos._idx]->buffer;
-        iov[idx].iov_len  = readpos._pos;
+        iov[idx].iov_len  = readpos._pos -1;
     }
 
-    return  true;
+
+    return true;
 }
 
 
@@ -93,31 +107,43 @@ bool IOBuffer::MoveRecivePtr(int size){
 //use keep write buffer to socket
 bool IOBuffer::GetSendBuffer(struct iovec* iov,int& iov_num){
 
+    if(isEmpty())
+        return false;
+
     int idx = 0;
 
-    iov[idx].iov_base = que[readpos._idx]->buffer + readpos._pos;
-    iov[idx].iov_len  = que[readpos._idx]->writepos - readpos._pos;
+    int end_idx =  writepos._idx;
+    int start_idx = readpos._idx;
 
-    int start_idx = MOD_PIECES((readpos._idx+1);
-            int end_idx = writepos._idx;
+    if(end_idx == start_idx && readpos._pos <= writepos._pos)
+    {
 
-    if(end_idx < start_idx)
-        end_idx += MAX_BUFFER_PIECES;
-
-    for(int tidx = start_idx; tidx < end_idx;++tidx){
-        ++idx;
-        iov[idx].iov_base = que[MOD_PIECES(tidx)]->buffer;
-        iov[idx].iov_len    = que[MOD_PIECES(tidx)]->writepos;
+        iov[idx].iov_base = que[readpos._idx]->buffer + readpos._pos;
+        iov[idx].iov_len  =  writepos._pos - readpos._pos;
+        iov_num = idx +1;
+        return true;
     }
 
-    /*
-    if(readpos._pos > 0)
+    iov[idx].iov_base = que[start_idx._idx]->buffer + readpos._pos ;
+    iov[idx].iov_len  = que[start_idx._idx]->size - readpos._pos;
+
+
+    for(int tidx  = start_idx ;
+        tidx != end_idx;
+        tidx  = (tidx +1)%MAX_BUFFER_PIECES)
+    {
+        ++idx;
+        iov[idx].iov_base = que[tidx]->buffer;
+        iov[idx].iov_len    = que[tidx]->size;
+    }
+
+    if(writepos._pos > 0)
     {
         ++idx;
         iov[idx].iov_base = que[writepos._idx]->buffer;
         iov[idx].iov_len  = writepos._pos;
     }
-*/
+
 
     return true;
 }
@@ -130,7 +156,7 @@ bool IOBuffer::MoveSendPtr(int size){
 
 int IOBuffer::GetBufferLeft(){
 
-    return  (readpos  - writepos) - readpos._pos;
+    return readpos  - writepos;
 }
 
 int IOBuffer::GetBufferUsed(){
@@ -140,8 +166,8 @@ int IOBuffer::GetBufferUsed(){
 
 bool IOBuffer::isFull(){
 
-    return ( MOD_PIECES(writepos._idx +1) == readpos._idx)
-            && ((writepos._pos +1) == que[readpos._pos]->writepos);
+    return ( writepos._idx  == readpos._idx)
+            && (writepos._pos +1) ==readpos._pos;
 
 }
 
@@ -155,16 +181,21 @@ bool ReadBuffer::Next(const void** data, int* size)
     if(isEmpty())
         return false;
 
-    *data = que[readpos._idx]->buffer + readpos._pos;
-    *size = que[readpos._idx]->writepos - readpos._pos;
+    if(readpos._idx == writepos._idx &&
+            readpos._pos < writepos._pos)
+    {
+        *data = que[readpos._idx]->buffer + readpos._pos;
+        *size = writepos._pos - readpos._pos;
+        return true;
+    }
 
-    _read_bytes+= *size;
+    *data = que[readpos._idx]->buffer + readpos._pos;
+    *size = que[readpos._idx]->size - readpos._pos;
     return true;
 }
 
 void ReadBuffer::BackUp(int count){
     readpos -= count;
-    _read_bytes -= *size;
 }
 
 bool ReadBuffer::Skip(int count){
@@ -172,7 +203,7 @@ bool ReadBuffer::Skip(int count){
     int tmp_idx = readpos._idx;
     int tmp_pos = readpos._pos + count;
 
-    while(tmp_pos >= que[tmp_idx]->writepos )
+    while(tmp_pos >= que[tmp_idx]->size )
     {
         bool isempty = (tmp_idx == writepos._idx)
                 && (tmp_pos >= writepos._pos);
@@ -180,7 +211,7 @@ bool ReadBuffer::Skip(int count){
         if(isempty)
             return false;
 
-        tmp_pos -= que[tmp_idx]->writepos;
+        tmp_pos -= que[tmp_idx]->size;
         tmp_idx = MOD_PIECES(tmp_idx +1);
     }
 
@@ -190,7 +221,7 @@ bool ReadBuffer::Skip(int count){
 }
 
 int64_t ReadBuffer::ByteCount(){
-    return _read_bytes;
+    return readpos - beginRead();
 }
 
 
@@ -201,6 +232,15 @@ bool WriteBuffer::Next(void** data, int* size)
 
     if(isFull())
         return false;
+
+    if(readpos._idx == writepos._idx &&
+             writepos._pos < readpos._pos -1 )
+    {
+
+        *data = que[writepos._idx]->buffer + writepos._pos;
+        *size =  readpos._pos  - writepos._pos -1;
+        return true;
+    }
 
     *data = que[writepos._idx]->buffer + writepos._pos;
     *size = que[writepos._idx]->writepos - writepos._pos;
@@ -213,7 +253,7 @@ void WriteBuffer::BackUp(int count)
 }
 
 int64_t WriteBuffer::ByteCount(){
-    return writepos - readpos;
+    return writepos - writeRead;
 }
 
 }

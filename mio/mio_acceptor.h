@@ -1,12 +1,13 @@
 #ifndef __MIO_ACCEPTOR_H_
 #define __MIO_ACCEPTOR_H_
 
+#include <string>
 #include "mio_event.h"
 #include "thread/ext_closure.h"
 
 namespace mtrpc {
 
-class Acceptor :public IOEvent{
+class Acceptor : public IOEvent{
 public:
 
     ///

@@ -10,7 +10,6 @@ Acceptor::Acceptor(){
     _fd = TcpSocket::socket();
     TcpSocket::setNoblock(_fd, true);
     TcpSocket::setNoTcpDelay(_fd, true);
-    isListening = false;
 }
 
 virtual Acceptor::~Acceptor(){
@@ -39,24 +38,23 @@ void Acceptor::onEvent(Epoller* p,uint32_t events)
 
 int Acceptor::StartListen(const char* host,int port){
 
-    TcpSocket::setReUseAddr(ev._fd, true);
+    TcpSocket::setReUseAddr(_fd, true);
 
     if(host ==NULL)
         host = "0.0.0.0";
 
-    if(TcpSocket::bind(ev._fd, host, port) != 0)
+    if(TcpSocket::bind(_fd, host, port) != 0)
     {
         WARN("bind "<<host<<":"<<port<<" failed");
         return -1;
     }
 
-    if(TcpSocket::listen(ev._fd) != 0)
+    if(TcpSocket::listen(_fd) != 0)
     {
         WARN("listen "<<host<<":"<<port<<" failed");
         return -1;
     }
 
-    isListening = true;
     return 0;
 }
 

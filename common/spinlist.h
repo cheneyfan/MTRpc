@@ -2,11 +2,13 @@
 #define _SPIN_LIST_H_
 
 #include "rwlock.h"
-
 #include <assert.h>
 #define ASSERT_DEBUG(x)
-
 #define MAX_CACHE_SIZE 1024
+
+namespace mtrpc {
+
+
 template<typename T,typename LOCK=SpinLock>
 class SpinList
 {
@@ -181,5 +183,7 @@ private:
     int _cache_size;
     Node* cache;
 };
+
+}
 
 #endif

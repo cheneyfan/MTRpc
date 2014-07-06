@@ -4,7 +4,7 @@
 namespace mtrpc{
 
 enum ErrorCode {
-    SUCCESS = 0,
+    RPC_SUCCESS = 200,
 
     //for http parser
     HTTP_PARSER_FAIL  = 100,

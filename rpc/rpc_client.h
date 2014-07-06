@@ -33,7 +33,9 @@ struct RpcClientOptions
         , max_pending_buffer_size(2)
         , max_throughput_in(-1)
         , max_throughput_out(-1)
-    {}
+    {
+
+    }
 };
 
 class RpcClient
@@ -67,7 +69,6 @@ public:
     // Shutdown the rpc client.
     void Shutdown();
 
-public:
 
 private:
     RpcClientImpl* _impl;

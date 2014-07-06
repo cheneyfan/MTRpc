@@ -108,8 +108,10 @@ void LogHelper:: OutPut(LogEntry* e)
         LogBacker::registerThread(&cm);
     }
 
+    //TODO opt the function
     struct timespec tp;
     clock_gettime(CLOCK_REALTIME, &tp);
+
     if(tp.tv_sec != time)
     {
         time = tp.tv_sec;
