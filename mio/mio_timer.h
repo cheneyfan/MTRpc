@@ -99,7 +99,7 @@ public:
 
 
 
-     virtual void onEvent(Epoller* p,uint32_t mask);
+     virtual void OnEvent(Epoller* p,uint32_t mask);
 
 
 

@@ -1,9 +1,12 @@
+#include "rpc_channel.h"
 #include "rpc_channel_impl.h"
 #include "mio/mio_error_code.h"
 #include "mio/mio_connect_stream.h"
+#include "rpc_controller.h"
+
 namespace mtrpc {
 
-RpcChannelImpl::RpcChannelImpl(const RpcClientOptions& options):
+RpcChannelImpl::RpcChannelImpl(const RpcChannelOptions &options):
 _options(options){
 
 }
@@ -18,6 +21,7 @@ int RpcChannelImpl::Connect(const std::string& server_ip,int32_t server_port){
 
 
     _stream = new ConnectStream();
+    _stream->group = _group;
     _stream->handerMessageRecived =
             NewPermanentExtClosure(this,&RpcChannelImpl::OnMessageRecived);
     _stream->handerMessageSended =
@@ -60,7 +64,7 @@ void RpcChannelImpl::CallMethod(const ::google::protobuf::MethodDescriptor* meth
     int size = 0;
 
     {
-         WriteLock lc(&pendinglock);
+         WriteLock<MutexLock> lc(pendinglock);
          size = pendingcall.size();
     }
 
@@ -76,24 +80,28 @@ void RpcChannelImpl::CallMethod(const ::google::protobuf::MethodDescriptor* meth
         currentCall->done = done;
         pendingcall.push(currentCall);
 
-        SendToServer(currentCall);
+        SendToServer(currentCall->method, currentCall->controller, currentCall->request);
     }
 
     //sync
     if(done == NULL)
     {
-       controller->Wait();
+        RpcController * cntl = dynamic_cast<RpcController *>(controller);
+        cntl->Wait();
     }
 }
 
-int RpcChannelImpl::SendToServer(::google::protobuf::MethodDescriptor* method,::google::protobuf::RpcController* controller,::google::protobuf::Message* request){
+int RpcChannelImpl::SendToServer(const ::google::protobuf::MethodDescriptor* method,::google::protobuf::RpcController* controller,const ::google::protobuf::Message* request){
+
+    RpcController* cntl =
+            dynamic_cast<RpcController*>(controller);
 
     HttpHeader& reqheader = _stream->reqheader;
 
     WriteBuffer& buf = _stream->writebuf;
 
     reqheader.SetPath(method->full_name());
-    reqheader.SetRequestSeq(controller->Geq());
+    reqheader.SetRequestSeq(cntl->GetSeq());
 
     WriteBuffer::Iterator it= buf.Reserve();
 
@@ -101,28 +109,29 @@ int RpcChannelImpl::SendToServer(::google::protobuf::MethodDescriptor* method,::
     WriteBuffer::Iterator mark = buf.writepos;
     request->SerializePartialToZeroCopyStream(&buf);
 
-    packetend = buf.writepos;
+    _stream->packetEnd = buf.writepos;
 
     int content_length = buf.writepos - mark;
     reqheader.SetContentLength(content_length);
     reqheader.SerializeRequestHeader(it);
 
     _stream->ModEventAsync(_poller,true,true);
+    return 0;
 }
 
 void RpcChannelImpl::OnMessageRecived(MessageStream* sream,Epoller* p){
 
     CallParams* params = NULL;
     {
-         WriteLock wl(&pendinglock);
+         WriteLock<MutexLock> wl(pendinglock);
          params = pendingcall.front();
          pendingcall.pop();
     }
 
-    params->response->ParseFromZeroCopyStream(sream->readbuf);
+    params->response->ParseFromZeroCopyStream(&sream->readbuf);
 
     {
-        WriteLock wl(&pendinglock);
+        WriteLock<MutexLock> wl(pendinglock);
         if(pendingcall.size() > 0 )
         {
              params =  pendingcall.front();

@@ -4,6 +4,8 @@
 #include "log/log.h"
 #include "common/rwlock.h"
 
+#include "mio_notify.h"
+#include "thread/ext_closure.h"
 namespace mtrpc {
 
 
@@ -31,12 +33,13 @@ static uint32_t EventToMask(uint32_t events)
 }
 
 Epoller::Epoller()
-    :notify()
+    :_notify(new EventNotify())
 {
     //TODO: port to other linux
     epollfd = epoll_create1(EPOLL_CLOEXEC);
 
-    addEvent(notify);
+    AddEvent(_notify);
+
     sentinel.key   =0;
     sentinel.left = &sentinel;
     sentinel.right = &sentinel;
@@ -78,13 +81,10 @@ void Epoller::Poll()
             uint32_t revents = ev_arr[i].events;
             IOEvent* ev = (IOEvent*)ev_arr[i].data.ptr;
 
-            if( ev == &notify)
-                continue;
-
-            IOEvent::updateName(ev->_fd, &(ev_arr[i]), event_name);
+            IOEvent::UpdateName(ev->_fd, &(ev_arr[i]), event_name);
             TRACE_FMG("poll:%u,event:%s",epollfd,event_name);
             uint32_t mask = EventToMask(revents);
-            ev->onEvent(this, mask);
+            ev->OnEventAsync(this, mask);
         }
 
 
@@ -104,9 +104,9 @@ int  Epoller::ProcessTimeOut(){
 
     while(wleft->key > 0 && wleft->key < nowsec)
     {
-        IOEvent* ioev = wleft->data;
+        IOEvent* ioev = static_cast<IOEvent*>(wleft->data);
 
-        ioev->onEvent(this, WRITE_TIME_OUT);
+        ioev->OnEventAsync(this, WRITE_TIME_OUT);
 
         ngx_rbtree_delete(&wtimerroot, wleft);
         wleft = ngx_rbtree_min(wtimerroot.root, &sentinel);
@@ -124,7 +124,7 @@ int  Epoller::ProcessTimeOut(){
     while(rleft->key > 0 && rleft->key < nowsec)
     {
 
-        IOEvent* ioev = rleft->data;
+        IOEvent* ioev = static_cast<IOEvent*>(rleft->data);
 
         ioev->OnEventAsync(this, READ_TIME_OUT);
 
@@ -143,24 +143,24 @@ int  Epoller::ProcessTimeOut(){
 }
 
 
-int Epoller::AddEvent(IOEvent* ev)
+void Epoller::AddEvent(IOEvent* ev)
 {
 
     int ret = epoll_ctl(epollfd, EPOLL_CTL_ADD, ev->_fd, &(ev->ev));
     TRACE_FMG("poll:%u,add event:%s,ret:%d",epollfd,ev->name,ret);
-    return ret;
+
 }
 
-int Epoller::ModEvent(IOEvent* ev){
+void Epoller::ModEvent(IOEvent* ev){
 
     int ret = epoll_ctl(epollfd, EPOLL_CTL_MOD, ev->_fd, &(ev->ev));
 
     TRACE_FMG("poll:%u,mod event:%s,ret:%d",epollfd,ev->name,ret);
-    return ret;
+
 }
 
 
-int Epoller::DelEvent(IOEvent* ev){
+void Epoller::DelEvent(IOEvent* ev){
 
     int ret = epoll_ctl(epollfd, EPOLL_CTL_DEL, ev->_fd, &(ev->ev));
 
@@ -182,10 +182,10 @@ int Epoller::DelEvent(IOEvent* ev){
               ret);
 
     ev->ReleaseRef();
-    return ret;
+
 }
 
-int Epoller::SetReadTimeOut(IOEvent* ev){
+void Epoller::SetReadTimeOut(IOEvent* ev){
 
     // if exists delete
     if(ev->rtimernode.parent)
@@ -202,9 +202,11 @@ int Epoller::SetReadTimeOut(IOEvent* ev){
      ngx_rbtree_insert(&rtimerroot, &ev->rtimernode);
 
      TRACE_FMG("poll:%u,set Event:%u,ctx:%p,read timeout:%u,write timeout:%u",epollfd,ev->_fd,ev->ev.data.ptr,ev->rtimernode.key,ev->wtimernode.key);
+
+
 }
 
-int Epoller::SetWriteTimeOut(IOEvent* ev){
+void Epoller::SetWriteTimeOut(IOEvent* ev){
 
     // if exists delete
     if(ev->wtimernode.parent)
@@ -223,19 +225,19 @@ int Epoller::SetWriteTimeOut(IOEvent* ev){
     //need update the wait time
 
     TRACE_FMG("poll:%u,set Event:%u,ctx:%p,read timeout:%u,write timeout:%u",epollfd,ev->_fd,ev->ev.data.ptr,ev->rtimernode.key,ev->wtimernode.key);
-    return 0;
+
 }
 
 void Epoller::Stop(){
     isruning = false;
-    notify.Notify(1);
+    _notify->Notify(1);
 }
 
 
 void Epoller::PostTask(MioTask *t)
 {
     tasklist.push(t);
-    notify.Notify(1);
+    _notify->Notify(1);
 }
 
 
@@ -248,8 +250,8 @@ void Epoller::ProcessPendingTask(){
     tasklist.MoveTo(tmp);
 
     /// only at here,modify the timer root
-    MioTask* t;
-    while(!tmp.empty() && tmp.pop(t) && t.h1)
+    MioTask* t = NULL;
+    while(!tmp.empty() && tmp.pop(t) && t)
     {
         t->Run();
     }

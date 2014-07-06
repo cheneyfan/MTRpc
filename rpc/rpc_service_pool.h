@@ -18,13 +18,19 @@
 #include "proto/builtin_service.pb.h"
 
 #include "common/murmurhash.h"
+#include "log/log.h"
 
-
+#include "common/rwlock.h"
 #define SERVICE_CACHE_SLOT_COUNT 1019
 #define STAT_SLOT_COUNT 602
 #define STAT_SLOT_SECONDS 1
+#include <google/protobuf/service.h>
 
 namespace mtrpc {
+
+typedef google::protobuf::int64 int64;
+typedef google::protobuf::uint64 uint64;
+
 
 // All the time is in micro-seconds.
 struct StatSlot
@@ -109,7 +115,7 @@ public:
         }
     }
 
-    void LatestStats(int slot_count, sofa::pbrpc::builtin::MethodStat* stat_out)
+    void LatestStats(int slot_count, mtrpc::builtin::MethodStat* stat_out)
     {
         SCHECK(stat_out != NULL);
         stat_out->Clear();
@@ -200,13 +206,13 @@ public:
         _method_boards[method_id].LatestStats(slot_count, stat_out);
     }
 
-    void LatestStats(int method_id, int slot_count, sofa::pbrpc::builtin::MethodStat* stat_out)
+    void LatestStats(int method_id, int slot_count, mtrpc::builtin::MethodStat* stat_out)
     {
         SCHECK(method_id >=0 && method_id < _method_count);
         _method_boards[method_id].LatestStats(slot_count, stat_out);
     }
 
-    void LatestStats(int64 expect_period, sofa::pbrpc::builtin::ServiceStat* stat_out)
+    void LatestStats(int64 expect_period, mtrpc::builtin::ServiceStat* stat_out)
     {
         SCHECK(stat_out != NULL);
         stat_out->Clear();
@@ -218,7 +224,7 @@ public:
         stat_out->set_succeed_count(0);
         stat_out->set_failed_count(0);
         for (int i = 0; i < _method_count; ++i) {
-            sofa::pbrpc::builtin::MethodStat* method_stat = stat_out->add_method_stats();
+            mtrpc::builtin::MethodStat* method_stat = stat_out->add_method_stats();
             LatestStats(i, slot_count, method_stat);
             stat_out->set_succeed_count(
                     stat_out->succeed_count() + method_stat->succeed_count());
@@ -268,7 +274,7 @@ public:
     {
         SCHECK(service != NULL);
         const std::string& svc_name = service->GetDescriptor()->full_name();
-        ScopedLocker<FastLock> _(_service_map_lock);
+        WriteLock<MutexLock> _(_service_map_lock);
         // check exist
         if (_service_map.find(svc_name) != _service_map.end()) {
             return false;
@@ -295,7 +301,7 @@ public:
             return _cache[cache_index];
         }
         // find in map then
-        ScopedLocker<FastLock> _(_service_map_lock);
+        WriteLock<MutexLock> _(_service_map_lock);
         ServiceMap::iterator it = _service_map.find(svc_name);
         return it == _service_map.end() ? NULL : it->second;
     }
@@ -332,7 +338,7 @@ public:
         }
     }
 
-    void ListService(sofa::pbrpc::builtin::ListServiceResponse* response)
+    void ListService(mtrpc::builtin::ListServiceResponse* response)
     {
         SCHECK(response != NULL);
         response->Clear();
@@ -370,7 +376,7 @@ private:
         return murmurhash(name.c_str(), name.size()) % SERVICE_CACHE_SLOT_COUNT;
     }
 
-    void AddFileDescriptor(sofa::pbrpc::builtin::ListServiceResponse* response,
+    void AddFileDescriptor(mtrpc::builtin::ListServiceResponse* response,
             std::set<std::string>* added_file_set, const google::protobuf::FileDescriptor* fd)
     {
         for (int i = 0; i < fd->dependency_count(); ++i) {
@@ -387,7 +393,7 @@ private:
 private:
     typedef std::map<std::string, ServiceBoard*> ServiceMap;
     ServiceMap _service_map;
-    FastLock _service_map_lock;
+    MutexLock _service_map_lock;
 
     ServiceBoard* _head;
     int _count;

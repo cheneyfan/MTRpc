@@ -16,7 +16,8 @@
 #include <google/protobuf/wire_format.h>
 // @@protoc_insertion_point(includes)
 
-namespace MTRpc {
+namespace mtrpc {
+namespace builtin {
 
 namespace {
 
@@ -408,53 +409,57 @@ void protobuf_AddDesc_builtin_5fservice_2eproto() {
   GOOGLE_PROTOBUF_VERIFY_VERSION;
 
   ::google::protobuf::protobuf_AddDesc_google_2fprotobuf_2fdescriptor_2eproto();
-  ::MTRpc::protobuf_AddDesc_rpc_5foption_2eproto();
+  ::mtrpc::protobuf_AddDesc_rpc_5foption_2eproto();
   ::google::protobuf::DescriptorPool::InternalAddGeneratedFile(
-    "\n\025builtin_service.proto\022\005MTRpc\032 google/p"
-    "rotobuf/descriptor.proto\032\020rpc_option.pro"
-    "to\"\017\n\rHealthRequest\" \n\016HealthResponse\022\016\n"
-    "\006health\030\001 \001(\t\"\331\001\n\rServerOptions\022\027\n\017work_"
-    "thread_num\030\001 \001(\003\022\027\n\017keep_alive_time\030\002 \001("
-    "\003\022\037\n\027max_pending_buffer_size\030\003 \001(\003\022\031\n\021ma"
-    "x_throughput_in\030\004 \001(\003\022\032\n\022max_throughput_"
-    "out\030\005 \001(\003\022 \n\030disable_builtin_services\030\006 "
-    "\001(\010\022\034\n\024disable_list_service\030\007 \001(\010\"\026\n\024Ser"
-    "verOptionsRequest\">\n\025ServerOptionsRespon"
-    "se\022%\n\007options\030\001 \001(\0132\024.MTRpc.ServerOption"
-    "s\"=\n\024UpdateOptionsRequest\022%\n\007options\030\001 \001"
-    "(\0132\024.MTRpc.ServerOptions\">\n\025UpdateOption"
-    "sResponse\022%\n\007options\030\001 \001(\0132\024.MTRpc.Serve"
-    "rOptions\"\025\n\023ServerStatusRequest\"\264\001\n\024Serv"
-    "erStatusResponse\022\024\n\014is_listening\030\001 \001(\010\022\030"
-    "\n\020connection_count\030\002 \001(\003\022\025\n\rservice_coun"
-    "t\030\003 \001(\003\022\035\n\025pending_message_count\030\004 \001(\003\022\033"
-    "\n\023pending_buffer_size\030\005 \001(\003\022\031\n\021pending_d"
-    "ata_size\030\006 \001(\003\"\024\n\022ListServiceRequest\"\\\n\023"
-    "ListServiceResponse\022\020\n\010services\030\001 \003(\t\0223\n"
-    "\005files\030\002 \003(\0132$.google.protobuf.FileDescr"
-    "iptorProto\"\300\001\n\nMethodStat\022\023\n\013method_name"
-    "\030\001 \001(\t\022\025\n\rsucceed_count\030\002 \001(\003\022\033\n\023succeed"
-    "_avg_time_us\030\003 \001(\002\022\033\n\023succeed_max_time_u"
-    "s\030\004 \001(\003\022\024\n\014failed_count\030\005 \001(\003\022\032\n\022failed_"
-    "avg_time_us\030\006 \001(\002\022\032\n\022failed_max_time_us\030"
-    "\007 \001(\003\"\221\001\n\013ServiceStat\022\024\n\014service_name\030\001 "
-    "\001(\t\022\026\n\016period_seconds\030\002 \001(\003\022\025\n\rsucceed_c"
-    "ount\030\003 \001(\003\022\024\n\014failed_count\030\004 \001(\003\022\'\n\014meth"
-    "od_stats\030\005 \003(\0132\021.MTRpc.MethodStat\"D\n\013Sta"
+    "\n\025builtin_service.proto\022\rmtrpc.builtin\032 "
+    "google/protobuf/descriptor.proto\032\020rpc_op"
+    "tion.proto\"\017\n\rHealthRequest\" \n\016HealthRes"
+    "ponse\022\016\n\006health\030\001 \001(\t\"\331\001\n\rServerOptions\022"
+    "\027\n\017work_thread_num\030\001 \001(\003\022\027\n\017keep_alive_t"
+    "ime\030\002 \001(\003\022\037\n\027max_pending_buffer_size\030\003 \001"
+    "(\003\022\031\n\021max_throughput_in\030\004 \001(\003\022\032\n\022max_thr"
+    "oughput_out\030\005 \001(\003\022 \n\030disable_builtin_ser"
+    "vices\030\006 \001(\010\022\034\n\024disable_list_service\030\007 \001("
+    "\010\"\026\n\024ServerOptionsRequest\"F\n\025ServerOptio"
+    "nsResponse\022-\n\007options\030\001 \001(\0132\034.mtrpc.buil"
+    "tin.ServerOptions\"E\n\024UpdateOptionsReques"
+    "t\022-\n\007options\030\001 \001(\0132\034.mtrpc.builtin.Serve"
+    "rOptions\"F\n\025UpdateOptionsResponse\022-\n\007opt"
+    "ions\030\001 \001(\0132\034.mtrpc.builtin.ServerOptions"
+    "\"\025\n\023ServerStatusRequest\"\264\001\n\024ServerStatus"
+    "Response\022\024\n\014is_listening\030\001 \001(\010\022\030\n\020connec"
+    "tion_count\030\002 \001(\003\022\025\n\rservice_count\030\003 \001(\003\022"
+    "\035\n\025pending_message_count\030\004 \001(\003\022\033\n\023pendin"
+    "g_buffer_size\030\005 \001(\003\022\031\n\021pending_data_size"
+    "\030\006 \001(\003\"\024\n\022ListServiceRequest\"\\\n\023ListServ"
+    "iceResponse\022\020\n\010services\030\001 \003(\t\0223\n\005files\030\002"
+    " \003(\0132$.google.protobuf.FileDescriptorPro"
+    "to\"\300\001\n\nMethodStat\022\023\n\013method_name\030\001 \001(\t\022\025"
+    "\n\rsucceed_count\030\002 \001(\003\022\033\n\023succeed_avg_tim"
+    "e_us\030\003 \001(\002\022\033\n\023succeed_max_time_us\030\004 \001(\003\022"
+    "\024\n\014failed_count\030\005 \001(\003\022\032\n\022failed_avg_time"
+    "_us\030\006 \001(\002\022\032\n\022failed_max_time_us\030\007 \001(\003\"\231\001"
+    "\n\013ServiceStat\022\024\n\014service_name\030\001 \001(\t\022\026\n\016p"
+    "eriod_seconds\030\002 \001(\003\022\025\n\rsucceed_count\030\003 \001"
+    "(\003\022\024\n\014failed_count\030\004 \001(\003\022/\n\014method_stats"
+    "\030\005 \003(\0132\031.mtrpc.builtin.MethodStat\"D\n\013Sta"
     "tRequest\022\031\n\014service_name\030\001 \001(\t:\003all\022\032\n\016p"
-    "eriod_seconds\030\002 \001(\003:\00260\"9\n\014StatResponse\022"
-    ")\n\rservice_stats\030\001 \003(\0132\022.MTRpc.ServiceSt"
-    "at2\254\003\n\016BuiltinService\0225\n\006Health\022\024.MTRpc."
-    "HealthRequest\032\025.MTRpc.HealthResponse\022J\n\r"
-    "ServerOptions\022\033.MTRpc.ServerOptionsReque"
-    "st\032\034.MTRpc.ServerOptionsResponse\022J\n\rUpda"
-    "teOptions\022\033.MTRpc.UpdateOptionsRequest\032\034"
-    ".MTRpc.UpdateOptionsResponse\022G\n\014ServerSt"
-    "atus\022\032.MTRpc.ServerStatusRequest\032\033.MTRpc"
-    ".ServerStatusResponse\022J\n\013ListService\022\031.M"
-    "TRpc.ListServiceRequest\032\032.MTRpc.ListServ"
-    "iceResponse\"\004\220\342\t\001\022/\n\004Stat\022\022.MTRpc.StatRe"
-    "quest\032\023.MTRpc.StatResponse\032\005\200\342\t\270\027B\003\200\001\001", 1798);
+    "eriod_seconds\030\002 \001(\003:\00260\"A\n\014StatResponse\022"
+    "1\n\rservice_stats\030\001 \003(\0132\032.mtrpc.builtin.S"
+    "erviceStat2\214\004\n\016BuiltinService\022E\n\006Health\022"
+    "\034.mtrpc.builtin.HealthRequest\032\035.mtrpc.bu"
+    "iltin.HealthResponse\022Z\n\rServerOptions\022#."
+    "mtrpc.builtin.ServerOptionsRequest\032$.mtr"
+    "pc.builtin.ServerOptionsResponse\022Z\n\rUpda"
+    "teOptions\022#.mtrpc.builtin.UpdateOptionsR"
+    "equest\032$.mtrpc.builtin.UpdateOptionsResp"
+    "onse\022W\n\014ServerStatus\022\".mtrpc.builtin.Ser"
+    "verStatusRequest\032#.mtrpc.builtin.ServerS"
+    "tatusResponse\022Z\n\013ListService\022!.mtrpc.bui"
+    "ltin.ListServiceRequest\032\".mtrpc.builtin."
+    "ListServiceResponse\"\004\220\342\t\001\022\?\n\004Stat\022\032.mtrp"
+    "c.builtin.StatRequest\032\033.mtrpc.builtin.St"
+    "atResponse\032\005\200\342\t\270\027B\003\200\001\001", 1942);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "builtin_service.proto", &protobuf_RegisterTypes);
   HealthRequest::default_instance_ = new HealthRequest();
@@ -1492,7 +1497,7 @@ ServerOptionsResponse::ServerOptionsResponse()
 }
 
 void ServerOptionsResponse::InitAsDefaultInstance() {
-  options_ = const_cast< ::MTRpc::ServerOptions*>(&::MTRpc::ServerOptions::default_instance());
+  options_ = const_cast< ::mtrpc::builtin::ServerOptions*>(&::mtrpc::builtin::ServerOptions::default_instance());
 }
 
 ServerOptionsResponse::ServerOptionsResponse(const ServerOptionsResponse& from)
@@ -1541,7 +1546,7 @@ ServerOptionsResponse* ServerOptionsResponse::New() const {
 void ServerOptionsResponse::Clear() {
   if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
     if (has_options()) {
-      if (options_ != NULL) options_->::MTRpc::ServerOptions::Clear();
+      if (options_ != NULL) options_->::mtrpc::builtin::ServerOptions::Clear();
     }
   }
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
@@ -1554,7 +1559,7 @@ bool ServerOptionsResponse::MergePartialFromCodedStream(
   ::google::protobuf::uint32 tag;
   while ((tag = input->ReadTag()) != 0) {
     switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
-      // optional .MTRpc.ServerOptions options = 1;
+      // optional .mtrpc.builtin.ServerOptions options = 1;
       case 1: {
         if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
             ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED) {
@@ -1585,7 +1590,7 @@ bool ServerOptionsResponse::MergePartialFromCodedStream(
 
 void ServerOptionsResponse::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
-  // optional .MTRpc.ServerOptions options = 1;
+  // optional .mtrpc.builtin.ServerOptions options = 1;
   if (has_options()) {
     ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
       1, this->options(), output);
@@ -1599,7 +1604,7 @@ void ServerOptionsResponse::SerializeWithCachedSizes(
 
 ::google::protobuf::uint8* ServerOptionsResponse::SerializeWithCachedSizesToArray(
     ::google::protobuf::uint8* target) const {
-  // optional .MTRpc.ServerOptions options = 1;
+  // optional .mtrpc.builtin.ServerOptions options = 1;
   if (has_options()) {
     target = ::google::protobuf::internal::WireFormatLite::
       WriteMessageNoVirtualToArray(
@@ -1617,7 +1622,7 @@ int ServerOptionsResponse::ByteSize() const {
   int total_size = 0;
 
   if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
-    // optional .MTRpc.ServerOptions options = 1;
+    // optional .mtrpc.builtin.ServerOptions options = 1;
     if (has_options()) {
       total_size += 1 +
         ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
@@ -1652,7 +1657,7 @@ void ServerOptionsResponse::MergeFrom(const ServerOptionsResponse& from) {
   GOOGLE_CHECK_NE(&from, this);
   if (from._has_bits_[0 / 32] & (0xffu << (0 % 32))) {
     if (from.has_options()) {
-      mutable_options()->::MTRpc::ServerOptions::MergeFrom(from.options());
+      mutable_options()->::mtrpc::builtin::ServerOptions::MergeFrom(from.options());
     }
   }
   mutable_unknown_fields()->MergeFrom(from.unknown_fields());
@@ -1705,7 +1710,7 @@ UpdateOptionsRequest::UpdateOptionsRequest()
 }
 
 void UpdateOptionsRequest::InitAsDefaultInstance() {
-  options_ = const_cast< ::MTRpc::ServerOptions*>(&::MTRpc::ServerOptions::default_instance());
+  options_ = const_cast< ::mtrpc::builtin::ServerOptions*>(&::mtrpc::builtin::ServerOptions::default_instance());
 }
 
 UpdateOptionsRequest::UpdateOptionsRequest(const UpdateOptionsRequest& from)
@@ -1754,7 +1759,7 @@ UpdateOptionsRequest* UpdateOptionsRequest::New() const {
 void UpdateOptionsRequest::Clear() {
   if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
     if (has_options()) {
-      if (options_ != NULL) options_->::MTRpc::ServerOptions::Clear();
+      if (options_ != NULL) options_->::mtrpc::builtin::ServerOptions::Clear();
     }
   }
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
@@ -1767,7 +1772,7 @@ bool UpdateOptionsRequest::MergePartialFromCodedStream(
   ::google::protobuf::uint32 tag;
   while ((tag = input->ReadTag()) != 0) {
     switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
-      // optional .MTRpc.ServerOptions options = 1;
+      // optional .mtrpc.builtin.ServerOptions options = 1;
       case 1: {
         if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
             ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED) {
@@ -1798,7 +1803,7 @@ bool UpdateOptionsRequest::MergePartialFromCodedStream(
 
 void UpdateOptionsRequest::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
-  // optional .MTRpc.ServerOptions options = 1;
+  // optional .mtrpc.builtin.ServerOptions options = 1;
   if (has_options()) {
     ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
       1, this->options(), output);
@@ -1812,7 +1817,7 @@ void UpdateOptionsRequest::SerializeWithCachedSizes(
 
 ::google::protobuf::uint8* UpdateOptionsRequest::SerializeWithCachedSizesToArray(
     ::google::protobuf::uint8* target) const {
-  // optional .MTRpc.ServerOptions options = 1;
+  // optional .mtrpc.builtin.ServerOptions options = 1;
   if (has_options()) {
     target = ::google::protobuf::internal::WireFormatLite::
       WriteMessageNoVirtualToArray(
@@ -1830,7 +1835,7 @@ int UpdateOptionsRequest::ByteSize() const {
   int total_size = 0;
 
   if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
-    // optional .MTRpc.ServerOptions options = 1;
+    // optional .mtrpc.builtin.ServerOptions options = 1;
     if (has_options()) {
       total_size += 1 +
         ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
@@ -1865,7 +1870,7 @@ void UpdateOptionsRequest::MergeFrom(const UpdateOptionsRequest& from) {
   GOOGLE_CHECK_NE(&from, this);
   if (from._has_bits_[0 / 32] & (0xffu << (0 % 32))) {
     if (from.has_options()) {
-      mutable_options()->::MTRpc::ServerOptions::MergeFrom(from.options());
+      mutable_options()->::mtrpc::builtin::ServerOptions::MergeFrom(from.options());
     }
   }
   mutable_unknown_fields()->MergeFrom(from.unknown_fields());
@@ -1918,7 +1923,7 @@ UpdateOptionsResponse::UpdateOptionsResponse()
 }
 
 void UpdateOptionsResponse::InitAsDefaultInstance() {
-  options_ = const_cast< ::MTRpc::ServerOptions*>(&::MTRpc::ServerOptions::default_instance());
+  options_ = const_cast< ::mtrpc::builtin::ServerOptions*>(&::mtrpc::builtin::ServerOptions::default_instance());
 }
 
 UpdateOptionsResponse::UpdateOptionsResponse(const UpdateOptionsResponse& from)
@@ -1967,7 +1972,7 @@ UpdateOptionsResponse* UpdateOptionsResponse::New() const {
 void UpdateOptionsResponse::Clear() {
   if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
     if (has_options()) {
-      if (options_ != NULL) options_->::MTRpc::ServerOptions::Clear();
+      if (options_ != NULL) options_->::mtrpc::builtin::ServerOptions::Clear();
     }
   }
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
@@ -1980,7 +1985,7 @@ bool UpdateOptionsResponse::MergePartialFromCodedStream(
   ::google::protobuf::uint32 tag;
   while ((tag = input->ReadTag()) != 0) {
     switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
-      // optional .MTRpc.ServerOptions options = 1;
+      // optional .mtrpc.builtin.ServerOptions options = 1;
       case 1: {
         if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
             ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED) {
@@ -2011,7 +2016,7 @@ bool UpdateOptionsResponse::MergePartialFromCodedStream(
 
 void UpdateOptionsResponse::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
-  // optional .MTRpc.ServerOptions options = 1;
+  // optional .mtrpc.builtin.ServerOptions options = 1;
   if (has_options()) {
     ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
       1, this->options(), output);
@@ -2025,7 +2030,7 @@ void UpdateOptionsResponse::SerializeWithCachedSizes(
 
 ::google::protobuf::uint8* UpdateOptionsResponse::SerializeWithCachedSizesToArray(
     ::google::protobuf::uint8* target) const {
-  // optional .MTRpc.ServerOptions options = 1;
+  // optional .mtrpc.builtin.ServerOptions options = 1;
   if (has_options()) {
     target = ::google::protobuf::internal::WireFormatLite::
       WriteMessageNoVirtualToArray(
@@ -2043,7 +2048,7 @@ int UpdateOptionsResponse::ByteSize() const {
   int total_size = 0;
 
   if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
-    // optional .MTRpc.ServerOptions options = 1;
+    // optional .mtrpc.builtin.ServerOptions options = 1;
     if (has_options()) {
       total_size += 1 +
         ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
@@ -2078,7 +2083,7 @@ void UpdateOptionsResponse::MergeFrom(const UpdateOptionsResponse& from) {
   GOOGLE_CHECK_NE(&from, this);
   if (from._has_bits_[0 / 32] & (0xffu << (0 % 32))) {
     if (from.has_options()) {
-      mutable_options()->::MTRpc::ServerOptions::MergeFrom(from.options());
+      mutable_options()->::mtrpc::builtin::ServerOptions::MergeFrom(from.options());
     }
   }
   mutable_unknown_fields()->MergeFrom(from.unknown_fields());
@@ -3704,7 +3709,7 @@ bool ServiceStat::MergePartialFromCodedStream(
         break;
       }
 
-      // repeated .MTRpc.MethodStat method_stats = 5;
+      // repeated .mtrpc.builtin.MethodStat method_stats = 5;
       case 5: {
         if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
             ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED) {
@@ -3761,7 +3766,7 @@ void ServiceStat::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::WriteInt64(4, this->failed_count(), output);
   }
 
-  // repeated .MTRpc.MethodStat method_stats = 5;
+  // repeated .mtrpc.builtin.MethodStat method_stats = 5;
   for (int i = 0; i < this->method_stats_size(); i++) {
     ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
       5, this->method_stats(i), output);
@@ -3800,7 +3805,7 @@ void ServiceStat::SerializeWithCachedSizes(
     target = ::google::protobuf::internal::WireFormatLite::WriteInt64ToArray(4, this->failed_count(), target);
   }
 
-  // repeated .MTRpc.MethodStat method_stats = 5;
+  // repeated .mtrpc.builtin.MethodStat method_stats = 5;
   for (int i = 0; i < this->method_stats_size(); i++) {
     target = ::google::protobuf::internal::WireFormatLite::
       WriteMessageNoVirtualToArray(
@@ -3847,7 +3852,7 @@ int ServiceStat::ByteSize() const {
     }
 
   }
-  // repeated .MTRpc.MethodStat method_stats = 5;
+  // repeated .mtrpc.builtin.MethodStat method_stats = 5;
   total_size += 1 * this->method_stats_size();
   for (int i = 0; i < this->method_stats_size(); i++) {
     total_size +=
@@ -4270,7 +4275,7 @@ bool StatResponse::MergePartialFromCodedStream(
   ::google::protobuf::uint32 tag;
   while ((tag = input->ReadTag()) != 0) {
     switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
-      // repeated .MTRpc.ServiceStat service_stats = 1;
+      // repeated .mtrpc.builtin.ServiceStat service_stats = 1;
       case 1: {
         if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
             ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED) {
@@ -4303,7 +4308,7 @@ bool StatResponse::MergePartialFromCodedStream(
 
 void StatResponse::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
-  // repeated .MTRpc.ServiceStat service_stats = 1;
+  // repeated .mtrpc.builtin.ServiceStat service_stats = 1;
   for (int i = 0; i < this->service_stats_size(); i++) {
     ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
       1, this->service_stats(i), output);
@@ -4317,7 +4322,7 @@ void StatResponse::SerializeWithCachedSizes(
 
 ::google::protobuf::uint8* StatResponse::SerializeWithCachedSizesToArray(
     ::google::protobuf::uint8* target) const {
-  // repeated .MTRpc.ServiceStat service_stats = 1;
+  // repeated .mtrpc.builtin.ServiceStat service_stats = 1;
   for (int i = 0; i < this->service_stats_size(); i++) {
     target = ::google::protobuf::internal::WireFormatLite::
       WriteMessageNoVirtualToArray(
@@ -4334,7 +4339,7 @@ void StatResponse::SerializeWithCachedSizes(
 int StatResponse::ByteSize() const {
   int total_size = 0;
 
-  // repeated .MTRpc.ServiceStat service_stats = 1;
+  // repeated .mtrpc.builtin.ServiceStat service_stats = 1;
   total_size += 1 * this->service_stats_size();
   for (int i = 0; i < this->service_stats_size(); i++) {
     total_size +=
@@ -4421,48 +4426,48 @@ const ::google::protobuf::ServiceDescriptor* BuiltinService::GetDescriptor() {
 }
 
 void BuiltinService::Health(::google::protobuf::RpcController* controller,
-                         const ::MTRpc::HealthRequest*,
-                         ::MTRpc::HealthResponse*,
+                         const ::mtrpc::builtin::HealthRequest*,
+                         ::mtrpc::builtin::HealthResponse*,
                          ::google::protobuf::Closure* done) {
   controller->SetFailed("Method Health() not implemented.");
   done->Run();
 }
 
 void BuiltinService::ServerOptions(::google::protobuf::RpcController* controller,
-                         const ::MTRpc::ServerOptionsRequest*,
-                         ::MTRpc::ServerOptionsResponse*,
+                         const ::mtrpc::builtin::ServerOptionsRequest*,
+                         ::mtrpc::builtin::ServerOptionsResponse*,
                          ::google::protobuf::Closure* done) {
   controller->SetFailed("Method ServerOptions() not implemented.");
   done->Run();
 }
 
 void BuiltinService::UpdateOptions(::google::protobuf::RpcController* controller,
-                         const ::MTRpc::UpdateOptionsRequest*,
-                         ::MTRpc::UpdateOptionsResponse*,
+                         const ::mtrpc::builtin::UpdateOptionsRequest*,
+                         ::mtrpc::builtin::UpdateOptionsResponse*,
                          ::google::protobuf::Closure* done) {
   controller->SetFailed("Method UpdateOptions() not implemented.");
   done->Run();
 }
 
 void BuiltinService::ServerStatus(::google::protobuf::RpcController* controller,
-                         const ::MTRpc::ServerStatusRequest*,
-                         ::MTRpc::ServerStatusResponse*,
+                         const ::mtrpc::builtin::ServerStatusRequest*,
+                         ::mtrpc::builtin::ServerStatusResponse*,
                          ::google::protobuf::Closure* done) {
   controller->SetFailed("Method ServerStatus() not implemented.");
   done->Run();
 }
 
 void BuiltinService::ListService(::google::protobuf::RpcController* controller,
-                         const ::MTRpc::ListServiceRequest*,
-                         ::MTRpc::ListServiceResponse*,
+                         const ::mtrpc::builtin::ListServiceRequest*,
+                         ::mtrpc::builtin::ListServiceResponse*,
                          ::google::protobuf::Closure* done) {
   controller->SetFailed("Method ListService() not implemented.");
   done->Run();
 }
 
 void BuiltinService::Stat(::google::protobuf::RpcController* controller,
-                         const ::MTRpc::StatRequest*,
-                         ::MTRpc::StatResponse*,
+                         const ::mtrpc::builtin::StatRequest*,
+                         ::mtrpc::builtin::StatResponse*,
                          ::google::protobuf::Closure* done) {
   controller->SetFailed("Method Stat() not implemented.");
   done->Run();
@@ -4477,38 +4482,38 @@ void BuiltinService::CallMethod(const ::google::protobuf::MethodDescriptor* meth
   switch(method->index()) {
     case 0:
       Health(controller,
-             ::google::protobuf::down_cast<const ::MTRpc::HealthRequest*>(request),
-             ::google::protobuf::down_cast< ::MTRpc::HealthResponse*>(response),
+             ::google::protobuf::down_cast<const ::mtrpc::builtin::HealthRequest*>(request),
+             ::google::protobuf::down_cast< ::mtrpc::builtin::HealthResponse*>(response),
              done);
       break;
     case 1:
       ServerOptions(controller,
-             ::google::protobuf::down_cast<const ::MTRpc::ServerOptionsRequest*>(request),
-             ::google::protobuf::down_cast< ::MTRpc::ServerOptionsResponse*>(response),
+             ::google::protobuf::down_cast<const ::mtrpc::builtin::ServerOptionsRequest*>(request),
+             ::google::protobuf::down_cast< ::mtrpc::builtin::ServerOptionsResponse*>(response),
              done);
       break;
     case 2:
       UpdateOptions(controller,
-             ::google::protobuf::down_cast<const ::MTRpc::UpdateOptionsRequest*>(request),
-             ::google::protobuf::down_cast< ::MTRpc::UpdateOptionsResponse*>(response),
+             ::google::protobuf::down_cast<const ::mtrpc::builtin::UpdateOptionsRequest*>(request),
+             ::google::protobuf::down_cast< ::mtrpc::builtin::UpdateOptionsResponse*>(response),
              done);
       break;
     case 3:
       ServerStatus(controller,
-             ::google::protobuf::down_cast<const ::MTRpc::ServerStatusRequest*>(request),
-             ::google::protobuf::down_cast< ::MTRpc::ServerStatusResponse*>(response),
+             ::google::protobuf::down_cast<const ::mtrpc::builtin::ServerStatusRequest*>(request),
+             ::google::protobuf::down_cast< ::mtrpc::builtin::ServerStatusResponse*>(response),
              done);
       break;
     case 4:
       ListService(controller,
-             ::google::protobuf::down_cast<const ::MTRpc::ListServiceRequest*>(request),
-             ::google::protobuf::down_cast< ::MTRpc::ListServiceResponse*>(response),
+             ::google::protobuf::down_cast<const ::mtrpc::builtin::ListServiceRequest*>(request),
+             ::google::protobuf::down_cast< ::mtrpc::builtin::ListServiceResponse*>(response),
              done);
       break;
     case 5:
       Stat(controller,
-             ::google::protobuf::down_cast<const ::MTRpc::StatRequest*>(request),
-             ::google::protobuf::down_cast< ::MTRpc::StatResponse*>(response),
+             ::google::protobuf::down_cast<const ::mtrpc::builtin::StatRequest*>(request),
+             ::google::protobuf::down_cast< ::mtrpc::builtin::StatResponse*>(response),
              done);
       break;
     default:
@@ -4522,17 +4527,17 @@ const ::google::protobuf::Message& BuiltinService::GetRequestPrototype(
   GOOGLE_DCHECK_EQ(method->service(), descriptor());
   switch(method->index()) {
     case 0:
-      return ::MTRpc::HealthRequest::default_instance();
+      return ::mtrpc::builtin::HealthRequest::default_instance();
     case 1:
-      return ::MTRpc::ServerOptionsRequest::default_instance();
+      return ::mtrpc::builtin::ServerOptionsRequest::default_instance();
     case 2:
-      return ::MTRpc::UpdateOptionsRequest::default_instance();
+      return ::mtrpc::builtin::UpdateOptionsRequest::default_instance();
     case 3:
-      return ::MTRpc::ServerStatusRequest::default_instance();
+      return ::mtrpc::builtin::ServerStatusRequest::default_instance();
     case 4:
-      return ::MTRpc::ListServiceRequest::default_instance();
+      return ::mtrpc::builtin::ListServiceRequest::default_instance();
     case 5:
-      return ::MTRpc::StatRequest::default_instance();
+      return ::mtrpc::builtin::StatRequest::default_instance();
     default:
       GOOGLE_LOG(FATAL) << "Bad method index; this should never happen.";
       return *reinterpret_cast< ::google::protobuf::Message*>(NULL);
@@ -4544,17 +4549,17 @@ const ::google::protobuf::Message& BuiltinService::GetResponsePrototype(
   GOOGLE_DCHECK_EQ(method->service(), descriptor());
   switch(method->index()) {
     case 0:
-      return ::MTRpc::HealthResponse::default_instance();
+      return ::mtrpc::builtin::HealthResponse::default_instance();
     case 1:
-      return ::MTRpc::ServerOptionsResponse::default_instance();
+      return ::mtrpc::builtin::ServerOptionsResponse::default_instance();
     case 2:
-      return ::MTRpc::UpdateOptionsResponse::default_instance();
+      return ::mtrpc::builtin::UpdateOptionsResponse::default_instance();
     case 3:
-      return ::MTRpc::ServerStatusResponse::default_instance();
+      return ::mtrpc::builtin::ServerStatusResponse::default_instance();
     case 4:
-      return ::MTRpc::ListServiceResponse::default_instance();
+      return ::mtrpc::builtin::ListServiceResponse::default_instance();
     case 5:
-      return ::MTRpc::StatResponse::default_instance();
+      return ::mtrpc::builtin::StatResponse::default_instance();
     default:
       GOOGLE_LOG(FATAL) << "Bad method index; this should never happen.";
       return *reinterpret_cast< ::google::protobuf::Message*>(NULL);
@@ -4573,43 +4578,43 @@ BuiltinService_Stub::~BuiltinService_Stub() {
 }
 
 void BuiltinService_Stub::Health(::google::protobuf::RpcController* controller,
-                              const ::MTRpc::HealthRequest* request,
-                              ::MTRpc::HealthResponse* response,
+                              const ::mtrpc::builtin::HealthRequest* request,
+                              ::mtrpc::builtin::HealthResponse* response,
                               ::google::protobuf::Closure* done) {
   channel_->CallMethod(descriptor()->method(0),
                        controller, request, response, done);
 }
 void BuiltinService_Stub::ServerOptions(::google::protobuf::RpcController* controller,
-                              const ::MTRpc::ServerOptionsRequest* request,
-                              ::MTRpc::ServerOptionsResponse* response,
+                              const ::mtrpc::builtin::ServerOptionsRequest* request,
+                              ::mtrpc::builtin::ServerOptionsResponse* response,
                               ::google::protobuf::Closure* done) {
   channel_->CallMethod(descriptor()->method(1),
                        controller, request, response, done);
 }
 void BuiltinService_Stub::UpdateOptions(::google::protobuf::RpcController* controller,
-                              const ::MTRpc::UpdateOptionsRequest* request,
-                              ::MTRpc::UpdateOptionsResponse* response,
+                              const ::mtrpc::builtin::UpdateOptionsRequest* request,
+                              ::mtrpc::builtin::UpdateOptionsResponse* response,
                               ::google::protobuf::Closure* done) {
   channel_->CallMethod(descriptor()->method(2),
                        controller, request, response, done);
 }
 void BuiltinService_Stub::ServerStatus(::google::protobuf::RpcController* controller,
-                              const ::MTRpc::ServerStatusRequest* request,
-                              ::MTRpc::ServerStatusResponse* response,
+                              const ::mtrpc::builtin::ServerStatusRequest* request,
+                              ::mtrpc::builtin::ServerStatusResponse* response,
                               ::google::protobuf::Closure* done) {
   channel_->CallMethod(descriptor()->method(3),
                        controller, request, response, done);
 }
 void BuiltinService_Stub::ListService(::google::protobuf::RpcController* controller,
-                              const ::MTRpc::ListServiceRequest* request,
-                              ::MTRpc::ListServiceResponse* response,
+                              const ::mtrpc::builtin::ListServiceRequest* request,
+                              ::mtrpc::builtin::ListServiceResponse* response,
                               ::google::protobuf::Closure* done) {
   channel_->CallMethod(descriptor()->method(4),
                        controller, request, response, done);
 }
 void BuiltinService_Stub::Stat(::google::protobuf::RpcController* controller,
-                              const ::MTRpc::StatRequest* request,
-                              ::MTRpc::StatResponse* response,
+                              const ::mtrpc::builtin::StatRequest* request,
+                              ::mtrpc::builtin::StatResponse* response,
                               ::google::protobuf::Closure* done) {
   channel_->CallMethod(descriptor()->method(5),
                        controller, request, response, done);
@@ -4617,6 +4622,7 @@ void BuiltinService_Stub::Stat(::google::protobuf::RpcController* controller,
 
 // @@protoc_insertion_point(namespace_scope)
 
-}  // namespace MTRpc
+}  // namespace builtin
+}  // namespace mtrpc
 
 // @@protoc_insertion_point(global_scope)

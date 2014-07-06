@@ -71,7 +71,7 @@ public:
     /// \brief RunTask
     /// \param t
     ///
-    void RunTask(const Closure &t);
+    void RunTask(MioTask* t);
 
     ///
     /// \brief Stop

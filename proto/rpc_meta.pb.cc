@@ -16,7 +16,7 @@
 #include <google/protobuf/wire_format.h>
 // @@protoc_insertion_point(includes)
 
-namespace MTRpc {
+namespace mtrpc {
 
 namespace {
 
@@ -86,15 +86,15 @@ void protobuf_AddDesc_rpc_5fmeta_2eproto() {
   already_here = true;
   GOOGLE_PROTOBUF_VERIFY_VERSION;
 
-  ::MTRpc::protobuf_AddDesc_rpc_5foption_2eproto();
+  ::mtrpc::protobuf_AddDesc_rpc_5foption_2eproto();
   ::google::protobuf::DescriptorPool::InternalAddGeneratedFile(
-    "\n\016rpc_meta.proto\022\005MTRpc\032\020rpc_option.prot"
-    "o\"\227\002\n\007RpcMeta\022!\n\004type\030\001 \002(\0162\023.MTRpc.RpcM"
+    "\n\016rpc_meta.proto\022\005mtrpc\032\020rpc_option.prot"
+    "o\"\227\002\n\007RpcMeta\022!\n\004type\030\001 \002(\0162\023.mtrpc.RpcM"
     "eta.Type\022\023\n\013sequence_id\030\002 \002(\004\022\016\n\006method\030"
     "d \001(\t\022\017\n\006failed\030\310\001 \001(\010\022\023\n\nerror_code\030\311\001 "
     "\001(\005\022\017\n\006reason\030\312\001 \001(\t\022+\n\rcompress_type\030\254\002"
-    " \001(\0162\023.MTRpc.CompressType\022=\n\037expected_re"
-    "sponse_compress_type\030\255\002 \001(\0162\023.MTRpc.Comp"
+    " \001(\0162\023.mtrpc.CompressType\022=\n\037expected_re"
+    "sponse_compress_type\030\255\002 \001(\0162\023.mtrpc.Comp"
     "ressType\"!\n\004Type\022\013\n\007REQUEST\020\000\022\014\n\010RESPONS"
     "E\020\001", 323);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
@@ -237,7 +237,7 @@ bool RpcMeta::MergePartialFromCodedStream(
   ::google::protobuf::uint32 tag;
   while ((tag = input->ReadTag()) != 0) {
     switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
-      // required .MTRpc.RpcMeta.Type type = 1;
+      // required .mtrpc.RpcMeta.Type type = 1;
       case 1: {
         if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
             ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
@@ -245,8 +245,8 @@ bool RpcMeta::MergePartialFromCodedStream(
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    int, ::google::protobuf::internal::WireFormatLite::TYPE_ENUM>(
                  input, &value)));
-          if (::MTRpc::RpcMeta_Type_IsValid(value)) {
-            set_type(static_cast< ::MTRpc::RpcMeta_Type >(value));
+          if (::mtrpc::RpcMeta_Type_IsValid(value)) {
+            set_type(static_cast< ::mtrpc::RpcMeta_Type >(value));
           } else {
             mutable_unknown_fields()->AddVarint(1, value);
           }
@@ -339,7 +339,7 @@ bool RpcMeta::MergePartialFromCodedStream(
         break;
       }
 
-      // optional .MTRpc.CompressType compress_type = 300;
+      // optional .mtrpc.CompressType compress_type = 300;
       case 300: {
         if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
             ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
@@ -348,8 +348,8 @@ bool RpcMeta::MergePartialFromCodedStream(
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    int, ::google::protobuf::internal::WireFormatLite::TYPE_ENUM>(
                  input, &value)));
-          if (::MTRpc::CompressType_IsValid(value)) {
-            set_compress_type(static_cast< ::MTRpc::CompressType >(value));
+          if (::mtrpc::CompressType_IsValid(value)) {
+            set_compress_type(static_cast< ::mtrpc::CompressType >(value));
           } else {
             mutable_unknown_fields()->AddVarint(300, value);
           }
@@ -360,7 +360,7 @@ bool RpcMeta::MergePartialFromCodedStream(
         break;
       }
 
-      // optional .MTRpc.CompressType expected_response_compress_type = 301;
+      // optional .mtrpc.CompressType expected_response_compress_type = 301;
       case 301: {
         if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
             ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
@@ -369,8 +369,8 @@ bool RpcMeta::MergePartialFromCodedStream(
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    int, ::google::protobuf::internal::WireFormatLite::TYPE_ENUM>(
                  input, &value)));
-          if (::MTRpc::CompressType_IsValid(value)) {
-            set_expected_response_compress_type(static_cast< ::MTRpc::CompressType >(value));
+          if (::mtrpc::CompressType_IsValid(value)) {
+            set_expected_response_compress_type(static_cast< ::mtrpc::CompressType >(value));
           } else {
             mutable_unknown_fields()->AddVarint(301, value);
           }
@@ -399,7 +399,7 @@ bool RpcMeta::MergePartialFromCodedStream(
 
 void RpcMeta::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
-  // required .MTRpc.RpcMeta.Type type = 1;
+  // required .mtrpc.RpcMeta.Type type = 1;
   if (has_type()) {
     ::google::protobuf::internal::WireFormatLite::WriteEnum(
       1, this->type(), output);
@@ -438,13 +438,13 @@ void RpcMeta::SerializeWithCachedSizes(
       202, this->reason(), output);
   }
 
-  // optional .MTRpc.CompressType compress_type = 300;
+  // optional .mtrpc.CompressType compress_type = 300;
   if (has_compress_type()) {
     ::google::protobuf::internal::WireFormatLite::WriteEnum(
       300, this->compress_type(), output);
   }
 
-  // optional .MTRpc.CompressType expected_response_compress_type = 301;
+  // optional .mtrpc.CompressType expected_response_compress_type = 301;
   if (has_expected_response_compress_type()) {
     ::google::protobuf::internal::WireFormatLite::WriteEnum(
       301, this->expected_response_compress_type(), output);
@@ -458,7 +458,7 @@ void RpcMeta::SerializeWithCachedSizes(
 
 ::google::protobuf::uint8* RpcMeta::SerializeWithCachedSizesToArray(
     ::google::protobuf::uint8* target) const {
-  // required .MTRpc.RpcMeta.Type type = 1;
+  // required .mtrpc.RpcMeta.Type type = 1;
   if (has_type()) {
     target = ::google::protobuf::internal::WireFormatLite::WriteEnumToArray(
       1, this->type(), target);
@@ -499,13 +499,13 @@ void RpcMeta::SerializeWithCachedSizes(
         202, this->reason(), target);
   }
 
-  // optional .MTRpc.CompressType compress_type = 300;
+  // optional .mtrpc.CompressType compress_type = 300;
   if (has_compress_type()) {
     target = ::google::protobuf::internal::WireFormatLite::WriteEnumToArray(
       300, this->compress_type(), target);
   }
 
-  // optional .MTRpc.CompressType expected_response_compress_type = 301;
+  // optional .mtrpc.CompressType expected_response_compress_type = 301;
   if (has_expected_response_compress_type()) {
     target = ::google::protobuf::internal::WireFormatLite::WriteEnumToArray(
       301, this->expected_response_compress_type(), target);
@@ -522,7 +522,7 @@ int RpcMeta::ByteSize() const {
   int total_size = 0;
 
   if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
-    // required .MTRpc.RpcMeta.Type type = 1;
+    // required .mtrpc.RpcMeta.Type type = 1;
     if (has_type()) {
       total_size += 1 +
         ::google::protobuf::internal::WireFormatLite::EnumSize(this->type());
@@ -561,13 +561,13 @@ int RpcMeta::ByteSize() const {
           this->reason());
     }
 
-    // optional .MTRpc.CompressType compress_type = 300;
+    // optional .mtrpc.CompressType compress_type = 300;
     if (has_compress_type()) {
       total_size += 2 +
         ::google::protobuf::internal::WireFormatLite::EnumSize(this->compress_type());
     }
 
-    // optional .MTRpc.CompressType expected_response_compress_type = 301;
+    // optional .mtrpc.CompressType expected_response_compress_type = 301;
     if (has_expected_response_compress_type()) {
       total_size += 2 +
         ::google::protobuf::internal::WireFormatLite::EnumSize(this->expected_response_compress_type());
@@ -673,6 +673,6 @@ void RpcMeta::Swap(RpcMeta* other) {
 
 // @@protoc_insertion_point(namespace_scope)
 
-}  // namespace MTRpc
+}  // namespace mtrpc
 
 // @@protoc_insertion_point(global_scope)

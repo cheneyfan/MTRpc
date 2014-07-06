@@ -173,7 +173,8 @@ int LogBacker::Init(Json::Value & conf){
               S_IRWXU|S_IRWXG|S_IRWXO);
 
     
-    worker.RunTask(Closure::From(DumperLogger,NULL));
+    MioTask* task =NewExtClosure(LogBacker::DumperLogger,NULL);
+    worker.RunTask(task);
     worker.start();
 
     mtrpc::SignalHelper::registerCallback(LogBacker::Stop);

@@ -1,13 +1,13 @@
 #ifndef _MTPRC_RPC_CLIENT_IMPL_H_
 #define _MTPRC_RPC_CLIENT_IMPL_H_
 
-#include "rpc_client.h"
 #include <google/protobuf/message.h>
+#include "rpc_client.h"
 
 namespace mtrpc {
 
 
-class RpcControllerImpl;
+
 class Epoller;
 class WorkGroup;
 

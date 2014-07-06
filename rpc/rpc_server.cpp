@@ -4,7 +4,7 @@
 namespace  mtrpc {
 
 RpcServer::RpcServer(const RpcServerOptions& options)
-    : _impl(new RpcServerImpl(options, handler))
+    : _impl(new RpcServerImpl(options))
 {
 }
 
@@ -24,9 +24,9 @@ void RpcServer::Stop()
 }
 
 
-int RpcServer::Run()
+int RpcServer::Join()
 {
-    _impl->Run();
+    _impl->Join();
     return 0;
 }
 
@@ -55,10 +55,6 @@ int RpcServer::ConnectionCount()
     return _impl->ConnectionCount();
 }
 
-bool RpcServer::IsListening()
-{
-    return _impl->IsListening();
-}
 
 }
 

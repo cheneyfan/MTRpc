@@ -40,9 +40,7 @@ int main(int argc,char* argv[]){
 
     for(int i=0;i<20000;i++)
     {
-          vec[i] = i;
-          Closure t = Closure::From(hello1,(vec+i));
-          group.Post(t);
+
     }
 
     mtrpc::SignalHelper::registerCallback<mtrpc::WorkGroup,&mtrpc::WorkGroup::Stop>(&group);

@@ -44,10 +44,7 @@ int t1(){
 
 int t2(){
     TimeMoniter tm(0,__FUNCTION__);
-    int a=0;
-    Closure t =Closure::From(hello1,((void*)&a));
-    for(int i=0;i<10000000;++i)
-        t();
+
     return 0;
 }
 
@@ -65,10 +62,7 @@ int t3(){
 
 int t4(){
     TimeMoniter tm(0,__FUNCTION__);
-    B b;
-    Closure t = Closure::From<B,&B::hello2>(&b);
-    for(int i=0;i<10000000;++i)
-        t();
+
     return 0;
 }
 

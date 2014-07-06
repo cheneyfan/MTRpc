@@ -1,4 +1,5 @@
 #include "rpc_client.h"
+#include "rpc_client_impl.h"
 
 namespace  mtrpc {
 

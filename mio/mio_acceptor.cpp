@@ -12,12 +12,12 @@ Acceptor::Acceptor(){
     TcpSocket::setNoTcpDelay(_fd, true);
 }
 
-virtual Acceptor::~Acceptor(){
+Acceptor::~Acceptor(){
     ::close(_fd);
 }
 
 
-void Acceptor::onEvent(Epoller* p,uint32_t events)
+void Acceptor::OnEvent(Epoller* p,uint32_t events)
 {
 
     struct sockaddr_in addr;
@@ -31,7 +31,7 @@ void Acceptor::onEvent(Epoller* p,uint32_t events)
         return;
     }
 
-    onAccept->Run(sockfd);
+    handerAccept->Run(sockfd);
 
     TRACE_FMG("accept a new connection: sockfd:%u",sockfd);
 }

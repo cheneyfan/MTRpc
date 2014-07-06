@@ -80,7 +80,7 @@ void Worker::loop()
 
         if(taskqueue && taskqueue->pop(tmp))
         {
-            tmp();
+            tmp->Run();
             continue;
         }
 

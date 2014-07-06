@@ -4,6 +4,9 @@
 namespace mtrpc {
 
 
+MessageStream::MessageStream(){
+
+}
 
 MessageStream::MessageStream(int sockfd)
 {
@@ -16,7 +19,7 @@ MessageStream::MessageStream(int sockfd)
 int MessageStream::OnRecived(Epoller *p){
 
 
-    int ret = header.ParserHeader(readbuf);
+    int ret = reqheader.ParserRequestHeader(readbuf);
 
     if(ret == HTTP_PARSER_FAIL )
     {
@@ -29,7 +32,7 @@ int MessageStream::OnRecived(Epoller *p){
     }
 
     // need read more
-    if(header.content_length < readbuf.GetBufferUsed())
+    if(reqheader.content_length  >  readbuf.GetBufferUsed())
     {
         return 0;
     }
@@ -44,7 +47,7 @@ int MessageStream::OnRecived(Epoller *p){
 int MessageStream::OnSended(Epoller *p)
 {
 
-    if(packetend  > writebuf.WritePos())
+    if(packetEnd == writebuf.readpos)
     {
         handerMessageSended->Run(this,p);
     }

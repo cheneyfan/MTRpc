@@ -9,7 +9,7 @@ RpcChannel::RpcChannel(const RpcChannelOptions& options)
 }
 
 int RpcChannel::Connect(const std::string& server_ip,
-        uint32_t server_port)
+        int32_t server_port)
 {
       return _impl->Connect(server_ip,server_port);
 }

@@ -425,6 +425,8 @@ public:
 
 
 #define CHECK_LOG(x,m) \
-            if(x){WARN(m<<",check failed:"##x);}
+            if(!(x)){WARN(m<<",check failed:"#x);}
 
+#define SCHECK(expression) \
+            if(!(expression)){WARN("check failed:"#expression);}
 #endif

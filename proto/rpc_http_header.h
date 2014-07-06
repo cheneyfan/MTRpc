@@ -1,5 +1,8 @@
+#ifndef __RPC_HTTP_HEADER__
+#define __RPC_HTTP_HEADER__
+
 #include <string>
-#include "mio_buffer.h"
+#include "mio/mio_buffer.h"
 #include <map>
 namespace mtrpc {
 
@@ -18,7 +21,7 @@ public:
     int SerializeReponseHeader(WriteBuffer::Iterator& it);
 
 
-    int SetPath(std::string& p);
+    int SetPath(const std::string &p);
 
     int SetContentLength(uint32_t length);
     int SetRequestSeq(uint32_t seq);
@@ -49,3 +52,5 @@ public:
 
 
 }
+
+#endif

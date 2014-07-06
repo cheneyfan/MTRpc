@@ -11,12 +11,14 @@
 #include "rpc_server.h"
 #include "mio/mio_acceptor.h"
 
+#include "google/protobuf/message.h"
 namespace mtrpc{
 
-class EPoller;
+class Epoller;
 class WorkGroup;
 class MessageStream;
 class ServicePool;
+class RpcController;
 
 class RpcServerImpl
 {
@@ -28,8 +30,9 @@ public:
 
     virtual ~RpcServerImpl();
 
-    bool Start(const std::string& server_address);
+    int Start(const std::string& server_address);
 
+    int Join();
     void Stop();
 
     RpcServerOptions GetOptions();
@@ -46,17 +49,20 @@ public:
 public:
 
     void OnAccept(int sockfd);
-    int  OnMessageRecived(MessageStream* stream);
+    void  OnMessageRecived(MessageStream* stream,Epoller* p);
 
+    bool ParseMethodFullName(const std::string& method_full_name,
+            std::string* service_full_name, std::string* method_name);
+    void OnCallMethodDone(RpcController* controller,google::protobuf::Message* request,google::protobuf::Message* response,MessageStream* stream,Epoller* p);
 
 private:
 
-    EPoller * poller;
+    Epoller * poller;
     WorkGroup* group;
     Acceptor acceptor;
 private:
     RpcServerOptions _options;
-    ServicePool* pool;
+    ServicePool* _service_pool;
 
 }; // class RpcServerImpl
 

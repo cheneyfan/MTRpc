@@ -23,6 +23,8 @@
 
 namespace mtrpc {
 
+typedef  ::google::protobuf::int64 int64;
+
 /// Every Buffer has same size
 ///
 class BufferPieces
@@ -43,7 +45,7 @@ public:
 public:
     char* buffer;
     /// the buffer current used max size;
-    uint32_t size;
+    int size;
 };
 
 
@@ -54,12 +56,17 @@ public:
     {
     public:
 
+        Iterator():
+            _idx(0),_pos(0),_que(NULL){
+
+        }
+
         Iterator(int idx,int pos,BufferPieces** que =NULL):
             _idx(idx),_pos(pos),_que(que)
         {
         }
 
-        int operator - (const Iterator& it)
+        int operator - (const Iterator& it) const
         {
             //
             int size = 0;
@@ -105,7 +112,7 @@ public:
             _pos -= size;
             while(_pos < 0 )
             {
-                _pos += _que[_idx]->writepos;
+                _pos += _que[_idx]->size;
                 _idx = (_idx -1 + MAX_BUFFER_PIECES)%MAX_BUFFER_PIECES;
             }
             return *this;
@@ -130,7 +137,7 @@ public:
        }
 
        Iterator& operator ++ (int){
-           if(++_pos < _que[_idx]->writepos)
+           if(++_pos < _que[_idx]->size)
                return *this;
 
            _pos = 0;
@@ -140,6 +147,10 @@ public:
 
        bool operator == (Iterator& it){
            return (_idx == it._idx) && (_pos == it._pos);
+       }
+
+       bool operator !=(Iterator& it){
+           return !( (_idx == it._idx) && (_pos == it._pos));
        }
 
     public:
@@ -161,14 +172,14 @@ public:
     virtual ~IOBuffer();
 
 
-    Iterator begin()
+    Iterator& begin()
     {
         return readpos;
     }
 
     Iterator Reserve();
 
-    Iterator end()
+    Iterator& end()
     {
         return writepos;
     }
@@ -181,11 +192,12 @@ public:
 
     //use keep write buffer to socket
     bool GetSendBuffer(struct iovec* iov,int& iov_num);
+    bool GetSendBuffer(struct iovec* iov, int& iov_num, const Iterator &it);
     bool MoveSendPtr(int size);
 
     //use size
     int GetBufferLeft();
-    int GetBufferUsed();
+    uint32_t GetBufferUsed();
 
     bool isFull();
     bool isEmpty();
@@ -202,12 +214,14 @@ class ReadBuffer : public IOBuffer,
 {
 public:
 
+    ReadBuffer();
+
     // implements ZeroCopyInputStream
     bool Next(const void** data, int* size);
     void BackUp(int count);
     bool Skip(int count);
     int64 ByteCount() const;
-    void begin(){
+    void beginPacket(){
         beginRead = readpos;
     }
     Iterator beginRead;
@@ -216,6 +230,8 @@ public:
 class WriteBuffer: public IOBuffer,
                    public google::protobuf::io::ZeroCopyOutputStream {
 public:
+
+    WriteBuffer();
 
     // implements ZeroCopyOutputStream ---------------------------------
     bool Next(void** data, int* size);

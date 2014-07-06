@@ -5,15 +5,13 @@
 namespace mtrpc{
 
 SocketStream::SocketStream():
-    buf_alloc_size(DEFAULT_BUFFER_SIZE),
-    buf_alloc_radio(1),
-    readbuf(DEFAULT_BUFFER_SIZE),
-    writebuf(DEFAULT_BUFFER_SIZE)
+    _isConnected(false),
+    buf_alloc_size(DEFAULT_BUFFER_SIZE)
 {
 }
 
 
-virtual void SocketStream::onEvent(Epoller* p,uint32_t mask)
+void SocketStream::OnEvent(Epoller* p,uint32_t mask)
 {
     int ret = 0;
 
@@ -61,19 +59,13 @@ virtual void SocketStream::onEvent(Epoller* p,uint32_t mask)
 
 int SocketStream::SocketStream::OnConnect(Epoller* p)
 {
-    TcpSocket::getlocal(_fd,&local_ip,&local_port);
-    TcpSocket::getpeer(_fd,&peer_ip,&peer_port);
+    TcpSocket::getlocal(_fd, local_ip, local_port);
+    TcpSocket::getpeer(_fd, peer_ip, peer_port);
     return 0;
 }
 
 int SocketStream::onReadable(Epoller *p)
 {
-
-    if(readbuf.GetReciveBufferLeft() < DEFAULT_BUFFER_SIZE  && !readbuf.Extend(buf_alloc_radio))
-    {
-        WARN("can't Extend buf");
-        return -1;
-    }
 
     struct iovec invec[MAX_BUFFER_PIECES];
     int in_num = MAX_BUFFER_PIECES;
@@ -93,7 +85,7 @@ int SocketStream::onReadable(Epoller *p)
         return 0;
     }else if(ret <= 0){
         //some error in socket
-        WARN(ev.name <<",ret:"<<ret<<",errorno:"<<errno<<",str:"<<strerror(errno));
+        WARN(name <<",ret:"<<ret<<",errorno:"<<errno<<",str:"<<strerror(errno));
         return -1;
     }
 
@@ -106,7 +98,7 @@ int SocketStream::onReadable(Epoller *p)
 int SocketStream::onWriteable(Epoller *p)
 {
 
-    if(!writebuf.GetSendBufferUsed())
+    if(writebuf.isEmpty())
     {
         TRACE(name<<":no buffer to send, disable write");
         ModEventAsync(p,true,false);
@@ -116,7 +108,7 @@ int SocketStream::onWriteable(Epoller *p)
     struct iovec outvec[MAX_BUFFER_PIECES];
     int out_num = MAX_BUFFER_PIECES;
 
-    writebuf.GetReciveBuffer(outvec,out_num);
+    writebuf.GetSendBuffer(outvec,out_num, packetEnd);
 
     int ret = writev(_fd,outvec, out_num);
 
@@ -136,11 +128,10 @@ int SocketStream::onWriteable(Epoller *p)
     writebuf.MoveSendPtr(ret);
 
 
-    if(!writebuf.GetSendBufferUsed())
+    if(writebuf.isEmpty())
     {
         TRACE(name<<":no buffer to send, disable write");
         ModEventAsync(p,true,false);
-        return 0;
     }
 
     return OnSended(p);
@@ -151,6 +142,7 @@ int SocketStream::onClose(Epoller *p){
 
     TRACE(name<<":closed");
     DelEventAsync(p);
+    return 0;
 }
 
 }

@@ -3,34 +3,34 @@
 /// this is just for study linux
 ///
 
-#ifndef _MIO2_EVENT_H_
-#define _MIO2_EVENT_H_
+#ifndef _MTRPC_EVENT_H_
+#define _MTRPC_EVENT_H_
 
 #include <sys/epoll.h>
 #include <sys/eventfd.h>
 #include <stdint.h>
 #include <string.h>
 
-#include "mio_error_code.h"
+
 #include "common/atomic.h"
 #include "common/ngx_rbtree.h"
 
 
+#include "mio_error_code.h"
+
+#ifndef offsetof
 #ifdef __compiler_offsetof
     #define offsetof(TYPE,MEMBER) __compiler_offsetof(TYPE,MEMBER)
 #else
     #define offsetof(TYPE, MEMBER) ((size_t) &((TYPE *)0)->MEMBER)
 #endif
 
-
 #define container_of(ptr, type, member) ({ \
     const typeof( ((type *)0)->member ) *__mptr = (ptr); \
     (type *)( (char *)__mptr - offsetof(type,member) );})
 
 
-#define IOEventEntryFromTimer(left) (container_of(left,IOEvent,timernode))
-
-
+#endif
 
 
 namespace mtrpc {
@@ -69,7 +69,6 @@ public:
       ev.events = EPOLLET;
       wtimernode.parent = NULL;
       rtimernode.parent = NULL;
-      refcount = 0;
     }
 
     virtual ~IOEvent();
@@ -104,7 +103,7 @@ public:
     {
         if(refcount.decrementAndGet() == 0)
         {
-            delete* this;
+            delete this;
         }
     }
 
@@ -114,7 +113,7 @@ public:
     /// \param p
     /// \param event_mask
     ///
-    virtual void OnEvent(Epoller* p, uint32_t event_mask) = 0;
+    virtual void OnEvent(Epoller* p, uint32_t event_mask)= 0;
 
 
 public:
@@ -140,8 +139,8 @@ public:
     int AddEventASync(Epoller* p,bool readable,bool wirteable);
     int ModEventAsync(Epoller* p,bool readable,bool wirteable);
     int DelEventAsync(Epoller* p);
-    int SetReadTimeOutAsync(Epoller* p, int time_sec);
-    int SetWriteTimeOutAsync(Epoller* p,int time_sec);
+    int SetReadTimeOutAsync(Epoller* p, uint32_t time_sec);
+    int SetWriteTimeOutAsync(Epoller* p,uint32_t time_sec);
 
 
 public:

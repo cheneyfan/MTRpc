@@ -5,7 +5,7 @@
 
 
 #include <google/protobuf/service.h>
-#include "rpc_client.h"
+#include "rpc_channel.h"
 #include "common/rwlock.h"
 
 namespace mtrpc {
@@ -13,12 +13,14 @@ class RpcClient;
 class RpcChannelImpl;
 class ConnectStream;
 class Epoller;
-class MioTask;
+class WorkGroup;
+class MessageStream;
+
 class RpcChannelImpl
 {
 public:
 
-    RpcChannelImpl(const RpcClientOptions& options);
+    RpcChannelImpl(const RpcChannelOptions& options);
 
     virtual ~RpcChannelImpl();
 
@@ -49,9 +51,9 @@ public:
 public:
 
     struct CallParams {
-        ::google::protobuf::MethodDescriptor* method;
+        const ::google::protobuf::MethodDescriptor* method;
         ::google::protobuf::RpcController* controller;
-        ::google::protobuf::Message* request;
+        const ::google::protobuf::Message* request;
         ::google::protobuf::Message* response;
         ::google::protobuf::Closure* done;
     };
@@ -62,7 +64,7 @@ public:
 
     }
 
-   int SendToServer(::google::protobuf::MethodDescriptor* method,::google::protobuf::RpcController* controller,::google::protobuf::Message* request);
+   int SendToServer(const google::protobuf::MethodDescriptor *method, ::google::protobuf::RpcController* controller, const google::protobuf::Message *request);
 public:
 
   void OnMessageRecived(MessageStream* sream,Epoller* p);
@@ -71,10 +73,10 @@ public:
 
 
 public:
-    RpcClientOptions _options;
+    RpcChannelOptions _options;
     ConnectStream * _stream;
     Epoller* _poller;
-
+    WorkGroup* _group;
 
     MutexLock pendinglock;
     std::queue<CallParams*> pendingcall;
@@ -82,3 +84,5 @@ public:
 };
 
 }
+
+#endif

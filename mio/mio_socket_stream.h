@@ -32,7 +32,7 @@ public:
     /// \param p
     /// \param events
     ///
-    virtual void onEvent(Epoller* p,uint32_t mask);
+    virtual void OnEvent(Epoller* p,uint32_t mask);
 
 
     virtual int OnConnect(Epoller* p);
@@ -50,16 +50,17 @@ public:
     virtual int OnSended(Epoller* p);
 
 public:
+    bool _isConnected;
     std::string peer_ip;
-    int32_t peer_port;
+    int peer_port;
     std::string local_ip;
-    int32_t local_port;
+    int local_port;
 
     uint32_t buf_alloc_size;
-    uint32_t buf_alloc_radio;
 
     ReadBuffer readbuf;
     WriteBuffer writebuf;
+    WriteBuffer::Iterator packetEnd;
 
 
 };

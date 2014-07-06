@@ -16,7 +16,7 @@
 #include <google/protobuf/wire_format.h>
 // @@protoc_insertion_point(includes)
 
-namespace MTRpc {
+namespace mtrpc {
 
 namespace {
 
@@ -59,7 +59,7 @@ void protobuf_AddDesc_rpc_5foption_2eproto() {
 
   ::google::protobuf::protobuf_AddDesc_google_2fprotobuf_2fdescriptor_2eproto();
   ::google::protobuf::DescriptorPool::InternalAddGeneratedFile(
-    "\n\020rpc_option.proto\022\005MTRpc\032 google/protob"
+    "\n\020rpc_option.proto\022\005mtrpc\032 google/protob"
     "uf/descriptor.proto*}\n\014CompressType\022\024\n\020C"
     "ompressTypeNone\020\000\022\024\n\020CompressTypeGzip\020\001\022"
     "\024\n\020CompressTypeZlib\020\002\022\026\n\022CompressTypeSna"
@@ -68,10 +68,10 @@ void protobuf_AddDesc_rpc_5foption_2eproto() {
     "\234\001 \001(\003:\00510000:8\n\016method_timeout\022\036.google"
     ".protobuf.MethodOptions\030\240\234\001 \001(\003:f\n\025reque"
     "st_compress_type\022\036.google.protobuf.Metho"
-    "dOptions\030\241\234\001 \001(\0162\023.MTRpc.CompressType:\020C"
+    "dOptions\030\241\234\001 \001(\0162\023.mtrpc.CompressType:\020C"
     "ompressTypeNone:g\n\026response_compress_typ"
     "e\022\036.google.protobuf.MethodOptions\030\242\234\001 \001("
-    "\0162\023.MTRpc.CompressType:\020CompressTypeNone", 520);
+    "\0162\023.mtrpc.CompressType:\020CompressTypeNone", 520);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "rpc_option.proto", &protobuf_RegisterTypes);
   ::google::protobuf::internal::ExtensionSet::RegisterExtension(
@@ -83,11 +83,11 @@ void protobuf_AddDesc_rpc_5foption_2eproto() {
   ::google::protobuf::internal::ExtensionSet::RegisterEnumExtension(
     &::google::protobuf::MethodOptions::default_instance(),
     20001, 14, false, false,
-    &::MTRpc::CompressType_IsValid);
+    &::mtrpc::CompressType_IsValid);
   ::google::protobuf::internal::ExtensionSet::RegisterEnumExtension(
     &::google::protobuf::MethodOptions::default_instance(),
     20002, 14, false, false,
-    &::MTRpc::CompressType_IsValid);
+    &::mtrpc::CompressType_IsValid);
   ::google::protobuf::internal::OnShutdown(&protobuf_ShutdownFile_rpc_5foption_2eproto);
 }
 
@@ -121,14 +121,14 @@ bool CompressType_IsValid(int value) {
     ::google::protobuf::internal::PrimitiveTypeTraits< ::google::protobuf::int64 >, 3, false >
   method_timeout(kMethodTimeoutFieldNumber, GOOGLE_LONGLONG(0));
 ::google::protobuf::internal::ExtensionIdentifier< ::google::protobuf::MethodOptions,
-    ::google::protobuf::internal::EnumTypeTraits< ::MTRpc::CompressType, ::MTRpc::CompressType_IsValid>, 14, false >
-  request_compress_type(kRequestCompressTypeFieldNumber, static_cast< ::MTRpc::CompressType >(0));
+    ::google::protobuf::internal::EnumTypeTraits< ::mtrpc::CompressType, ::mtrpc::CompressType_IsValid>, 14, false >
+  request_compress_type(kRequestCompressTypeFieldNumber, static_cast< ::mtrpc::CompressType >(0));
 ::google::protobuf::internal::ExtensionIdentifier< ::google::protobuf::MethodOptions,
-    ::google::protobuf::internal::EnumTypeTraits< ::MTRpc::CompressType, ::MTRpc::CompressType_IsValid>, 14, false >
-  response_compress_type(kResponseCompressTypeFieldNumber, static_cast< ::MTRpc::CompressType >(0));
+    ::google::protobuf::internal::EnumTypeTraits< ::mtrpc::CompressType, ::mtrpc::CompressType_IsValid>, 14, false >
+  response_compress_type(kResponseCompressTypeFieldNumber, static_cast< ::mtrpc::CompressType >(0));
 
 // @@protoc_insertion_point(namespace_scope)
 
-}  // namespace MTRpc
+}  // namespace mtrpc
 
 // @@protoc_insertion_point(global_scope)

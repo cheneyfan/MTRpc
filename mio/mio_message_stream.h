@@ -12,6 +12,8 @@ class MessageStream  :public SocketStream {
 
 public :
 
+    MessageStream();
+
 
     MessageStream(int sockfd);
 
@@ -36,6 +38,5 @@ public:
 
     HttpHeader reqheader;
     HttpHeader resheader;
-
 };
 }

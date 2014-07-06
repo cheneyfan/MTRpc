@@ -29,7 +29,8 @@
 #include "rpc_option.pb.h"
 // @@protoc_insertion_point(includes)
 
-namespace MTRpc {
+namespace mtrpc {
+namespace builtin {
 
 // Internal implementation detail -- do not call these.
 void  protobuf_AddDesc_builtin_5fservice_2eproto();
@@ -108,7 +109,7 @@ class HealthRequest : public ::google::protobuf::Message {
 
   // accessors -------------------------------------------------------
 
-  // @@protoc_insertion_point(class_scope:MTRpc.HealthRequest)
+  // @@protoc_insertion_point(class_scope:mtrpc.builtin.HealthRequest)
  private:
 
   ::google::protobuf::UnknownFieldSet _unknown_fields_;
@@ -192,7 +193,7 @@ class HealthResponse : public ::google::protobuf::Message {
   inline ::std::string* release_health();
   inline void set_allocated_health(::std::string* health);
 
-  // @@protoc_insertion_point(class_scope:MTRpc.HealthResponse)
+  // @@protoc_insertion_point(class_scope:mtrpc.builtin.HealthResponse)
  private:
   inline void set_has_health();
   inline void clear_has_health();
@@ -316,7 +317,7 @@ class ServerOptions : public ::google::protobuf::Message {
   inline bool disable_list_service() const;
   inline void set_disable_list_service(bool value);
 
-  // @@protoc_insertion_point(class_scope:MTRpc.ServerOptions)
+  // @@protoc_insertion_point(class_scope:mtrpc.builtin.ServerOptions)
  private:
   inline void set_has_work_thread_num();
   inline void clear_has_work_thread_num();
@@ -409,7 +410,7 @@ class ServerOptionsRequest : public ::google::protobuf::Message {
 
   // accessors -------------------------------------------------------
 
-  // @@protoc_insertion_point(class_scope:MTRpc.ServerOptionsRequest)
+  // @@protoc_insertion_point(class_scope:mtrpc.builtin.ServerOptionsRequest)
  private:
 
   ::google::protobuf::UnknownFieldSet _unknown_fields_;
@@ -481,23 +482,23 @@ class ServerOptionsResponse : public ::google::protobuf::Message {
 
   // accessors -------------------------------------------------------
 
-  // optional .MTRpc.ServerOptions options = 1;
+  // optional .mtrpc.builtin.ServerOptions options = 1;
   inline bool has_options() const;
   inline void clear_options();
   static const int kOptionsFieldNumber = 1;
-  inline const ::MTRpc::ServerOptions& options() const;
-  inline ::MTRpc::ServerOptions* mutable_options();
-  inline ::MTRpc::ServerOptions* release_options();
-  inline void set_allocated_options(::MTRpc::ServerOptions* options);
+  inline const ::mtrpc::builtin::ServerOptions& options() const;
+  inline ::mtrpc::builtin::ServerOptions* mutable_options();
+  inline ::mtrpc::builtin::ServerOptions* release_options();
+  inline void set_allocated_options(::mtrpc::builtin::ServerOptions* options);
 
-  // @@protoc_insertion_point(class_scope:MTRpc.ServerOptionsResponse)
+  // @@protoc_insertion_point(class_scope:mtrpc.builtin.ServerOptionsResponse)
  private:
   inline void set_has_options();
   inline void clear_has_options();
 
   ::google::protobuf::UnknownFieldSet _unknown_fields_;
 
-  ::MTRpc::ServerOptions* options_;
+  ::mtrpc::builtin::ServerOptions* options_;
 
   mutable int _cached_size_;
   ::google::protobuf::uint32 _has_bits_[(1 + 31) / 32];
@@ -565,23 +566,23 @@ class UpdateOptionsRequest : public ::google::protobuf::Message {
 
   // accessors -------------------------------------------------------
 
-  // optional .MTRpc.ServerOptions options = 1;
+  // optional .mtrpc.builtin.ServerOptions options = 1;
   inline bool has_options() const;
   inline void clear_options();
   static const int kOptionsFieldNumber = 1;
-  inline const ::MTRpc::ServerOptions& options() const;
-  inline ::MTRpc::ServerOptions* mutable_options();
-  inline ::MTRpc::ServerOptions* release_options();
-  inline void set_allocated_options(::MTRpc::ServerOptions* options);
+  inline const ::mtrpc::builtin::ServerOptions& options() const;
+  inline ::mtrpc::builtin::ServerOptions* mutable_options();
+  inline ::mtrpc::builtin::ServerOptions* release_options();
+  inline void set_allocated_options(::mtrpc::builtin::ServerOptions* options);
 
-  // @@protoc_insertion_point(class_scope:MTRpc.UpdateOptionsRequest)
+  // @@protoc_insertion_point(class_scope:mtrpc.builtin.UpdateOptionsRequest)
  private:
   inline void set_has_options();
   inline void clear_has_options();
 
   ::google::protobuf::UnknownFieldSet _unknown_fields_;
 
-  ::MTRpc::ServerOptions* options_;
+  ::mtrpc::builtin::ServerOptions* options_;
 
   mutable int _cached_size_;
   ::google::protobuf::uint32 _has_bits_[(1 + 31) / 32];
@@ -649,23 +650,23 @@ class UpdateOptionsResponse : public ::google::protobuf::Message {
 
   // accessors -------------------------------------------------------
 
-  // optional .MTRpc.ServerOptions options = 1;
+  // optional .mtrpc.builtin.ServerOptions options = 1;
   inline bool has_options() const;
   inline void clear_options();
   static const int kOptionsFieldNumber = 1;
-  inline const ::MTRpc::ServerOptions& options() const;
-  inline ::MTRpc::ServerOptions* mutable_options();
-  inline ::MTRpc::ServerOptions* release_options();
-  inline void set_allocated_options(::MTRpc::ServerOptions* options);
+  inline const ::mtrpc::builtin::ServerOptions& options() const;
+  inline ::mtrpc::builtin::ServerOptions* mutable_options();
+  inline ::mtrpc::builtin::ServerOptions* release_options();
+  inline void set_allocated_options(::mtrpc::builtin::ServerOptions* options);
 
-  // @@protoc_insertion_point(class_scope:MTRpc.UpdateOptionsResponse)
+  // @@protoc_insertion_point(class_scope:mtrpc.builtin.UpdateOptionsResponse)
  private:
   inline void set_has_options();
   inline void clear_has_options();
 
   ::google::protobuf::UnknownFieldSet _unknown_fields_;
 
-  ::MTRpc::ServerOptions* options_;
+  ::mtrpc::builtin::ServerOptions* options_;
 
   mutable int _cached_size_;
   ::google::protobuf::uint32 _has_bits_[(1 + 31) / 32];
@@ -733,7 +734,7 @@ class ServerStatusRequest : public ::google::protobuf::Message {
 
   // accessors -------------------------------------------------------
 
-  // @@protoc_insertion_point(class_scope:MTRpc.ServerStatusRequest)
+  // @@protoc_insertion_point(class_scope:mtrpc.builtin.ServerStatusRequest)
  private:
 
   ::google::protobuf::UnknownFieldSet _unknown_fields_;
@@ -847,7 +848,7 @@ class ServerStatusResponse : public ::google::protobuf::Message {
   inline ::google::protobuf::int64 pending_data_size() const;
   inline void set_pending_data_size(::google::protobuf::int64 value);
 
-  // @@protoc_insertion_point(class_scope:MTRpc.ServerStatusResponse)
+  // @@protoc_insertion_point(class_scope:mtrpc.builtin.ServerStatusResponse)
  private:
   inline void set_has_is_listening();
   inline void clear_has_is_listening();
@@ -937,7 +938,7 @@ class ListServiceRequest : public ::google::protobuf::Message {
 
   // accessors -------------------------------------------------------
 
-  // @@protoc_insertion_point(class_scope:MTRpc.ListServiceRequest)
+  // @@protoc_insertion_point(class_scope:mtrpc.builtin.ListServiceRequest)
  private:
 
   ::google::protobuf::UnknownFieldSet _unknown_fields_;
@@ -1037,7 +1038,7 @@ class ListServiceResponse : public ::google::protobuf::Message {
   inline ::google::protobuf::RepeatedPtrField< ::google::protobuf::FileDescriptorProto >*
       mutable_files();
 
-  // @@protoc_insertion_point(class_scope:MTRpc.ListServiceResponse)
+  // @@protoc_insertion_point(class_scope:mtrpc.builtin.ListServiceResponse)
  private:
 
   ::google::protobuf::UnknownFieldSet _unknown_fields_;
@@ -1165,7 +1166,7 @@ class MethodStat : public ::google::protobuf::Message {
   inline ::google::protobuf::int64 failed_max_time_us() const;
   inline void set_failed_max_time_us(::google::protobuf::int64 value);
 
-  // @@protoc_insertion_point(class_scope:MTRpc.MethodStat)
+  // @@protoc_insertion_point(class_scope:mtrpc.builtin.MethodStat)
  private:
   inline void set_has_method_name();
   inline void clear_has_method_name();
@@ -1291,19 +1292,19 @@ class ServiceStat : public ::google::protobuf::Message {
   inline ::google::protobuf::int64 failed_count() const;
   inline void set_failed_count(::google::protobuf::int64 value);
 
-  // repeated .MTRpc.MethodStat method_stats = 5;
+  // repeated .mtrpc.builtin.MethodStat method_stats = 5;
   inline int method_stats_size() const;
   inline void clear_method_stats();
   static const int kMethodStatsFieldNumber = 5;
-  inline const ::MTRpc::MethodStat& method_stats(int index) const;
-  inline ::MTRpc::MethodStat* mutable_method_stats(int index);
-  inline ::MTRpc::MethodStat* add_method_stats();
-  inline const ::google::protobuf::RepeatedPtrField< ::MTRpc::MethodStat >&
+  inline const ::mtrpc::builtin::MethodStat& method_stats(int index) const;
+  inline ::mtrpc::builtin::MethodStat* mutable_method_stats(int index);
+  inline ::mtrpc::builtin::MethodStat* add_method_stats();
+  inline const ::google::protobuf::RepeatedPtrField< ::mtrpc::builtin::MethodStat >&
       method_stats() const;
-  inline ::google::protobuf::RepeatedPtrField< ::MTRpc::MethodStat >*
+  inline ::google::protobuf::RepeatedPtrField< ::mtrpc::builtin::MethodStat >*
       mutable_method_stats();
 
-  // @@protoc_insertion_point(class_scope:MTRpc.ServiceStat)
+  // @@protoc_insertion_point(class_scope:mtrpc.builtin.ServiceStat)
  private:
   inline void set_has_service_name();
   inline void clear_has_service_name();
@@ -1320,7 +1321,7 @@ class ServiceStat : public ::google::protobuf::Message {
   ::google::protobuf::int64 period_seconds_;
   ::google::protobuf::int64 succeed_count_;
   ::google::protobuf::int64 failed_count_;
-  ::google::protobuf::RepeatedPtrField< ::MTRpc::MethodStat > method_stats_;
+  ::google::protobuf::RepeatedPtrField< ::mtrpc::builtin::MethodStat > method_stats_;
 
   mutable int _cached_size_;
   ::google::protobuf::uint32 _has_bits_[(5 + 31) / 32];
@@ -1407,7 +1408,7 @@ class StatRequest : public ::google::protobuf::Message {
   inline ::google::protobuf::int64 period_seconds() const;
   inline void set_period_seconds(::google::protobuf::int64 value);
 
-  // @@protoc_insertion_point(class_scope:MTRpc.StatRequest)
+  // @@protoc_insertion_point(class_scope:mtrpc.builtin.StatRequest)
  private:
   inline void set_has_service_name();
   inline void clear_has_service_name();
@@ -1486,24 +1487,24 @@ class StatResponse : public ::google::protobuf::Message {
 
   // accessors -------------------------------------------------------
 
-  // repeated .MTRpc.ServiceStat service_stats = 1;
+  // repeated .mtrpc.builtin.ServiceStat service_stats = 1;
   inline int service_stats_size() const;
   inline void clear_service_stats();
   static const int kServiceStatsFieldNumber = 1;
-  inline const ::MTRpc::ServiceStat& service_stats(int index) const;
-  inline ::MTRpc::ServiceStat* mutable_service_stats(int index);
-  inline ::MTRpc::ServiceStat* add_service_stats();
-  inline const ::google::protobuf::RepeatedPtrField< ::MTRpc::ServiceStat >&
+  inline const ::mtrpc::builtin::ServiceStat& service_stats(int index) const;
+  inline ::mtrpc::builtin::ServiceStat* mutable_service_stats(int index);
+  inline ::mtrpc::builtin::ServiceStat* add_service_stats();
+  inline const ::google::protobuf::RepeatedPtrField< ::mtrpc::builtin::ServiceStat >&
       service_stats() const;
-  inline ::google::protobuf::RepeatedPtrField< ::MTRpc::ServiceStat >*
+  inline ::google::protobuf::RepeatedPtrField< ::mtrpc::builtin::ServiceStat >*
       mutable_service_stats();
 
-  // @@protoc_insertion_point(class_scope:MTRpc.StatResponse)
+  // @@protoc_insertion_point(class_scope:mtrpc.builtin.StatResponse)
  private:
 
   ::google::protobuf::UnknownFieldSet _unknown_fields_;
 
-  ::google::protobuf::RepeatedPtrField< ::MTRpc::ServiceStat > service_stats_;
+  ::google::protobuf::RepeatedPtrField< ::mtrpc::builtin::ServiceStat > service_stats_;
 
   mutable int _cached_size_;
   ::google::protobuf::uint32 _has_bits_[(1 + 31) / 32];
@@ -1531,28 +1532,28 @@ class BuiltinService : public ::google::protobuf::Service {
   static const ::google::protobuf::ServiceDescriptor* descriptor();
 
   virtual void Health(::google::protobuf::RpcController* controller,
-                       const ::MTRpc::HealthRequest* request,
-                       ::MTRpc::HealthResponse* response,
+                       const ::mtrpc::builtin::HealthRequest* request,
+                       ::mtrpc::builtin::HealthResponse* response,
                        ::google::protobuf::Closure* done);
   virtual void ServerOptions(::google::protobuf::RpcController* controller,
-                       const ::MTRpc::ServerOptionsRequest* request,
-                       ::MTRpc::ServerOptionsResponse* response,
+                       const ::mtrpc::builtin::ServerOptionsRequest* request,
+                       ::mtrpc::builtin::ServerOptionsResponse* response,
                        ::google::protobuf::Closure* done);
   virtual void UpdateOptions(::google::protobuf::RpcController* controller,
-                       const ::MTRpc::UpdateOptionsRequest* request,
-                       ::MTRpc::UpdateOptionsResponse* response,
+                       const ::mtrpc::builtin::UpdateOptionsRequest* request,
+                       ::mtrpc::builtin::UpdateOptionsResponse* response,
                        ::google::protobuf::Closure* done);
   virtual void ServerStatus(::google::protobuf::RpcController* controller,
-                       const ::MTRpc::ServerStatusRequest* request,
-                       ::MTRpc::ServerStatusResponse* response,
+                       const ::mtrpc::builtin::ServerStatusRequest* request,
+                       ::mtrpc::builtin::ServerStatusResponse* response,
                        ::google::protobuf::Closure* done);
   virtual void ListService(::google::protobuf::RpcController* controller,
-                       const ::MTRpc::ListServiceRequest* request,
-                       ::MTRpc::ListServiceResponse* response,
+                       const ::mtrpc::builtin::ListServiceRequest* request,
+                       ::mtrpc::builtin::ListServiceResponse* response,
                        ::google::protobuf::Closure* done);
   virtual void Stat(::google::protobuf::RpcController* controller,
-                       const ::MTRpc::StatRequest* request,
-                       ::MTRpc::StatResponse* response,
+                       const ::mtrpc::builtin::StatRequest* request,
+                       ::mtrpc::builtin::StatResponse* response,
                        ::google::protobuf::Closure* done);
 
   // implements Service ----------------------------------------------
@@ -1584,28 +1585,28 @@ class BuiltinService_Stub : public BuiltinService {
   // implements BuiltinService ------------------------------------------
 
   void Health(::google::protobuf::RpcController* controller,
-                       const ::MTRpc::HealthRequest* request,
-                       ::MTRpc::HealthResponse* response,
+                       const ::mtrpc::builtin::HealthRequest* request,
+                       ::mtrpc::builtin::HealthResponse* response,
                        ::google::protobuf::Closure* done);
   void ServerOptions(::google::protobuf::RpcController* controller,
-                       const ::MTRpc::ServerOptionsRequest* request,
-                       ::MTRpc::ServerOptionsResponse* response,
+                       const ::mtrpc::builtin::ServerOptionsRequest* request,
+                       ::mtrpc::builtin::ServerOptionsResponse* response,
                        ::google::protobuf::Closure* done);
   void UpdateOptions(::google::protobuf::RpcController* controller,
-                       const ::MTRpc::UpdateOptionsRequest* request,
-                       ::MTRpc::UpdateOptionsResponse* response,
+                       const ::mtrpc::builtin::UpdateOptionsRequest* request,
+                       ::mtrpc::builtin::UpdateOptionsResponse* response,
                        ::google::protobuf::Closure* done);
   void ServerStatus(::google::protobuf::RpcController* controller,
-                       const ::MTRpc::ServerStatusRequest* request,
-                       ::MTRpc::ServerStatusResponse* response,
+                       const ::mtrpc::builtin::ServerStatusRequest* request,
+                       ::mtrpc::builtin::ServerStatusResponse* response,
                        ::google::protobuf::Closure* done);
   void ListService(::google::protobuf::RpcController* controller,
-                       const ::MTRpc::ListServiceRequest* request,
-                       ::MTRpc::ListServiceResponse* response,
+                       const ::mtrpc::builtin::ListServiceRequest* request,
+                       ::mtrpc::builtin::ListServiceResponse* response,
                        ::google::protobuf::Closure* done);
   void Stat(::google::protobuf::RpcController* controller,
-                       const ::MTRpc::StatRequest* request,
-                       ::MTRpc::StatResponse* response,
+                       const ::mtrpc::builtin::StatRequest* request,
+                       ::mtrpc::builtin::StatResponse* response,
                        ::google::protobuf::Closure* done);
  private:
   ::google::protobuf::RpcChannel* channel_;
@@ -1861,7 +1862,7 @@ inline void ServerOptions::set_disable_list_service(bool value) {
 
 // ServerOptionsResponse
 
-// optional .MTRpc.ServerOptions options = 1;
+// optional .mtrpc.builtin.ServerOptions options = 1;
 inline bool ServerOptionsResponse::has_options() const {
   return (_has_bits_[0] & 0x00000001u) != 0;
 }
@@ -1872,24 +1873,24 @@ inline void ServerOptionsResponse::clear_has_options() {
   _has_bits_[0] &= ~0x00000001u;
 }
 inline void ServerOptionsResponse::clear_options() {
-  if (options_ != NULL) options_->::MTRpc::ServerOptions::Clear();
+  if (options_ != NULL) options_->::mtrpc::builtin::ServerOptions::Clear();
   clear_has_options();
 }
-inline const ::MTRpc::ServerOptions& ServerOptionsResponse::options() const {
+inline const ::mtrpc::builtin::ServerOptions& ServerOptionsResponse::options() const {
   return options_ != NULL ? *options_ : *default_instance_->options_;
 }
-inline ::MTRpc::ServerOptions* ServerOptionsResponse::mutable_options() {
+inline ::mtrpc::builtin::ServerOptions* ServerOptionsResponse::mutable_options() {
   set_has_options();
-  if (options_ == NULL) options_ = new ::MTRpc::ServerOptions;
+  if (options_ == NULL) options_ = new ::mtrpc::builtin::ServerOptions;
   return options_;
 }
-inline ::MTRpc::ServerOptions* ServerOptionsResponse::release_options() {
+inline ::mtrpc::builtin::ServerOptions* ServerOptionsResponse::release_options() {
   clear_has_options();
-  ::MTRpc::ServerOptions* temp = options_;
+  ::mtrpc::builtin::ServerOptions* temp = options_;
   options_ = NULL;
   return temp;
 }
-inline void ServerOptionsResponse::set_allocated_options(::MTRpc::ServerOptions* options) {
+inline void ServerOptionsResponse::set_allocated_options(::mtrpc::builtin::ServerOptions* options) {
   delete options_;
   options_ = options;
   if (options) {
@@ -1903,7 +1904,7 @@ inline void ServerOptionsResponse::set_allocated_options(::MTRpc::ServerOptions*
 
 // UpdateOptionsRequest
 
-// optional .MTRpc.ServerOptions options = 1;
+// optional .mtrpc.builtin.ServerOptions options = 1;
 inline bool UpdateOptionsRequest::has_options() const {
   return (_has_bits_[0] & 0x00000001u) != 0;
 }
@@ -1914,24 +1915,24 @@ inline void UpdateOptionsRequest::clear_has_options() {
   _has_bits_[0] &= ~0x00000001u;
 }
 inline void UpdateOptionsRequest::clear_options() {
-  if (options_ != NULL) options_->::MTRpc::ServerOptions::Clear();
+  if (options_ != NULL) options_->::mtrpc::builtin::ServerOptions::Clear();
   clear_has_options();
 }
-inline const ::MTRpc::ServerOptions& UpdateOptionsRequest::options() const {
+inline const ::mtrpc::builtin::ServerOptions& UpdateOptionsRequest::options() const {
   return options_ != NULL ? *options_ : *default_instance_->options_;
 }
-inline ::MTRpc::ServerOptions* UpdateOptionsRequest::mutable_options() {
+inline ::mtrpc::builtin::ServerOptions* UpdateOptionsRequest::mutable_options() {
   set_has_options();
-  if (options_ == NULL) options_ = new ::MTRpc::ServerOptions;
+  if (options_ == NULL) options_ = new ::mtrpc::builtin::ServerOptions;
   return options_;
 }
-inline ::MTRpc::ServerOptions* UpdateOptionsRequest::release_options() {
+inline ::mtrpc::builtin::ServerOptions* UpdateOptionsRequest::release_options() {
   clear_has_options();
-  ::MTRpc::ServerOptions* temp = options_;
+  ::mtrpc::builtin::ServerOptions* temp = options_;
   options_ = NULL;
   return temp;
 }
-inline void UpdateOptionsRequest::set_allocated_options(::MTRpc::ServerOptions* options) {
+inline void UpdateOptionsRequest::set_allocated_options(::mtrpc::builtin::ServerOptions* options) {
   delete options_;
   options_ = options;
   if (options) {
@@ -1945,7 +1946,7 @@ inline void UpdateOptionsRequest::set_allocated_options(::MTRpc::ServerOptions* 
 
 // UpdateOptionsResponse
 
-// optional .MTRpc.ServerOptions options = 1;
+// optional .mtrpc.builtin.ServerOptions options = 1;
 inline bool UpdateOptionsResponse::has_options() const {
   return (_has_bits_[0] & 0x00000001u) != 0;
 }
@@ -1956,24 +1957,24 @@ inline void UpdateOptionsResponse::clear_has_options() {
   _has_bits_[0] &= ~0x00000001u;
 }
 inline void UpdateOptionsResponse::clear_options() {
-  if (options_ != NULL) options_->::MTRpc::ServerOptions::Clear();
+  if (options_ != NULL) options_->::mtrpc::builtin::ServerOptions::Clear();
   clear_has_options();
 }
-inline const ::MTRpc::ServerOptions& UpdateOptionsResponse::options() const {
+inline const ::mtrpc::builtin::ServerOptions& UpdateOptionsResponse::options() const {
   return options_ != NULL ? *options_ : *default_instance_->options_;
 }
-inline ::MTRpc::ServerOptions* UpdateOptionsResponse::mutable_options() {
+inline ::mtrpc::builtin::ServerOptions* UpdateOptionsResponse::mutable_options() {
   set_has_options();
-  if (options_ == NULL) options_ = new ::MTRpc::ServerOptions;
+  if (options_ == NULL) options_ = new ::mtrpc::builtin::ServerOptions;
   return options_;
 }
-inline ::MTRpc::ServerOptions* UpdateOptionsResponse::release_options() {
+inline ::mtrpc::builtin::ServerOptions* UpdateOptionsResponse::release_options() {
   clear_has_options();
-  ::MTRpc::ServerOptions* temp = options_;
+  ::mtrpc::builtin::ServerOptions* temp = options_;
   options_ = NULL;
   return temp;
 }
-inline void UpdateOptionsResponse::set_allocated_options(::MTRpc::ServerOptions* options) {
+inline void UpdateOptionsResponse::set_allocated_options(::mtrpc::builtin::ServerOptions* options) {
   delete options_;
   options_ = options;
   if (options) {
@@ -2546,27 +2547,27 @@ inline void ServiceStat::set_failed_count(::google::protobuf::int64 value) {
   failed_count_ = value;
 }
 
-// repeated .MTRpc.MethodStat method_stats = 5;
+// repeated .mtrpc.builtin.MethodStat method_stats = 5;
 inline int ServiceStat::method_stats_size() const {
   return method_stats_.size();
 }
 inline void ServiceStat::clear_method_stats() {
   method_stats_.Clear();
 }
-inline const ::MTRpc::MethodStat& ServiceStat::method_stats(int index) const {
+inline const ::mtrpc::builtin::MethodStat& ServiceStat::method_stats(int index) const {
   return method_stats_.Get(index);
 }
-inline ::MTRpc::MethodStat* ServiceStat::mutable_method_stats(int index) {
+inline ::mtrpc::builtin::MethodStat* ServiceStat::mutable_method_stats(int index) {
   return method_stats_.Mutable(index);
 }
-inline ::MTRpc::MethodStat* ServiceStat::add_method_stats() {
+inline ::mtrpc::builtin::MethodStat* ServiceStat::add_method_stats() {
   return method_stats_.Add();
 }
-inline const ::google::protobuf::RepeatedPtrField< ::MTRpc::MethodStat >&
+inline const ::google::protobuf::RepeatedPtrField< ::mtrpc::builtin::MethodStat >&
 ServiceStat::method_stats() const {
   return method_stats_;
 }
-inline ::google::protobuf::RepeatedPtrField< ::MTRpc::MethodStat >*
+inline ::google::protobuf::RepeatedPtrField< ::mtrpc::builtin::MethodStat >*
 ServiceStat::mutable_method_stats() {
   return &method_stats_;
 }
@@ -2671,27 +2672,27 @@ inline void StatRequest::set_period_seconds(::google::protobuf::int64 value) {
 
 // StatResponse
 
-// repeated .MTRpc.ServiceStat service_stats = 1;
+// repeated .mtrpc.builtin.ServiceStat service_stats = 1;
 inline int StatResponse::service_stats_size() const {
   return service_stats_.size();
 }
 inline void StatResponse::clear_service_stats() {
   service_stats_.Clear();
 }
-inline const ::MTRpc::ServiceStat& StatResponse::service_stats(int index) const {
+inline const ::mtrpc::builtin::ServiceStat& StatResponse::service_stats(int index) const {
   return service_stats_.Get(index);
 }
-inline ::MTRpc::ServiceStat* StatResponse::mutable_service_stats(int index) {
+inline ::mtrpc::builtin::ServiceStat* StatResponse::mutable_service_stats(int index) {
   return service_stats_.Mutable(index);
 }
-inline ::MTRpc::ServiceStat* StatResponse::add_service_stats() {
+inline ::mtrpc::builtin::ServiceStat* StatResponse::add_service_stats() {
   return service_stats_.Add();
 }
-inline const ::google::protobuf::RepeatedPtrField< ::MTRpc::ServiceStat >&
+inline const ::google::protobuf::RepeatedPtrField< ::mtrpc::builtin::ServiceStat >&
 StatResponse::service_stats() const {
   return service_stats_;
 }
-inline ::google::protobuf::RepeatedPtrField< ::MTRpc::ServiceStat >*
+inline ::google::protobuf::RepeatedPtrField< ::mtrpc::builtin::ServiceStat >*
 StatResponse::mutable_service_stats() {
   return &service_stats_;
 }
@@ -2699,7 +2700,8 @@ StatResponse::mutable_service_stats() {
 
 // @@protoc_insertion_point(namespace_scope)
 
-}  // namespace MTRpc
+}  // namespace builtin
+}  // namespace mtrpc
 
 #ifndef SWIG
 namespace google {

@@ -15,27 +15,27 @@ inline uint64_t rdtsc() {
 
 
 int fun(){
-return 0;
+    return 0;
 }
 
 void test8()
 {
     TimeMoniter ttt(0,__FUNCTION__);
 
-        unsigned long t1,t2;
-        struct timespec tp;
-        clock_gettime(CLOCK_REALTIME, &tp);
-        tp.tv_sec +=1;
+    unsigned long t1,t2;
+    struct timespec tp;
+    clock_gettime(CLOCK_REALTIME, &tp);
+    tp.tv_sec +=1;
 
-        t1 = rdtsc();
+    t1 = rdtsc();
 
-        int s  =0;
-        //s= clock_nanosleep(CLOCK_REALTIME,TIMER_ABSTIME,&tp,NULL);
-        usleep(1000000);
+    int s  =0;
+    //s= clock_nanosleep(CLOCK_REALTIME,TIMER_ABSTIME,&tp,NULL);
+    usleep(1000000);
 
-        t2 = rdtsc();
+    t2 = rdtsc();
 
-        printf("Use Time:%ld ,s:%d\n",(t2 - t1),s); //FREQUENCY  CPU的频率
+    printf("Use Time:%ld ,s:%d\n",(t2 - t1),s); //FREQUENCY  CPU的频率
 }
 
 int test_gettime(){

@@ -108,44 +108,12 @@ int main(int argv,char* argc[])
         printf("use test type\n");
         return 0;
     }
-    WorkGroup group;
-    group.Init(1);
+   // WorkGroup group;
+   // group.Init(1);
 
-    mtrpc::SignalHelper::registerCallback<mtrpc::WorkGroup,&mtrpc::WorkGroup::Stop>(&group);
+  //  mtrpc::SignalHelper::registerCallback<mtrpc::WorkGroup,&mtrpc::WorkGroup::Stop>(&group);
 
-    Closure t3=Closure::From(test_spin,NULL);
-    Closure t0=Closure::From(test_mutex,NULL);
 
-    Closure t2=Closure::From(test_malloc_1024,NULL);
-    Closure t4=Closure::From(test_malloc_64,NULL);
-    Closure t5=Closure::From(test_notify,NULL);
-
-    int a1= atoi(argc[1]);
-
-if(a1==0)
-    for(int i=0;i<2000;i++)
-    {
-       group.Post(t3);
-    }
-else if(a1 == 1)
-    for(int i=0;i<2000;i++)
-    {
-        group.Post(t4);
-    }
-else if(a1 == 2)
-    for(int i=0;i<2000;i++)
-    {
-        group.Post(t0);
-    }
-else{
-
-    for(int i=0;i<2000;i++)
-    {
-        group.Post(t5);
-    }
-
- }
-    group.Loop();;
 
 
     return 0;

@@ -106,7 +106,7 @@ public:
     //         return EXIT_SUCCESS;
     //     }
     //
-    int Run();
+    int Join();
 
     // Get the current rpc server options.
     RpcServerOptions GetOptions();
@@ -145,8 +145,7 @@ public:
     // Get the count of current alive connections.
     int ConnectionCount();
 
-    // Return true if the server is listening on some address.
-    bool IsListening();
+
 
 public:
     const RpcServerImpl* impl() const

@@ -79,7 +79,6 @@ template< int I > spinlock spinlock_pool< I >::pool_[ 41 ] =
 };
 
 } // namespace detail
-} // namespace pbrpc
 } // namespace mtrpc
 
 #endif // _MTRPC_SMART_PTR_DETAIL_SPINLOCK_POOL_

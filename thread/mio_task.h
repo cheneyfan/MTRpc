@@ -1,6 +1,8 @@
 #ifndef _MIO_TASK_H_
 #define _MIO_TASK_H_
 
+#include "stdio.h"
+
 namespace mtrpc {
 
 #define likely(x) __builtin_expect(!!(x), 1)
@@ -12,7 +14,7 @@ typedef void (*TaskHandler2)(void*,void*);
 typedef void (*TaskHandler3)(void*,void*,void*);
 
 template<class To,class From>
-force_inline To  AnyCast(From v) {
+To  AnyCast(From v) {
 
     union Tmp{
         To  a;

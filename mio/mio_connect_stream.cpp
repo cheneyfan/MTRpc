@@ -5,19 +5,17 @@ namespace mtrpc {
 
 
 
-ConnectStream::ConnectStream():
-_ConnectStatus(CONNECT_FAILE)
+ConnectStream::ConnectStream()
 {
     _fd  = TcpSocket::socket();
     TcpSocket::setNoblock(_fd,true);
     TcpSocket::setNoTcpDelay(_fd,true);
+
+    _ConnectStatus = CONNECT_FAILE;
 }
 
 
 int ConnectStream::Connect(const std::string& server_ip,int32_t server_port){
-
-    _server_ip = server_ip;
-    _server_port = server_port;
 
     int ret = TcpSocket::connect(_fd, server_ip, server_port);
     int save_errno = errno;
@@ -45,7 +43,8 @@ int ConnectStream::OnConnect(Epoller* p){
 
     _ConnectStatus = CONNECT_Ok;
 
-    _stream->AddEventASync(_p,false,false);
+    AddEventASync(p,false,false);
+
     return 0;
 }
 

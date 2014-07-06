@@ -26,7 +26,7 @@ public:
     /// \param p
     /// \param events
     ///
-    virtual void onEvent(Epoller* p,uint32_t events);
+    virtual void OnEvent(Epoller* p,uint32_t events);
 
     ///
     /// \brief Listen

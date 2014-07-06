@@ -1,10 +1,15 @@
+#include "thread/closure.h"
+#include "rpc_service_pool.h"
+
 #include "rpc_server_impl.h"
 #include "mio/mio_message_stream.h"
-#include "mio/mio_poller.h"
+
 #include "thread/workpool.h"
-#include "rpc_service_pool.h"
+
 #include "rpc_controller.h"
-#include "thread/closure.h"
+
+#include "mio/mio_poller.h"
+#include "mio/mio_notify.h"
 
 namespace mtrpc {
 
@@ -12,16 +17,16 @@ namespace mtrpc {
 RpcServerImpl::RpcServerImpl(const RpcServerOptions& options):_options(options)
 {
 
-    poller = new EPoller();
+    poller = new Epoller();
     group = new WorkGroup();
 
-    pool = new ServicePool();
+    _service_pool = new ServicePool();
 }
 
 
 bool RpcServerImpl::RegisterService(google::protobuf::Service* service, bool take_ownership)
 {
-     return _service_pool->RegisterService(service, take_ownership);
+    return _service_pool->RegisterService(service, take_ownership);
 }
 
 
@@ -46,7 +51,7 @@ int RpcServerImpl::ConnectionCount()
     return 0;
 }
 
-bool RpcServerImpl::Start(const std::string& server_address)
+int RpcServerImpl::Start(const std::string& server_address)
 {
 
     /// init work group
@@ -54,36 +59,43 @@ bool RpcServerImpl::Start(const std::string& server_address)
     group->Post(NewExtClosure(poller,&Epoller::Poll));
 
     /// start listen
-    acceptor.handerAccept = NewPermanentExtClosure(this,&RpcServerImpl::OnAccept,-1);
+    acceptor.handerAccept = NewPermanentExtClosure(this,&RpcServerImpl::OnAccept);
     acceptor.StartListen(server_address);
 
     /// begin poll
     acceptor.AddEventASync(poller,true,false);
 
+    return 0;
+
 }
 
+int RpcServerImpl::Join(){
+
+    group->join();
+    return 0;
+}
 void RpcServerImpl::OnAccept(int sockfd){
 
 
     // add new stream
-    MessageStream* stream = new MessageStream(sockf);
+    MessageStream* stream = new MessageStream(sockfd);
 
     stream->group = group;
-    stream->handerMessageRecived = NewPermanentExtClosure(this,&RpcServerImpl::OnMessageRecived,NULL);
+    stream->handerMessageRecived = NewPermanentExtClosure(this,&RpcServerImpl::OnMessageRecived);
 
-    stream->AddEventASync(p,true,false);
+    stream->AddEventASync(poller,true,false);
 
 }
 
-int  RpcServerImpl::OnMessageRecived(MessageStream* stream,Epoller*p){
+void  RpcServerImpl::OnMessageRecived(MessageStream* stream,Epoller*p){
 
-    std::string& method = stream->header.path;
+    std::string& method_full_name = stream->reqheader.path;
     std::string service_name;
     std::string method_name;
 
     if (!ParseMethodFullName(method_full_name, &service_name, &method_name))
     {
-        return -1;
+        return;
     }
 
     ServiceBoard* service_board = _service_pool->FindService(service_name);
@@ -91,31 +103,32 @@ int  RpcServerImpl::OnMessageRecived(MessageStream* stream,Epoller*p){
     google::protobuf::Service* service = service_board->Service();
 
     const google::protobuf::MethodDescriptor* method =
-        service->GetDescriptor()->FindMethodByName(method_name);
+            service->GetDescriptor()->FindMethodByName(method_name);
 
-    google::protobuf::Message* request
+    const google::protobuf::Message* request
             = service->GetRequestPrototype(method).New();
     google::protobuf::Message* response
             = service->GetResponsePrototype(method).New();
 
-    request->ParseFromZeroCopyStream(stream->readbuf);
+    request->ParseFromZeroCopyStream(&stream->readbuf);
 
-    RpcController* controller = new RpcController();
+    google::protobuf::RpcController* controller = new RpcController();
 
     MethodBoard* method_board = service_board->Method(method->index());
 
     method_board->ReportProcessBegin();
 
-    google::protobuf::Closure* done = NewClosure(
-            &RpcServerImpl::OnCallMethodDone, controller, request, response,
-            stream, p);
-    service->CallMethod(method, controller, request, response, stream, done);
+    google::protobuf::Closure* done = NewClosure(this,
+                &RpcServerImpl::OnCallMethodDone, controller, request, response,
+                stream, p);
+
+    service->CallMethod(method, controller, request, response, done);
 
 }
 
 
 bool RpcServerImpl::ParseMethodFullName(const std::string& method_full_name,
-        std::string* service_full_name, std::string* method_name)
+                                        std::string* service_full_name, std::string* method_name)
 {
     std::string::size_type pos = method_full_name.rfind('.');
     if (pos == std::string::npos) return false;
@@ -130,24 +143,25 @@ void RpcServerImpl::OnCallMethodDone(RpcController* controller,Message* request,
     WriteBuffer& buf = stream->writebuf;
     HttpHeader& resheader = stream->resheader;
 
-    resheader.status = 200;
 
-    stream->packetstart = buf.Reserved();
+    resheader.SetStatus(200);
 
-    WriteBuffer::Iterator itlast  = buf.WritePos();
+    WriteBuffer::Iterator packetstart = buf.Reserve();
 
-    response->SerializePartialToZeroCopyStream(buf);
+    WriteBuffer::Iterator itlast  = buf.writepos;
 
-    stream->packetend = buf.WritePos();
+    response->SerializePartialToZeroCopyStream(&buf);
 
-    resheader.content_length  = stream->packetend
+    stream->packetEnd = buf.writepos;
+
+    resheader.content_length  = stream->packetEnd
             - itlast;
 
-    resheader.SerializeHeader(buf, stream->packetstart);
+    resheader.SerializeReponseHeader(packetstart);
 
     stream->ModEventAsync(p, true, true);
 
-    stream->readbuf.trim();
+
 
     delete response;
     delete controller;
@@ -160,4 +174,4 @@ void RpcServerImpl::OnCallMethodDone(RpcController* controller,Message* request,
 
 
 
-}
+

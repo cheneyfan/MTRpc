@@ -1,9 +1,9 @@
 #ifndef _MTRPC_RPC_CLIENT_H_
-#define _MTPRC_RPC_CLIENT_H_
+#define _MTRPC_RPC_CLIENT_H_
 
 namespace mtrpc {
 
-class RpcClientImpl;
+
 
 struct RpcClientOptions
 {
@@ -38,6 +38,8 @@ struct RpcClientOptions
     }
 };
 
+
+class RpcClientImpl;
 class RpcClient
 {
 public:
@@ -76,6 +78,4 @@ private:
 }; // class RpcClient
 
 }
-
-
 #endif

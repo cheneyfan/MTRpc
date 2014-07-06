@@ -1,17 +1,17 @@
-#ifndef _MIO_NOTIFY_H_
-#define _MIO_NOTIFY_H_
+#ifndef _MTRPC__NOTIFY_H_
+#define _MTRPC__NOTIFY_H_
 
 #include <unistd.h>
 #include <errno.h>
+#include <iostream>
 
 #include "mio_event.h"
-#include "thread/mio_task.h"
 
 
 namespace mtrpc{
 
 
-class EventNotify :public IOEvent {
+class EventNotify: public IOEvent {
 
 public:
     ///
@@ -28,12 +28,19 @@ public:
 
 public:
 
+
     ///
     /// \brief onEvent
     /// \param p
     /// \param events
     ///
-    virtual void onEvent(Epoller* p,uint32_t mask);
+    virtual void OnEvent(Epoller* p,uint32_t mask){
+
+        uint64_t counter = 0;
+        int ret = ::read(_fd, (char*) &counter,sizeof(counter));
+
+        std::cout<<"event"<<std::endl;
+    }
 
     ///
     /// \brief notify_eventchannel
@@ -42,11 +49,11 @@ public:
     /// \return
     ///
     int Notify(uint64_t signalnum){
-        return ::write(_fd, &signalnum,sizeof(signalnum));
+        return ::write(_fd, &signalnum, sizeof(signalnum));
     }
 
-
 };
+
 
 }
 #endif

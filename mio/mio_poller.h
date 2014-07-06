@@ -1,19 +1,22 @@
 #ifndef __MIO_EPOLLER_H_
 #define __MIO_EPOLLER_H_
 
-#include "mio_event.h"
-#include "mio_notify.h"
+
 
 #include "common/rwlock.h"
 #include "common/spinlist.h"
-
+#include "common/ngx_rbtree.h"
 #include "thread/ext_closure.h"
 
 #define MAX_EVENT_PROCESS 1000
 
+
+
+
 namespace mtrpc {
 
-
+class IOEvent;
+class EventNotify;
 
 class Epoller {
 
@@ -31,28 +34,28 @@ public:
     /// \param ev
     /// \return
     ///
-    int AddEvent(IOEvent* ev);
+    void AddEvent(IOEvent* ev);
 
     ///
     /// \brief ModEvent
     /// \param ev
     /// \return
     ///
-    int ModEvent(IOEvent* ev);
+    void ModEvent(IOEvent* ev);
 
     ///
     /// \brief DelEvent, must only run in poll thread
     /// \param ev
     /// \return
     ///
-    int DelEvent(IOEvent* ev);
+    void DelEvent(IOEvent* ev);
 
     ///
     /// \brief setTimeOut,must only run in poll thread
     /// \param ev
     /// \return
     ///
-    int SetReadTimeOut(IOEvent* ev);
+    void SetReadTimeOut(IOEvent* ev);
 
 
     ///
@@ -61,13 +64,17 @@ public:
     /// \param wsec
     /// \return
     ///
-    int SetWriteTimeOut(IOEvent* ev);
+    void SetWriteTimeOut(IOEvent* ev);
 
     ///
     /// \brief ProcessTimeOut
     /// \return
     ///
     int ProcessTimeOut();
+    ///
+    /// \brief ProcessPendingTask
+    ///
+    void ProcessPendingTask();
 
     ///
     /// \brief runTask
@@ -104,7 +111,7 @@ public:
     static ngx_rbtree_node_t sentinel;
 
     ///
-    EventNotify notify;
+    EventNotify* _notify;
     SpinList<MioTask*,SpinLock> tasklist;
 
 };

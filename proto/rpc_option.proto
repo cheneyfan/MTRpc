@@ -6,7 +6,7 @@
 
 import "google/protobuf/descriptor.proto";
 
-package MTRpc;
+package mtrpc;
 
 extend google.protobuf.ServiceOptions {
     // Timeout in milliseconds, at service level.

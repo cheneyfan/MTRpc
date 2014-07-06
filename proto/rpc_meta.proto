@@ -6,7 +6,7 @@
 
 import "rpc_option.proto";
 
-package MTRpc;
+package mtrpc;
 
 message RpcMeta {
   enum Type {

@@ -23,13 +23,13 @@ IOBuffer::IOBuffer():
 
     //fill the buffer
     for(int i=0; i<MAX_BUFFER_PIECES; ++i)
-        que[i] = new BufferPieces(DEFAULT_BUFFER_SIZE);
+        que[i] = new BufferPieces();
 
     readpos._que = que;
     writepos._que = que;
 }
 
-virtual IOBuffer::~IOBuffer(){
+IOBuffer::~IOBuffer(){
     for(int i=0; i<MAX_BUFFER_PIECES; ++i)
         delete que[i];
     delete que;
@@ -51,6 +51,8 @@ IOBuffer::Iterator IOBuffer::Reserve(){
 
     return it;
 }
+
+
 
 bool IOBuffer::GetReciveBuffer(struct iovec* iov,int& iov_num){
 
@@ -92,7 +94,6 @@ bool IOBuffer::GetReciveBuffer(struct iovec* iov,int& iov_num){
         iov[idx].iov_len  = readpos._pos -1;
     }
 
-
     return true;
 }
 
@@ -103,29 +104,27 @@ bool IOBuffer::MoveRecivePtr(int size){
 }
 
 
+bool IOBuffer::GetSendBuffer(struct iovec* iov,int& iov_num,const Iterator& it){
 
-//use keep write buffer to socket
-bool IOBuffer::GetSendBuffer(struct iovec* iov,int& iov_num){
-
-    if(isEmpty())
+    if(it == readpos)
         return false;
 
     int idx = 0;
 
-    int end_idx =  writepos._idx;
+    int end_idx =  it._idx;
     int start_idx = readpos._idx;
 
-    if(end_idx == start_idx && readpos._pos <= writepos._pos)
+    if(end_idx == start_idx && readpos._pos <= it._pos)
     {
 
         iov[idx].iov_base = que[readpos._idx]->buffer + readpos._pos;
-        iov[idx].iov_len  =  writepos._pos - readpos._pos;
+        iov[idx].iov_len  =  it._pos - readpos._pos;
         iov_num = idx +1;
         return true;
     }
 
-    iov[idx].iov_base = que[start_idx._idx]->buffer + readpos._pos ;
-    iov[idx].iov_len  = que[start_idx._idx]->size - readpos._pos;
+    iov[idx].iov_base = que[readpos._idx]->buffer + readpos._pos ;
+    iov[idx].iov_len  = que[readpos._idx]->size - readpos._pos;
 
 
     for(int tidx  = start_idx ;
@@ -137,15 +136,20 @@ bool IOBuffer::GetSendBuffer(struct iovec* iov,int& iov_num){
         iov[idx].iov_len    = que[tidx]->size;
     }
 
-    if(writepos._pos > 0)
+    if(it._pos > 0)
     {
         ++idx;
-        iov[idx].iov_base = que[writepos._idx]->buffer;
-        iov[idx].iov_len  = writepos._pos;
+        iov[idx].iov_base = que[it._idx]->buffer;
+        iov[idx].iov_len  = it._pos;
     }
 
-
     return true;
+}
+
+
+//use keep write buffer to socket
+bool IOBuffer::GetSendBuffer(struct iovec* iov,int& iov_num){
+    return GetSendBuffer(iov,iov_num,readpos);
 }
 
 bool IOBuffer::MoveSendPtr(int size){
@@ -159,7 +163,7 @@ int IOBuffer::GetBufferLeft(){
     return readpos  - writepos;
 }
 
-int IOBuffer::GetBufferUsed(){
+uint32_t IOBuffer::GetBufferUsed(){
 
     return  writepos  - readpos;
 }
@@ -175,6 +179,14 @@ bool IOBuffer::isEmpty()
 {
     return readpos == writepos;
 }
+
+ReadBuffer::ReadBuffer():
+    IOBuffer()
+{
+
+}
+
+
 
 bool ReadBuffer::Next(const void** data, int* size)
 {
@@ -220,13 +232,19 @@ bool ReadBuffer::Skip(int count){
      return true;
 }
 
-int64_t ReadBuffer::ByteCount(){
-    return readpos - beginRead();
+int64 ReadBuffer::ByteCount() const{
+    return readpos - beginRead;
 }
 
 
 
 // implements ZeroCopyOutputStream ---------------------------------
+
+WriteBuffer::WriteBuffer():
+    IOBuffer(){
+
+}
+
 bool WriteBuffer::Next(void** data, int* size)
 {
 
@@ -243,7 +261,7 @@ bool WriteBuffer::Next(void** data, int* size)
     }
 
     *data = que[writepos._idx]->buffer + writepos._pos;
-    *size = que[writepos._idx]->writepos - writepos._pos;
+    *size = que[writepos._idx]->size - writepos._pos;
     return true;
 
 }
@@ -252,7 +270,7 @@ void WriteBuffer::BackUp(int count)
     writepos -= count;
 }
 
-int64_t WriteBuffer::ByteCount(){
+int64 WriteBuffer::ByteCount() const {
     return writepos - writeRead;
 }
 

@@ -22,7 +22,6 @@ HttpHeader::HttpHeader(){
 }
 
 void HttpHeader::Reset(){
-    parser->reset();
     method.clear();
     path.clear();
     content_type.clear();
@@ -56,10 +55,10 @@ void HttpHeader::MoveBufTo(std::string& s)
 void HttpHeader::MoveBufTo(uint32_t& s)
 {
     sscanf(buf,"%u",&s);
-
-    while(ptr!=buf){
+    char* ptr = buf;
+    while(*ptr != '\0'){
         *ptr='\0';
-        ptr--;
+        ptr++;
     }
 }
 
@@ -71,9 +70,9 @@ int HttpHeader::ParserRequestHeader(ReadBuffer & buf){
     std::string key;
     std::string value;
 
-    for(ReadBuffer::Iterator it = begin; it!=end; ++it)
+    for(; begin!=end; ++begin)
     {
-        char c = *it;
+        char c = *begin;
 
         switch(state)
         {
@@ -83,7 +82,7 @@ int HttpHeader::ParserRequestHeader(ReadBuffer & buf){
             {
             case ' ':
                 MoveBufTo(method);
-                parser->state = REQ_PATH;
+                state = REQ_PATH;
                 break;
             default:
                 *pos++ = c;
@@ -97,7 +96,7 @@ int HttpHeader::ParserRequestHeader(ReadBuffer & buf){
             {
             case ' ':
                 MoveBufTo(path);
-                parser->state = REQ_VESION_R;
+                state = REQ_VESION_R;
                 break;
             default:
                 *pos++ = c;
@@ -111,7 +110,7 @@ int HttpHeader::ParserRequestHeader(ReadBuffer & buf){
             {
             case '\r':
                 MoveBufTo(version);
-                parser->state = REQ_VESION_N;
+                state = REQ_VESION_N;
                 break;
             default:
                 *pos++ = c;
@@ -123,7 +122,7 @@ int HttpHeader::ParserRequestHeader(ReadBuffer & buf){
             switch(c)
             {
             case '\n':
-                parser->state = REQ_KEY;
+                state = REQ_KEY;
                 break;
             default:
                 return HTTP_PARSER_FAIL;
@@ -135,10 +134,10 @@ int HttpHeader::ParserRequestHeader(ReadBuffer & buf){
             {
             case ':':
                 MoveBufTo(key);
-                parser->state = REQ_VALUE_R;
+                state = REQ_VALUE_R;
                 break;
             case '\r':
-                parser->state = REQ_END_R;
+                state = REQ_END_R;
                 break;
             default:
                 *pos++ = c;
@@ -155,7 +154,7 @@ int HttpHeader::ParserRequestHeader(ReadBuffer & buf){
 
                 key.clear();
                 value.clear();
-                parser->state = REQ_VALUE_R;
+                state = REQ_VALUE_R;
                 break;
             default:
                 *pos++ = c;
@@ -166,7 +165,7 @@ int HttpHeader::ParserRequestHeader(ReadBuffer & buf){
             switch(c)
             {
             case '\n':
-                parser->state = REQ_KEY;
+                state = REQ_KEY;
                 break;
 
             default:
@@ -177,7 +176,7 @@ int HttpHeader::ParserRequestHeader(ReadBuffer & buf){
             switch(c)
             {
             case '\n':
-                parser->state = REQ_END_N;
+                state = REQ_END_N;
                 break;
             default:
                 return HTTP_PARSER_FAIL;
@@ -224,7 +223,7 @@ int HttpHeader::ParserReponseHeader(ReadBuffer & buf){
             {
             case ' ':
                 MoveBufTo(version);
-                parser->state = RES_STATUS;
+                state = RES_STATUS;
                 break;
             default:
                 *pos++ = c;
@@ -238,7 +237,7 @@ int HttpHeader::ParserReponseHeader(ReadBuffer & buf){
             {
             case ' ':
                 MoveBufTo(status);
-                parser->state = RES_STATUS_MESSAGE_R;
+                state = RES_STATUS_MESSAGE_R;
                 break;
             default:
                 *pos++ = c;
@@ -252,7 +251,7 @@ int HttpHeader::ParserReponseHeader(ReadBuffer & buf){
             {
             case '\r':
                 MoveBufTo(status_meg);
-                parser->state = RES_STATUS_MESSAGE_N;
+                state = RES_STATUS_MESSAGE_N;
                 break;
             default:
                 *pos++ = c;
@@ -264,7 +263,7 @@ int HttpHeader::ParserReponseHeader(ReadBuffer & buf){
             switch(c)
             {
             case '\n':
-                parser->state = RES_KEY;
+                state = RES_KEY;
                 break;
             default:
                 return HTTP_PARSER_FAIL;
@@ -276,10 +275,10 @@ int HttpHeader::ParserReponseHeader(ReadBuffer & buf){
             {
             case ':':
                 MoveBufTo(key);
-                parser->state = RES_VALUE_R;
+                state = RES_VALUE_R;
                 break;
             case '\r':
-                parser->state = RES_END_R;
+                state = RES_END_R;
                 break;
             default:
                 *pos++ = c;
@@ -296,7 +295,7 @@ int HttpHeader::ParserReponseHeader(ReadBuffer & buf){
 
                 key.clear();
                 value.clear();
-                parser->state = RES_VALUE_R;
+                state = RES_VALUE_R;
                 break;
             default:
                 *pos++ = c;
@@ -307,7 +306,7 @@ int HttpHeader::ParserReponseHeader(ReadBuffer & buf){
             switch(c)
             {
             case '\n':
-                parser->state = RES_KEY;
+                state = RES_KEY;
                 break;
 
             default:
@@ -318,7 +317,7 @@ int HttpHeader::ParserReponseHeader(ReadBuffer & buf){
             switch(c)
             {
             case '\n':
-                parser->state = RES_END_N;
+                state = RES_END_N;
                 break;
             default:
                 return HTTP_PARSER_FAIL;
@@ -334,7 +333,7 @@ int HttpHeader::ParserReponseHeader(ReadBuffer & buf){
 int HttpHeader::SerializeReponseHeader(WriteBuffer::Iterator& it){
 
     char * bufptr = it.get()->buffer + it._pos;
-    int size      = it.get()->writepos;
+    int size      = it.get()->size;
 
     char * bufpos = bufptr;
 
@@ -349,25 +348,25 @@ int HttpHeader::SerializeReponseHeader(WriteBuffer::Iterator& it){
     for(std::map<std::string,std::string>::iterator it = headers.begin();
         it!=headers.end();++it)
     {
-           std::string & key = it->first;
-           std::string & value = it->second;
+           std::string key = it->first;
+           std::string value = it->second;
 
-           ret = snprinf(bufptr,size,"%s: %s \r\n",key.c_str(),value.c_str());
+           ret = snprintf(bufptr,size,"%s: %s \r\n",key.c_str(),value.c_str());
            bufptr+=ret;
            size -= ret;
     }
 
-    ret= snprinf(bufptr,size,"\r\n");
+    ret= snprintf(bufptr,size,"\r\n");
     bufptr+=ret;
     size -= ret;
-    it.get()->writepos = bufptr -bufpos;
+    it.get()->size = bufptr -bufpos;
     return true;
 }
 
 int HttpHeader::SerializeRequestHeader(WriteBuffer::Iterator& it){
 
     char * bufptr = it.get()->buffer + it._pos;
-    int size      = it.get()->writepos;
+    int size      = it.get()->size;
 
     char * bufpos = bufptr;
 
@@ -382,24 +381,24 @@ int HttpHeader::SerializeRequestHeader(WriteBuffer::Iterator& it){
     for(std::map<std::string,std::string>::iterator it = headers.begin();
         it!=headers.end();++it)
     {
-           std::string & key = it->first;
-           std::string & value = it->second;
+           std::string key = it->first;
+           std::string value = it->second;
 
-           ret = snprinf(bufptr,size,"%s: %s \r\n",key.c_str(),value.c_str());
+           ret = snprintf(bufptr,size,"%s: %s \r\n",key.c_str(),value.c_str());
            bufptr+=ret;
            size -= ret;
     }
 
     //end
-    ret= snprinf(bufptr,size,"\r\n");
+    ret= snprintf(bufptr,size,"\r\n");
     bufptr+=ret;
     size -= ret;
-    it.get()->writepos = bufptr -bufpos;
+    it.get()->size = bufptr -bufpos;
     return true;
 }
 
 
-int HttpHeader::SetPath(std::string& p)
+int HttpHeader::SetPath(const std::string& p)
 {
     method="POST";
     path = "/"+p;
@@ -416,7 +415,7 @@ int HttpHeader::SetContentLength(uint32_t length)
     headers.insert(std::make_pair(key, std::string(buf)));
 
     key = "Content-Type";
-    value = "message/protobuf";
+    std::string value = "message/protobuf";
     headers.insert(std::make_pair(key, std::string(value)));
     return 0;
 }
@@ -424,7 +423,7 @@ int HttpHeader::SetContentLength(uint32_t length)
 int HttpHeader::SetRequestSeq(uint32_t seq){
     std::string key = "Cookie";
     char buf[32] = {0};
-    snprintf(buf, 32, "%u", length);
+    snprintf(buf, 32, "%u", seq);
     headers.insert(std::make_pair(key, std::string(buf)));
     return 0;
 }
@@ -432,7 +431,7 @@ int HttpHeader::SetRequestSeq(uint32_t seq){
 int HttpHeader::SetResponseSeq(uint32_t seq){
     std::string key = "Set-Cookie";
     char buf[32] = {0};
-    snprintf(buf, 32, "%u", length);
+    snprintf(buf, 32, "%u", seq);
     headers.insert(std::make_pair(key, std::string(buf)));
     return 0;
 }
