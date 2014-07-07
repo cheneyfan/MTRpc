@@ -10,7 +10,7 @@
 #include <sys/eventfd.h>
 #include <stdint.h>
 #include <string.h>
-
+#include <string>
 
 #include "common/atomic.h"
 #include "common/ngx_rbtree.h"
@@ -40,16 +40,15 @@ namespace mtrpc {
 ///
 enum  EVENT_STATUS{
 
-    EVENT_PENDING = 0x16,
-    EVENT_PROCESSING =0x32,
+    EVENT_PENDING = 0x1,
+    EVENT_PROCESSING =0x2,
 
     //this must avoid conflict with epoll_wait
-    EVENT_READ  = 1<<27,
-    EVENT_WRITE = 1<<28,
-    EVENT_CLOSE = 1<<29,
-    READ_TIME_OUT = 1<<30,
-    WRITE_TIME_OUT = 1<<31,
-    EVENT_MASK = EVENT_READ|EVENT_WRITE|EVENT_CLOSE|READ_TIME_OUT|WRITE_TIME_OUT,
+    EVENT_READ  = 0x10,
+    EVENT_WRITE = 0x20,
+    EVENT_CLOSE = 0x40,
+    READ_TIME_OUT = 0x80,
+    WRITE_TIME_OUT = 0x100,
 };
 
 
@@ -78,7 +77,7 @@ public:
     uint32_t _fd;
 
     /// pending events
-    volatile uint32_t events;
+    volatile uint32_t _events;
 
     /// to debug()
     char name[32];
@@ -150,6 +149,7 @@ public:
     //on debug
     void UpdateName();
     static void UpdateName(int fd, epoll_event* ev, char* buf);
+    static std::string EventStatusStr(uint32_t status);
 
 };
 

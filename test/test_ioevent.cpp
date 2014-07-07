@@ -4,26 +4,82 @@
 #include "mio/mio_event.h"
 #include "mio/mio_poller.h"
 #include "thread/workpool.h"
+#include "log/log.h"
+#include "common/atomic.h"
 
 using namespace mtrpc;
+
+
+void TriggerTask(Epoller* p,IOEvent * ev,int i){
+
+   int e[] = {EVENT_READ,EVENT_WRITE,EVENT_CLOSE,READ_TIME_OUT,WRITE_TIME_OUT};
+
+  // int i = rand() % 5;
+   i=i%5;
+
+   ev->OnEventAsync(p,e[i]);
+   ev->OnEventAsync(p,e[(i+1)%5]);
+   ev->OnEventAsync(p,e[(rand())%5]);
+}
 
 class C :public IOEvent{
 public:
     virtual void OnEvent(Epoller* p, uint32_t event_mask){
 
-        std::cout<<"say hehe:"<<name<<std::endl;
+        b.increment();
+
+        std::cout<<Worker::CurrentWorker()->tid<<",say hehe:"<<name<<",evmask:"<<EventStatusStr(event_mask)<<std::endl;
+        //usleep(100000);
+   int e[] = {EVENT_READ,EVENT_WRITE,EVENT_CLOSE,READ_TIME_OUT,WRITE_TIME_OUT};
+        int i =0;
+        for(int i=0;i<5;++i)
+        {
+            if( e[i] & event_mask)
+            {
+                ExtClosure<void(void)>* t = NewExtClosure(TriggerTask,p,this,i+1);
+                //p->PostTask(t);
+                break;
+            }
+        }
+
+        assert(b.get() == 1);
+        b.decrement();
+        assert(b.get() == 0);
+
+
     }
+
+    AtomicInt32 b;
 };
 
+
+
 int main(int argc,char* argv[]){
+
+
+    srand(time(NULL));
+
+    Json::Value conf;
+    LogBacker::Init(conf);
 
 
     IOEvent * ev = new C();
     ev->SetEvent(true,true);
 
-    ev->OnEventAsync(NULL,0);
+    WorkGroup* group =new WorkGroup();
+
+    Epoller *poller = new Epoller();
+
+    ev->group = group;
+
+    group->Init(40);
+
+    group->Post(NewExtClosure(poller,&Epoller::Poll));
 
 
+    ev->OnEventAsync(poller,EVENT_READ);
+
+    group->join();
 
     return 0;
 }

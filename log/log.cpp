@@ -122,7 +122,11 @@ void LogHelper:: OutPut(LogEntry* e)
 
     snprintf(e->prefix,sizeof(e->prefix)," - %s.%03ld - %s - ",datebuf,tp.tv_nsec/1000000,tidstr);
 
+#ifdef _SYNC_LOG_
+    LogBacker::OutPut(e);
+#else
     cm._loglist.push(e);
+#endif
 }
 
 

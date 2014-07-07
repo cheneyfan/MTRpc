@@ -46,11 +46,11 @@ Worker* Worker::CurrentWorker(){
 
     if(!thread_worker)
     {
-        /*
+
         thread_worker = new Worker();
         thread_worker->tid = gettid();
-        */
-        return NULL;
+
+        return thread_worker;
     }
 
     return thread_worker;

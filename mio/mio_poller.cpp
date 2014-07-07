@@ -62,7 +62,7 @@ void Epoller::Poll()
 
         epoll_event ev_arr[MAX_EVENT_PROCESS];
 
-        CHECK_LOG((waittime == 0),"waittime can not be 0");
+        CHECK_LOG((waittime!=0),waittime);
 
         //poll
         int nfds = epoll_wait(epollfd, ev_arr , MAX_EVENT_PROCESS, waittime);
@@ -112,7 +112,7 @@ int  Epoller::ProcessTimeOut(){
         wleft = ngx_rbtree_min(wtimerroot.root, &sentinel);
     }
 
-    if( wleft->key >= nowsec)
+    if( wleft->key > nowsec)
     {
         waittime = wleft->key;
     }
@@ -132,12 +132,12 @@ int  Epoller::ProcessTimeOut(){
         rleft = ngx_rbtree_min(rtimerroot.root, &sentinel);
     }
 
-    if(rleft->key >= nowsec &&  rleft->key < waittime)
+    if(nowsec < rleft->key &&  rleft->key < waittime)
     {
         waittime = rleft->key;
     }
 
-    return  waittime >= nowsec  ?
+    return  waittime > nowsec  ?
                 int64_t(waittime) - int64_t(nowsec) + 1:
                 -1;
 }

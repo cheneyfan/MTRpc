@@ -28,6 +28,7 @@
 #include "common/covert.h"
 
 //#define TRACE_STACK
+#define _SYNC_LOG_
 
 #ifndef TRACE_STACK
     #define __PRETTY_FUNCTION__ __FUNCTION__
@@ -210,7 +211,8 @@ public:
                     *ptr++= *s++;
                     *ptr ='\0';
 
-                    buf.ptr += sprintf(buf.ptr,format,value);
+                    buf.ptr += snprintf(buf.ptr,1024,format,value);
+
                     Format(s, args...);
                     return ;
                 case 's':
@@ -425,7 +427,7 @@ public:
 
 
 #define CHECK_LOG(x,m) \
-            if(!(x)){WARN(m<<",check failed:"#x);}
+            if(!(x)){WARN("check failed:"#x<<","#m":"<<m);}
 
 #define SCHECK(expression) \
             if(!(expression)){WARN("check failed:"#expression);}

@@ -44,16 +44,23 @@ void IOEvent::UpdateName(){
 
 
 void IOEvent::OnEventWrapper(Epoller* p){
-       do{
-            //set processing
-            int pre_mask =
-                __sync_lock_test_and_set(&events, EVENT_PROCESSING);
+    do{
+        //set processing
+        int pre_mask =
+                __sync_lock_test_and_set(&_events, EVENT_PROCESSING);
 
-            this->OnEvent(p, pre_mask);
+        assert(pre_mask&EVENT_PENDING);
 
-            // if not set events when process, set events to 0
-        }while(!__sync_bool_compare_and_swap (&events, EVENT_PROCESSING,0) );
-    }
+        TRACE_FMG("name:%s,events:%s,pre_mask:%s",
+                  name,
+                  EventStatusStr(_events).c_str(),
+                  EventStatusStr(pre_mask).c_str());
+
+        this->OnEvent(p, pre_mask);
+
+        // if not set events when process, set events to 0
+    }while(!__sync_bool_compare_and_swap (&_events, EVENT_PROCESSING,0) );
+}
 
 ///
 /// \brief OnEventAsync
@@ -68,23 +75,30 @@ void IOEvent::OnEventAsync(Epoller* p , uint32_t event_mask){
         return;
     }
 
-   int premask =
-           __sync_fetch_and_and(&events,  event_mask | EVENT_PENDING);
 
-   if(premask & EVENT_PENDING )
-   {
-       return ;
-   }
+    uint32_t pre_mask =
+            __sync_fetch_and_or(&_events, (event_mask | EVENT_PENDING));
 
-   if(premask & EVENT_PROCESSING )
-   {
-       return ;
-   }
+    TRACE_FMG("name:%s, event_mask:%s, pre_mask:%s, _events:%s",
+              name,
+              EventStatusStr(event_mask).c_str(),
+              EventStatusStr(pre_mask).c_str(),
+              EventStatusStr(_events).c_str());
 
-   ///
-   MioTask * closure =
-           NewExtClosure(this,&IOEvent::OnEventWrapper,p);
-   group->Post(closure);
+    if(pre_mask & EVENT_PENDING )
+    {
+        return ;
+    }
+
+    if(pre_mask & EVENT_PROCESSING )
+    {
+        return ;
+    }
+
+    ///
+    MioTask * closure =
+            NewExtClosure(this,&IOEvent::OnEventWrapper,p);
+    group->Post(closure);
 
 }
 
@@ -251,5 +265,57 @@ void IOEvent::UpdateName(int fd, epoll_event* ee, char* buf){
         buf += sizeof("_ERR") - 1;
     }
 }
+
+std::string IOEvent::EventStatusStr(uint32_t status){
+
+    char buf[256]={0};
+    char* ptr = buf;
+
+    if(status & EVENT_PENDING)
+    {
+        strncpy(ptr,"PEND|",sizeof("PEND|"));
+        ptr+=sizeof("PEND|") -1;
+    }
+
+    if(status&EVENT_PROCESSING)
+    {
+        strncpy(ptr,"PROC|",sizeof("PROC|"));
+        ptr+=sizeof("PROC|")-1;
+    }
+
+    if(status&EVENT_READ)
+    {
+        strncpy(ptr,"RD|",sizeof("RD|"));
+        ptr+=sizeof("RD|")-1;
+    }
+
+    if(status&EVENT_WRITE)
+    {
+        strncpy(ptr,"WR|",sizeof("WR|"));
+        ptr+=sizeof("WR|")-1;
+    }
+
+    if(status&EVENT_CLOSE)
+    {
+        strncpy(ptr,"CLOSE|",sizeof("CLOSE|"));
+        ptr+=sizeof("CLOSE|")-1;
+    }
+
+    if(status&READ_TIME_OUT)
+    {
+        strncpy(ptr,"RDOUT|",sizeof("RDOUT|"));
+        ptr+=sizeof("RDOUT|")-1;
+    }
+
+    if(status&WRITE_TIME_OUT)
+    {
+        strncpy(ptr,"WROUT|",sizeof("WROUT|"));
+        ptr+=sizeof("WROUT|")-1;
+    }
+
+    return std::string(buf);
+
+}
+
 
 }
