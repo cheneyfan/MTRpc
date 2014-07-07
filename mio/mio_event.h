@@ -113,7 +113,7 @@ public:
     /// \param p
     /// \param event_mask
     ///
-    virtual void OnEvent(Epoller* p, uint32_t event_mask)= 0;
+    virtual void OnEvent(Epoller* p, uint32_t event_mask) = 0;
 
 
 public:

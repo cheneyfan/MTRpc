@@ -98,7 +98,7 @@ int IOEvent::AddEventASync(Epoller* p,bool readable,bool wirteable)
     RequireRef();
 
     MioTask * closure =
-            NewPermanentExtClosure(p,&Epoller::AddEvent,this);
+            NewExtClosure(p,&Epoller::AddEvent,this);
 
     p->PostTask(closure);
 
@@ -111,7 +111,7 @@ int IOEvent::ModEventAsync(Epoller* p,bool readable,bool wirteable)
     {
 
         MioTask * closure =
-                NewPermanentExtClosure(p,&Epoller::ModEvent,this);
+                NewExtClosure(p,&Epoller::ModEvent,this);
 
         p->PostTask(closure);
     }
@@ -122,7 +122,7 @@ int IOEvent::ModEventAsync(Epoller* p,bool readable,bool wirteable)
 int IOEvent::DelEventAsync(Epoller* p)
 {
     MioTask * closure =
-            NewPermanentExtClosure(p,&Epoller::DelEvent,this);
+            NewExtClosure(p,&Epoller::DelEvent,this);
 
     p->PostTask(closure);
     return 0;
@@ -135,7 +135,7 @@ int IOEvent::SetReadTimeOutAsync(Epoller* p,uint32_t time_sec)
     rtimernode.data = this;
     rtimernode.key = time(NULL) + time_sec;
     MioTask * closure =
-            NewPermanentExtClosure(p,&Epoller::SetReadTimeOut,this);
+            NewExtClosure(p,&Epoller::SetReadTimeOut,this);
 
     p->PostTask(closure);
 
@@ -150,7 +150,7 @@ int IOEvent::SetWriteTimeOutAsync(Epoller* p,uint32_t time_sec)
     wtimernode.key = time(NULL) + time_sec;
 
     MioTask * closure =
-            NewPermanentExtClosure(p,&Epoller::SetWriteTimeOut,this);
+            NewExtClosure(p,&Epoller::SetWriteTimeOut,this);
 
     p->PostTask(closure);
 
