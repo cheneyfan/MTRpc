@@ -7,8 +7,17 @@
 
 namespace mtrpc {
 
+
+IOEvent::IOEvent(){
+    ev.events = EPOLLET;
+    ev.data.ptr = this;
+    wtimernode.parent = NULL;
+    rtimernode.parent = NULL;
+}
+
 IOEvent::~IOEvent(){
     TRACE("event:"<<name<<" dead");
+
 }
 
 int IOEvent::SetEvent(bool readable,bool writeable){
@@ -60,6 +69,8 @@ void IOEvent::OnEventWrapper(Epoller* p){
 
         // if not set events when process, set events to 0
     }while(!__sync_bool_compare_and_swap (&_events, EVENT_PROCESSING,0) );
+
+    ReleaseRef();
 }
 
 ///
@@ -95,6 +106,7 @@ void IOEvent::OnEventAsync(Epoller* p , uint32_t event_mask){
         return ;
     }
 
+    RequireRef();
     ///
     MioTask * closure =
             NewExtClosure(this,&IOEvent::OnEventWrapper,p);

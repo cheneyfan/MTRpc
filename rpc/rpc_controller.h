@@ -7,7 +7,7 @@
 
 namespace mtrpc {
 
-
+typedef google::protobuf::int64 int64;
 
 
 class RpcController : public google::protobuf::RpcController

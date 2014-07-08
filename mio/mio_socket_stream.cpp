@@ -10,6 +10,9 @@ SocketStream::SocketStream():
 {
 }
 
+SocketStream:: ~SocketStream(){
+
+}
 
 void SocketStream::OnEvent(Epoller* p,uint32_t mask)
 {
@@ -17,15 +20,15 @@ void SocketStream::OnEvent(Epoller* p,uint32_t mask)
 
     if(!_isConnected && (mask &(EVENT_READ|EVENT_WRITE)))
     {
-       ret = OnConnect(p);
+        ret = OnConnect(p);
 
-       if(ret <0 )
-       {
-           onClose(p);
-           return;
-       }
+        if(ret <0 )
+        {
+            onClose(p);
+            return;
+        }
 
-       _isConnected = true;
+        _isConnected = true;
     }
 
     if(mask & EVENT_READ)
@@ -142,6 +145,27 @@ int SocketStream::onClose(Epoller *p){
 
     TRACE(name<<":closed");
     DelEventAsync(p);
+    return 0;
+}
+
+
+int SocketStream::onReadTimeOut(Epoller* p)
+{
+    return 0;
+}
+
+int SocketStream::onWriteimeOut(Epoller* p)
+{
+    return 0;
+}
+
+int SocketStream::OnRecived(Epoller* p)
+{
+    return 0;
+}
+
+int SocketStream::OnSended(Epoller* p)
+{
     return 0;
 }
 

@@ -133,9 +133,9 @@ void Worker::Stop(){
 int WorkGroup::Init(uint32_t workNum)
 {
 
-    workNum = workNum  ? workNum : 1;
+    workNum = ( workNum == 0  ? 1 : workNum);
 
-    for(uint32_t i =0; i<workNum; ++i)
+    for(uint32_t i =0; i< workNum; ++i)
     {
         Worker *w = new Worker();
         AddWork(w);

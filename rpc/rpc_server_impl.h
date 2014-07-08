@@ -23,9 +23,6 @@ class RpcController;
 class RpcServerImpl
 {
 public:
-    static const int MAINTAIN_INTERVAL_IN_MS = 100;
-
-public:
     RpcServerImpl(const RpcServerOptions& options);
 
     virtual ~RpcServerImpl();
@@ -39,7 +36,7 @@ public:
 
     void ResetOptions(const RpcServerOptions& options);
 
-    bool RegisterService(google::protobuf::Service* service, bool take_ownership);
+    bool RegisterService(google::protobuf::Service* service, bool take_ownership=true);
 
     int ServiceCount();
 

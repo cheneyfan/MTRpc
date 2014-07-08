@@ -3,7 +3,8 @@
 
 namespace mtrpc{
 
-EventNotify::EventNotify(){
+EventNotify::EventNotify():
+handerNotify(NULL){
 
     _fd = eventfd(0, EFD_CLOEXEC|EFD_NONBLOCK);
 }
@@ -11,6 +12,7 @@ EventNotify::EventNotify(){
 
 EventNotify::~EventNotify(){
     ::close(_fd);
+    delete handerNotify;
 }
 
 

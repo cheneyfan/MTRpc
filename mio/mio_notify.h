@@ -7,6 +7,7 @@
 
 #include "mio_event.h"
 
+#include "thread/ext_closure.h"
 
 namespace mtrpc{
 
@@ -38,6 +39,8 @@ public:
 
         uint64_t counter = 0;
         int ret = ::read(_fd, (char*) &counter,sizeof(counter));
+
+        handerNotify->Run();
     }
 
     ///
@@ -49,6 +52,10 @@ public:
     int Notify(uint64_t signalnum){
         return ::write(_fd, &signalnum, sizeof(signalnum));
     }
+
+public:
+    ExtClosure<void(void)>* handerNotify;
+
 
 };
 

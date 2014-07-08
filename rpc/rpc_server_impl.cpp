@@ -1,3 +1,5 @@
+#include <sstream>
+
 #include "thread/closure.h"
 #include "rpc_service_pool.h"
 
@@ -10,6 +12,9 @@
 
 #include "mio/mio_poller.h"
 #include "mio/mio_notify.h"
+
+#include "proto/builtin_service_impl.h"
+#include "log/log.h"
 
 namespace mtrpc {
 
@@ -26,6 +31,22 @@ RpcServerImpl::RpcServerImpl(const RpcServerOptions& options):_options(options)
 
 bool RpcServerImpl::RegisterService(google::protobuf::Service* service, bool take_ownership)
 {
+    std::stringstream str;
+
+    const google::protobuf::ServiceDescriptor * desc = service->GetDescriptor();
+
+    str <<"Service:"<<desc->full_name()<<",method_num:"<<desc->method_count()<<std::endl;
+
+    for(int i = 0;i < desc->method_count();++i)
+    {
+        const google::protobuf::MethodDescriptor * mdesc = desc->method(i);
+        str<<"    method:"<<mdesc->full_name()
+          <<",req:"<<mdesc->input_type()->full_name()
+         <<",res:"<<mdesc->output_type()->full_name()<<std::endl;
+    }
+
+    INFO("Regiter: "<<str.str());
+
     return _service_pool->RegisterService(service, take_ownership);
 }
 
@@ -54,17 +75,27 @@ int RpcServerImpl::ConnectionCount()
 int RpcServerImpl::Start(const std::string& server_address)
 {
 
+    RegisterService(new builtin::BuiltinServiceImpl());
+
     /// init work group
-    group->Init(1);
+    group->Init(_options.work_thread_num);
     group->Post(NewExtClosure(poller,&Epoller::Poll));
 
     /// start listen
     acceptor.handerAccept = NewPermanentExtClosure(this,&RpcServerImpl::OnAccept);
-    acceptor.StartListen(server_address);
+    int ret = acceptor.StartListen(server_address);
+
+    if(ret !=0)
+    {
+        ERROR("server listen failed:"<<server_address<<",worker num:"<<_options.work_thread_num);
+        return -1;
+    }
 
     /// begin poll
     acceptor.AddEventASync(poller,true,false);
 
+
+    INFO("server listen at:"<<server_address<<",worker num:"<<_options.work_thread_num);
     return 0;
 
 }
@@ -74,6 +105,14 @@ int RpcServerImpl::Join(){
     group->join();
     return 0;
 }
+
+
+void RpcServerImpl::Stop(){
+
+    poller->Stop();
+    group->Stop();
+}
+
 void RpcServerImpl::OnAccept(int sockfd){
 
 
@@ -119,8 +158,8 @@ void  RpcServerImpl::OnMessageRecived(MessageStream* stream,Epoller*p){
     method_board->ReportProcessBegin();
 
     google::protobuf::Closure* done = NewClosure(this,
-                &RpcServerImpl::OnCallMethodDone, (RpcController*)controller, request, response,
-                stream, p);
+                                                 &RpcServerImpl::OnCallMethodDone, (RpcController*)controller, request, response,
+                                                 stream, p);
 
     service->CallMethod(method, controller, request, response, done);
 
