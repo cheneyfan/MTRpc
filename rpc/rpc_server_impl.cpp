@@ -19,6 +19,9 @@
 namespace mtrpc {
 
 
+
+
+
 RpcServerImpl::RpcServerImpl(const RpcServerOptions& options):_options(options)
 {
 
@@ -26,8 +29,14 @@ RpcServerImpl::RpcServerImpl(const RpcServerOptions& options):_options(options)
     group = new WorkGroup();
 
     _service_pool = new ServicePool();
+
+
 }
 
+RpcServerImpl::~RpcServerImpl()
+{
+
+}
 
 bool RpcServerImpl::RegisterService(google::protobuf::Service* service, bool take_ownership)
 {

@@ -23,6 +23,8 @@ class RpcController;
 class RpcServerImpl
 {
 public:
+
+    RpcServerImpl();
     RpcServerImpl(const RpcServerOptions& options);
 
     virtual ~RpcServerImpl();
@@ -46,7 +48,7 @@ public:
 public:
 
     void OnAccept(int sockfd);
-    void  OnMessageRecived(MessageStream* stream,Epoller* p);
+    void OnMessageRecived(MessageStream* stream,Epoller* p);
 
     bool ParseMethodFullName(const std::string& method_full_name,
             std::string* service_full_name, std::string* method_name);
