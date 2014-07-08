@@ -88,7 +88,6 @@ int RpcServerImpl::Start(const std::string& server_address)
 
     /// init work group
     group->Init(_options.work_thread_num);
-    group->Post(NewExtClosure(poller,&Epoller::Poll));
 
     /// start listen
     acceptor.handerAccept = NewPermanentExtClosure(this,&RpcServerImpl::OnAccept);
@@ -102,6 +101,9 @@ int RpcServerImpl::Start(const std::string& server_address)
 
     /// begin poll
     acceptor.AddEventASync(poller,true,false);
+
+
+    group->Post(NewExtClosure(poller,&Epoller::Poll));
 
 
     INFO("server listen at:"<<server_address<<",worker num:"<<_options.work_thread_num);

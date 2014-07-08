@@ -9,9 +9,11 @@ using namespace mtrpc;
 int main(int argc,char*argv[]){
 
     Json::Value conf;
-    LogBacker::Init(conf);
+    //LogBacker::Init(conf);
 
     RpcServerOptions opt;
+
+    opt.work_thread_num = 2;
 
     RpcServer svr(opt);
     svr.Start("127.0.0.1:8000");

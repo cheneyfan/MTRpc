@@ -5,7 +5,9 @@
 
 namespace mtrpc {
 
-Acceptor::Acceptor(){
+Acceptor::Acceptor():
+    handerAccept(NULL)
+{
 
     _fd = TcpSocket::socket();
     TcpSocket::setNoblock(_fd, true);
@@ -14,6 +16,7 @@ Acceptor::Acceptor(){
 
 Acceptor::~Acceptor(){
     ::close(_fd);
+    delete handerAccept;
 }
 
 
@@ -54,6 +57,8 @@ int Acceptor::StartListen(const char* host,int port){
         WARN("listen "<<host<<":"<<port<<" failed");
         return -1;
     }
+
+    INFO("start listen,host:"<<host<<",port:"<<port<<",fd:"<<_fd);
 
     return 0;
 }

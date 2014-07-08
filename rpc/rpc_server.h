@@ -54,7 +54,7 @@ struct RpcServerOptions {
     ExtClosure<void()>* work_thread_dest_func;
 
     RpcServerOptions()
-        : work_thread_num(8)
+        : work_thread_num(1)
         , keep_alive_time(65)
         , max_pending_buffer_size(2)
         , max_throughput_in(-1)
