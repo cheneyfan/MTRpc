@@ -66,6 +66,7 @@ public:
     /// All event use edge trigger
     IOEvent(){
       ev.events = EPOLLET;
+      ev.data.ptr = this;
       wtimernode.parent = NULL;
       rtimernode.parent = NULL;
     }

@@ -159,7 +159,7 @@ void CacheManger::free(LogBuffer* b){
 }
 
 
-int LogBacker::fd;
+int LogBacker::fd = 1;
 std::string LogBacker::logfile;
 Worker LogBacker::worker;
 SpinList<LogEntry*,SpinLock> LogBacker::_loglist;

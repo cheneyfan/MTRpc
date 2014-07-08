@@ -119,7 +119,7 @@ void  RpcServerImpl::OnMessageRecived(MessageStream* stream,Epoller*p){
     method_board->ReportProcessBegin();
 
     google::protobuf::Closure* done = NewClosure(this,
-                &RpcServerImpl::OnCallMethodDone, controller, request, response,
+                &RpcServerImpl::OnCallMethodDone, (RpcController*)controller, request, response,
                 stream, p);
 
     service->CallMethod(method, controller, request, response, done);
@@ -138,7 +138,7 @@ bool RpcServerImpl::ParseMethodFullName(const std::string& method_full_name,
 }
 
 
-void RpcServerImpl::OnCallMethodDone(RpcController* controller,Message* request,Message* response,MessageStream* stream,Epoller* p){
+void RpcServerImpl::OnCallMethodDone(RpcController* controller,const google::protobuf::Message* request,google::protobuf::Message* response,MessageStream* stream,Epoller* p){
 
     WriteBuffer& buf = stream->writebuf;
     HttpHeader& resheader = stream->resheader;

@@ -106,7 +106,7 @@ void IOEvent::OnEventAsync(Epoller* p , uint32_t event_mask){
 
 int IOEvent::AddEventASync(Epoller* p,bool readable,bool wirteable)
 {
-    ev.data.ptr = this;
+    //ev.data.ptr = this;
     this->SetEvent(readable,wirteable);
 
     RequireRef();

@@ -38,6 +38,9 @@ Epoller::Epoller()
     //TODO: port to other linux
     epollfd = epoll_create1(EPOLL_CLOEXEC);
 
+    _notify->SetEvent(true,false);
+
+
     AddEvent(_notify);
 
     sentinel.key   =0;
@@ -55,19 +58,25 @@ void Epoller::Poll()
 
     do{
         // Pending Task may delete event or add timer
-        ProcessPendingTask();
 
-        //process Timeout
-        int waittime = ProcessTimeOut();
+        int waittime  = -1;
+
+        do{
+            ProcessPendingTask();
+
+            //process Timeout
+            waittime = ProcessTimeOut();
+
+         }while(waittime == -1 && (!tasklist.empty()) );
 
         epoll_event ev_arr[MAX_EVENT_PROCESS];
 
-        CHECK_LOG((waittime!=0),waittime);
+        TRACE("waittime:"<<waittime);
 
         //poll
         int nfds = epoll_wait(epollfd, ev_arr , MAX_EVENT_PROCESS, waittime);
 
-        if(nfds < 0 )
+        if(nfds <= 0 )
         {
             TRACE_FMG("poll:%u return:%d, error:%d,%s",epollfd,nfds,errno,strerror(errno));
             continue;
@@ -102,11 +111,12 @@ int  Epoller::ProcessTimeOut(){
     ngx_rbtree_node_t * wleft =
             ngx_rbtree_min(wtimerroot.root, &sentinel);
 
-    while(wleft->key > 0 && wleft->key < nowsec)
+    while(wleft->key > 0 && wleft->key <= nowsec)
     {
         IOEvent* ioev = static_cast<IOEvent*>(wleft->data);
 
         ioev->OnEventAsync(this, WRITE_TIME_OUT);
+        ioev->ReleaseRef();
 
         ngx_rbtree_delete(&wtimerroot, wleft);
         wleft = ngx_rbtree_min(wtimerroot.root, &sentinel);
@@ -121,12 +131,13 @@ int  Epoller::ProcessTimeOut(){
     ngx_rbtree_node_t * rleft =
             ngx_rbtree_min(rtimerroot.root, &sentinel);
 
-    while(rleft->key > 0 && rleft->key < nowsec)
+    while(rleft->key > 0 && rleft->key <= nowsec)
     {
 
         IOEvent* ioev = static_cast<IOEvent*>(rleft->data);
 
         ioev->OnEventAsync(this, READ_TIME_OUT);
+        ioev->ReleaseRef();
 
         ngx_rbtree_delete(&rtimerroot, rleft);
         rleft = ngx_rbtree_min(rtimerroot.root, &sentinel);
@@ -138,7 +149,7 @@ int  Epoller::ProcessTimeOut(){
     }
 
     return  waittime > nowsec  ?
-                int64_t(waittime) - int64_t(nowsec) + 1:
+                1000*(int64_t(waittime) - int64_t(nowsec) + 1):
                 -1;
 }
 
@@ -146,6 +157,7 @@ int  Epoller::ProcessTimeOut(){
 void Epoller::AddEvent(IOEvent* ev)
 {
 
+    ev->ev.data.ptr = ev;
     int ret = epoll_ctl(epollfd, EPOLL_CTL_ADD, ev->_fd, &(ev->ev));
     TRACE_FMG("poll:%u,add event:%s,ret:%d",epollfd,ev->name,ret);
 

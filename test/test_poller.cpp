@@ -6,35 +6,46 @@
 #include "common/timerhelper.h"
 
 #include "mio/mio_poller.h"
+#include "thread/workpool.h"
 
 using namespace mtrpc;
 
+class C :public IOEvent {
+public:
 
-void hello(void *){
+    virtual void OnEvent(Epoller* p, uint32_t event_mask) {
 
+        TRACE("event_mask:"<<EventStatusStr(event_mask));
+        std::cout<<time(NULL)<<",event_mask:"<<EventStatusStr(event_mask)<<std::endl;
+        //SetReadTimeOutAsync(p,1+time(NULL));
+    }
 
-    char buffer[1024];
-    struct timespec now;
-    clock_gettime(CLOCK_REALTIME,&now);
-    sprintf(buffer,"%lu %lu",now.tv_sec,now.tv_nsec);
-    printf("helle %s now:%s\n ",__FUNCTION__,buffer);
-
-    DEBUG_FMG("just say :%s ",buffer);
-
-}
-
-
-void test1(){
-
-
-
-}
+};
 
 int main(int argc,char*argv[]){
-    DEBUG("main");
+
     Json::Value conf;
     LogBacker::Init(conf);
 
-   return 0;
+    WorkGroup* group =new WorkGroup();
+
+    Epoller *poller = new Epoller();
+
+
+
+    group->Init(5);
+
+    group->Post(NewExtClosure(poller,&Epoller::Poll));
+
+    C* c =new C();
+
+    c->group = group;
+    //c->AddEventASync(poller,true,false);
+
+    c->SetReadTimeOutAsync(poller,1);
+
+
+    group->join();
+    return 0;
 
 }

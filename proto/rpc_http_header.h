@@ -32,7 +32,7 @@ public:
     void Reset();
     void MoveBufTo(std::string& s);
     void MoveBufTo(uint32_t& s);
-
+    std::string toString();
 public:
     int state;
     char buf[2048];

@@ -8,9 +8,7 @@
 #ifndef _MIO_TCP_BUFFER_H_
 #define _MIO_TCP_BUFFER_H_
 
-#define DEFAULT_BUFFER_SIZE 4096
-#define MAX_BUFFER_SIZE 4096*4096
-#define MAX_BUFFER_PIECES 64
+
 
 #include <stdint.h>
 #include <stdio.h>
@@ -23,6 +21,10 @@
 
 namespace mtrpc {
 
+extern uint32_t DEFAULT_BUFFER_SIZE;
+extern uint32_t MAX_BUFFER_PIECES;
+
+
 typedef  ::google::protobuf::int64 int64;
 
 /// Every Buffer has same size
@@ -32,7 +34,7 @@ class BufferPieces
 public:
 
     BufferPieces():
-        buffer(NULL),
+        buffer(new char[DEFAULT_BUFFER_SIZE]),
         size(DEFAULT_BUFFER_SIZE)
     {
     }
@@ -61,6 +63,13 @@ public:
 
         }
 
+        Iterator(const Iterator& it):
+            _idx(it._idx),
+            _pos(it._pos),
+            _que(it._que)
+        {
+        }
+
         Iterator(int idx,int pos,BufferPieces** que =NULL):
             _idx(idx),_pos(pos),_que(que)
         {
@@ -82,15 +91,15 @@ public:
 
             size += _que[it._idx]->size - it._pos;
 
-            for(int idx  = start_idx ;
+            for(int idx  = (start_idx +1)% MAX_BUFFER_PIECES;
                 idx != end_idx;
                 idx  = (idx +1)%MAX_BUFFER_PIECES)
             {
                 //map be some pieces not use whole
-                size +=_que[idx%MAX_BUFFER_PIECES]->size;
+                size +=_que[idx]->size;
             }
 
-            size+=  _pos;
+            size +=  _pos;
             return size;
         }
 
@@ -145,11 +154,11 @@ public:
            return *this;
        }
 
-       bool operator == (Iterator& it){
+       bool operator == (const Iterator& it) const{
            return (_idx == it._idx) && (_pos == it._pos);
        }
 
-       bool operator !=(Iterator& it){
+       bool operator !=(const Iterator& it) const {
            return !( (_idx == it._idx) && (_pos == it._pos));
        }
 
@@ -192,7 +201,8 @@ public:
 
     //use keep write buffer to socket
     bool GetSendBuffer(struct iovec* iov,int& iov_num);
-    bool GetSendBuffer(struct iovec* iov, int& iov_num, const Iterator &it);
+    //Send from readpost to end;
+    bool GetSendBuffer(struct iovec* iov, int& iov_num, const Iterator &end);
     bool MoveSendPtr(int size);
 
     //use size
@@ -203,11 +213,15 @@ public:
     bool isEmpty();
 
 public:
+    uint32_t queNum;
     BufferPieces** que;
+
     Iterator readpos;
     Iterator writepos;
 };
 
+
+class WriteBuffer;
 
 class ReadBuffer : public IOBuffer,
                    public google::protobuf::io::ZeroCopyInputStream
@@ -215,15 +229,17 @@ class ReadBuffer : public IOBuffer,
 public:
 
     ReadBuffer();
+    ReadBuffer(const WriteBuffer&);
 
     // implements ZeroCopyInputStream
     bool Next(const void** data, int* size);
     void BackUp(int count);
     bool Skip(int count);
     int64 ByteCount() const;
-    void beginPacket(){
+    void BeginPacket(){
         beginRead = readpos;
     }
+
     Iterator beginRead;
 };
 
@@ -232,16 +248,17 @@ class WriteBuffer: public IOBuffer,
 public:
 
     WriteBuffer();
+    WriteBuffer(const ReadBuffer&);
 
     // implements ZeroCopyOutputStream ---------------------------------
     bool Next(void** data, int* size);
     void BackUp(int count);
     int64 ByteCount() const;
 
-    void begin(){
-        writeRead = readpos;
+    void BeginPacket(){
+        beginWrite = readpos;
     }
-    Iterator writeRead;
+    Iterator beginWrite;
 
 };
 

@@ -1,5 +1,7 @@
 #include "rpc_http_header.h"
 #include "mio/mio_error_code.h"
+#include <sstream>
+
 namespace mtrpc {
 
 
@@ -36,30 +38,37 @@ void HttpHeader::Reset(){
 
 void HttpHeader::MoveBufTo(std::string& s)
 {
-    s.reserve(pos - buf);
+    s.reserve(pos - buf + 1);
 
     char * ptr = buf;
 
-    while(*ptr++ ==' ');
+    while(*ptr ==' ') ptr++;
 
     while(*ptr!= '\0')
     {
         s += *ptr;
-        *ptr = '0';
-        ptr++;
+        *ptr = '\0';
+         ptr++;
     }
 
-    pos =buf;
+    pos = buf;
 }
 
 void HttpHeader::MoveBufTo(uint32_t& s)
 {
-    sscanf(buf,"%u",&s);
-    char* ptr = buf;
+
+    char * ptr = buf;
+    while(*ptr ==' ') ptr++;
+
+    sscanf(ptr,"%u",&s);
+
+    ptr = buf;
     while(*ptr != '\0'){
         *ptr='\0';
         ptr++;
     }
+
+    pos=buf;
 }
 
 int HttpHeader::ParserRequestHeader(ReadBuffer & buf){
@@ -73,6 +82,7 @@ int HttpHeader::ParserRequestHeader(ReadBuffer & buf){
     for(; begin!=end; ++begin)
     {
         char c = *begin;
+        //printf("%c",c);
 
         switch(state)
         {
@@ -151,10 +161,9 @@ int HttpHeader::ParserRequestHeader(ReadBuffer & buf){
             case '\r':
                 MoveBufTo(value);
                 headers.insert(std::make_pair(key,value));
-
                 key.clear();
                 value.clear();
-                state = REQ_VALUE_R;
+                state = REQ_VALUE_N;
                 break;
             default:
                 *pos++ = c;
@@ -295,7 +304,7 @@ int HttpHeader::ParserReponseHeader(ReadBuffer & buf){
 
                 key.clear();
                 value.clear();
-                state = RES_VALUE_R;
+                state = RES_VALUE_N;
                 break;
             default:
                 *pos++ = c;
@@ -441,6 +450,27 @@ int HttpHeader::SetStatus(uint32_t s){
     status = s;
     status_meg ="OK";
     return 0;
+}
+
+
+std::string HttpHeader::toString(){
+
+     std::stringstream str;
+
+     str<<"method:"<<method<<",";
+     str<<"path:"<<path<<",";
+     str<<"version:"<<version<<",";
+     str<<"content_type:"<<content_type<<",";
+     str<<"content_length:"<<content_length<<",";
+     str<<"status:"<<status<<",";
+     str<<"status_meg:"<<status_meg<<",";
+
+     for(std::map<std::string,std::string>::iterator it = headers.begin(); it !=headers.end();++it)
+     {
+         str<<it->first<<":"<<it->second<<",";
+     }
+
+     return str.str();
 }
 
 

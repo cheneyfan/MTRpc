@@ -38,8 +38,6 @@ public:
 
         uint64_t counter = 0;
         int ret = ::read(_fd, (char*) &counter,sizeof(counter));
-
-        std::cout<<"event"<<std::endl;
     }
 
     ///

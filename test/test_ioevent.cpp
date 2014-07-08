@@ -37,13 +37,16 @@ public:
             if( e[i] & event_mask)
             {
                 ExtClosure<void(void)>* t = NewExtClosure(TriggerTask,p,this,i+1);
-                //p->PostTask(t);
+                p->PostTask(t);
                 break;
             }
         }
 
+        usleep(100);
         assert(b.get() == 1);
         b.decrement();
+
+        usleep(100);
         assert(b.get() == 0);
 
 
@@ -72,12 +75,13 @@ int main(int argc,char* argv[]){
 
     ev->group = group;
 
-    group->Init(40);
+    group->Init(5);
 
     group->Post(NewExtClosure(poller,&Epoller::Poll));
 
-
-    ev->OnEventAsync(poller,EVENT_READ);
+    sleep(1);
+    for(int i=0;i<1;i++)
+       ev->OnEventAsync(poller,EVENT_READ);
 
     group->join();
 
