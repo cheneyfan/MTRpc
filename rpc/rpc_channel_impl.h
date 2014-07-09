@@ -15,6 +15,7 @@ class ConnectStream;
 class Epoller;
 class WorkGroup;
 class MessageStream;
+class SocketStream;
 
 class RpcChannelImpl
 {
@@ -56,6 +57,11 @@ public:
         const ::google::protobuf::Message* request;
         ::google::protobuf::Message* response;
         ::google::protobuf::Closure* done;
+
+        ~CallParams(){
+            delete controller;
+            delete done;
+        }
     };
 
     void OnCallDone(ConnectStream *_stream){
@@ -71,6 +77,10 @@ public:
 
   void OnMessageSended(MessageStream* sream,Epoller* p);
 
+
+  void OnWriteable(SocketStream* sream,Epoller* p);
+
+  void OnClose(SocketStream* sream,Epoller* p);
 
 public:
     RpcChannelOptions _options;

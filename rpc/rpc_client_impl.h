@@ -10,6 +10,7 @@ namespace mtrpc {
 
 class Epoller;
 class WorkGroup;
+class RpcChannel;
 
 class RpcClientImpl
 {
@@ -30,15 +31,15 @@ public:
 
     int ConnectionCount();
 
-
+    RpcChannel* GetChannel(const std::string& server_addr);
 
 public:
     RpcClientOptions _options;
 
 private:
 
-    Epoller* poller;
-    WorkGroup* group;
+    Epoller* _poller;
+    WorkGroup* _group;
 
 
 }; // class RpcClientImpl

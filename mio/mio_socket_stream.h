@@ -6,7 +6,7 @@
 
 #include "mio_event.h"
 #include "mio_buffer.h"
-
+#include "thread/ext_closure.h"
 namespace mtrpc{
 
 
@@ -44,10 +44,21 @@ public:
     virtual int onReadTimeOut(Epoller* p);
     virtual int onWriteimeOut(Epoller* p);
 
+public:
+    //forward the event
+    ExtClosure<void(SocketStream* sream,Epoller* p)>* handerConnected;
+    ExtClosure<void(SocketStream* sream,Epoller* p)>* handerReadable;
+    ExtClosure<void(SocketStream* sream,Epoller* p)>* handerWriteable;
+    ExtClosure<void(SocketStream* sream,Epoller* p)>* handerClose;
+    ExtClosure<void(SocketStream* sream,Epoller* p)>* handerReadTimeOut;
+    ExtClosure<void(SocketStream* sream,Epoller* p)>* handerWriteimeOut;
 
 public:
     virtual int OnRecived(Epoller* p);
     virtual int OnSended(Epoller* p);
+
+
+
 
 public:
     bool _isConnected;

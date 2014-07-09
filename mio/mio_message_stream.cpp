@@ -4,16 +4,28 @@
 namespace mtrpc {
 
 
-MessageStream::MessageStream(){
-
+MessageStream::MessageStream():
+    handerMessageRecived(NULL),
+    handerMessageSended(NULL)
+{
 }
 
-MessageStream::MessageStream(int sockfd)
+MessageStream::MessageStream(int sockfd):
+    handerMessageRecived(NULL),
+    handerMessageSended(NULL)
 {
     _fd  = sockfd;
     TcpSocket::setNoblock(_fd,true);
     TcpSocket::setNoTcpDelay(_fd,true);
 }
+
+MessageStream::~MessageStream(){
+
+    delete handerMessageRecived;
+    delete handerMessageSended;
+}
+
+
 
 
 int MessageStream::OnRecived(Epoller *p){
@@ -37,8 +49,8 @@ int MessageStream::OnRecived(Epoller *p){
         return 0;
     }
 
-    // a
-    handerMessageRecived->Run(this, p);
+    if(handerMessageRecived)
+        handerMessageRecived->Run(this, p);
 
     return 0;
 }
@@ -47,7 +59,7 @@ int MessageStream::OnRecived(Epoller *p){
 int MessageStream::OnSended(Epoller *p)
 {
 
-    if(packetEnd == writebuf.readpos)
+    if(packetEnd == writebuf.readpos && handerMessageSended)
     {
         handerMessageSended->Run(this,p);
     }
@@ -55,10 +67,7 @@ int MessageStream::OnSended(Epoller *p)
     return 0;
 }
 
-int MessageStream::OnConnect(Epoller *p){
 
-    handerConnected->Run(this,p);
 
-    return 0;
-}
+
 }

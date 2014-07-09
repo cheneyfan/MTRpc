@@ -1,9 +1,15 @@
 #ifndef _MTRPC_RPC_CLIENT_H_
 #define _MTRPC_RPC_CLIENT_H_
 
+#include <string>
+
+#include "rpc_channel.h"
+#include "rpc_controller.h"
 namespace mtrpc {
 
 
+
+class RpcChannel;
 
 struct RpcClientOptions
 {
@@ -71,6 +77,7 @@ public:
     // Shutdown the rpc client.
     void Shutdown();
 
+    RpcChannel* GetChannel(const std::string& server_addr);
 
 private:
     RpcClientImpl* _impl;

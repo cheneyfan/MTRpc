@@ -239,11 +239,28 @@ public:
         return *this;
     }
 
+    template<int N>
+    LogEntry& operator<<(const char t[N])
+    {
+
+        Format((const char*)t);
+        return *this;
+    }
+
+
+    LogEntry& operator<<(char t)
+    {
+        Format(t);
+        return *this;
+    }
+
     LogEntry& operator<<(const std::string& t)
     {
         Format(t.c_str());
         return *this;
     }
+
+
 };
 
 

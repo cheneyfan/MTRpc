@@ -1,5 +1,6 @@
 #include "mio_connect_stream.h"
 #include "mio/tcpsocket.h"
+#include "log/log.h"
 
 namespace mtrpc {
 
@@ -8,6 +9,7 @@ namespace mtrpc {
 ConnectStream::ConnectStream()
 {
     _fd  = TcpSocket::socket();
+
     TcpSocket::setNoblock(_fd,true);
     TcpSocket::setNoTcpDelay(_fd,true);
 
@@ -18,34 +20,53 @@ ConnectStream::ConnectStream()
 int ConnectStream::Connect(const std::string& server_ip,int32_t server_port){
 
     int ret = TcpSocket::connect(_fd, server_ip, server_port);
+
     int save_errno = errno;
+
+    TRACE("sock:"<<_fd<<",connect "<<server_ip<<":"<<server_port<<",ret:"<<ret<<",errno:"<<errno<<","<<strerror(errno));
 
     if(ret == 0)
     {
         _ConnectStatus = CONNECT_Ok;
-        return 0;
+        return CONNECT_Ok;
 
     }else if(ret < 0 && save_errno != EINPROGRESS ){
 
         _ConnectStatus = CONNECT_FAILE;
-        return -1;
+        return CONNECT_FAILE;
     }
 
     _ConnectStatus = CONNECT_ING;
-
-    return EINPROGRESS;
+    return CONNECT_ING;
 }
 
 int ConnectStream::OnConnect(Epoller* p){
 
     // base
     SocketStream::OnConnect(p);
-
     _ConnectStatus = CONNECT_Ok;
 
-    AddEventASync(p,false,false);
+    WriteLock<MutexLock> lock(mutex);
+    cv.notifyOne();
 
     return 0;
+}
+
+int ConnectStream::OnClose(Epoller* p){
+
+     SocketStream::OnConnect(p);
+
+     WriteLock<MutexLock> lock(mutex);
+     cv.notifyOne();
+}
+
+
+void ConnectStream::Wait(){
+     while(_ConnectStatus == CONNECT_ING)
+     {
+         WriteLock<MutexLock> lock(mutex);
+         cv.wait(&mutex._mutex);
+     }
 }
 
 }

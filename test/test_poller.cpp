@@ -31,8 +31,6 @@ int main(int argc,char*argv[]){
 
     Epoller *poller = new Epoller();
 
-
-
     group->Init(5);
 
     group->Post(NewExtClosure(poller,&Epoller::Poll));

@@ -20,7 +20,7 @@ TEST(HTTP_REQUST,REQ){
     ReadBuffer b;
     b.que[0]->size = snprintf(b.que[0]->buffer,b.que[0]->size,"%s",s.c_str());
 
-    ReadBuffer::Iterator head = b.Reserve();
+    //ReadBuffer::Iterator head = b.Reserve();
 
     int ret = h.ParserRequestHeader(b);
 
@@ -43,7 +43,7 @@ TEST(HTTP_REQUST,RES)
     ReadBuffer b;
     b.que[0]->size = snprintf(b.que[0]->buffer,b.que[0]->size,"%s",s.c_str());
 
-    ReadBuffer::Iterator head = b.Reserve();
+    //ReadBuffer::Iterator head = b.Reserve();
 
     int ret = h.ParserReponseHeader(b);
 

@@ -24,6 +24,8 @@ public:
 
     Epoller();
 
+    ~Epoller();
+
     ///
     /// \brief poll
     ///

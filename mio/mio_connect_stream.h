@@ -3,7 +3,7 @@
 #include <google/protobuf/message.h>
 #include "proto/rpc_http_header.h"
 #include "thread/ext_closure.h"
-
+#include "common/rwlock.h"
 
 namespace mtrpc {
 
@@ -29,10 +29,24 @@ public :
     ///
     int Connect(const std::string& server_ip,int32_t server_port);
 
+    ///
+    /// \brief OnConnect
+    /// \param p
+    /// \return
+    ///
     virtual int OnConnect(Epoller* p);
+
+    virtual int OnClose(Epoller* p);
+
+    void Wait();
 
 public:
     int _ConnectStatus;
+    MutexLock mutex;
+    ConditionVariable cv;
+
+
+
 
 };
 }

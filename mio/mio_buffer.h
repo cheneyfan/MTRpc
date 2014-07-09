@@ -162,6 +162,12 @@ public:
            return !( (_idx == it._idx) && (_pos == it._pos));
        }
 
+       std::string toString(){
+            char buf[32]={0};
+            snprintf(buf,32,"[%d:%d]",_idx,_pos);
+            return std::string(buf);
+       }
+
     public:
        int _idx;
        int _pos;
@@ -211,6 +217,7 @@ public:
 
     bool isFull();
     bool isEmpty();
+
 
 public:
     uint32_t queNum;

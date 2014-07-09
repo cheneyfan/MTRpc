@@ -49,7 +49,7 @@ public:
 
 
 
-private:
+public:
     RpcChannelImpl* _impl;
 };
 

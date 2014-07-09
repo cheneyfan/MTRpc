@@ -2,13 +2,15 @@
 #define _MTRPC_RPC_CONTROLLER_H_
 
 #include <google/protobuf/service.h>
-
 #include "proto/rpc_option.pb.h"
+
+
 
 namespace mtrpc {
 
 typedef google::protobuf::int64 int64;
 
+class RpcControllerImpl;
 
 class RpcController : public google::protobuf::RpcController
 {
@@ -142,9 +144,29 @@ public:
     // NotifyOnCancel() must be called no more than once per request.
     virtual void NotifyOnCancel(google::protobuf::Closure* callback);
 
-
+    ///
+    /// \brief Wait
+    ///
     void Wait();
+
+    ///
+    /// \brief GetSeq
+    /// \return
+    ///
     uint32_t GetSeq();
+
+
+    ///
+    /// \brief SetStatus
+    /// \param status
+    ///
+    void SetStatus(int status);
+
+
+public:
+
+    RpcControllerImpl * _impl;
+
 }; // class RpcController
 
 }

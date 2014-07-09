@@ -60,7 +60,7 @@ void IOEvent::OnEventWrapper(Epoller* p){
 
         assert(pre_mask&EVENT_PENDING);
 
-        TRACE_FMG("name:%s,events:%s,pre_mask:%s",
+        TRACE_FMG("OnEventWrapper name:%s,events:%s,pre_mask:%s",
                   name,
                   EventStatusStr(_events).c_str(),
                   EventStatusStr(pre_mask).c_str());

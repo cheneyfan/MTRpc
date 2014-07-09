@@ -33,11 +33,11 @@ static uint32_t EventToMask(uint32_t events)
 }
 
 Epoller::Epoller()
-    :_notify(new EventNotify())
 {
     //TODO: port to other linux
     epollfd = epoll_create1(EPOLL_CLOEXEC);
 
+    _notify = new EventNotify();
     _notify->SetEvent(true,false);
     _notify->handerNotify = NewPermanentExtClosure(this,&Epoller::ProcessPendingTask);
 
@@ -51,6 +51,10 @@ Epoller::Epoller()
     ngx_rbtree_init(&wtimerroot, &sentinel, ngx_rbtree_insert_value);
 }
 
+Epoller::~Epoller(){
+
+    delete _notify;
+}
 
 void Epoller::Poll()
 {
@@ -141,7 +145,7 @@ int  Epoller::ProcessTimeOut(){
         waittime = rleft->key < waittime ? rleft->key : waittime ;
     }
 
-    TRACE_FMG("timer,now:%lu,wkey:%lu,rkey:%lu,wait:%lu",nowsec,wleft->key,rleft->key,waittime);
+    TRACE_FMG("timer,now:%lu,wkey:%lu,rkey:%lu,wait:%d",nowsec,wleft->key,rleft->key,waittime);
 
     return  waittime == uint32_t(-1)  ? -1:
                 1000*(int64_t(waittime) - int64_t(nowsec) + 1);
@@ -190,7 +194,6 @@ void Epoller::DelEvent(IOEvent* ev){
               ret);
 
     ev->ReleaseRef();
-
 }
 
 void Epoller::SetReadTimeOut(IOEvent* ev){

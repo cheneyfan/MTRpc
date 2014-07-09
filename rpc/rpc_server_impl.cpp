@@ -155,7 +155,7 @@ void  RpcServerImpl::OnMessageRecived(MessageStream* stream,Epoller*p){
     const google::protobuf::MethodDescriptor* method =
             service->GetDescriptor()->FindMethodByName(method_name);
 
-    const google::protobuf::Message* request
+    google::protobuf::Message* request
             = service->GetRequestPrototype(method).New();
     google::protobuf::Message* response
             = service->GetResponsePrototype(method).New();
@@ -193,7 +193,6 @@ void RpcServerImpl::OnCallMethodDone(RpcController* controller,const google::pro
     WriteBuffer& buf = stream->writebuf;
     HttpHeader& resheader = stream->resheader;
 
-
     resheader.SetStatus(200);
 
     WriteBuffer::Iterator packetstart = buf.Reserve();
@@ -212,10 +211,10 @@ void RpcServerImpl::OnCallMethodDone(RpcController* controller,const google::pro
     stream->ModEventAsync(p, true, true);
 
 
-
+    delete request;
     delete response;
     delete controller;
-    delete request;
+
 
 }
 

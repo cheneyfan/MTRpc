@@ -1,15 +1,19 @@
 #include "rpc_controller.h"
 #include "proto/rpc_option.pb.h"
+#include "rpc_controller_impl.h"
+#include "mio/mio_error_code.h"
 
 namespace mtrpc {
 
-RpcController::RpcController(){
-
+RpcController::RpcController():
+    _impl(new RpcControllerImpl())
+{
 }
 
 
 RpcController::~RpcController(){
 
+    delete _impl;
 }
 
 
@@ -52,9 +56,9 @@ void RpcController::SetResponseCompressType(CompressType compress_type){
 
 
 
- bool RpcController::Failed() const{
+bool RpcController::Failed() const{
 
-     return true;
+    return _impl->_status != RPC_SUCCESS;
 
 }
 
@@ -62,14 +66,14 @@ void RpcController::SetResponseCompressType(CompressType compress_type){
 
 int RpcController::ErrorCode() const{
 
-    return 0;
+    return _impl->_status;
 }
 
 
 std::string RpcController::ErrorText() const
 {
 
-    return 0;
+    return _impl->_msg;
 }
 
 
@@ -91,6 +95,7 @@ void RpcController::StartCancel(){
 
 void RpcController::SetFailed(const std::string& reason){
 
+    _impl->_msg = reason;
 }
 
 
@@ -110,12 +115,19 @@ void RpcController::NotifyOnCancel(google::protobuf::Closure* callback){
 
 void RpcController::Wait(){
 
+    _impl->Wait();
 }
 
 
 uint32_t RpcController::GetSeq(){
 
     return 1;
+}
+
+
+void RpcController::SetStatus(int status)
+{
+    _impl->SetStatus(status);
 }
 
 }

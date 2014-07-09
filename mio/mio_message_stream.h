@@ -18,6 +18,9 @@ public :
     MessageStream(int sockfd);
 
 
+    virtual ~MessageStream();
+
+
     ///
     /// \brief OnRecived
     /// \param p
@@ -25,16 +28,15 @@ public :
     ///
     virtual int OnRecived(Epoller* p);
     virtual int OnSended(Epoller* p);
-    virtual int OnConnect(Epoller *p);
-
 
 public:
 
-    ExtClosure<void(MessageStream* sream, Epoller* p)>*  handerConnected;
+
 
     ExtClosure<void(MessageStream* sream,Epoller* p)>*  handerMessageRecived;
 
     ExtClosure<void(MessageStream* sream,Epoller* p)>*  handerMessageSended;
+
 
     HttpHeader reqheader;
     HttpHeader resheader;
