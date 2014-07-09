@@ -279,6 +279,7 @@ public:
         if (_service_map.find(svc_name) != _service_map.end()) {
             return false;
         }
+        TRACE("register :"<<svc_name);
         // register service
         ServiceBoard* svc_board = new ServiceBoard(_head, service, take_ownership);
         _service_map[svc_name] = svc_board;

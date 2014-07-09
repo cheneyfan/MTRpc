@@ -6,6 +6,7 @@
 namespace mtrpc {
 
 Acceptor::Acceptor():
+    IOEvent(),
     handerAccept(NULL)
 {
 

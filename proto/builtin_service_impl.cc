@@ -19,6 +19,7 @@ void BuiltinServiceImpl::Health(::google::protobuf::RpcController* /* controller
         ::mtrpc::builtin::HealthResponse* response,
         ::google::protobuf::Closure* done)
 {
+    response->set_health("helloword");
     done->Run();
 }
 

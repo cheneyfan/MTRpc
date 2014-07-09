@@ -8,11 +8,14 @@
 namespace mtrpc {
 
 
-IOEvent::IOEvent(){
+IOEvent::IOEvent()
+{
     ev.events = EPOLLET;
     ev.data.ptr = this;
     wtimernode.parent = NULL;
     rtimernode.parent = NULL;
+
+    group = NULL;
 }
 
 IOEvent::~IOEvent(){

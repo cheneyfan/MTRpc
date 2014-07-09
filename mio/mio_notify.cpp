@@ -4,8 +4,9 @@
 namespace mtrpc{
 
 EventNotify::EventNotify():
-handerNotify(NULL){
-
+    IOEvent(),
+    handerNotify(NULL)
+{
     _fd = eventfd(0, EFD_CLOEXEC|EFD_NONBLOCK);
 }
 

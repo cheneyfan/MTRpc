@@ -5,6 +5,7 @@
 namespace mtrpc{
 
 SocketStream::SocketStream():
+    IOEvent(),
     _isConnected(false),
     buf_alloc_size(DEFAULT_BUFFER_SIZE)
 {
@@ -74,7 +75,7 @@ int SocketStream::SocketStream::OnConnect(Epoller* p)
     TcpSocket::getlocal(_fd, local_ip, local_port);
     TcpSocket::getpeer(_fd, peer_ip, peer_port);
 
-    TRACE("sock connect:"<<_fd<<",local:"<<local_ip<<":"<<local_port<<",peer:"<<peer_ip<<","<<peer_port);
+    TRACE("sock connect:"<<_fd<<",local:"<<local_ip<<":"<<local_port<<",peer:"<<peer_ip<<":"<<peer_port);
 
     if(handerConnected)
         handerConnected->Run(this,p);
@@ -127,7 +128,8 @@ int SocketStream::OnReadable(Epoller *p)
 
     if(read_size > 0)
         this->OnRecived(p);
-    return  ret;
+
+    return  0;
 }
 
 int SocketStream::OnWriteable(Epoller *p)

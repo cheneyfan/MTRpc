@@ -22,7 +22,9 @@ namespace mtrpc {
 
 
 
-RpcServerImpl::RpcServerImpl(const RpcServerOptions& options):_options(options)
+RpcServerImpl::RpcServerImpl(const RpcServerOptions& options):
+    acceptor(),
+    _options(options)
 {
 
     poller = new Epoller();
@@ -43,7 +45,7 @@ bool RpcServerImpl::RegisterService(google::protobuf::Service* service, bool tak
     std::stringstream str;
 
     const google::protobuf::ServiceDescriptor * desc = service->GetDescriptor();
-
+/*
     str <<"Service:"<<desc->full_name()<<",method_num:"<<desc->method_count()<<std::endl;
 
     for(int i = 0;i < desc->method_count();++i)
@@ -55,6 +57,7 @@ bool RpcServerImpl::RegisterService(google::protobuf::Service* service, bool tak
     }
 
     INFO("Regiter: "<<str.str());
+    */
 
     return _service_pool->RegisterService(service, take_ownership);
 }
@@ -91,6 +94,7 @@ int RpcServerImpl::Start(const std::string& server_address)
 
     /// start listen
     acceptor.handerAccept = NewPermanentExtClosure(this,&RpcServerImpl::OnAccept);
+
     int ret = acceptor.StartListen(server_address);
 
     if(ret !=0)
@@ -148,6 +152,8 @@ void  RpcServerImpl::OnMessageRecived(MessageStream* stream,Epoller*p){
         return;
     }
 
+    TRACE("OnMessageRecived fullname:"<<method_full_name<<",service_name:"<<service_name<<",method_name:"<<method_name);
+
     ServiceBoard* service_board = _service_pool->FindService(service_name);
 
     google::protobuf::Service* service = service_board->Service();
@@ -160,7 +166,15 @@ void  RpcServerImpl::OnMessageRecived(MessageStream* stream,Epoller*p){
     google::protobuf::Message* response
             = service->GetResponsePrototype(method).New();
 
-    request->ParseFromZeroCopyStream(&stream->readbuf);
+
+
+    bool ret = request->ParseFromZeroCopyStream(&stream->readbuf);
+
+    TRACE("req:"<<request->GetDescriptor()->full_name()
+          <<",res:"<<request->GetDescriptor()->full_name()
+          <<",ret:"<<ret
+          <<",rpos:"<<stream->readbuf.readpos.toString()
+          <<",wpos:"<<stream->readbuf.writepos.toString());
 
     google::protobuf::RpcController* controller = new RpcController();
 
@@ -169,10 +183,16 @@ void  RpcServerImpl::OnMessageRecived(MessageStream* stream,Epoller*p){
     method_board->ReportProcessBegin();
 
     google::protobuf::Closure* done = NewClosure(this,
-                                                 &RpcServerImpl::OnCallMethodDone, (RpcController*)controller, request, response,
-                                                 stream, p);
+                                                 &RpcServerImpl::OnCallMethodDone,
+                                                 (RpcController*)controller,
+                                                 request,
+                                                 response,
+                                                 stream,
+                                                 p);
 
     service->CallMethod(method, controller, request, response, done);
+
+    method_board->ReportProcessEnd(true,1);
 
 }
 
@@ -181,7 +201,10 @@ bool RpcServerImpl::ParseMethodFullName(const std::string& method_full_name,
                                         std::string* service_full_name, std::string* method_name)
 {
     std::string::size_type pos = method_full_name.rfind('.');
-    if (pos == std::string::npos) return false;
+
+    if (pos == std::string::npos)
+        return false;
+
     *service_full_name = method_full_name.substr(0, pos);
     *method_name = method_full_name.substr(pos + 1);
     return true;
@@ -199,16 +222,21 @@ void RpcServerImpl::OnCallMethodDone(RpcController* controller,const google::pro
 
     WriteBuffer::Iterator itlast  = buf.writepos;
 
-    response->SerializePartialToZeroCopyStream(&buf);
+    response->SerializeToZeroCopyStream(&buf);
 
     stream->packetEnd = buf.writepos;
 
-    resheader.content_length  = stream->packetEnd
-            - itlast;
+    uint32_t content_length  = stream->packetEnd - itlast;
+
+    resheader.SetContentLength(content_length);
 
     resheader.SerializeReponseHeader(packetstart);
 
     stream->ModEventAsync(p, true, true);
+
+    TRACE("send header:"<<packetstart.get()->buffer
+          <<",rpos"<<buf.readpos.toString()
+          <<",wpos"<<buf.writepos.toString());
 
 
     delete request;

@@ -410,7 +410,7 @@ int HttpHeader::SerializeRequestHeader(WriteBuffer::Iterator& it){
 int HttpHeader::SetPath(const std::string& p)
 {
     method="POST";
-    path = "/"+p;
+    path = p;
     version = "HTTP/1.1";
     return 0;
 }

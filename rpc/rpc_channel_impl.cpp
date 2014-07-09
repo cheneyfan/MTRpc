@@ -3,6 +3,7 @@
 #include "mio/mio_error_code.h"
 #include "mio/mio_connect_stream.h"
 #include "rpc_controller_impl.h"
+#include "log/log.h"
 
 namespace mtrpc {
 
@@ -135,9 +136,9 @@ void RpcChannelImpl::CallMethod(const ::google::protobuf::MethodDescriptor* meth
          size = pendingcall.size();
     }
 
-    if(size == 0 )
+    if(size == 1 )
     {
-        _stream->ModEventAsync(_poller,true,false);
+        _stream->ModEventAsync(_poller,true,true);
     }
 
     //sync
@@ -164,28 +165,57 @@ int RpcChannelImpl::SendToServer(const ::google::protobuf::MethodDescriptor* met
 
 
     WriteBuffer::Iterator mark = buf.writepos;
-    request->SerializePartialToZeroCopyStream(&buf);
+
+    bool ret = request->SerializeToZeroCopyStream(&buf);
+
+    TRACE("write ret:"<<ret
+          <<" writebuf,w:"<<buf.writepos.toString()
+          <<",r:"<<buf.readpos.toString());
 
     _stream->packetEnd = buf.writepos;
 
     int content_length = buf.writepos - mark;
+
     reqheader.SetContentLength(content_length);
     reqheader.SerializeRequestHeader(it);
 
-    _stream->ModEventAsync(_poller,true,true);
+    TRACE("header:"<<it.get()->buffer);
+
     return 0;
 }
 
 void RpcChannelImpl::OnMessageRecived(MessageStream* sream,Epoller* p){
 
     CallParams* params = NULL;
+
     {
          WriteLock<MutexLock> wl(pendinglock);
          params = pendingcall.front();
          pendingcall.pop();
     }
 
-    params->response->ParseFromZeroCopyStream(&sream->readbuf);
+    if(params == NULL)
+    {
+        WARN("no method pending");
+        return;
+    }
+
+    TRACE("parse begin:"
+          <<"readbuf,w:"<<sream->readbuf.writepos.toString()
+          <<",r:"<<sream->readbuf.readpos.toString()<<",status:"<<sream->reqheader.status);
+
+    int ret = params->response->ParseFromZeroCopyStream(&sream->readbuf);
+
+    RpcController * cntl = (RpcController *)params->controller;
+
+
+
+    TRACE("parse end:"<<ret
+          <<"readbuf,w:"<<sream->readbuf.writepos.toString()
+          <<",r:"<<sream->readbuf.readpos.toString()<<",res:"<<params->response->DebugString());
+
+        cntl->SetStatus(sream->reqheader.status);
+
 
     {
         WriteLock<MutexLock> wl(pendinglock);
@@ -199,7 +229,7 @@ void RpcChannelImpl::OnMessageRecived(MessageStream* sream,Epoller* p){
     }
 
     if(params == NULL)
-        _stream->ModEventAsync(_poller,false,false);
+        _stream->ModEventAsync(_poller,true,false);
     else
         SendToServer(params->method,params->controller,params->request);
 

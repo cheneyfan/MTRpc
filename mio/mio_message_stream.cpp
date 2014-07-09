@@ -1,10 +1,12 @@
 #include "mio_message_stream.h"
 #include "mio/tcpsocket.h"
+#include "log/log.h"
 
 namespace mtrpc {
 
 
 MessageStream::MessageStream():
+    SocketStream(),
     handerMessageRecived(NULL),
     handerMessageSended(NULL)
 {
@@ -30,6 +32,13 @@ MessageStream::~MessageStream(){
 
 int MessageStream::OnRecived(Epoller *p){
 
+    TRACE("recived:"<<readbuf.readpos.get()->buffer);
+
+    TRACE("recived begin:"<<ret
+          <<",length:"<<reqheader.content_length
+          <<",read:"<<readbuf.GetBufferUsed()
+          <<",rpos:"<<readbuf.readpos.toString()
+          <<",wpos:"<<readbuf.writepos.toString());
 
     int ret = reqheader.ParserRequestHeader(readbuf);
 
@@ -42,6 +51,12 @@ int MessageStream::OnRecived(Epoller *p){
     {
         return 0;
     }
+
+    TRACE("recived:"<<ret
+          <<",length:"<<reqheader.content_length
+          <<",read:"<<readbuf.GetBufferUsed()
+          <<",rpos:"<<readbuf.readpos.toString()
+          <<",wpos:"<<readbuf.writepos.toString());
 
     // need read more
     if(reqheader.content_length  >  readbuf.GetBufferUsed())
