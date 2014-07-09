@@ -28,25 +28,23 @@ int ConnectStream::Connect(const std::string& server_ip,int32_t server_port){
     if(ret == 0)
     {
         _ConnectStatus = CONNECT_Ok;
-        return CONNECT_Ok;
+    }else if(ret < 0 && save_errno != EINPROGRESS )
+    {
+         _ConnectStatus = CONNECT_FAILE;
+    }else
+         _ConnectStatus = CONNECT_ING;
 
-    }else if(ret < 0 && save_errno != EINPROGRESS ){
-
-        _ConnectStatus = CONNECT_FAILE;
-        return CONNECT_FAILE;
-    }
-
-    _ConnectStatus = CONNECT_ING;
-    return CONNECT_ING;
+    return _ConnectStatus;
 }
 
 int ConnectStream::OnConnect(Epoller* p){
 
     // base
     SocketStream::OnConnect(p);
-    _ConnectStatus = CONNECT_Ok;
-
-    WriteLock<MutexLock> lock(mutex);
+    {
+        WriteLock<MutexLock> lock(mutex);
+        _ConnectStatus = CONNECT_Ok;
+    }
     cv.notifyOne();
 
     return 0;
@@ -54,19 +52,27 @@ int ConnectStream::OnConnect(Epoller* p){
 
 int ConnectStream::OnClose(Epoller* p){
 
-     SocketStream::OnConnect(p);
+    TRACE(name<<",closed");
 
-     WriteLock<MutexLock> lock(mutex);
-     cv.notifyOne();
+    SocketStream::OnClose(p);
+
+
+    WriteLock<MutexLock> lock(mutex);
+    _ConnectStatus = CONNECT_FAILE;
+
+    cv.notifyOne();
+
+    return 0;
 }
 
 
 void ConnectStream::Wait(){
-     while(_ConnectStatus == CONNECT_ING)
-     {
-         WriteLock<MutexLock> lock(mutex);
-         cv.wait(&mutex._mutex);
-     }
+
+    while(_ConnectStatus == CONNECT_ING)
+    {
+        WriteLock<MutexLock> lock(mutex);
+        cv.wait(&mutex._mutex);
+    }
 }
 
 }

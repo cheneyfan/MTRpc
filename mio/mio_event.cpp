@@ -60,10 +60,11 @@ void IOEvent::OnEventWrapper(Epoller* p){
 
         assert(pre_mask&EVENT_PENDING);
 
-        TRACE_FMG("OnEventWrapper name:%s,events:%s,pre_mask:%s",
+        /*TRACE_FMG("OnEventWrapper name:%s,events:%s,pre_mask:%s",
                   name,
                   EventStatusStr(_events).c_str(),
                   EventStatusStr(pre_mask).c_str());
+                  */
 
         this->OnEvent(p, pre_mask);
 
@@ -90,11 +91,12 @@ void IOEvent::OnEventAsync(Epoller* p , uint32_t event_mask){
     uint32_t pre_mask =
             __sync_fetch_and_or(&_events, (event_mask | EVENT_PENDING));
 
-    TRACE_FMG("name:%s, event_mask:%s, pre_mask:%s, _events:%s",
+    /*TRACE_FMG("name:%s, event_mask:%s, pre_mask:%s, _events:%s",
               name,
               EventStatusStr(event_mask).c_str(),
               EventStatusStr(pre_mask).c_str(),
               EventStatusStr(_events).c_str());
+              */
 
     if(pre_mask & EVENT_PENDING )
     {

@@ -41,7 +41,7 @@ public :
     void Wait();
 
 public:
-    int _ConnectStatus;
+    volatile int _ConnectStatus;
     MutexLock mutex;
     ConditionVariable cv;
 

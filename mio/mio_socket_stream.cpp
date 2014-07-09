@@ -24,49 +24,48 @@ void SocketStream::OnEvent(Epoller* p,uint32_t mask)
     if(mask & EVENT_CLOSE)
     {
         _isConnected = false;
-        onClose(p);
+        this->OnClose(p);
         return ;
     }
 
 
     if(!_isConnected && (mask &(EVENT_READ|EVENT_WRITE)))
     {
-        ret = OnConnect(p);
+        ret = this->OnConnect(p);
 
         if(ret < 0)
         {
             TRACE("OnConnect ret:"<<ret<<", close it");
-            onClose(p);
+            this->OnClose(p);
             return;
         }
-
         _isConnected = true;
     }
 
     if(mask & EVENT_READ)
     {
-        ret |= onReadable(p);
+        ret |= this->OnReadable(p);
     }
 
     if(mask & EVENT_WRITE)
     {
-        ret |= onWriteable(p);
+        ret |= this->OnWriteable(p);
     }
 
     if(mask & READ_TIME_OUT)
     {
-        ret |= onReadTimeOut(p);
+        ret |= this->OnReadTimeOut(p);
     }
 
     if(mask & WRITE_TIME_OUT)
     {
-        ret |= onWriteimeOut(p);
+        ret |= this->OnWriteimeOut(p);
     }
 
     if(ret < 0 )
     {
         TRACE("OnEvent mask:"<<mask<<",ret:"<<ret<<", close it");
-        onClose(p);
+        this->OnClose(p);
     }
 }
 
@@ -74,7 +73,8 @@ int SocketStream::SocketStream::OnConnect(Epoller* p)
 {
     TcpSocket::getlocal(_fd, local_ip, local_port);
     TcpSocket::getpeer(_fd, peer_ip, peer_port);
-    TRACE("sock:"<<_fd<<",local:"<<local_ip<<":"<<local_port<<",peer:"<<peer_ip<<","<<peer_port);
+
+    TRACE("sock connect:"<<_fd<<",local:"<<local_ip<<":"<<local_port<<",peer:"<<peer_ip<<","<<peer_port);
 
     if(handerConnected)
         handerConnected->Run(this,p);
@@ -82,7 +82,7 @@ int SocketStream::SocketStream::OnConnect(Epoller* p)
     return 0;
 }
 
-int SocketStream::onReadable(Epoller *p)
+int SocketStream::OnReadable(Epoller *p)
 {
     if(handerReadable)
         handerReadable->Run(this,p);
@@ -126,11 +126,11 @@ int SocketStream::onReadable(Epoller *p)
 
 
     if(read_size > 0)
-        OnRecived(p);
+        this->OnRecived(p);
     return  ret;
 }
 
-int SocketStream::onWriteable(Epoller *p)
+int SocketStream::OnWriteable(Epoller *p)
 {
     if(handerWriteable)
         handerWriteable->Run(this,p);
@@ -193,13 +193,13 @@ int SocketStream::onWriteable(Epoller *p)
 
     //a packet write ok
     if(write_size > 0)
-        OnSended(p);
+        this->OnSended(p);
 
     return ret;
 }
 
 
-int SocketStream::onClose(Epoller *p)
+int SocketStream::OnClose(Epoller *p)
 {
     if(handerClose)
         handerClose->Run(this,p);
@@ -210,7 +210,7 @@ int SocketStream::onClose(Epoller *p)
 }
 
 
-int SocketStream::onReadTimeOut(Epoller* p)
+int SocketStream::OnReadTimeOut(Epoller* p)
 {
     if(handerReadTimeOut)
         handerReadTimeOut->Run(this,p);
@@ -218,7 +218,7 @@ int SocketStream::onReadTimeOut(Epoller* p)
     return 0;
 }
 
-int SocketStream::onWriteimeOut(Epoller* p)
+int SocketStream::OnWriteimeOut(Epoller* p)
 {
     if(handerWriteimeOut)
         handerWriteimeOut->Run(this,p);

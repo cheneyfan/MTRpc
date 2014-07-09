@@ -27,6 +27,13 @@ public:
 
     bool IsAddressValid();
 
+
+    ///
+    /// \brief getController
+    /// \return
+    ///
+    RpcController* GetController();
+
     ///
     /// \brief Connect
     /// \param server_ip

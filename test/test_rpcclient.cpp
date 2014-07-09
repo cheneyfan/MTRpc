@@ -17,16 +17,21 @@ int main(int argc,char*argv[]){
 
     RpcChannel* channel = client.GetChannel(addr);
 
-    RpcController* cntl = new RpcController();
 
-    builtin::BuiltinService_Stub stub(channel);
 
-    ::mtrpc::builtin::HealthRequest req;
-    ::mtrpc::builtin::HealthResponse res;
+    if(channel){
 
-    stub.Health(cntl,&req,&res,NULL);
+         RpcController* cntl = channel->GetController();
 
-    std::cout<<res.health()<<std::endl;
+        builtin::BuiltinService_Stub stub(channel);
+
+        ::mtrpc::builtin::HealthRequest req;
+        ::mtrpc::builtin::HealthResponse res;
+
+        stub.Health(cntl,&req,&res,NULL);
+
+        std::cout<<res.health()<<std::endl;
+    }
 
     return 0;
 

@@ -8,7 +8,7 @@
 namespace mtrpc {
 class RpcClient;
 class RpcChannelImpl;
-
+class RpcController;
 
 class RpcChannelOptions{
 public:
@@ -48,6 +48,11 @@ public:
                             ::google::protobuf::Closure* done);
 
 
+    ///
+    /// \brief getController
+    /// \return
+    ///
+    RpcController* GetController();
 
 public:
     RpcChannelImpl* _impl;

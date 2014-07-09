@@ -33,4 +33,13 @@ void RpcChannel::CallMethod(const ::google::protobuf::MethodDescriptor* method,
     _impl->CallMethod(method, controller, request, response, done);
 }
 
+///
+/// \brief getController
+/// \return
+///
+RpcController* RpcChannel::GetController(){
+
+    return _impl->GetController();
+}
+
 } // namespace pbrpc

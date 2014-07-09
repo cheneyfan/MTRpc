@@ -36,13 +36,13 @@ public:
 
 
     virtual int OnConnect(Epoller* p);
-    virtual int onReadable(Epoller* p);
-    virtual int onWriteable(Epoller* p);
+    virtual int OnReadable(Epoller* p);
+    virtual int OnWriteable(Epoller* p);
 
-    virtual int onClose(Epoller* p);
+    virtual int OnClose(Epoller* p);
 
-    virtual int onReadTimeOut(Epoller* p);
-    virtual int onWriteimeOut(Epoller* p);
+    virtual int OnReadTimeOut(Epoller* p);
+    virtual int OnWriteimeOut(Epoller* p);
 
 public:
     //forward the event

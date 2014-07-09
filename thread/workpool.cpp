@@ -190,14 +190,14 @@ int WorkGroup::Post(MioTask* task)
     // if some worker is idle, wake up to do work
     if(idleWorker.pop(w))
     {
-        TRACE_FMG("Run %p with idle  worker:%p",task,w);
+        //TRACE_FMG("Run %p with idle  worker:%p",task,w);
         w->RunTask(task);
         return 0;
     }
 
     // all working is doing,just push to task queue
     {
-        TRACE_FMG("Push %p to queue",task);
+        //TRACE_FMG("Push %p to queue",task);
         ret = taskQueue.push(task);
     }
 
@@ -205,7 +205,7 @@ int WorkGroup::Post(MioTask* task)
     // some work may be miss the task pushed
     if(idleWorker.pop(w))
     {
-        TRACE_FMG("notify idle worker:%p",w);
+        //TRACE_FMG("notify idle worker:%p",w);
         w->cv.notifyOne();
     }
 

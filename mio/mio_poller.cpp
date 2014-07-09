@@ -67,7 +67,7 @@ void Epoller::Poll()
 
         epoll_event ev_arr[MAX_EVENT_PROCESS];
 
-        TRACE("waittime:"<<waittime);
+        //TRACE("waittime:"<<waittime);
 
         //poll
         int nfds = epoll_wait(epollfd, ev_arr , MAX_EVENT_PROCESS, waittime);
@@ -87,7 +87,7 @@ void Epoller::Poll()
             IOEvent* ev = (IOEvent*)ev_arr[i].data.ptr;
 
             IOEvent::UpdateName(ev->_fd, &(ev_arr[i]), event_name);
-            TRACE_FMG("poll:%u,event:%s",epollfd,event_name);
+            //TRACE_FMG("poll:%u,event:%s",epollfd,event_name);
             uint32_t mask = EventToMask(revents);
             ev->OnEventAsync(this, mask);
         }
@@ -145,7 +145,7 @@ int  Epoller::ProcessTimeOut(){
         waittime = rleft->key < waittime ? rleft->key : waittime ;
     }
 
-    TRACE_FMG("timer,now:%lu,wkey:%lu,rkey:%lu,wait:%d",nowsec,wleft->key,rleft->key,waittime);
+    //TRACE_FMG("timer,now:%lu,wkey:%lu,rkey:%lu,wait:%d",nowsec,wleft->key,rleft->key,waittime);
 
     return  waittime == uint32_t(-1)  ? -1:
                 1000*(int64_t(waittime) - int64_t(nowsec) + 1);
