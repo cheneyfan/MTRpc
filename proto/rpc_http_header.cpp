@@ -1,7 +1,7 @@
 #include "rpc_http_header.h"
 #include "mio/mio_error_code.h"
 #include <sstream>
-
+#include "log/log.h"
 namespace mtrpc {
 
 
@@ -30,6 +30,8 @@ void HttpHeader::Reset(){
     content_length = 0;
     headers.clear();
     status = 0;
+
+    version="HTTP/1.1";
 
     state = REQ_METHOD;
     memset(buf,0,2048);
@@ -73,17 +75,18 @@ void HttpHeader::MoveBufTo(uint32_t& s)
 
 int HttpHeader::ParserRequestHeader(ReadBuffer & buf){
 
-    ReadBuffer::Iterator& begin = buf.begin();
-    ReadBuffer::Iterator& end = buf.end();
+    ReadBuffer::Iterator& begin = buf.readpos;
+    ReadBuffer::Iterator& end = buf.writepos;
 
     std::string key;
     std::string value;
 
-    for(; begin!=end; ++begin)
-    {
-        char c = *begin;
-        //printf("%c",c);
 
+
+    for(; begin!=end && state!= REQ_END_N; ++begin)
+    {
+
+        char c = *begin;
         switch(state)
         {
 
@@ -191,6 +194,9 @@ int HttpHeader::ParserRequestHeader(ReadBuffer & buf){
                 return HTTP_PARSER_FAIL;
             }
             break;
+        case REQ_END_N:
+
+            break;
         }// switch
 
     }//end for
@@ -215,15 +221,15 @@ enum HTTP_RES_STATE{
 
 int HttpHeader::ParserReponseHeader(ReadBuffer & buf){
 
-    ReadBuffer::Iterator& begin = buf.begin();
-    ReadBuffer::Iterator& end = buf.end();
+    ReadBuffer::Iterator& begin = buf.readpos;
+    ReadBuffer::Iterator& end = buf.writepos;
 
     std::string key;
     std::string value;
 
-    for(ReadBuffer::Iterator it = begin; it!=end; ++it)
+    for(; begin!=end && state!= RES_END_N; ++begin)
     {
-        char c = *it;
+        char c = *begin;
 
         switch(state)
         {
@@ -335,6 +341,7 @@ int HttpHeader::ParserReponseHeader(ReadBuffer & buf){
         }//switch c
     }//end for
 
+    TRACE("paser finished:"<<toString());
     return state == RES_END_N ? HTTP_PASER_FINISH : HTTP_PASER_HALF;
 }
 

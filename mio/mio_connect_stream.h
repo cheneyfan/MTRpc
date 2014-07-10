@@ -16,10 +16,15 @@ enum CONNECT_STATUS {
 
 typedef ::google::protobuf::Message Message;
 
-class ConnectStream : public MessageStream {
+///
+/// \brief The ConnectStream class
+///
+class ConnectStream : public SocketStream {
 
 public :
     ConnectStream();
+
+    virtual ~ConnectStream();
 
     ///
     /// \brief Connect
@@ -40,13 +45,32 @@ public :
 
     void Wait();
 
+
+    ///
+    /// \brief OnRecived
+    /// \param p
+    /// \return
+    ///
+    virtual int OnRecived(Epoller* p);
+    virtual int OnSended(Epoller* p);
+
+
 public:
+
+
+    ExtClosure<void(ConnectStream* sream,Epoller* p)>*  handerMessageRecived;
+
+    ExtClosure<void(ConnectStream* sream,Epoller* p)>*  handerMessageSended;
+
+
     volatile int _ConnectStatus;
     MutexLock mutex;
     ConditionVariable cv;
 
 
-
-
+    HttpHeader reqheader;
+    HttpHeader resheader;
 };
+
+
 }

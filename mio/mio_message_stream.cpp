@@ -22,7 +22,6 @@ MessageStream::MessageStream(int sockfd):
 }
 
 MessageStream::~MessageStream(){
-
     delete handerMessageRecived;
     delete handerMessageSended;
 }
@@ -34,7 +33,7 @@ int MessageStream::OnRecived(Epoller *p){
 
     TRACE("recived:"<<readbuf.readpos.get()->buffer);
 
-    TRACE("recived begin:"<<ret
+    TRACE("recived begin:"
           <<",length:"<<reqheader.content_length
           <<",read:"<<readbuf.GetBufferUsed()
           <<",rpos:"<<readbuf.readpos.toString()

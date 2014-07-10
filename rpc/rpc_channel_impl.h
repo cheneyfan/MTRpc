@@ -80,9 +80,9 @@ public:
    int SendToServer(const google::protobuf::MethodDescriptor *method, ::google::protobuf::RpcController* controller, const google::protobuf::Message *request);
 public:
 
-  void OnMessageRecived(MessageStream* sream,Epoller* p);
+  void OnMessageRecived(ConnectStream* sream,Epoller* p);
 
-  void OnMessageSended(MessageStream* sream,Epoller* p);
+  void OnMessageSended(ConnectStream* sream,Epoller* p);
 
 
   void OnWriteable(SocketStream* sream,Epoller* p);

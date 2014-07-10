@@ -8,6 +8,9 @@ namespace mtrpc {
 
 typedef ::google::protobuf::Message Message;
 
+///
+/// \brief The MessageStream class
+///
 class MessageStream  :public SocketStream {
 
 public :

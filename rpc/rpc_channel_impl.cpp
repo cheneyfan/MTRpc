@@ -102,6 +102,8 @@ void RpcChannelImpl::OnClose(SocketStream *sream, Epoller *p){
         pendingcall.pop();
         delete call;
     }
+
+    //TODO reset sream
 }
 
 
@@ -184,7 +186,7 @@ int RpcChannelImpl::SendToServer(const ::google::protobuf::MethodDescriptor* met
     return 0;
 }
 
-void RpcChannelImpl::OnMessageRecived(MessageStream* sream,Epoller* p){
+void RpcChannelImpl::OnMessageRecived(ConnectStream *sream, Epoller* p){
 
     CallParams* params = NULL;
 
@@ -235,7 +237,7 @@ void RpcChannelImpl::OnMessageRecived(MessageStream* sream,Epoller* p){
 
 }
 
-void RpcChannelImpl::OnMessageSended(MessageStream* sream,Epoller* p){
+void RpcChannelImpl::OnMessageSended(ConnectStream* sream,Epoller* p){
 
 
 }
