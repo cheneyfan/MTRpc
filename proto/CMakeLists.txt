@@ -58,3 +58,9 @@ add_library(${libname} STATIC ${SOURCES} ${HEADERS} )
 
 #add_dependencies(${libname} ${PROTO_GEN} "SourceCode")
 set_target_properties(${libname} PROPERTIES LINK_FLAGS "-static-libgcc -static-libstdc++ -Wl,--no-undefined")
+
+INSTALL(TARGETS ${libname} DESTINATION "./lib/")
+
+
+file(GLOB_RECURSE RPC_HEADES "*.pb.h")
+INSTALL(FILES ${RPC_HEADES} DESTINATION "./include/proto/")

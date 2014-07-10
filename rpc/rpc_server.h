@@ -8,8 +8,7 @@
 #define _MTRPC_RPC_SERVER_H_
 
 #include <google/protobuf/service.h>
-#include "thread/ext_closure.h"
-#include "mio/mio_error_code.h"
+
 
 namespace mtrpc {
 
@@ -41,17 +40,6 @@ struct RpcServerOptions {
     bool disable_list_service;     // If disable the list service, which would public your service
                                    // protobuf descriptor.  Default false.
 
-    // Thread init function called at starting of each work thread.
-    // This closure should be a permanent closure created and destroyed by user.
-    // Default is NULL, means no init function.
-    // Return false if init failed.
-    // If any init function returns false, then the server will start failed.
-    ExtClosure<bool()>* work_thread_init_func;
-
-    // Thread destroy function called at ending of each work thread (even if init failed).
-    // This closure should be a permanent closure created and destroyed by user.
-    // Default is NULL, means no destroy function.
-    ExtClosure<void()>* work_thread_dest_func;
 
     RpcServerOptions()
         : work_thread_num(1)
@@ -61,8 +49,6 @@ struct RpcServerOptions {
         , max_throughput_out(-1)
         , disable_builtin_services(false)
         , disable_list_service(false)
-        , work_thread_init_func(NULL)
-        , work_thread_dest_func(NULL)
     {}
 };
 

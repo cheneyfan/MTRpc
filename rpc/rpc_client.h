@@ -2,7 +2,6 @@
 #define _MTRPC_RPC_CLIENT_H_
 
 #include <string>
-
 #include "rpc_channel.h"
 #include "rpc_controller.h"
 namespace mtrpc {

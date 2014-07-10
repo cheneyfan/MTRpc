@@ -11,3 +11,12 @@ get_filename_component(libname ${CMAKE_CURRENT_SOURCE_DIR} NAME_WE)
 message("Add ${libname} to build")
 add_library(${libname} STATIC ${SRC} ${HEADERS})
 set_target_properties(${libname} PROPERTIES LINK_FLAGS "-static-libgcc -static-libstdc++ -Wl,--no-undefined")
+
+INSTALL(TARGETS ${libname} DESTINATION "./lib/")
+
+SET(RPC_HEADES rpc_channel.h
+rpc_client.h
+rpc_controller.h
+rpc_server.h
+)
+INSTALL(FILES ${RPC_HEADES} DESTINATION "./include/")

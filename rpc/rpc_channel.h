@@ -2,7 +2,7 @@
 #define _MTPRC_RPC_CHANNEL_H_
 
 #include <google/protobuf/service.h>
-#include <smart_ptr/smart_ptr.hpp>
+
 
 
 namespace mtrpc {
