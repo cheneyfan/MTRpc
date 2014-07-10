@@ -45,6 +45,7 @@ int RpcChannelImpl::Connect(const std::string& server_ip,int32_t server_port){
 
     _stream->handerMessageRecived =
             NewPermanentExtClosure(this,&RpcChannelImpl::OnMessageRecived);
+
     _stream->handerMessageSended =
             NewPermanentExtClosure(this,&RpcChannelImpl::OnMessageSended);
 
@@ -62,8 +63,13 @@ int RpcChannelImpl::Connect(const std::string& server_ip,int32_t server_port){
 
    }else if(ret == CONNECT_ING){
 
+       //
        _stream->AddEventASync(_poller,true,true);
        _stream->Wait();
+
+       TRACE("connect "<<server_ip<<":"
+             <<server_port<<" status:"<<
+             (_stream->_ConnectStatus == CONNECT_Ok ? "ok":"failed") );
 
        return _stream->_ConnectStatus == CONNECT_Ok ? 0 : -1 ;
    }
@@ -74,6 +80,8 @@ int RpcChannelImpl::Connect(const std::string& server_ip,int32_t server_port){
 
 void RpcChannelImpl::OnWriteable(SocketStream *sream, Epoller *p){
 
+
+    //once only send one packet
     if(sream->writebuf.isEmpty())
     {
         int size = 0;
@@ -216,8 +224,10 @@ void RpcChannelImpl::OnMessageRecived(ConnectStream *sream, Epoller* p){
           <<"readbuf,w:"<<sream->readbuf.writepos.toString()
           <<",r:"<<sream->readbuf.readpos.toString()<<",res:"<<params->response->DebugString());
 
-        cntl->SetStatus(sream->reqheader.status);
+    //notify the call
+    cntl->SetStatus(sream->reqheader.status);
 
+    delete  params;
 
     {
         WriteLock<MutexLock> wl(pendinglock);
@@ -239,6 +249,7 @@ void RpcChannelImpl::OnMessageRecived(ConnectStream *sream, Epoller* p){
 
 void RpcChannelImpl::OnMessageSended(ConnectStream* sream,Epoller* p){
 
+    TRACE("the packet has end,writebuf rpos:"<<sream->writebuf.readpos.toString()<<", wpos:"<<sream->writebuf.writepos.toString());
 
 }
 

@@ -39,32 +39,53 @@ int MessageStream::OnRecived(Epoller *p){
           <<",rpos:"<<readbuf.readpos.toString()
           <<",wpos:"<<readbuf.writepos.toString());
 
-    int ret = reqheader.ParserRequestHeader(readbuf);
+    // if the header parsered
 
-    if(ret == HTTP_PARSER_FAIL )
+    if(!reqheader.isReqParsed() )
     {
-        return -1;
+        int ret = reqheader.ParserRequestHeader(readbuf);
+
+        if(ret == HTTP_PARSER_FAIL )
+        {
+            return -1;
+        }
+
+        if(ret == HTTP_PASER_HALF)
+        {
+            return 0;
+        }
+
+        if( reqheader.GetContentLength() < 0)
+        {
+            return -1;
+        }
+
+        TRACE("recived:"<<ret
+              <<",length:"<<reqheader.content_length
+              <<",read:"<<readbuf.GetBufferUsed()
+              <<",rpos:"<<readbuf.readpos.toString()
+              <<",wpos:"<<readbuf.writepos.toString());
+
+
     }
 
-    if(ret == HTTP_PASER_HALF)
-    {
-        return 0;
-    }
+    int body_size = readbuf.writepos - reqheader.bodyStart;
 
-    TRACE("recived:"<<ret
-          <<",length:"<<reqheader.content_length
-          <<",read:"<<readbuf.GetBufferUsed()
-          <<",rpos:"<<readbuf.readpos.toString()
-          <<",wpos:"<<readbuf.writepos.toString());
+        TRACE("conteng length:"<<reqheader.GetContentLength()<<",recv body_size:"<<body_size);
 
     // need read more
-    if(reqheader.content_length  >  readbuf.GetBufferUsed())
+    if(reqheader.GetContentLength() > body_size)
     {
         return 0;
     }
 
+    //process packet
     if(handerMessageRecived)
+    {
         handerMessageRecived->Run(this, p);
+        reqheader.Reset();
+        //begin next parser
+    }
 
     return 0;
 }
@@ -76,6 +97,7 @@ int MessageStream::OnSended(Epoller *p)
     if(packetEnd == writebuf.readpos && handerMessageSended)
     {
         handerMessageSended->Run(this,p);
+        resheader.Reset();
     }
 
     return 0;

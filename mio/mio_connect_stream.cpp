@@ -70,32 +70,50 @@ int ConnectStream::OnRecived(Epoller *p){
           <<",rpos:"<<readbuf.readpos.toString()
           <<",wpos:"<<readbuf.writepos.toString());
 
-    int ret = resheader.ParserReponseHeader(readbuf);
 
-    if(ret == HTTP_PARSER_FAIL )
+    if(!resheader.isResParsed())
     {
-        return -1;
+        int ret = resheader.ParserReponseHeader(readbuf);
+
+        if(ret == HTTP_PARSER_FAIL )
+        {
+            return -1;
+        }
+
+        if(ret == HTTP_PASER_HALF)
+        {
+            return 0;
+        }
+
+        if( resheader.GetContentLength() < 0)
+        {
+            return -1;
+        }
+
+        TRACE("recived:"<<ret
+              <<",length:"<<resheader.content_length
+              <<",read:"<<readbuf.GetBufferUsed()
+              <<",rpos:"<<readbuf.readpos.toString()
+              <<",wpos:"<<readbuf.writepos.toString());
     }
 
-    if(ret == HTTP_PASER_HALF)
-    {
-        return 0;
-    }
 
-    TRACE("recived:"<<ret
-          <<",length:"<<resheader.content_length
-          <<",read:"<<readbuf.GetBufferUsed()
-          <<",rpos:"<<readbuf.readpos.toString()
-          <<",wpos:"<<readbuf.writepos.toString());
 
+    int body_size = readbuf.writepos - resheader.bodyStart;
+
+    TRACE("conteng length:"<<resheader.GetContentLength()<<",recv body_size:"<<body_size);
     // need read more
-    if(resheader.content_length  >  readbuf.GetBufferUsed())
+    if(resheader.GetContentLength()  >  body_size)
     {
         return 0;
     }
 
     if(handerMessageRecived)
+    {
         handerMessageRecived->Run(this, p);
+        resheader.Reset();
+        //begin next parser
+    }
 
     return 0;
 }
@@ -107,6 +125,7 @@ int ConnectStream::OnSended(Epoller *p)
     if(packetEnd == writebuf.readpos && handerMessageSended)
     {
         handerMessageSended->Run(this,p);
+        reqheader.Reset();
     }
 
     return 0;

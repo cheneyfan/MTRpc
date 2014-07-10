@@ -26,8 +26,6 @@ HttpHeader::HttpHeader(){
 void HttpHeader::Reset(){
     method.clear();
     path.clear();
-    content_type.clear();
-    content_length = 0;
     headers.clear();
     status = 0;
 
@@ -201,6 +199,7 @@ int HttpHeader::ParserRequestHeader(ReadBuffer & buf){
 
     }//end for
 
+    bodyStart = begin;
 
     return state == REQ_END_N ? HTTP_PASER_FINISH : HTTP_PASER_HALF;
 }
@@ -341,6 +340,8 @@ int HttpHeader::ParserReponseHeader(ReadBuffer & buf){
         }//switch c
     }//end for
 
+    bodyStart = begin;
+
     TRACE("paser finished:"<<toString());
     return state == RES_END_N ? HTTP_PASER_FINISH : HTTP_PASER_HALF;
 }
@@ -374,6 +375,7 @@ int HttpHeader::SerializeReponseHeader(WriteBuffer::Iterator& it){
 
     ret= snprintf(bufptr,size,"\r\n");
     bufptr+=ret;
+    *bufptr = '\0';
     size -= ret;
     it.get()->size = bufptr -bufpos;
     return true;
@@ -408,6 +410,7 @@ int HttpHeader::SerializeRequestHeader(WriteBuffer::Iterator& it){
     //end
     ret= snprintf(bufptr,size,"\r\n");
     bufptr+=ret;
+    *bufptr = '\0';
     size -= ret;
     it.get()->size = bufptr -bufpos;
     return true;
@@ -424,7 +427,7 @@ int HttpHeader::SetPath(const std::string& p)
 
 int HttpHeader::SetContentLength(uint32_t length)
 {
-    std::string key = "Content-Length";
+    const std::string key = "Content-Length";
     char buf[32] = {0};
     snprintf(buf, 32, "%u", length);
 
@@ -434,6 +437,17 @@ int HttpHeader::SetContentLength(uint32_t length)
     std::string value = "message/protobuf";
     headers.insert(std::make_pair(key, std::string(value)));
     return 0;
+}
+
+int HttpHeader::GetContentLength(){
+
+    const std::string key = "Content-Length";
+    std::map<std::string,std::string>::iterator it = headers.find(key);
+    if(it == headers.end())
+        return -1;
+
+    return strtol(it->second.c_str(),NULL,10);
+
 }
 
 int HttpHeader::SetRequestSeq(uint32_t seq){
@@ -452,6 +466,17 @@ int HttpHeader::SetResponseSeq(uint32_t seq){
     return 0;
 }
 
+
+bool HttpHeader::isReqParsed()
+{
+    return state == REQ_END_N;
+}
+
+bool HttpHeader::isResParsed()
+{
+    return state == RES_END_N;
+}
+
 int HttpHeader::SetStatus(uint32_t s){
 
     status = s;
@@ -467,8 +492,6 @@ std::string HttpHeader::toString(){
      str<<"method:"<<method<<",";
      str<<"path:"<<path<<",";
      str<<"version:"<<version<<",";
-     str<<"content_type:"<<content_type<<",";
-     str<<"content_length:"<<content_length<<",";
      str<<"status:"<<status<<",";
      str<<"status_meg:"<<status_meg<<",";
 

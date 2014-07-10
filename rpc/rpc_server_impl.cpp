@@ -87,6 +87,7 @@ int RpcServerImpl::ConnectionCount()
 int RpcServerImpl::Start(const std::string& server_address)
 {
 
+    //build in
     RegisterService(new builtin::BuiltinServiceImpl());
 
     /// init work group
@@ -242,8 +243,6 @@ void RpcServerImpl::OnCallMethodDone(RpcController* controller,const google::pro
     delete request;
     delete response;
     delete controller;
-
-
 }
 
 

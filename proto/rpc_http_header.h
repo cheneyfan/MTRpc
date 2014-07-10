@@ -24,10 +24,13 @@ public:
     int SetPath(const std::string &p);
 
     int SetContentLength(uint32_t length);
+    int GetContentLength();
     int SetRequestSeq(uint32_t seq);
     int SetResponseSeq(uint32_t seq);
     int SetStatus(uint32_t status);
-
+public:
+    bool isReqParsed();
+    bool isResParsed();
 public:
     void Reset();
     void MoveBufTo(std::string& s);
@@ -48,6 +51,8 @@ public:
 
     uint32_t status;
     std::string status_meg;
+
+    IOBuffer::Iterator bodyStart;
 };
 
 
