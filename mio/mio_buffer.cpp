@@ -41,21 +41,29 @@ IOBuffer::~IOBuffer(){
     delete que;
 }
 
+void IOBuffer::AlignWritePos()
+{
 
-IOBuffer::Iterator IOBuffer::Reserve(){
+    que[writepos._idx]->size = writepos._pos;
 
-    if(writepos._pos > 0)
+    writepos._pos = 0;
+    writepos._idx = MOD_PIECES(writepos._idx +1)
+}
+
+bool IOBuffer::Reserve(uint32_t size){
+
+    if(writepos._idx == readpos._idx
+            && writepos._pos < readpos._pos)
     {
-        que[writepos._idx]->size = writepos._pos;
-        writepos._idx = MOD_PIECES(writepos._idx + 1);
-        writepos._pos = 0;
+         return false;
     }
 
-    Iterator it = writepos;
+    if(que[writepos._idx]->size - writepos._pos < size )
+    {
+        AlignWritePos();
+    }
 
-    writepos._idx = MOD_PIECES(writepos._idx +1);
-
-    return it;
+    return true;
 }
 
 

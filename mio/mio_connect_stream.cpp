@@ -50,6 +50,8 @@ int ConnectStream::OnConnect(Epoller* p){
 
     // base
     SocketStream::OnConnect(p);
+
+
     {
         WriteLock<MutexLock> lock(mutex);
         _ConnectStatus = CONNECT_Ok;
@@ -110,6 +112,7 @@ int ConnectStream::OnRecived(Epoller *p){
 
     if(handerMessageRecived)
     {
+        //process one packet
         handerMessageRecived->Run(this, p);
         resheader.Reset();
         //begin next parser

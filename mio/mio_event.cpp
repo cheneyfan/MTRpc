@@ -276,11 +276,6 @@ void IOEvent::UpdateName(int fd, epoll_event* ee, char* buf){
         buf += sizeof("_ONESHOT") - 1;
     }
 
-    if(EPOLLERR &revents)
-    {
-        strncpy(buf, "_ERR", sizeof("_ERR"));
-        buf += sizeof("_ERR") - 1;
-    }
 }
 
 std::string IOEvent::EventStatusStr(uint32_t status){

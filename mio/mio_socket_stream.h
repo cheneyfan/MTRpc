@@ -44,6 +44,7 @@ public:
     virtual int OnReadTimeOut(Epoller* p);
     virtual int OnWriteimeOut(Epoller* p);
 
+
 public:
     //forward the event
     ExtClosure<void(SocketStream* sream,Epoller* p)>* handerConnected;
@@ -52,28 +53,27 @@ public:
     ExtClosure<void(SocketStream* sream,Epoller* p)>* handerClose;
     ExtClosure<void(SocketStream* sream,Epoller* p)>* handerReadTimeOut;
     ExtClosure<void(SocketStream* sream,Epoller* p)>* handerWriteimeOut;
+    ExtClosure<void(SocketStream* sream,Epoller* p,int error_code)>* handerError;
 
 public:
-    virtual int OnRecived(Epoller* p);
-    virtual int OnSended(Epoller* p);
+
+    //
+    virtual int OnRecived(Epoller* p,uint32_t buffer_size);
+    virtual int OnSended(Epoller* p,uint32_t buffer_size);
 
 
 
 
 public:
-    bool _isConnected;
+    volatile  bool _isConnected;
+
     std::string peer_ip;
     int peer_port;
     std::string local_ip;
     int local_port;
 
-    uint32_t buf_alloc_size;
-
     ReadBuffer readbuf;
     WriteBuffer writebuf;
-    WriteBuffer::Iterator packetEnd;
-
-
 };
 
 }

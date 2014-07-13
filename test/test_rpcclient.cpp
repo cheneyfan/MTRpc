@@ -27,7 +27,17 @@ int main(int argc,char*argv[]){
 
         ::mtrpc::builtin::HealthRequest req;
         ::mtrpc::builtin::HealthResponse res;
-        stub.Health(cntl,&req,&res,NULL);
+         stub.Health(cntl,&req,&res,NULL);
+
+
+        if(cntl->Failed())
+        {
+
+        }
+
+        delete cntl;
+
+
 
         std::cout<<"result:"<<res.health()<<std::endl;
     }

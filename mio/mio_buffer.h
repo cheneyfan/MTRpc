@@ -168,6 +168,22 @@ public:
             return std::string(buf);
        }
 
+       bool isBetween(const Iterator& A,const Iterator& B){
+
+           if(*this == A)
+               return true;
+           if(*this == B)
+               return false;
+
+           if(A  < B  || A == B)
+           {
+               return A<*this &&  *this< B;
+           }
+
+           //B A
+           return B<*this || A <*this;
+       }
+
     public:
        int _idx;
        int _pos;
@@ -192,7 +208,9 @@ public:
         return readpos;
     }
 
-    Iterator Reserve();
+    void AlignWritePos();
+
+    bool Reserve(uint32_t size);
 
     Iterator& end()
     {

@@ -5,9 +5,11 @@
 namespace mtrpc {
 
 
-enum HTTP_REQ_STATE{
-    REQ_START    = 0,
-    REQ_METHOD   = 1,
+enum HTTP_PARSER_STATE
+{
+    START        = 0,
+    END          = 1,
+    // for REQ
     REQ_PATH     = 2,
     REQ_VESION_R = 3,
     REQ_VESION_N = 4,
@@ -15,7 +17,17 @@ enum HTTP_REQ_STATE{
     REQ_VALUE_R  = 6,
     REQ_VALUE_N  = 7,
     REQ_END_R    = 8,
-    REQ_END_N    = 9,
+
+
+    //for
+    RES_STATUS           = 10,
+    RES_STATUS_MESSAGE_R = 11,
+    RES_STATUS_MESSAGE_N = 12,
+    RES_KEY              = 13,
+    RES_VALUE_R          = 14,
+    RES_VALUE_N          = 15,
+    RES_END_R            = 16,
+
 };
 
 
@@ -24,17 +36,79 @@ HttpHeader::HttpHeader(){
 }
 
 void HttpHeader::Reset(){
-    method.clear();
-    path.clear();
     headers.clear();
-    status = 0;
-
     version="HTTP/1.1";
 
-    state = REQ_METHOD;
-    memset(buf,0,2048);
+    state = START;
+    memset(buf,0,sizeof(buf));
     pos = buf;
 }
+
+void HttpHeader::SetContentLength(uint32_t length)
+{
+    {
+        static const std::string key = "Content-Length";
+        char buf[32] = {0};
+        snprintf(buf, sizeof(buf), "%u", length);
+        headers.insert(std::make_pair(key, std::string(buf)));
+    }
+
+    {
+        static const std::string key = "Content-Type";
+        static const std::string value = "message/protobuf";
+        headers.insert(std::make_pair(key, std::string(value)));
+    }
+}
+
+int HttpHeader::GetContentLength(){
+
+    const std::string key = "Content-Length";
+    std::map<std::string,std::string>::iterator it = headers.find(key);
+    if(it == headers.end())
+        return -1;
+
+    return strtol(it->second.c_str(),NULL,10);
+}
+
+void HttpHeader::SetSeq(uint64_t seq){
+
+    static const std::string key = "Seq";
+    char buf[32] = {0};
+    snprintf(buf, sizeof(buf), "%lu", length);
+    headers.insert(std::make_pair(key, std::string(buf)));
+}
+
+
+uint64_t HttpHeader::GetSeq(){
+
+    const std::string key = "Seq";
+    std::map<std::string,std::string>::iterator it = headers.find(key);
+    if(it == headers.end())
+        return -1;
+    return strtoull(it->second.c_str(),NULL,10);
+
+}
+
+
+
+std::string HttpHeader::toString(){
+    BufferPieces pi;
+
+    IOBuffer::Iterator it;
+    it._idx = it._pos = 0;
+    it._que = (BufferPieces**)&pi;
+
+    this->SerializeHeader(it);
+
+    return std::string(pi.buffer);
+}
+
+
+bool HttpHeader::isParsed(){
+    return state == END;
+}
+
+
 
 void HttpHeader::MoveBufTo(std::string& s)
 {
@@ -48,7 +122,7 @@ void HttpHeader::MoveBufTo(std::string& s)
     {
         s += *ptr;
         *ptr = '\0';
-         ptr++;
+        ptr++;
     }
 
     pos = buf;
@@ -71,7 +145,15 @@ void HttpHeader::MoveBufTo(uint32_t& s)
     pos=buf;
 }
 
-int HttpHeader::ParserRequestHeader(ReadBuffer & buf){
+
+HttpRequestHeader::HttpRequestHeader():
+    HttpHeader()
+{
+    method = "POST";
+}
+
+
+int HttpRequestHeader::ParserHeader(ReadBuffer & buf){
 
     ReadBuffer::Iterator& begin = buf.readpos;
     ReadBuffer::Iterator& end = buf.writepos;
@@ -81,18 +163,27 @@ int HttpHeader::ParserRequestHeader(ReadBuffer & buf){
 
 
 
-    for(; begin!=end && state!= REQ_END_N; ++begin)
+    for(; begin!=end && state!= END ; ++begin)
     {
 
         char c = *begin;
+
+        //onnly support the key size
+        if((pos - buf) >= MAX_KEY_LEN)
+            return HTTP_PARSER_FAIL;
+
         switch(state)
         {
 
-        case REQ_METHOD:
+        case START:
             switch(c)
             {
             case ' ':
                 MoveBufTo(method);
+                //only support POST
+                if(strcmp(metod.c_str(),"POST") !=0 )
+                    return HTTP_PARSER_FAIL;
+
                 state = REQ_PATH;
                 break;
             default:
@@ -107,6 +198,9 @@ int HttpHeader::ParserRequestHeader(ReadBuffer & buf){
             {
             case ' ':
                 MoveBufTo(path);
+                if(path.size() == 0)
+                    return HTTP_PARSER_FAIL;
+
                 state = REQ_VESION_R;
                 break;
             default:
@@ -186,39 +280,65 @@ int HttpHeader::ParserRequestHeader(ReadBuffer & buf){
             switch(c)
             {
             case '\n':
-                state = REQ_END_N;
+                state = END;
+                bodyStart = begin;
                 break;
             default:
                 return HTTP_PARSER_FAIL;
             }
             break;
-        case REQ_END_N:
-
-            break;
         }// switch
 
     }//end for
 
-    bodyStart = begin;
+    return state == END  ? HTTP_PASER_FINISH : HTTP_PASER_HALF;
+}
 
-    return state == REQ_END_N ? HTTP_PASER_FINISH : HTTP_PASER_HALF;
+int HttpRequestHeader::SerializeHeader(WriteBuffer::Iterator& it){
+
+    char * bufptr = it.get()->buffer + it._pos;
+    int size      = it.get()->size;
+
+    char * bufpos = bufptr;
+
+    //head
+    int ret = snprintf(bufptr,size,"%s %s %s\r\n"
+                       ,method.c_str(), path.c_str(), version.c_str());
+
+    bufptr += ret;
+    size   -= ret;
+    // key value
+
+    for(std::map<std::string,std::string>::iterator it = headers.begin();
+        it!=headers.end();++it)
+    {
+        std::string key = it->first;
+        std::string value = it->second;
+
+        ret = snprintf(bufptr,size,"%s: %s \r\n",key.c_str(),value.c_str());
+        bufptr+=ret;
+        size -= ret;
+    }
+
+    //end
+    ret= snprintf(bufptr,size,"\r\n");
+    bufptr+=ret;
+    *bufptr = '\0';
+    size -= ret;
+    //trunctate the buffer
+    it.get()->size = bufptr - bufpos;
+    return true;
 }
 
 
-enum HTTP_RES_STATE{
-    RES_START            = 0,
-    RES_VESION           = 1,
-    RES_STATUS           = 2,
-    RES_STATUS_MESSAGE_R = 3,
-    RES_STATUS_MESSAGE_N = 4,
-    RES_KEY              = 5,
-    RES_VALUE_R          = 6,
-    RES_VALUE_N          = 7,
-    RES_END_R            = 8,
-    RES_END_N            = 9,
-};
 
-int HttpHeader::ParserReponseHeader(ReadBuffer & buf){
+HttpReponseHeader::HttpReponseHeader():
+    HttpHeader()
+{
+
+}
+
+int HttpReponseHeader::ParserHeader(ReadBuffer & buf){
 
     ReadBuffer::Iterator& begin = buf.readpos;
     ReadBuffer::Iterator& end = buf.writepos;
@@ -226,13 +346,13 @@ int HttpHeader::ParserReponseHeader(ReadBuffer & buf){
     std::string key;
     std::string value;
 
-    for(; begin!=end && state!= RES_END_N; ++begin)
+    for(; begin!=end && state!= END; ++begin)
     {
         char c = *begin;
 
         switch(state)
         {
-        case RES_VESION:
+        case START:
             switch(c)
             {
             case ' ':
@@ -331,7 +451,8 @@ int HttpHeader::ParserReponseHeader(ReadBuffer & buf){
             switch(c)
             {
             case '\n':
-                state = RES_END_N;
+                state = END;
+                bodyStart = begin;
                 break;
             default:
                 return HTTP_PARSER_FAIL;
@@ -340,14 +461,14 @@ int HttpHeader::ParserReponseHeader(ReadBuffer & buf){
         }//switch c
     }//end for
 
-    bodyStart = begin;
+
 
     TRACE("paser finished:"<<toString());
-    return state == RES_END_N ? HTTP_PASER_FINISH : HTTP_PASER_HALF;
+    return state ==END ? HTTP_PASER_FINISH : HTTP_PASER_HALF;
 }
 
 
-int HttpHeader::SerializeReponseHeader(WriteBuffer::Iterator& it){
+int HttpReponseHeader::SerializeHeader(WriteBuffer::Iterator& it){
 
     char * bufptr = it.get()->buffer + it._pos;
     int size      = it.get()->size;
@@ -356,7 +477,7 @@ int HttpHeader::SerializeReponseHeader(WriteBuffer::Iterator& it){
 
     //head
     int ret = snprintf(bufptr,size,"%s %u %s\r\n"
-                      ,version.c_str(),status,status_meg.c_str());
+                       ,version.c_str(),status,status_meg.c_str());
 
     bufptr+=ret;
     size -= ret;
@@ -365,12 +486,12 @@ int HttpHeader::SerializeReponseHeader(WriteBuffer::Iterator& it){
     for(std::map<std::string,std::string>::iterator it = headers.begin();
         it!=headers.end();++it)
     {
-           std::string key = it->first;
-           std::string value = it->second;
+        std::string key = it->first;
+        std::string value = it->second;
 
-           ret = snprintf(bufptr,size,"%s: %s \r\n",key.c_str(),value.c_str());
-           bufptr+=ret;
-           size -= ret;
+        ret = snprintf(bufptr,size,"%s: %s \r\n",key.c_str(),value.c_str());
+        bufptr+=ret;
+        size -= ret;
     }
 
     ret= snprintf(bufptr,size,"\r\n");
@@ -381,127 +502,7 @@ int HttpHeader::SerializeReponseHeader(WriteBuffer::Iterator& it){
     return true;
 }
 
-int HttpHeader::SerializeRequestHeader(WriteBuffer::Iterator& it){
 
-    char * bufptr = it.get()->buffer + it._pos;
-    int size      = it.get()->size;
-
-    char * bufpos = bufptr;
-
-    //head
-    int ret = snprintf(bufptr,size,"%s %s %s\r\n"
-                      ,method.c_str(), path.c_str(), version.c_str());
-
-    bufptr += ret;
-    size   -= ret;
-    // key value
-
-    for(std::map<std::string,std::string>::iterator it = headers.begin();
-        it!=headers.end();++it)
-    {
-           std::string key = it->first;
-           std::string value = it->second;
-
-           ret = snprintf(bufptr,size,"%s: %s \r\n",key.c_str(),value.c_str());
-           bufptr+=ret;
-           size -= ret;
-    }
-
-    //end
-    ret= snprintf(bufptr,size,"\r\n");
-    bufptr+=ret;
-    *bufptr = '\0';
-    size -= ret;
-    it.get()->size = bufptr -bufpos;
-    return true;
-}
-
-
-int HttpHeader::SetPath(const std::string& p)
-{
-    method="POST";
-    path = p;
-    version = "HTTP/1.1";
-    return 0;
-}
-
-int HttpHeader::SetContentLength(uint32_t length)
-{
-    const std::string key = "Content-Length";
-    char buf[32] = {0};
-    snprintf(buf, 32, "%u", length);
-
-    headers.insert(std::make_pair(key, std::string(buf)));
-
-    key = "Content-Type";
-    std::string value = "message/protobuf";
-    headers.insert(std::make_pair(key, std::string(value)));
-    return 0;
-}
-
-int HttpHeader::GetContentLength(){
-
-    const std::string key = "Content-Length";
-    std::map<std::string,std::string>::iterator it = headers.find(key);
-    if(it == headers.end())
-        return -1;
-
-    return strtol(it->second.c_str(),NULL,10);
-
-}
-
-int HttpHeader::SetRequestSeq(uint32_t seq){
-    std::string key = "Cookie";
-    char buf[32] = {0};
-    snprintf(buf, 32, "%u", seq);
-    headers.insert(std::make_pair(key, std::string(buf)));
-    return 0;
-}
-
-int HttpHeader::SetResponseSeq(uint32_t seq){
-    std::string key = "Set-Cookie";
-    char buf[32] = {0};
-    snprintf(buf, 32, "%u", seq);
-    headers.insert(std::make_pair(key, std::string(buf)));
-    return 0;
-}
-
-
-bool HttpHeader::isReqParsed()
-{
-    return state == REQ_END_N;
-}
-
-bool HttpHeader::isResParsed()
-{
-    return state == RES_END_N;
-}
-
-int HttpHeader::SetStatus(uint32_t s){
-
-    status = s;
-    status_meg ="OK";
-    return 0;
-}
-
-
-std::string HttpHeader::toString(){
-
-     std::stringstream str;
-
-     str<<"method:"<<method<<",";
-     str<<"path:"<<path<<",";
-     str<<"version:"<<version<<",";
-     str<<"status:"<<status<<",";
-     str<<"status_meg:"<<status_meg<<",";
-
-     for(std::map<std::string,std::string>::iterator it = headers.begin(); it !=headers.end();++it)
-     {
-         str<<it->first<<":"<<it->second<<",";
-     }
-
-     return str.str();
-}
 
 
 }

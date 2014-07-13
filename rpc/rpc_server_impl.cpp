@@ -150,12 +150,19 @@ void  RpcServerImpl::OnMessageRecived(MessageStream* stream,Epoller*p){
 
     if (!ParseMethodFullName(method_full_name, &service_name, &method_name))
     {
+        //TODO Set not found
         return;
     }
 
     TRACE("OnMessageRecived fullname:"<<method_full_name<<",service_name:"<<service_name<<",method_name:"<<method_name);
 
     ServiceBoard* service_board = _service_pool->FindService(service_name);
+
+    if(service_board == NULL)
+    {
+        //TODO set not found
+        return;
+    }
 
     google::protobuf::Service* service = service_board->Service();
 
@@ -169,6 +176,7 @@ void  RpcServerImpl::OnMessageRecived(MessageStream* stream,Epoller*p){
 
 
 
+
     bool ret = request->ParseFromZeroCopyStream(&stream->readbuf);
 
     TRACE("req:"<<request->GetDescriptor()->full_name()
@@ -177,9 +185,12 @@ void  RpcServerImpl::OnMessageRecived(MessageStream* stream,Epoller*p){
           <<",rpos:"<<stream->readbuf.readpos.toString()
           <<",wpos:"<<stream->readbuf.writepos.toString());
 
+    //TODO SET PARTER ERRORS
     google::protobuf::RpcController* controller = new RpcController();
 
     MethodBoard* method_board = service_board->Method(method->index());
+
+    //TODO SET METHOND not find;
 
     method_board->ReportProcessBegin();
 
@@ -214,9 +225,13 @@ bool RpcServerImpl::ParseMethodFullName(const std::string& method_full_name,
 
 void RpcServerImpl::OnCallMethodDone(RpcController* controller,const google::protobuf::Message* request,google::protobuf::Message* response,MessageStream* stream,Epoller* p){
 
+
+    //just append message and set write able
+
     WriteBuffer& buf = stream->writebuf;
     HttpHeader& resheader = stream->resheader;
 
+    resheader.SetResponseSeq(reqheader);
     resheader.SetStatus(200);
 
     WriteBuffer::Iterator packetstart = buf.Reserve();

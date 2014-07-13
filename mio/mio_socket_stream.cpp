@@ -89,9 +89,9 @@ int SocketStream::OnReadable(Epoller *p)
         handerReadable->Run(this,p);
 
     int read_size = 0;
-    int ret  = 0;
+    int ret = 0;
 
-    //EDGE triger
+    //EDGE triger,read until EAGIN
     do{
         struct iovec invec[MAX_BUFFER_PIECES];
         int in_num = MAX_BUFFER_PIECES;
@@ -123,11 +123,12 @@ int SocketStream::OnReadable(Epoller *p)
         readbuf.MoveRecivePtr(ret);
 
         read_size += ret;
+
     }while(ret > 0);
 
 
     if(read_size > 0)
-        this->OnRecived(p);
+        ret = this->OnRecived(p, read_size);
 
     return  0;
 }
@@ -147,17 +148,18 @@ int SocketStream::OnWriteable(Epoller *p)
     int ret = 0;
 
     int write_size = 0;
+
+        //EDGE triger,write until EAGIN
     do{
 
         struct iovec outvec[MAX_BUFFER_PIECES];
         int out_num = MAX_BUFFER_PIECES;
 
-        if(!writebuf.GetSendBuffer(outvec,out_num, packetEnd))
+        if(!writebuf.GetSendBuffer(outvec,out_num))
         {
             TRACE("packet has send ,sock:"<<_fd
                   <<",writebuf rp:"<<writebuf.readpos.toString()
-                  <<",writebuf wp:"<<writebuf.writepos.toString()
-                  <<",packetEnd:"<<packetEnd.toString());
+                  <<",writebuf wp:"<<writebuf.writepos.toString());
             break;
         }
 
@@ -176,17 +178,9 @@ int SocketStream::OnWriteable(Epoller *p)
 
         TRACE(name<<",send :"<<ret
               <<",writebuf rp:"<<writebuf.readpos.toString()
-              <<",writebuf wp:"<<writebuf.writepos.toString()
-              <<",packetEnd:"<<packetEnd.toString());
+              <<",writebuf wp:"<<writebuf.writepos.toString());
 
         writebuf.MoveSendPtr(ret);
-
-
-        if(writebuf.isEmpty())
-        {
-            TRACE(name<<":no buffer to send, disable write");
-            ModEventAsync(p,true,false);
-        }
 
         write_size += ret;
 
@@ -195,7 +189,7 @@ int SocketStream::OnWriteable(Epoller *p)
 
     //a packet write ok
     if(write_size > 0)
-        this->OnSended(p);
+        ret = this->OnSended(p, write_size);
 
     return ret;
 }
@@ -227,12 +221,12 @@ int SocketStream::OnWriteimeOut(Epoller* p)
     return 0;
 }
 
-int SocketStream::OnRecived(Epoller* p)
+int SocketStream::OnRecived(Epoller* p, uint32_t buffer_size)
 {
     return 0;
 }
 
-int SocketStream::OnSended(Epoller* p)
+int SocketStream::OnSended(Epoller* p, uint32_t buffer_size)
 {
     return 0;
 }

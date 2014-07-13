@@ -4,21 +4,38 @@
 namespace mtrpc{
 
 enum ErrorCode {
-    RPC_SUCCESS = 200,
+    OK = 200,
 
     //for http parser
-    HTTP_PARSER_FAIL  = 100,
-    HTTP_PASER_HALF   = 101,
-    HTTP_PASER_FINISH = 102,
+    HTTP_PARSER_FAIL  = 400,
+    HTTP_PASER_HALF   = 401,
+    HTTP_PASER_FINISH = 402,
 
-    CONNECT_OK        = 1000,
-    CONNECT_FAIL      = 1001,
-    CONNECT_IPROCESS  = 10002,
+    HTTP_REQ_OVERSIZE = 410,
+    HTTP_REQ_NOLENGTH = 411,
+
+
+    HTTP_SERVER_NOTFOUND = 423,
+    HTTP_METHOD_NOTFOUND = 424,
+
+
+
+    SERVER_READBUFFER_EMPTY  = 500,
+    SERVER_READBUFFER_FULL   = 501,
+
+    SERVER_WRIEBUFFER_EMPTY  = 502,
+    SERVER_WRIEBUFFER_FULL   = 503,
+
+
+
+    CLIENT_CONNECT_OK        = 1000,
+    CLIENT_CONNECT_FAIL      = 1001,
+    CLIENT_CONNECT_IPROCESS  = 10002,
 
 };
 
 // Convert rpc error code to human readable string.
-const char* ErrorCodeToString(int error_code);
+const char* ErrorString(int error_code);
 
 
 } // namespace mtrpc

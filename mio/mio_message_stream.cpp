@@ -29,21 +29,11 @@ MessageStream::~MessageStream(){
 
 
 
-int MessageStream::OnRecived(Epoller *p){
+int MessageStream::OnRecived(Epoller *p, uint32_t buffer_size){
 
-    TRACE("recived:"<<readbuf.readpos.get()->buffer);
-
-    TRACE("recived begin:"
-          <<",length:"<<reqheader.content_length
-          <<",read:"<<readbuf.GetBufferUsed()
-          <<",rpos:"<<readbuf.readpos.toString()
-          <<",wpos:"<<readbuf.writepos.toString());
-
-    // if the header parsered
-
-    if(!reqheader.isReqParsed() )
-    {
-        int ret = reqheader.ParserRequestHeader(readbuf);
+    //consume the buffer
+    do{
+        reqheader.ParserHeader(readbuf);
 
         if(ret == HTTP_PARSER_FAIL )
         {
@@ -55,19 +45,12 @@ int MessageStream::OnRecived(Epoller *p){
             return 0;
         }
 
-        if( reqheader.GetContentLength() < 0)
+        if(reqheader.GetContentLength() < 0)
         {
             return -1;
         }
 
-        TRACE("recived:"<<ret
-              <<",length:"<<reqheader.content_length
-              <<",read:"<<readbuf.GetBufferUsed()
-              <<",rpos:"<<readbuf.readpos.toString()
-              <<",wpos:"<<readbuf.writepos.toString());
 
-
-    }
 
     int body_size = readbuf.writepos - reqheader.bodyStart;
 
@@ -87,13 +70,19 @@ int MessageStream::OnRecived(Epoller *p){
         //begin next parser
     }
 
+
+    }while(buffer_size > 0);
+
     return 0;
 }
 
 
-int MessageStream::OnSended(Epoller *p)
+int MessageStream::OnSended(Epoller *p, uint32_t buffer_size)
 {
 
+    //keep status, seq, response
+    //if pending write to buf,else
+    //disable write
     if(packetEnd == writebuf.readpos && handerMessageSended)
     {
         handerMessageSended->Run(this,p);

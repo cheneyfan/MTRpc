@@ -6,55 +6,127 @@
 #include <map>
 namespace mtrpc {
 
+#define MAX_KEY_LEN 256
 
-
-class HttpHeader {
+///
+/// \brief The HttpHeader class
+///
+///  HttpHeader + protobuf body,
+///  the content lenth is only the size of proto buf.
+///
+///
+class HttpHeader{
 public:
+
     HttpHeader();
 
-    /// load
-    int ParserRequestHeader(ReadBuffer & buf);
-    int ParserReponseHeader(ReadBuffer & buf);
+    ///
+    /// \brief Reset begin every parser
+    ///
+    virtual void Reset();
+
+    ///
+    /// \brief ParserHeader will move buf readpos.
+    /// \param buf
+    /// \return
+    ///
+    virtual int ParserHeader(ReadBuffer & buf)= 0;
+
+    ///
+    /// \brief SerializeHeader
+    /// \param it
+    /// \return
+    ///
+    virtual int SerializeHeader(WriteBuffer::Iterator& it) = 0;
 
 
-    int SerializeRequestHeader(WriteBuffer::Iterator& it);
-    int SerializeReponseHeader(WriteBuffer::Iterator& it);
 
+    ///
+    /// \brief SetContentLength
+    /// \param length
+    ///
+    void SetContentLength(uint32_t length);
 
-    int SetPath(const std::string &p);
-
-    int SetContentLength(uint32_t length);
     int GetContentLength();
-    int SetRequestSeq(uint32_t seq);
-    int SetResponseSeq(uint32_t seq);
-    int SetStatus(uint32_t status);
+
+
+
+    ///
+    /// \brief SetSeq a seq mark a request;
+    /// \param seq
+    ///
+    void SetSeq(uint64_t seq);
+    uint64_t GetSeq();
+
+
+    ///
+    /// \brief toString for test
+    /// \return
+    ///
+    std::string toString();
+
+    ///
+    /// \brief isParsed the header is parser over
+    /// \return
+    ///
+    bool isParsed();
 public:
-    bool isReqParsed();
-    bool isResParsed();
-public:
-    void Reset();
+    /// helper the parser
     void MoveBufTo(std::string& s);
     void MoveBufTo(uint32_t& s);
-    std::string toString();
+
 public:
     int state;
-    char buf[2048];
+    char buf[MAX_KEY_LEN];
     char* pos;
+
+public:
+    std::map<std::string,std::string> headers;
+    IOBuffer::Iterator bodyStart;
+    std::string version;
+};
+
+class HttpRequestHeader:public HttpHeader {
+public:
+    HttpRequestHeader();
+
+    /// strict check for this come from diff client
+    ///
+    virtual int ParserHeader(ReadBuffer & buf);
+
+    virtual int SerializeHeader(WriteBuffer::Iterator& it);
+
+
+    int SetPath(const std::string &p){
+        p = path;
+    }
+
 public:
     std::string method;
-
     std::string path;
-    std::string version;
-    std::string content_type;
-    uint32_t content_length;
-    std::map<std::string,std::string> headers;
+};
+
+
+class HttpReponseHeader:public HttpHeader {
+public:
+
+    HttpReponseHeader();
+    /// load
+    ///
+    virtual int ParserHeader(ReadBuffer & buf);
+    virtual int SerializeHeader(WriteBuffer::Iterator& it);
+
+
+    int SetStatus(uint32_t s){
+        status = s;
+        status_meg = "OK";
+    }
+
+public:
 
     uint32_t status;
     std::string status_meg;
-
-    IOBuffer::Iterator bodyStart;
 };
-
 
 }
 
