@@ -1,6 +1,5 @@
 build/
 *.exe
-*.txt
 *.def
 *.dsp
 *.lib
