@@ -218,7 +218,7 @@ public:
         return readpos;
     }
 
-    void AlignWritePos();
+    WriteBuffer::Iterator AlignWritePos();
 
     bool Reserve(uint32_t size);
 

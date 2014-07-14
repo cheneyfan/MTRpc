@@ -7,7 +7,7 @@
 namespace mtrpc {
 
 #define MAX_KEY_LEN 256
-
+#define MAX_HEADER_SIZE 1024
 ///
 /// \brief The HttpHeader class
 ///
@@ -120,15 +120,15 @@ public:
     virtual int SerializeHeader(WriteBuffer::Iterator& it);
 
 
-    void SetStatus(uint32_t s){
+    void SetStatus(uint32_t s,const std::string msg){
         status = s;
-        status_meg = "OK";
+        status_msg = msg;
     }
 
 public:
 
     uint32_t status;
-    std::string status_meg;
+    std::string status_msg;
 };
 
 }

@@ -194,13 +194,7 @@ void  RpcServerImpl::OnMessageRecived(MessageStream* stream,Epoller*p){
 
     method_board->ReportProcessBegin();
 
-    google::protobuf::Closure* done = NewClosure(this,
-                                                 &RpcServerImpl::OnCallMethodDone,
-                                                 (RpcController*)controller,
-                                                 request,
-                                                 response,
-                                                 stream,
-                                                 p);
+
 
     service->CallMethod(method, controller, request, response, done);
 

@@ -1,6 +1,6 @@
 #include "mio/mio_message_stream.h"
 
-#include <google/protobuf/message.h>
+
 #include "proto/rpc_http_header.h"
 #include "thread/ext_closure.h"
 #include "common/rwlock.h"
@@ -14,7 +14,7 @@ enum CONNECT_STATUS {
 
 };
 
-typedef ::google::protobuf::Message Message;
+
 
 ///
 /// \brief The ConnectStream class

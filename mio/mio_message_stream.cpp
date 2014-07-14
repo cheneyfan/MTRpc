@@ -5,14 +5,8 @@
 namespace mtrpc {
 
 
-MessageStream::MessageStream():
-    SocketStream(),
-    handerMessageRecived(NULL),
-    handerMessageSended(NULL)
-{
-}
-
 MessageStream::MessageStream(int sockfd):
+    SocketStream(),
     handerMessageRecived(NULL),
     handerMessageSended(NULL)
 {
@@ -91,11 +85,8 @@ int MessageStream::OnSended(Epoller *p, uint32_t buffer_size)
     //keep status, seq, response
     //if pending write to buf,else
     //disable write
-    if(packetEnd == writebuf.readpos && handerMessageSended)
-    {
-        handerMessageSended->Run(this,p);
-        resheader.Reset();
-    }
+
+    handerMessageSended->Run(this,p,buffer_size);
 
     return 0;
 }

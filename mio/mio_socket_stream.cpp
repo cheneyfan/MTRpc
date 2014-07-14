@@ -131,6 +131,7 @@ int SocketStream::OnReadable(Epoller *p)
         if(!readbuf.GetReciveBuffer(invec,in_num))
         {
             WARN(name<<",no buf left in read buf");
+
             this->handerError(this,p,SERVER_READBUFFER_FULL);
             //close
             return -1;
@@ -200,8 +201,12 @@ int SocketStream::OnWriteable(Epoller *p)
 
         ret = writev(_fd, outvec, out_num);
 
-        if(ret == -1 &&
-                ( errno == EAGAIN || errno == EWOULDBLOCK || errno == EINTR)) {
+        if(ret == -1
+                &&
+                 ( errno == EAGAIN
+                  || errno == EWOULDBLOCK
+                  || errno == EINTR))
+        {
             //write at next time
             TRACE(name <<",ret:"<<ret<<",errorno:"<<errno<<",str:"<<strerror(errno));
             break;
@@ -233,7 +238,6 @@ int SocketStream::OnWriteable(Epoller *p)
             this->OnClose(p);
         else
             ModEventAsync(p,true,false);
-        return 0;
     }
 
     return ret;
