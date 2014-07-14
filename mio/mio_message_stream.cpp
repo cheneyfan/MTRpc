@@ -37,6 +37,8 @@ int MessageStream::OnRecived(Epoller *p, uint32_t buffer_size){
 
         if(ret == HTTP_PARSER_FAIL )
         {
+            this->handerError(this,p,HTTP_PARSER_FAIL);
+            WARN(name<<"HTTP_PARSER_FAIL");
             return -1;
         }
 
@@ -47,29 +49,35 @@ int MessageStream::OnRecived(Epoller *p, uint32_t buffer_size){
 
         if(reqheader.GetContentLength() < 0)
         {
+            this->handerError(this,p,HTTP_REQ_NOLENGTH);
             return -1;
         }
 
 
+        int body_size = readbuf.writepos - reqheader.bodyStart;
 
-    int body_size = readbuf.writepos - reqheader.bodyStart;
+        TRACE(name<<"conteng length:"<<reqheader.GetContentLength()<<",recv body_size:"<<body_size);
 
-        TRACE("conteng length:"<<reqheader.GetContentLength()<<",recv body_size:"<<body_size);
+        // need read more
+        if(reqheader.GetContentLength() > body_size)
+        {
+            return 0;
+        }
 
-    // need read more
-    if(reqheader.GetContentLength() > body_size)
-    {
-        return 0;
-    }
+        IOBuffer::Iterator it = readbuf.readpos;
 
-    //process packet
-    if(handerMessageRecived)
-    {
-        handerMessageRecived->Run(this, p);
-        reqheader.Reset();
-        //begin next parser
-    }
+        //process packet
+        if(handerMessageRecived)
+        {
+            handerMessageRecived->Run(this, p);
+            reqheader.Reset();
+            //begin next parser
+        }
 
+        if(this->_close_when_empty)
+            break;
+
+        buffer_size -= (readbuf.readpos - it);
 
     }while(buffer_size > 0);
 

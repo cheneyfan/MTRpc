@@ -49,6 +49,7 @@ enum  EVENT_STATUS{
     EVENT_CLOSE = 0x40,
     READ_TIME_OUT = 0x80,
     WRITE_TIME_OUT = 0x100,
+    EVENT_ERR  = 0x200,
 };
 
 
@@ -76,7 +77,7 @@ public:
     volatile uint32_t _events;
 
     /// to debug()
-    char name[32];
+    char name[64];
 
     /// the key
     ngx_rbtree_node_t wtimernode;
@@ -143,7 +144,7 @@ public:
     int SetEvent(bool readable,bool writeable);
 
     //on debug
-    void UpdateName();
+    virtual void UpdateName();
     static void UpdateName(int fd, epoll_event* ev, char* buf);
     static std::string EventStatusStr(uint32_t status);
 

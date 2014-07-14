@@ -193,7 +193,7 @@ void IOEvent::UpdateName(int fd, epoll_event* ee, char* buf){
 
     buf += snprintf(buf,
                     sizeof(name),
-                    "%p,%d",
+                    "object:%p,%d",
                     ee->data.ptr,fd);
 
     int revents = ee->events;
@@ -323,6 +323,13 @@ std::string IOEvent::EventStatusStr(uint32_t status){
     {
         strncpy(ptr,"WROUT|",sizeof("WROUT|"));
         ptr+=sizeof("WROUT|")-1;
+    }
+
+
+    if(status&EVENT_ERR)
+    {
+        strncpy(ptr,"ERR|",sizeof("ERR|"));
+        ptr+=sizeof("ERR|")-1;
     }
 
     return std::string(buf);

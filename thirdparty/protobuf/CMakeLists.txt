@@ -1,8 +1,5 @@
-set(PROTOPATH ${THIRD_PATH}/protobuf)
-add_thirdparty_library(${PROTOPATH} protobuf)
 
-if(NOT EXISTS ${PROTOPATH}/lib/libprotobuf.a)
-MESSAGE("build")
+
 externalproject_add(protobuf_build
     DOWNLOAD_DIR ${PROTOPATH}
     URL https://protobuf.googlecode.com/files/protobuf-2.5.0.tar.gz
@@ -14,5 +11,14 @@ externalproject_add(protobuf_build
     INSTALL_DIR ${PROTOPATH}
 )
 
+
+add_custom_target(protobuf_clean COMMAND rm -fr build
+    COMMAND rm -fr include
+    COMMAND rm -fr lib
+    COMMAND rm -fr protobuf-2.5.0
+    COMMAND rm -fr bin
+    WORKING_DIRECTORY ${PROTOPATH}
+)
+
 add_dependencies(protobuf protobuf_build)
-endif()
+add_dependencies(protobuf_build protobuf_clean)

@@ -3,6 +3,7 @@ cmake_minimum_required(VERSION 2.8)
 
 set(THIRD_PATH ${CMAKE_SOURCE_DIR}/thirdparty)
 
+
 #add third party
 macro(add_thirdparty_library DIR)
 
@@ -11,8 +12,8 @@ macro(add_thirdparty_library DIR)
     INCLUDE_DIRECTORIES(${DIR}/include)
 
     
-    #file(GLOB_RECURSE HEADERS_H   "${DIR}/include/*.h")
-    #file(GLOB_RECURSE HEADERS_HPP "${DIR}/include/*.hpp")
+    file(GLOB_RECURSE HEADERS_H   "${DIR}/include/*.h")
+    file(GLOB_RECURSE HEADERS_HPP "${DIR}/include/*.hpp")
 
     foreach(header ${HEADERS_H})
         #set_source_files_properties(${header} PROPERTY HEADER_FILE_ONLY TRUE)
@@ -21,7 +22,7 @@ macro(add_thirdparty_library DIR)
     foreach(libname ${ARGN})
 
 
-        #add_custom_target("${libname}_include" SOURCES ${HEADERS_H} ${HEADERS_HPP})
+        add_custom_target("${libname}_include" SOURCES ${HEADERS_H} ${HEADERS_HPP})
 
         add_library(${libname} STATIC IMPORTED)
 
@@ -38,6 +39,16 @@ endmacro(add_thirdparty_library)
 
 include(ExternalProject)
 
-add_subdirectory(protobuf)
-add_subdirectory(gtest)
+set(PROTOPATH ${THIRD_PATH}/protobuf)
+add_thirdparty_library(${PROTOPATH} protobuf)
+if(NOT EXISTS ${PROTOPATH}/lib/libprotobuf.a)
+    add_subdirectory(protobuf)
+endif()
+
+
+set(GTESTPATH ${THIRD_PATH}/gtest)
+add_thirdparty_library(${GTESTPATH} gtest)
+if(NOT EXISTS ${GTESTPATH}/lib/libgtest.a)
+   add_subdirectory(gtest)
+endif()
 

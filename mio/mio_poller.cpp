@@ -21,14 +21,19 @@ static uint32_t EventToMask(uint32_t events)
     if(events & EPOLLOUT)
         mask |= EVENT_WRITE;
 
-    if(events & (EPOLLHUP|EPOLLRDHUP|EPOLLERR))
+    if(events & (EPOLLHUP|EPOLLRDHUP))
         mask |= EVENT_CLOSE;
+
+
 
     if(events & WRITE_TIME_OUT)
         mask |=  WRITE_TIME_OUT;
 
     if(events & READ_TIME_OUT)
         mask |= READ_TIME_OUT;
+
+    if(events & (EPOLLERR))
+        mask |= EVENT_ERR;
     return mask;
 }
 

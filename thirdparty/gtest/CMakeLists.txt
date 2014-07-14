@@ -1,7 +1,4 @@
-set(GTESTPATH ${THIRD_PATH}/gtest)
-add_thirdparty_library(${GTESTPATH} gtest)
 
-if(NOT EXISTS ${GTESTPATH}/lib/libgtest.a)
 
     externalproject_add(gtest_build
         DOWNLOAD_DIR ${GTESTPATH}
@@ -29,4 +26,4 @@ if(NOT EXISTS ${GTESTPATH}/lib/libgtest.a)
 
     add_dependencies(gtest gtest_build)
     add_dependencies(gtest_build gtest_clean)
-endif()
+

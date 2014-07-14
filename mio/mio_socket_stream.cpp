@@ -7,7 +7,7 @@ namespace mtrpc{
 SocketStream::SocketStream():
     IOEvent(),
     _isConnected(false),
-    buf_alloc_size(DEFAULT_BUFFER_SIZE)
+    _close_when_empty(false)
 {
 }
 
@@ -25,10 +25,27 @@ void SocketStream::OnEvent(Epoller* p,uint32_t mask)
     if(mask & EVENT_CLOSE)
     {
         _isConnected = false;
-        this->OnClose(p);
+        //not close directly;
+
+        if(writebuf.isEmpty())
+        {
+            this->OnClose(p);
+        }
+        else
+        {
+            this->_close_when_empty = true;
+            this->ModEventAsync(p,true,true);
+        }
         return ;
     }
 
+    if(mask & EVENT_ERR)
+    {
+        _isConnected = false;
+        TRACE(name<<"error:"<<errno<<","<<strerror(errno))
+        this->OnClose(p);
+        return ;
+    }
 
     if(!_isConnected && (mask &(EVENT_READ|EVENT_WRITE)))
     {
@@ -45,29 +62,24 @@ void SocketStream::OnEvent(Epoller* p,uint32_t mask)
 
     if(mask & EVENT_READ)
     {
-        ret |= this->OnReadable(p);
+        this->OnReadable(p);
     }
 
-    if(mask & EVENT_WRITE)
+    if(mask & EVENT_WRITE )
     {
-        ret |= this->OnWriteable(p);
+        rthis->OnWriteable(p);
     }
 
-    if(mask & READ_TIME_OUT)
+    if(mask & READ_TIME_OUT )
     {
-        ret |= this->OnReadTimeOut(p);
+        this->OnReadTimeOut(p);
     }
 
     if(mask & WRITE_TIME_OUT)
     {
-        ret |= this->OnWriteimeOut(p);
+        this->OnWriteimeOut(p);
     }
 
-    if(ret < 0 )
-    {
-        TRACE("OnEvent mask:"<<mask<<",ret:"<<ret<<", close it");
-        this->OnClose(p);
-    }
 }
 
 int SocketStream::SocketStream::OnConnect(Epoller* p)
@@ -75,13 +87,33 @@ int SocketStream::SocketStream::OnConnect(Epoller* p)
     TcpSocket::getlocal(_fd, local_ip, local_port);
     TcpSocket::getpeer(_fd, peer_ip, peer_port);
 
-    TRACE("sock connect:"<<_fd<<",local:"<<local_ip<<":"<<local_port<<",peer:"<<peer_ip<<":"<<peer_port);
+    if(local_ip.size() == 0 ||
+            peer_ip.size() ==0)
+    {
+        TRACE("sock get ip failed:"<<_fd<<",local:"<<local_ip<<":"<<local_port<<",peer:"<<peer_ip<<":"<<peer_port);
+        return -1;
+    }
+
+    this->UpdateName();
+
 
     if(handerConnected)
         handerConnected->Run(this,p);
 
+    TRACE("sock connect:"<<_fd<<",local:"<<local_ip<<":"<<local_port<<",peer:"<<peer_ip<<":"<<peer_port);
+
     return 0;
 }
+
+
+void SocketStream::UpdateName(){
+    snprintf(name,"%d(%s:%d->%s:%d)",
+             _fd,
+             local_ip.c_str(), local_port,
+             peer_ip.c_str(), peer_port);
+
+}
+
 
 int SocketStream::OnReadable(Epoller *p)
 {
@@ -98,11 +130,11 @@ int SocketStream::OnReadable(Epoller *p)
 
         if(!readbuf.GetReciveBuffer(invec,in_num))
         {
-            WARN("sock:"<<_fd<<",no buf left in read buf");
+            WARN(name<<",no buf left in read buf");
+            this->handerError(this,p,SERVER_READBUFFER_FULL);
             //close
             return -1;
         }
-
 
         ret = readv(_fd, invec, in_num);
 
@@ -110,7 +142,7 @@ int SocketStream::OnReadable(Epoller *p)
         if(ret == -1 &&
                 ( errno == EAGAIN || errno == EWOULDBLOCK || errno == EINTR)) {
             //nead read when next event trigger
-            TRACE("sock:"<<_fd<<",ret:"<<ret<<",errorno:"<<errno<<",str:"<<strerror(errno));
+            TRACE(name<<",ret:"<<ret<<",errorno:"<<errno<<",str:"<<strerror(errno));
             break;
         }else if(ret <= 0){
 
@@ -141,7 +173,10 @@ int SocketStream::OnWriteable(Epoller *p)
     if(writebuf.isEmpty())
     {
         TRACE(name<<":no buffer to send, disable write");
-        ModEventAsync(p,true,false);
+        if(_close_when_empty)
+            this->OnClose(p);
+        else
+            ModEventAsync(p,true,false);
         return 0;
     }
 
@@ -191,6 +226,16 @@ int SocketStream::OnWriteable(Epoller *p)
     if(write_size > 0)
         ret = this->OnSended(p, write_size);
 
+    if(writebuf.isEmpty())
+    {
+        TRACE(name<<":no buffer to send, disable write");
+        if(_close_when_empty)
+            this->OnClose(p);
+        else
+            ModEventAsync(p,true,false);
+        return 0;
+    }
+
     return ret;
 }
 
@@ -223,11 +268,13 @@ int SocketStream::OnWriteimeOut(Epoller* p)
 
 int SocketStream::OnRecived(Epoller* p, uint32_t buffer_size)
 {
+    TRACE(name<<" OnRecived");
     return 0;
 }
 
 int SocketStream::OnSended(Epoller* p, uint32_t buffer_size)
 {
+    TRACE(name<<" OnSended");
     return 0;
 }
 

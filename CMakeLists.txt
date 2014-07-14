@@ -25,16 +25,16 @@ set(CMAKE_INSTALL_PREFIX "${CMAKE_SOURCE_DIR}/out")
 
 
 # add thirdparty to globle includes
-add_subdirectory(thirdparty)
+include(thirdparty/CMakeLists.txt)
 
 
 add_subdirectory(common)
 add_subdirectory(inspect)
 add_subdirectory(json)
 add_subdirectory(log)
-#add_subdirectory(mio)
+add_subdirectory(mio)
 add_subdirectory(proto)
-#add_subdirectory(rpc)
+add_subdirectory(rpc)
 add_subdirectory(smart_ptr)
 add_subdirectory(thread)
 

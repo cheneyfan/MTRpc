@@ -62,10 +62,11 @@ public:
     virtual int OnSended(Epoller* p,uint32_t buffer_size);
 
 
-
+    virtual void UpdateName();
 
 public:
-    volatile  bool _isConnected;
+    volatile bool _isConnected;
+    volatile bool _close_when_empty;
 
     std::string peer_ip;
     int peer_port;
