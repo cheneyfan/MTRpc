@@ -15,12 +15,18 @@ set(PROTOCMDSHELL  ${PROTOCMD} " --cpp_out=. ")
 set(PROTOCMDSHELL  "${PROTOCMDSHELL} ${PROTO_INPUT}")
 
 STRING(REPLACE ";" " " PROTO_CMD_SHELL "${PROTOCMDSHELL}")
+
+
+file(GLOB_RECURSE HEADERS "*.h")
+file(GLOB_RECURSE SOURCES "*.c[c|p]*")
+
+if(NOT SOURCES)
 EXECUTE_PROCESS(COMMAND sh -c ${PROTO_CMD_SHELL}
                  WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR})
 
 file(GLOB_RECURSE HEADERS "*.h")
 file(GLOB_RECURSE SOURCES "*.c[c|p]*")
-
+endif()
 
 #include
 #set(PROTOCMD  ${PROTOCMD} " --proto_path=. --proto_path=${PROTOC_HOME}/include ")
@@ -53,13 +59,11 @@ add_custom_target("PROTO_FILES" SOURCES ${PROTO_INPUT})
 get_filename_component(libname ${CMAKE_CURRENT_SOURCE_DIR} NAME_WE)
 message("Add ${libname} to build ${PROTO_GEN}")
 
-#add_library(${libname} STATIC ${PROTO_GEN})
-add_library(${libname} STATIC ${SOURCES} ${HEADERS} )
+message("Add ${libname} to build")
+add_library(${libname} OBJECT ${SOURCES} ${HEADERS})
+add_library(${libname}_static STATIC $<TARGET_OBJECTS:${libname}>)
 
-#add_dependencies(${libname} ${PROTO_GEN} "SourceCode")
-set_target_properties(${libname} PROPERTIES LINK_FLAGS "-static-libgcc -static-libstdc++ -Wl,--no-undefined")
-
-INSTALL(TARGETS ${libname} DESTINATION "./lib/")
+INSTALL(TARGETS ${libname}_static DESTINATION "./lib/")
 
 
 file(GLOB_RECURSE RPC_HEADES "*.pb.h")

@@ -9,7 +9,9 @@ file(GLOB_RECURSE SRC "*.[ch]pp")
 get_filename_component(libname ${CMAKE_CURRENT_SOURCE_DIR} NAME_WE)
 
 message("Add ${libname} to build")
-add_library(${libname} STATIC ${SRC} ${HEADERS})
-set_target_properties(${libname} PROPERTIES LINK_FLAGS "-static-libgcc -static-libstdc++ -Wl,--no-undefined")
+add_library(${libname} OBJECT ${SRC} ${HEADERS})
+add_library(${libname}_static STATIC $<TARGET_OBJECTS:${libname}>)
 
-INSTALL(TARGETS ${libname} DESTINATION "./lib/")
+
+INSTALL(TARGETS ${libname}_static DESTINATION "./lib/")
+INSTALL(FILES ${HEADERS} DESTINATION "./include/proto/")

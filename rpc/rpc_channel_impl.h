@@ -66,7 +66,8 @@ public:
         ::google::protobuf::Closure* done;
 
         ~CallParams(){
-            delete controller;
+            //delete controller;
+            //ls
             delete done;
         }
     };

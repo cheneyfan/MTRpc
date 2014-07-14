@@ -97,7 +97,7 @@ public:
     virtual int SerializeHeader(WriteBuffer::Iterator& it);
 
 
-    int SetPath(const std::string &p){
+    void SetPath(const std::string p){
         p = path;
     }
 
@@ -117,7 +117,7 @@ public:
     virtual int SerializeHeader(WriteBuffer::Iterator& it);
 
 
-    int SetStatus(uint32_t s){
+    void SetStatus(uint32_t s){
         status = s;
         status_meg = "OK";
     }

@@ -1,4 +1,4 @@
-prefix=/home/guofutan/workspace/moduleframework/thirdparty/protobuf
+prefix=/home/guofutan/workspace/MTRpc/thirdparty/protobuf
 exec_prefix=${prefix}
 libdir=${exec_prefix}/lib
 includedir=${prefix}/include

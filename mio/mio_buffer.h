@@ -74,6 +74,16 @@ public:
             _idx(idx),_pos(pos),_que(que)
         {
         }
+        
+        bool operator< (const Iterator& it) const
+        {
+            if(_idx < it._idx)
+                return true;
+            else if(_idx > it._idx)
+                return false;
+            
+            return _pos < it._pos;
+        }
 
         int operator - (const Iterator& it) const
         {

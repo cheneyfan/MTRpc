@@ -74,7 +74,7 @@ void HttpHeader::SetSeq(uint64_t seq){
 
     static const std::string key = "Seq";
     char buf[32] = {0};
-    snprintf(buf, sizeof(buf), "%lu", length);
+    snprintf(buf, sizeof(buf), "%lu", seq);
     headers.insert(std::make_pair(key, std::string(buf)));
 }
 
@@ -169,8 +169,10 @@ int HttpRequestHeader::ParserHeader(ReadBuffer & buf){
         char c = *begin;
 
         //onnly support the key size
-        if((pos - buf) >= MAX_KEY_LEN)
+        if((pos - this->buf) >= MAX_KEY_LEN)
             return HTTP_PARSER_FAIL;
+
+        std::string method;
 
         switch(state)
         {
@@ -179,9 +181,10 @@ int HttpRequestHeader::ParserHeader(ReadBuffer & buf){
             switch(c)
             {
             case ' ':
+
                 MoveBufTo(method);
                 //only support POST
-                if(strcmp(metod.c_str(),"POST") !=0 )
+                if(strcmp(method.c_str(),"POST") !=0 )
                     return HTTP_PARSER_FAIL;
 
                 state = REQ_PATH;

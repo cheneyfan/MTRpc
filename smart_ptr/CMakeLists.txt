@@ -15,4 +15,4 @@ add_custom_target(${libname} SOURCES ${HEADERS} ${SRC})
 #add_library(${libname} STATIC ${SRC} ${HEADERS})
 #set_target_properties(${libname} PROPERTIES LINK_FLAGS "-static-libgcc -static-libstdc++ -Wl,--no-undefined")
 
-#INSTALL(TARGETS ${libname} DESTINATION "./lib/")
+INSTALL(FILES ${HEADERS} ${SRC} DESTINATION "./include/")
