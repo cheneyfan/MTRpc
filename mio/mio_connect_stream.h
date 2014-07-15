@@ -64,8 +64,8 @@ public:
     ConditionVariable cv;
 
 
-    HttpHeader reqheader;
-    HttpHeader resheader;
+    HttpRequestHeader reqheader;
+    HttpReponseHeader resheader;
 };
 
 

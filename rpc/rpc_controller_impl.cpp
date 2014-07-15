@@ -4,7 +4,10 @@
 namespace mtrpc {
 
 RpcClientController::RpcClientController():
-RpcController(){
+RpcController(),
+_method(NULL),
+_done(NULL)
+{
 }
 
 RpcClientController::~RpcClientController()

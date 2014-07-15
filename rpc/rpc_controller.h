@@ -15,7 +15,6 @@ class RpcControllerImpl;
 class SocketStream;
 class Epoller;
 
-
 class RpcController :
         public google::protobuf::RpcController
 {

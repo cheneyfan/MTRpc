@@ -75,39 +75,12 @@ int RpcChannelImpl::Connect(const std::string& server_ip,int32_t server_port){
 }
 
 
-void RpcChannelImpl::OnWriteable(SocketStream *sream, Epoller *p){
 
-
-    //once only send one packet
-    if(sream->writebuf.isEmpty())
-    {
-        int size = 0;
-        CallParams * call = NULL;
-        {
-            WriteLock<MutexLock> lc(pendinglock);
-            size = pendingcall.size();
-            if(size > 0)
-                call = pendingcall.front();
-        }
-
-        if(size ==0 )
-            sream->ModEventAsync(_poller,true,false);
-        else{
-            SendToServer(call->method, call->controller, call->request);
-        }
-    }
-
-}
 
 void RpcChannelImpl::OnClose(SocketStream *sream, Epoller *p){
 
-    WriteLock<MutexLock> lc(pendinglock);
-    while(!pendingcall.empty()){
-        CallParams * call = pendingcall.front();
-        pendingcall.pop();
-        delete call;
-    }
 
+    _stream->ReleaseRef();
     //TODO reset sream
 }
 
@@ -129,12 +102,15 @@ void RpcChannelImpl::CallMethod(const ::google::protobuf::MethodDescriptor* meth
         return ;
     }
 
-    cntl->method = method;
-    cntl->request = request;
-    cntl->response = response;
-    cntl->done = done;
+    cntl->_poller =_poller;
+    cntl->_stream = _stream;
+    cntl->_request = request;
+    cntl->_response = response;
+    cntl->_method = method;
+    cntl->_done = done;
 
     //invoid the call by event thread
+    {
     WriteLock<MutexLock> lc(pendinglock);
     if(!pendingcall.empty()){
         pendingcall.push(cntl);
@@ -142,88 +118,119 @@ void RpcChannelImpl::CallMethod(const ::google::protobuf::MethodDescriptor* meth
     }
 
     SendToServer(method, controller, request);
-    _stream->ModEventAsync(_poller,true,true);
+
+    }
 }
 
 int RpcChannelImpl::SendToServer(const ::google::protobuf::MethodDescriptor* method,
                                  RpcClientController* cntl,
                                  const ::google::protobuf::Message* request){
 
-    HttpHeader& reqheader = _stream->reqheader;
+    HttpRequestHeader& reqheader = _stream->reqheader;
+    reqheader.Reset();
     WriteBuffer& buf = _stream->writebuf;
 
     reqheader.SetPath(method->full_name());
-    reqheader.SetRequestSeq(cntl->GetSeq());
+    reqheader.SetSeq(cntl->GetSeq());
 
-    WriteBuffer::Iterator it= buf.Reserve();
+    if(!buf.Reserve(MAX_HEADER_SIZE))
+    {
+        OnMessageError(stream,p,SERVER_WRIEBUFFER_FULL);
+        return -1;
+    }
+
+    WriteBuffer::Iterator packetStart = buf.writepos;
+    WriteBuffer::Iterator bodyStart   =  buf.AlignWritePos();
+
+    if(!request->SerializeToZeroCopyStream(&buf))
+    {
+        //roll back
+        buf.writepos = packetStart;
+        OnMessageError(stream,p,SERVER_RES_SERIA_FAILED);
+        return;
+    }
 
 
-    WriteBuffer::Iterator mark = buf.writepos;
-
-    bool ret = request->SerializeToZeroCopyStream(&buf);
-
-    TRACE("write ret:"<<ret
-          <<" writebuf,w:"<<buf.writepos.toString()
-          <<",r:"<<buf.readpos.toString());
-
-    _stream->packetEnd = buf.writepos;
-
-    int content_length = buf.writepos - mark;
+    cntl->_req_pack_size     = buf.writepos - packetStart;
+    uint32_t content_length  = buf.writepos - bodyStart;
 
     reqheader.SetContentLength(content_length);
-    reqheader.SerializeRequestHeader(it);
+    reqheader.SerializeHeader(packetStart);
 
-    TRACE("header:"<<it.get()->buffer);
+    _stream->ModEventAsync(_poller,true,true);
 
     return 0;
 }
 
-void RpcChannelImpl::OnMessageRecived(ConnectStream *sream, Epoller* p){
+void RpcChannelImpl::OnMessageSended(ConnectStream* stream,Epoller* p,uint32_t buffer_size){
 
-    CallParams* params = NULL;
+    {
+        WriteLock<MutexLock> lc(pendinglock);
+        if(pendingcall.empty() )
+        {
+            stream->ModEventAsync(p,true,false);
+            return;
+        }
+
+        RpcClientController *  cntl = pendingcall.front();
+    }
+
+
+    cntl ->_req_send_size  += buffer_size;
+
+    if(cntl ->_req_send_size < cntl ->_req_pack_size)
+    {
+        return ;
+    }
+
+    {
+        WriteLock<MutexLock> lc(pendinglock);
+        pending.pop();
+        if(pending.empty())
+        {
+            stream->ModEventAsync(p,true,false);
+            return;
+        }
+        cntl = pending.front();
+    }
+
+    SendMessage(cntl->method, cntl, cntl->_request);
+
+}
+
+void RpcChannelImpl::OnMessageRecived(ConnectStream *sream, Epoller* p,uint32_t buffer_size){
+
+    RpcClientController *  cntl = NULL;
 
     {
         WriteLock<MutexLock> wl(pendinglock);
-        params = pendingcall.front();
+        cntl = pendingcall.front();
         pendingcall.pop();
     }
 
-    if(params == NULL)
+    assert(cntl!=NULL);
+
+    int ContentLength = sream->resheader.GetContentLength();
+    if(ContentLength >0 && !cntl->_response->ParseFromZeroCopyStream(&sream->readbuf))
     {
-        WARN("no method pending");
+        OnMessageError(sream,p,SERVER_REQ_PARSER_FAILED);
         return;
+
     }
 
-    TRACE("parse begin:"
-          <<"readbuf,w:"<<sream->readbuf.writepos.toString()
-          <<",r:"<<sream->readbuf.readpos.toString()<<",status:"<<sream->reqheader.status);
-
-    int ret = params->response->ParseFromZeroCopyStream(&sream->readbuf);
-
-    RpcController * cntl = (RpcController *)params->controller;
-
-
-
-    TRACE("parse end:"<<ret
-          <<"readbuf,w:"<<sream->readbuf.writepos.toString()
-          <<",r:"<<sream->readbuf.readpos.toString()<<",res:"<<params->response->DebugString());
-
-
     //notify the call
-    cntl->SetStatus(sream->reqheader.status);
+    cntl->SetStatus(sream->resheader.status);
 
-    params->done->Run();
+    if(cntl->done)
+        cntl->done->Run();
 
-    delete  params;
+    cntl = NULL;
 
     {
         WriteLock<MutexLock> wl(pendinglock);
-        if(pendingcall.size() > 0 )
+        if(!pendingcall.empty())
         {
-            params =  pendingcall.front();
-        }else{
-
-            params =NULL;
+            cntl =  pendingcall.front();
         }
     }
 
@@ -234,13 +241,31 @@ void RpcChannelImpl::OnMessageRecived(ConnectStream *sream, Epoller* p){
 
 }
 
-void RpcChannelImpl::OnMessageSended(ConnectStream* sream,Epoller* p){
 
-    TRACE("the packet has end,writebuf rpos:"<<sream->writebuf.readpos.toString()<<", wpos:"<<sream->writebuf.writepos.toString());
 
+void RpcChannelImpl::OnMessageError(SocketStream* stream, Epoller* p, uint32_t error_code)
+{
+      RpcClientController *  cntl = NULL;
+
+      {
+          WriteLock<MutexLock> wl(pendinglock);
+          // 1 remove all pending
+          if(!pendingcall.empty())
+          {
+              cntl = penging.front();
+              penging.pop();
+          }
+      }
+
+      //notify client
+      if(cntl){
+          cntl->SetStatus(error_code);
+      }
+
+      //2 send fail header
+      stream->ModEventAsync(p, true, true);
+      stream->_close_when_empty = true;
 }
-
-
 
 
 

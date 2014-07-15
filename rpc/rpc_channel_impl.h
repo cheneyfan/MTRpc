@@ -63,13 +63,14 @@ public:
 
 public:
 
-    void OnMessageRecived(ConnectStream* sream,Epoller* p);
+    void OnMessageRecived(ConnectStream* sream,Epoller* p,uint32_t buffer_size);
 
-    void OnMessageSended(ConnectStream* sream,Epoller* p);
+    void OnMessageSended(ConnectStream* stream, Epoller* p, uint32_t buffer_size);
 
 
     void OnWriteable(SocketStream* sream,Epoller* p);
 
+    void OnMessageError(SocketStream* stream, Epoller* p, uint32_t error_code);
     void OnClose(SocketStream* sream,Epoller* p);
 
 public:

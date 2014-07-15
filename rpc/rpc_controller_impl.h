@@ -36,8 +36,8 @@ public:
     MutexLock mutex;
     ConditionVariable cv;
 
-    ::google::protobuf::MethodDescriptor* method;
-    ::google::protobuf::Closure* done;
+    ::google::protobuf::MethodDescriptor* _method;
+    ::google::protobuf::Closure* _done;
 };
 
 
