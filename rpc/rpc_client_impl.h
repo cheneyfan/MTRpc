@@ -32,6 +32,7 @@ public:
     int ConnectionCount();
 
     RpcChannel* GetChannel(const std::string& server_addr);
+    void ReleaseChannel(RpcChannel* channel);
 
 public:
     RpcClientOptions _options;

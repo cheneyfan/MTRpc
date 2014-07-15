@@ -13,33 +13,41 @@ typedef google::protobuf::int64 int64;
 
 
 
-class RpcControllerImpl {
+class RpcClientController: public RpcController {
 public:
-    RpcControllerImpl();
-    virtual ~RpcControllerImpl();
+    RpcClientController();
+    virtual ~RpcClientController();
 
 
+
+    bool IsRequestSent() const;
+
+    virtual void StartCancel();
+    // final "done" callback.
+    virtual bool IsCanceled() const;
+
+    virtual void NotifyOnCancel(google::protobuf::Closure* callback);
     ///
     /// \brief Wait
     ///
     void Wait();
 
-
-    ///
-    /// \brief SetStatus
-    /// \param status
-    ///
-    void SetStatus(int status);
-
-
 public:
-
     MutexLock mutex;
     ConditionVariable cv;
 
-    std::string _msg;
-    volatile int  _status;
+    ::google::protobuf::MethodDescriptor* method;
+    ::google::protobuf::Closure* done;
 };
+
+
+class RpcServerController: public RpcController {
+public:
+
+    RpcServerController();
+
+};
+
 
 }
 

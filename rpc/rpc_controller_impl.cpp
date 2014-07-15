@@ -3,23 +3,17 @@
 
 namespace mtrpc {
 
-RpcControllerImpl::RpcControllerImpl():
-_status(-1){
-
+RpcClientController::RpcClientController():
+RpcController(){
 }
 
-
-RpcControllerImpl::~RpcControllerImpl()
+RpcClientController::~RpcClientController()
 {
 
 }
 
-
-
-
-void RpcControllerImpl::Wait()
+void RpcClientController::Wait()
 {
-
     while(_status == -1)
     {
         WriteLock<MutexLock> lock(mutex);
@@ -28,11 +22,16 @@ void RpcControllerImpl::Wait()
 }
 
 
-void RpcControllerImpl::SetStatus(int status)
+void RpcClientController::SetStatus(int status)
 {
     WriteLock<MutexLock> lock(mutex);
     _status = status;
     cv.notifyOne();
+}
+
+
+RpcServerController:: RpcServerController():
+RpcController(){
 }
 
 

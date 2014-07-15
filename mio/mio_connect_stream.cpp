@@ -1,6 +1,7 @@
 #include "mio_connect_stream.h"
 #include "mio/tcpsocket.h"
 #include "log/log.h"
+#include "mio/mio_error_code.h"
 
 namespace mtrpc {
 
@@ -16,13 +17,16 @@ ConnectStream::ConnectStream()
     TcpSocket::setNoblock(_fd,true);
     TcpSocket::setNoTcpDelay(_fd,true);
 
-    _ConnectStatus = CONNECT_FAILE;
+    _ConnectStatus = CLIENT_CONNECT_FAIL;
 }
 
 ConnectStream::~ConnectStream()
 {
     delete handerMessageRecived;
     delete handerMessageSended;
+
+    handerMessageRecived = NULL;
+    handerMessageSended  = NULL;
 }
 
 int ConnectStream::Connect(const std::string& server_ip,int32_t server_port){
@@ -35,12 +39,12 @@ int ConnectStream::Connect(const std::string& server_ip,int32_t server_port){
 
     if(ret == 0)
     {
-        _ConnectStatus = CONNECT_Ok;
+        _ConnectStatus = CLIENT_CONNECT_OK;
     }else if(ret < 0 && save_errno != EINPROGRESS )
     {
-         _ConnectStatus = CONNECT_FAILE;
+         _ConnectStatus = CLIENT_CONNECT_FAIL;
     }else
-         _ConnectStatus = CONNECT_ING;
+         _ConnectStatus = CLIENT_CONNECT_IPROCESS;
 
     return _ConnectStatus;
 }
@@ -51,34 +55,27 @@ int ConnectStream::OnConnect(Epoller* p){
     // base
     SocketStream::OnConnect(p);
 
-
+    if(CONNECT_ING == _ConnectStatus)
     {
         WriteLock<MutexLock> lock(mutex);
-        _ConnectStatus = CONNECT_Ok;
+        _ConnectStatus = CLIENT_CONNECT_OK;
+        cv.notifyOne();
     }
-    cv.notifyOne();
 
     return 0;
 }
 
 
-int ConnectStream::OnRecived(Epoller *p){
+int ConnectStream::OnRecived(Epoller *p, uint32_t buffer_size){
 
-    TRACE("recived:"<<readbuf.readpos.get()->buffer);
-
-    TRACE("recived begin:"
-          <<",length:"<<reqheader.content_length
-          <<",read:"<<readbuf.GetBufferUsed()
-          <<",rpos:"<<readbuf.readpos.toString()
-          <<",wpos:"<<readbuf.writepos.toString());
-
-
-    if(!resheader.isResParsed())
-    {
-        int ret = resheader.ParserReponseHeader(readbuf);
+    //consume the buffer
+    do{
+        resheader.ParserHeader(readbuf);
 
         if(ret == HTTP_PARSER_FAIL )
         {
+            this->handerMessageError(this,p,HTTP_PARSER_FAIL);
+            WARN(name<<"HTTP_PARSER_FAIL");
             return -1;
         }
 
@@ -87,50 +84,47 @@ int ConnectStream::OnRecived(Epoller *p){
             return 0;
         }
 
-        if( resheader.GetContentLength() < 0)
+        if(resheader.GetContentLength() < 0)
         {
+            this->handerMessageError(this,p,HTTP_REQ_NOLENGTH);
             return -1;
         }
 
-        TRACE("recived:"<<ret
-              <<",length:"<<resheader.content_length
-              <<",read:"<<readbuf.GetBufferUsed()
-              <<",rpos:"<<readbuf.readpos.toString()
-              <<",wpos:"<<readbuf.writepos.toString());
-    }
+        int body_size = readbuf.writepos - resheader.bodyStart;
 
+        TRACE(name<<"conteng length:"<<resheader.GetContentLength()<<",recv body_size:"<<body_size);
 
+        // need read more
+        if(resheader.GetContentLength() > body_size)
+        {
+            return 0;
+        }
 
-    int body_size = readbuf.writepos - resheader.bodyStart;
+        IOBuffer::Iterator it = readbuf.readpos;
 
-    TRACE("conteng length:"<<resheader.GetContentLength()<<",recv body_size:"<<body_size);
-    // need read more
-    if(resheader.GetContentLength()  >  body_size)
-    {
-        return 0;
-    }
+        //process packet
+        if(handerMessageRecived)
+        {
+            handerMessageRecived->Run(this, p);
+            resheader.Reset();
+            //begin next parser
+        }
 
-    if(handerMessageRecived)
-    {
-        //process one packet
-        handerMessageRecived->Run(this, p);
-        resheader.Reset();
-        //begin next parser
-    }
+        if(this->_close_when_empty)
+            break;
+
+        buffer_size -= (readbuf.readpos - it);
+
+    }while(buffer_size > 0);
 
     return 0;
 }
 
 
-int ConnectStream::OnSended(Epoller *p)
+int ConnectStream::OnSended(Epoller *p, uint32_t buffer_size)
 {
 
-    if(packetEnd == writebuf.readpos && handerMessageSended)
-    {
-        handerMessageSended->Run(this,p);
-        reqheader.Reset();
-    }
-
+    handerMessageSended->Run(this,p);
     return 0;
 }
 
@@ -141,11 +135,12 @@ int ConnectStream::OnClose(Epoller* p){
 
     SocketStream::OnClose(p);
 
-
-    WriteLock<MutexLock> lock(mutex);
-    _ConnectStatus = CONNECT_FAILE;
-
-    cv.notifyOne();
+    if(CLIENT_CONNECT_IPROCESS ==_ConnectStatus)
+    {
+        WriteLock<MutexLock> lock(mutex);
+        _ConnectStatus = CLIENT_CONNECT_FAIL;
+        cv.notifyOne();
+    }
 
     return 0;
 }
@@ -153,7 +148,7 @@ int ConnectStream::OnClose(Epoller* p){
 
 void ConnectStream::Wait(){
 
-    while(_ConnectStatus == CONNECT_ING)
+    while(_ConnectStatus == CLIENT_CONNECT_IPROCESS)
     {
         WriteLock<MutexLock> lock(mutex);
         cv.wait(&mutex._mutex);

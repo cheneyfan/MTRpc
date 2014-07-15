@@ -7,12 +7,7 @@
 
 namespace mtrpc {
 
-enum CONNECT_STATUS {
-    CONNECT_FAILE = 0,
-    CONNECT_Ok = 1,
-    CONNECT_ING = 2,
 
-};
 
 
 
@@ -51,8 +46,8 @@ public :
     /// \param p
     /// \return
     ///
-    virtual int OnRecived(Epoller* p);
-    virtual int OnSended(Epoller* p);
+    virtual int OnRecived(Epoller* p, uint32_t buffer_size);
+    virtual int OnSended(Epoller* p, uint32_t buffer_size);
 
 
 public:
@@ -61,6 +56,7 @@ public:
     ExtClosure<void(ConnectStream* sream,Epoller* p)>*  handerMessageRecived;
 
     ExtClosure<void(ConnectStream* sream,Epoller* p)>*  handerMessageSended;
+
 
 
     volatile int _ConnectStatus;

@@ -53,7 +53,7 @@ public:
     ExtClosure<void(SocketStream* sream,Epoller* p)>* handerClose;
     ExtClosure<void(SocketStream* sream,Epoller* p)>* handerReadTimeOut;
     ExtClosure<void(SocketStream* sream,Epoller* p)>* handerWriteimeOut;
-    ExtClosure<void(SocketStream* sream,Epoller* p,int error_code)>* handerError;
+    ExtClosure<void(SocketStream* sream,Epoller* p,int error_code)>* handerMessageError;
 
 public:
 

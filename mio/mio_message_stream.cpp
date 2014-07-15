@@ -31,7 +31,7 @@ int MessageStream::OnRecived(Epoller *p, uint32_t buffer_size){
 
         if(ret == HTTP_PARSER_FAIL )
         {
-            this->handerError(this,p,HTTP_PARSER_FAIL);
+            this->handerMessageError(this,p,HTTP_PARSER_FAIL);
             WARN(name<<"HTTP_PARSER_FAIL");
             return -1;
         }
@@ -43,7 +43,7 @@ int MessageStream::OnRecived(Epoller *p, uint32_t buffer_size){
 
         if(reqheader.GetContentLength() < 0)
         {
-            this->handerError(this,p,HTTP_REQ_NOLENGTH);
+            this->handerMessageError(this,p,HTTP_REQ_NOLENGTH);
             return -1;
         }
 
@@ -82,10 +82,7 @@ int MessageStream::OnRecived(Epoller *p, uint32_t buffer_size){
 int MessageStream::OnSended(Epoller *p, uint32_t buffer_size)
 {
 
-    //keep status, seq, response
-    //if pending write to buf,else
-    //disable write
-
+    //for
     handerMessageSended->Run(this,p,buffer_size);
 
     return 0;

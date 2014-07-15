@@ -5,52 +5,28 @@
 
 namespace mtrpc {
 
-RpcController::RpcController():
-    _impl(new RpcControllerImpl())
+RpcController::RpcController()
 {
-}
-
-
-RpcController::~RpcController(){
-
-    delete _impl;
-}
-
-
-std::string RpcController::LocalAddress() const{
-
-    return "";
-}
-
-
-std::string  RpcController::RemoteAddress() const{
-
-    return "";
-}
-
-void RpcController::Reset(){
-
-}
-
-
-void RpcController::SetTimeout(int64 timeout_in_ms){
-
-}
-
-int64 RpcController::Timeout() const{
-
-    return 0;
+    Reset();
 }
 
 
 
-void RpcController::SetRequestCompressType(CompressType compress_type){
+virtual void RpcController::Reset()
+{
 
+    _msg = "";
+    _status = -1;
+
+    _packetsize = 0;
+    _request = NULL;
+    _response= NULL;
+    _stream  = NULL;
+    _poller  = NULL;
 }
 
-
-
-void RpcController::SetResponseCompressType(CompressType compress_type){
+RpcController::~RpcController()
+{
 
 }
 
@@ -58,7 +34,7 @@ void RpcController::SetResponseCompressType(CompressType compress_type){
 
 bool RpcController::Failed() const{
 
-    return _impl->_status != RPC_SUCCESS;
+    return _status == OK;
 
 }
 
@@ -66,68 +42,33 @@ bool RpcController::Failed() const{
 
 int RpcController::ErrorCode() const{
 
-    return _impl->_status;
+    return _status;
 }
 
 
 std::string RpcController::ErrorText() const
 {
 
-    return _impl->_msg;
+    return _msg;
 }
 
 
-bool RpcController::IsRequestSent() const{
-
-    return true;
+void RpcController::SetFailed(const std::string& reason)
+{
+    _msg = reason;
 }
 
-int64 RpcController::SentBytes() const{
+uint64_t RpcController::GetSeq(){
 
-    return 0;
-}
-
-void RpcController::StartCancel(){
-
-
-}
-
-
-void RpcController::SetFailed(const std::string& reason){
-
-    _impl->_msg = reason;
-}
-
-
-bool RpcController::IsCanceled() const{
-
-    return true;
-}
-
-
-
-void RpcController::NotifyOnCancel(google::protobuf::Closure* callback){
-
-}
-
-
-
-
-void RpcController::Wait(){
-
-    _impl->Wait();
-}
-
-
-uint32_t RpcController::GetSeq(){
-
-    return 1;
+    uint64_t t = time(NULL);
+    return  t<<32 | rand();
 }
 
 
 void RpcController::SetStatus(int status)
 {
-    _impl->SetStatus(status);
+    _status = status;
+    _msg =  ErrorString(_status);
 }
 
 }

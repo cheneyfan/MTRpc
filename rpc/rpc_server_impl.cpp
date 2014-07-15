@@ -15,7 +15,7 @@
 
 #include "proto/builtin_service_impl.h"
 #include "log/log.h"
-
+#include "rpc_server_connect.h"
 namespace mtrpc {
 
 
@@ -29,10 +29,7 @@ RpcServerImpl::RpcServerImpl(const RpcServerOptions& options):
 
     poller = new Epoller();
     group = new WorkGroup();
-
     _service_pool = new ServicePool();
-
-
 }
 
 RpcServerImpl::~RpcServerImpl()
@@ -42,23 +39,7 @@ RpcServerImpl::~RpcServerImpl()
 
 bool RpcServerImpl::RegisterService(google::protobuf::Service* service, bool take_ownership)
 {
-    std::stringstream str;
-
     const google::protobuf::ServiceDescriptor * desc = service->GetDescriptor();
-/*
-    str <<"Service:"<<desc->full_name()<<",method_num:"<<desc->method_count()<<std::endl;
-
-    for(int i = 0;i < desc->method_count();++i)
-    {
-        const google::protobuf::MethodDescriptor * mdesc = desc->method(i);
-        str<<"    method:"<<mdesc->full_name()
-          <<",req:"<<mdesc->input_type()->full_name()
-         <<",res:"<<mdesc->output_type()->full_name()<<std::endl;
-    }
-
-    INFO("Regiter: "<<str.str());
-    */
-
     return _service_pool->RegisterService(service, take_ownership);
 }
 
@@ -83,6 +64,7 @@ int RpcServerImpl::ConnectionCount()
 {
     return 0;
 }
+
 
 int RpcServerImpl::Start(const std::string& server_address)
 {
@@ -131,75 +113,42 @@ void RpcServerImpl::Stop(){
 
 void RpcServerImpl::OnAccept(int sockfd){
 
-
     // add new stream
-    MessageStream* stream = new MessageStream(sockfd);
+    ServerConnect* stream = new ServerConnect(sockfd);
 
-    stream->group = group;
-    stream->handerMessageRecived = NewPermanentExtClosure(this,&RpcServerImpl::OnMessageRecived);
+    stream->handlerGetServiceAndMethod = NewPermanentExtClosure(this,&RpcServerImpl::handlerGetServiceAndMethod);
 
-    stream->AddEventASync(poller,true,false);
+    stream->Start(poller,group);
 
 }
 
-void  RpcServerImpl::OnMessageRecived(MessageStream* stream,Epoller*p){
+bool  RpcServerImpl::handlerGetServiceAndMethod(const std::string& method_full_name,
+                                                google::protobuf::Service**service,
+                                                google::protobuf::MethodDescriptor**method){
 
-    std::string& method_full_name = stream->reqheader.path;
+
     std::string service_name;
     std::string method_name;
 
     if (!ParseMethodFullName(method_full_name, &service_name, &method_name))
     {
-        //TODO Set not found
-        return;
-    }
 
-    TRACE("OnMessageRecived fullname:"<<method_full_name<<",service_name:"<<service_name<<",method_name:"<<method_name);
+        return false;
+    }
 
     ServiceBoard* service_board = _service_pool->FindService(service_name);
 
     if(service_board == NULL)
     {
-        //TODO set not found
-        return;
+
+        return false;
     }
 
-    google::protobuf::Service* service = service_board->Service();
+    *service = service_board->Service();
 
-    const google::protobuf::MethodDescriptor* method =
-            service->GetDescriptor()->FindMethodByName(method_name);
+    *method  = service->GetDescriptor()->FindMethodByName(method_name);
 
-    google::protobuf::Message* request
-            = service->GetRequestPrototype(method).New();
-    google::protobuf::Message* response
-            = service->GetResponsePrototype(method).New();
-
-
-
-
-    bool ret = request->ParseFromZeroCopyStream(&stream->readbuf);
-
-    TRACE("req:"<<request->GetDescriptor()->full_name()
-          <<",res:"<<request->GetDescriptor()->full_name()
-          <<",ret:"<<ret
-          <<",rpos:"<<stream->readbuf.readpos.toString()
-          <<",wpos:"<<stream->readbuf.writepos.toString());
-
-    //TODO SET PARTER ERRORS
-    google::protobuf::RpcController* controller = new RpcController();
-
-    MethodBoard* method_board = service_board->Method(method->index());
-
-    //TODO SET METHOND not find;
-
-    method_board->ReportProcessBegin();
-
-
-
-    service->CallMethod(method, controller, request, response, done);
-
-    method_board->ReportProcessEnd(true,1);
-
+    return true;
 }
 
 
@@ -214,44 +163,6 @@ bool RpcServerImpl::ParseMethodFullName(const std::string& method_full_name,
     *service_full_name = method_full_name.substr(0, pos);
     *method_name = method_full_name.substr(pos + 1);
     return true;
-}
-
-
-void RpcServerImpl::OnCallMethodDone(RpcController* controller,const google::protobuf::Message* request,google::protobuf::Message* response,MessageStream* stream,Epoller* p){
-
-
-    //just append message and set write able
-
-    WriteBuffer& buf = stream->writebuf;
-    HttpHeader& resheader = stream->resheader;
-
-    resheader.SetResponseSeq(reqheader);
-    resheader.SetStatus(200);
-
-    WriteBuffer::Iterator packetstart = buf.Reserve();
-
-    WriteBuffer::Iterator itlast  = buf.writepos;
-
-    response->SerializeToZeroCopyStream(&buf);
-
-    stream->packetEnd = buf.writepos;
-
-    uint32_t content_length  = stream->packetEnd - itlast;
-
-    resheader.SetContentLength(content_length);
-
-    resheader.SerializeReponseHeader(packetstart);
-
-    stream->ModEventAsync(p, true, true);
-
-    TRACE("send header:"<<packetstart.get()->buffer
-          <<",rpos"<<buf.readpos.toString()
-          <<",wpos"<<buf.writepos.toString());
-
-
-    delete request;
-    delete response;
-    delete controller;
 }
 
 

@@ -8,7 +8,7 @@
 namespace mtrpc {
 
 RpcChannelImpl::RpcChannelImpl(const RpcChannelOptions &options):
-_options(options),_stream(NULL){
+    _options(options),_stream(NULL){
 
 }
 
@@ -17,7 +17,7 @@ RpcChannelImpl::~RpcChannelImpl()
 
     if(_stream)
     {
-         _stream->ReleaseRef();
+        _stream->ReleaseRef();
     }
 }
 
@@ -33,6 +33,7 @@ RpcController* RpcChannelImpl:: GetController(){
 }
 
 int RpcChannelImpl::Connect(const std::string& server_ip,int32_t server_port){
+
 
 
 
@@ -52,29 +53,25 @@ int RpcChannelImpl::Connect(const std::string& server_ip,int32_t server_port){
     _stream->handerClose  =
             NewPermanentExtClosure(this,&RpcChannelImpl::OnClose);
 
+    int ret = _stream->Connect(server_ip, server_port);
 
+    if(ret == CLIENT_CONNECT_IPROCESS)
+    {
+        _stream->AddEventASync(_poller,true,true);
+        _stream->Wait();
+    }
 
-   int ret = _stream->Connect(server_ip, server_port);
+    if( stream->_ConnectStatus == CLIENT_CONNECT_OK)
+    {
+        _stream->AddEventASync(_poller,true,false);
+        return 0;
+    }
 
-   if(ret == CONNECT_Ok)
-   {
-       _stream->AddEventASync(_poller,true,false);
-       return 0;
+    // release
+    _stream->ReleaseRef();
+    _stream = NULL;
 
-   }else if(ret == CONNECT_ING){
-
-       //
-       _stream->AddEventASync(_poller,true,true);
-       _stream->Wait();
-
-       TRACE("connect "<<server_ip<<":"
-             <<server_port<<" status:"<<
-             (_stream->_ConnectStatus == CONNECT_Ok ? "ok":"failed") );
-
-       return _stream->_ConnectStatus == CONNECT_Ok ? 0 : -1 ;
-   }
-
-   return -1;
+    return -1;
 }
 
 
@@ -87,10 +84,10 @@ void RpcChannelImpl::OnWriteable(SocketStream *sream, Epoller *p){
         int size = 0;
         CallParams * call = NULL;
         {
-             WriteLock<MutexLock> lc(pendinglock);
-             size = pendingcall.size();
-             if(size > 0)
-                 call = pendingcall.front();
+            WriteLock<MutexLock> lc(pendinglock);
+            size = pendingcall.size();
+            if(size > 0)
+                call = pendingcall.front();
         }
 
         if(size ==0 )
@@ -116,56 +113,43 @@ void RpcChannelImpl::OnClose(SocketStream *sream, Epoller *p){
 
 
 void RpcChannelImpl::CallMethod(const ::google::protobuf::MethodDescriptor* method,
-                ::google::protobuf::RpcController* controller,
-                const ::google::protobuf::Message* request,
-                ::google::protobuf::Message* response,
-                ::google::protobuf::Closure* done){
+                                ::google::protobuf::RpcController* controller,
+                                const ::google::protobuf::Message* request,
+                                ::google::protobuf::Message* response,
+                                ::google::protobuf::Closure* done){
 
+    RpcClientController * cntl = (RpcClientController * )controller;
 
     if(_stream == NULL
-            || _stream->_ConnectStatus == CONNECT_FAIL)
+            || _stream->_ConnectStatus == CLIENT_CONNECT_FAIL)
     {
-        controller->SetFailed("Not Connect");
-        done->Run();
+        cntl->SetStatus(CLIENT_CONNECT_FAIL);
+        if(done)
+            done->Run();
         return ;
     }
 
+    cntl->method = method;
+    cntl->request = request;
+    cntl->response = response;
+    cntl->done = done;
 
-    CallParams *currentCall = new CallParams();
-
-    currentCall->method = method;
-    currentCall->controller = controller;
-    currentCall->request = request;
-    currentCall->response = response;
-    currentCall->done = done;
-    pendingcall.push(currentCall);
-
-    int size = 0;
-    {
-         WriteLock<MutexLock> lc(pendinglock);
-         size = pendingcall.size();
+    //invoid the call by event thread
+    WriteLock<MutexLock> lc(pendinglock);
+    if(!pendingcall.empty()){
+        pendingcall.push(cntl);
+        return;
     }
 
-    if(size == 1 )
-    {
-        _stream->ModEventAsync(_poller,true,true);
-    }
-
-    //sync
-    if(done == NULL)
-    {
-        RpcController * cntl = dynamic_cast<RpcController *>(controller);
-        cntl->Wait();
-    }
+    SendToServer(method, controller, request);
+    _stream->ModEventAsync(_poller,true,true);
 }
 
-int RpcChannelImpl::SendToServer(const ::google::protobuf::MethodDescriptor* method,::google::protobuf::RpcController* controller,const ::google::protobuf::Message* request){
-
-    RpcController* cntl =
-            dynamic_cast<RpcController*>(controller);
+int RpcChannelImpl::SendToServer(const ::google::protobuf::MethodDescriptor* method,
+                                 RpcClientController* cntl,
+                                 const ::google::protobuf::Message* request){
 
     HttpHeader& reqheader = _stream->reqheader;
-
     WriteBuffer& buf = _stream->writebuf;
 
     reqheader.SetPath(method->full_name());
@@ -199,9 +183,9 @@ void RpcChannelImpl::OnMessageRecived(ConnectStream *sream, Epoller* p){
     CallParams* params = NULL;
 
     {
-         WriteLock<MutexLock> wl(pendinglock);
-         params = pendingcall.front();
-         pendingcall.pop();
+        WriteLock<MutexLock> wl(pendinglock);
+        params = pendingcall.front();
+        pendingcall.pop();
     }
 
     if(params == NULL)
@@ -236,7 +220,7 @@ void RpcChannelImpl::OnMessageRecived(ConnectStream *sream, Epoller* p){
         WriteLock<MutexLock> wl(pendinglock);
         if(pendingcall.size() > 0 )
         {
-             params =  pendingcall.front();
+            params =  pendingcall.front();
         }else{
 
             params =NULL;

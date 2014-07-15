@@ -78,6 +78,8 @@ public:
 
     RpcChannel* GetChannel(const std::string& server_addr);
 
+    void ReleaseChannel(RpcChannel* channel);
+
 private:
     RpcClientImpl* _impl;
 

@@ -16,7 +16,7 @@ int RpcChannel::Connect(const std::string& server_ip,
 
 RpcChannel::~RpcChannel()
 {
-     delete _impl;
+    delete _impl;
 }
 
 bool RpcChannel::IsAddressValid()

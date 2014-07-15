@@ -16,6 +16,7 @@ class Epoller;
 class WorkGroup;
 class MessageStream;
 class SocketStream;
+class RpcClientController;
 
 class RpcChannelImpl
 {
@@ -58,37 +59,18 @@ public:
 
 public:
 
-    struct CallParams {
-        const ::google::protobuf::MethodDescriptor* method;
-        ::google::protobuf::RpcController* controller;
-        const ::google::protobuf::Message* request;
-        ::google::protobuf::Message* response;
-        ::google::protobuf::Closure* done;
+    int SendToServer(const google::protobuf::MethodDescriptor *method, RpcClientController* controller, const google::protobuf::Message *request);
 
-        ~CallParams(){
-            //delete controller;
-            //ls
-            delete done;
-        }
-    };
-
-    void OnCallDone(ConnectStream *_stream){
-
-        // if pending call size > 0 ,pop and do
-
-    }
-
-   int SendToServer(const google::protobuf::MethodDescriptor *method, ::google::protobuf::RpcController* controller, const google::protobuf::Message *request);
 public:
 
-  void OnMessageRecived(ConnectStream* sream,Epoller* p);
+    void OnMessageRecived(ConnectStream* sream,Epoller* p);
 
-  void OnMessageSended(ConnectStream* sream,Epoller* p);
+    void OnMessageSended(ConnectStream* sream,Epoller* p);
 
 
-  void OnWriteable(SocketStream* sream,Epoller* p);
+    void OnWriteable(SocketStream* sream,Epoller* p);
 
-  void OnClose(SocketStream* sream,Epoller* p);
+    void OnClose(SocketStream* sream,Epoller* p);
 
 public:
     RpcChannelOptions _options;
@@ -97,7 +79,7 @@ public:
     WorkGroup* _group;
 
     MutexLock pendinglock;
-    std::queue<CallParams*> pendingcall;
+    std::queue<RpcClientController*> pendingcall;
 
 };
 

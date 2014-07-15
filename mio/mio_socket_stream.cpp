@@ -6,6 +6,13 @@ namespace mtrpc{
 
 SocketStream::SocketStream():
     IOEvent(),
+    handerConnected(NULL),
+    handerReadable(NULL),
+    handerWriteable(NULL),
+    handerClose(NULL),
+    handerReadTimeOut(NULL),
+    handerWriteimeOut(NULL),
+    handerMessageError(NULL),
     _isConnected(false),
     _close_when_empty(false)
 {
@@ -13,6 +20,13 @@ SocketStream::SocketStream():
 
 SocketStream:: ~SocketStream(){
 
+    delete handerConnected;
+    delete handerReadable;
+    delete handerWriteable;
+    delete handerClose;
+    delete handerReadTimeOut;
+    delete handerWriteimeOut;
+    delete handerMessageError;
 }
 
 void SocketStream::OnEvent(Epoller* p,uint32_t mask)
@@ -132,7 +146,7 @@ int SocketStream::OnReadable(Epoller *p)
         {
             WARN(name<<",no buf left in read buf");
 
-            this->handerError(this,p,SERVER_READBUFFER_FULL);
+            this->handerMessageError(this,p,SERVER_READBUFFER_FULL);
             //close
             return -1;
         }

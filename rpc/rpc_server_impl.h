@@ -50,12 +50,13 @@ public:
 public:
 
     void OnAccept(int sockfd);
-    void OnMessageRecived(MessageStream* stream,Epoller* p);
+
+    bool handlerGetServiceAndMethod(const std::string& method_full_name,
+                                    google::protobuf::Service**service,
+                                    google::protobuf::MethodDescriptor**method);
 
     bool ParseMethodFullName(const std::string& method_full_name,
             std::string* service_full_name, std::string* method_name);
-
-    void OnCallMethodDone(RpcController* controller, const google::protobuf::Message *request, google::protobuf::Message* response, MessageStream* stream, Epoller* p);
 
 private:
 

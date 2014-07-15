@@ -41,4 +41,11 @@ RpcChannel* RpcClient::GetChannel(const std::string& server_addr)
     return _impl->GetChannel(server_addr);
 }
 
+
+
+void RpcClient::ReleaseChannel(RpcChannel* channel)
+{
+    return _impl->ReleaseChannel(channel);
+}
+
 }

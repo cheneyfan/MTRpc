@@ -73,5 +73,11 @@ RpcChannel* RpcClientImpl::GetChannel(const std::string& server_addr){
 }
 
 
+void RpcClientImpl::ReleaseChannel(RpcChannel *channel)
+{
+    delete channel;
+}
+
+
 };
 
