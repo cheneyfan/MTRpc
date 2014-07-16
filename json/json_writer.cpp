@@ -11,7 +11,7 @@
 #pragma warning( disable : 4996 )   // disable warning about strdup being deprecated.
 #endif
 
-namespace Json {
+namespace mtrpc { namespace Json {
 
 static bool isControlCharacter(char ch)
 {
@@ -826,4 +826,5 @@ std::ostream& operator<<( std::ostream &sout, const Value &root )
 }
 
 
-} // namespace Json
+}} // namespace mtrpc { namespace Json
+

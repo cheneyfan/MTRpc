@@ -24,12 +24,11 @@ namespace mtrpc {
 
 RpcServerImpl::RpcServerImpl(const RpcServerOptions& options):
     acceptor(),
-    _options(options)
+    _options(options),
+    poller(new Epoller()),
+    group (new WorkGroup()),
+    _service_pool(new ServicePool())
 {
-
-    poller = new Epoller();
-    group = new WorkGroup();
-    _service_pool = new ServicePool();
 }
 
 RpcServerImpl::~RpcServerImpl()
@@ -37,9 +36,11 @@ RpcServerImpl::~RpcServerImpl()
 
 }
 
-bool RpcServerImpl::RegisterService(google::protobuf::Service* service, bool take_ownership)
+bool RpcServerImpl::RegisterService(google::protobuf::Service* service,
+                                    bool take_ownership)
 {
-    const google::protobuf::ServiceDescriptor * desc = service->GetDescriptor();
+    const google::protobuf::ServiceDescriptor * desc
+            = service->GetDescriptor();
     return _service_pool->RegisterService(service, take_ownership);
 }
 
@@ -116,7 +117,9 @@ void RpcServerImpl::OnAccept(int sockfd){
     // add new stream
     ServerConnect* stream = new ServerConnect(sockfd);
 
-    stream->handlerGetServiceAndMethod = NewPermanentExtClosure(this,&RpcServerImpl::handlerGetServiceAndMethod);
+    stream->handlerGetServiceAndMethod =
+            NewPermanentExtClosure(this,&RpcServerImpl::handlerGetServiceAndMethod);
+
 
     stream->Start(poller,group);
 
@@ -130,9 +133,8 @@ bool  RpcServerImpl::handlerGetServiceAndMethod(const std::string& method_full_n
     std::string service_name;
     std::string method_name;
 
-    if (!ParseMethodFullName(method_full_name, &service_name, &method_name))
+    if (!ParseMethodFullName(method_full_name, service_name, method_name))
     {
-
         return false;
     }
 
@@ -146,22 +148,26 @@ bool  RpcServerImpl::handlerGetServiceAndMethod(const std::string& method_full_n
 
     *service = service_board->Service();
 
-    *method  = service->GetDescriptor()->FindMethodByName(method_name);
+    *method  = const_cast<google::protobuf::MethodDescriptor*>((*service)->GetDescriptor()->FindMethodByName(method_name));
+
+    if(*method == NULL)
+        return false;
 
     return true;
 }
 
 
 bool RpcServerImpl::ParseMethodFullName(const std::string& method_full_name,
-                                        std::string* service_full_name, std::string* method_name)
+                                        std::string& service_full_name,
+                                        std::string& method_name)
 {
     std::string::size_type pos = method_full_name.rfind('.');
 
     if (pos == std::string::npos)
         return false;
 
-    *service_full_name = method_full_name.substr(0, pos);
-    *method_name = method_full_name.substr(pos + 1);
+    service_full_name = method_full_name.substr(0, pos);
+    method_name = method_full_name.substr(pos + 1);
     return true;
 }
 

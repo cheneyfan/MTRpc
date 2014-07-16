@@ -8,7 +8,7 @@
 # include <string>
 # include <iostream>
 
-namespace Json {
+namespace mtrpc { namespace Json {
 
    /** \brief Unserialize a <a HREF="http://www.json.org">JSON</a> document into a Value.
     *
@@ -191,6 +191,6 @@ namespace Json {
    */
    std::istream& operator>>( std::istream&, Value& );
 
-} // namespace Json
+}} // namespace mtrpc { namespace Json
 
 #endif // CPPTL_JSON_READER_H_INCLUDED

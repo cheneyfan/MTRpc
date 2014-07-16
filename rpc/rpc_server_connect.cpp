@@ -8,8 +8,8 @@
 namespace mtrpc {
 
 ServerConnect::ServerConnect(int fd):
-_stream(new MessageStream(fd)),
-handlerGetServiceAndMethod(NULL)
+    handlerGetServiceAndMethod(NULL),
+_stream(new MessageStream(fd))
 {
     _stream->RequireRef();
 }
@@ -18,6 +18,8 @@ handlerGetServiceAndMethod(NULL)
 ServerConnect::~ServerConnect()
 {
     delete handlerGetServiceAndMethod;
+
+    handlerGetServiceAndMethod = NULL;
 }
 
 
@@ -55,7 +57,7 @@ void ServerConnect::OnMessageRecived(MessageStream* sream,Epoller* p,uint32_t bu
     google::protobuf::Service* service = NULL;
     google::protobuf::MethodDescriptor* method = NULL;
 
-    if(!handlerGetServiceAndMethod(method_full_name,&service,&method)
+    if(!handlerGetServiceAndMethod->Run(method_full_name,&service,&method)
             || service == NULL
             || method == NULL)
     {
@@ -78,7 +80,7 @@ void ServerConnect::OnMessageRecived(MessageStream* sream,Epoller* p,uint32_t bu
     google::protobuf::Message* response
             = service->GetResponsePrototype(method).New();
 
-    RpcController* controller = new RpcController();
+    RpcServerController* controller = new RpcServerController();
 
     controller->_request = request;
     controller->_request = response;
@@ -90,27 +92,30 @@ void ServerConnect::OnMessageRecived(MessageStream* sream,Epoller* p,uint32_t bu
 
     if(controller->Failed()){
 
-        delete cntl;
-        delete req;
-        delete res;
+        delete controller;
+        delete request;
+        delete response;
         OnMessageError(sream,p,SERVER_REQ_PARSER_FAILED);
         return ;
     }
 
+    _stream->readbuf.Reset();
+    _stream->writebuf.Reset();
+
     _stream->reqheader.Reset();
     _stream->resheader.Reset();
 
-    SendMessage(stream,p,cntl,request,reponse);
+    SendMessage(_stream,p,controller,request,response);
 
 }
 
-void ServerConnect::SendMessage(MessageStream* stream,Epoller* p,RpcController*cntl,Message*req,Message*res)
+void ServerConnect::SendMessage(MessageStream* stream,Epoller* p,RpcServerController*cntl,Message*request,Message*response)
 {
 
     if(!pending.empty() )
     {
         pending.push(cntl);
-        return cr;
+        return ;
     }
 
     //pending
@@ -129,8 +134,8 @@ void ServerConnect::SendMessage(MessageStream* stream,Epoller* p,RpcController*c
     {
         OnMessageError(stream,p,SERVER_WRIEBUFFER_FULL);
 
-        delete req;
-        delete res;
+        delete request;
+        delete response;
         delete cntl;
         return;
     }
@@ -144,8 +149,8 @@ void ServerConnect::SendMessage(MessageStream* stream,Epoller* p,RpcController*c
         buf.writepos = packetStart;
         OnMessageError(stream,p,SERVER_RES_SERIA_FAILED);
 
-        delete req;
-        delete res;
+        delete request;
+        delete response;
         delete cntl;
         return;
     }
@@ -170,7 +175,7 @@ void ServerConnect::OnMessageSended(MessageStream* stream, Epoller* p,uint32_t b
         return;
     }
 
-    RpcController*cntl = pending.front();
+    RpcServerController* cntl = pending.front();
     cntl ->_res_send_size  += buffer_size;
 
     if(cntl ->_res_send_size < cntl ->_res_pack_size)
@@ -197,10 +202,10 @@ void ServerConnect::OnMessageSended(MessageStream* stream, Epoller* p,uint32_t b
 void ServerConnect::OnMessageError(SocketStream* stream, Epoller* p, uint32_t error_code)
 {
      // 1 remove all pending
-      while(!penging.empty())
+      while(!pending.empty())
       {
-          RpcController* cntl = penging.front();
-          penging.pop();
+          RpcServerController* cntl = pending.front();
+          pending.pop();
 
           delete cntl->_request;
           delete cntl->_response;
@@ -213,7 +218,7 @@ void ServerConnect::OnMessageError(SocketStream* stream, Epoller* p, uint32_t er
       MessageStream* ms = (MessageStream*)stream;
 
       ms->resheader.Reset();
-      ms->resheader.SetSeq(reqheader.GetSeq());
+      ms->resheader.SetSeq(ms->resheader.GetSeq());
       ms->resheader.SetStatus(error_code, ErrorString(error_code));
       ms->resheader.SetContentLength(0);
       ms->resheader.SerializeHeader(packetStart);
@@ -223,10 +228,10 @@ void ServerConnect::OnMessageError(SocketStream* stream, Epoller* p, uint32_t er
 
 void ServerConnect::OnClose(SocketStream* sream,Epoller* p){
 
-    while(!penging.empty())
+    while(!pending.empty())
     {
-        RpcController* cntl = penging.front();
-        penging.pop();
+        RpcServerController* cntl = pending.front();
+        pending.pop();
 
         delete cntl->_request;
         delete cntl->_response;

@@ -10,8 +10,6 @@
 
 namespace mtrpc {
 
-
-
 TimeMoniter:: ~TimeMoniter(){
 
     uint64_t used = TimerHelper::Now_Millisecond() - start;

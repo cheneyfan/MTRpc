@@ -17,7 +17,7 @@
 #define JSON_ASSERT( condition ) assert( condition );  // @todo <= change this into an exception throw
 #define JSON_ASSERT_MESSAGE( condition, message ) if (!( condition )) throw std::runtime_error( message );
 
-namespace Json {
+namespace mtrpc { namespace Json {
 
 const Value Value::null;
 const Int Value::minInt = Int( ~(UInt(-1)/2) );
@@ -1715,4 +1715,4 @@ Path::make( Value &root ) const
 }
 
 
-} // namespace Json
+}} // namespace mtrpc { namespace Json

@@ -1,4 +1,5 @@
-
+#ifndef _MTRPC_RPC_SERVER_CONNECT_H_
+#define _MTRPC_RPC_SERVER_CONNECT_H_
 
 
 #include <google/protobuf/service.h>
@@ -11,7 +12,7 @@ namespace mtrpc {
 
 typedef ::google::protobuf::Message Message;
 
-class RpcController;
+class RpcServerController;
 class MessageStream;
 class SocketStream;
 class Epoller;
@@ -28,7 +29,7 @@ public:
 
     void Start(Epoller* p,WorkGroup* g);
 
-    void SendMessage(MessageStream* sream,Epoller* p,RpcController*cntl,Message*req,Message*res);
+    void SendMessage(MessageStream* sream, Epoller* p, RpcServerController*cntl, Message*request, Message*response);
 
 public:
 
@@ -53,10 +54,10 @@ public:
     MessageStream *_stream;
     Epoller* _poller;
     WorkGroup* _group;
-    std::queue<RpcController*> pending;
+    std::queue<RpcServerController*> pending;
 
+
+};
 
 }
-
-
-}
+#endif

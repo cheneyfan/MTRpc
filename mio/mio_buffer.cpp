@@ -13,7 +13,7 @@
 
 namespace mtrpc {
 
-uint32_t DEFAULT_BUFFER_SIZE = 4096;
+int32_t DEFAULT_BUFFER_SIZE = 4096;
 uint32_t MAX_BUFFER_PIECES = 64;
 
 
@@ -44,7 +44,7 @@ IOBuffer::~IOBuffer(){
 WriteBuffer::Iterator IOBuffer::AlignWritePos()
 {
 
-    que[writepos._idx]->size = writepos._pos;
+    //que[writepos._idx]->size = writepos._pos;
 
     writepos._pos = 0;
     writepos._idx = MOD_PIECES(writepos._idx +1);
@@ -61,9 +61,12 @@ bool IOBuffer::Reserve(uint32_t size){
          return false;
     }
 
-    if(que[writepos._idx]->size - writepos._pos < size )
+    if(uint32_t(que[writepos._idx]->size - writepos._pos)
+            < size )
     {
-        AlignWritePos();
+        que[writepos._idx]->size = writepos._pos;
+        writepos._pos = 0;
+        writepos._idx = MOD_PIECES(writepos._idx +1);
     }
 
     return true;
@@ -204,6 +207,40 @@ bool IOBuffer::isFull(){
 bool IOBuffer::isEmpty()
 {
     return readpos == writepos;
+}
+
+
+void IOBuffer::Reset(){
+
+
+    if(isFull())
+    {
+        return;
+    }
+
+    int idx = 0;
+
+    int end_idx =  readpos._idx;
+    int start_idx = writepos._idx;
+
+    //buffer: writepos readepos end
+    if(end_idx == start_idx && writepos._pos < readpos._pos)
+    {
+        return ;
+    }
+
+    for(int tidx  = MOD_PIECES(start_idx+1);
+        tidx != end_idx;
+        tidx  = MOD_PIECES(tidx +1))
+    {
+        if(que[tidx]->size != DEFAULT_BUFFER_SIZE )
+            que[tidx]->size = DEFAULT_BUFFER_SIZE;
+    }
+
+   if(que[readpos._idx]->size != DEFAULT_BUFFER_SIZE)
+        que[readpos._idx]->size = DEFAULT_BUFFER_SIZE;
+
+    return;
 }
 
 ReadBuffer::ReadBuffer():

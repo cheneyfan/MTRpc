@@ -19,7 +19,7 @@ include_directories("${CMAKE_CURRENT_SOURCE_DIR}")
 
 
 foreach(testfile ${SRC})
-   add_exe_item(${testfile} ,
+   add_exe_item(${testfile}
           mtrpc 
           gtest
           protobuf

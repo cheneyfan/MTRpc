@@ -40,6 +40,7 @@ int ConnectStream::Connect(const std::string& server_ip,int32_t server_port){
     if(ret == 0)
     {
         _ConnectStatus = CLIENT_CONNECT_OK;
+
     }else if(ret < 0 && save_errno != EINPROGRESS )
     {
          _ConnectStatus = CLIENT_CONNECT_FAIL;
@@ -55,7 +56,7 @@ int ConnectStream::OnConnect(Epoller* p){
     // base
     SocketStream::OnConnect(p);
 
-    if(CONNECT_ING == _ConnectStatus)
+    if(CLIENT_CONNECT_IPROCESS == _ConnectStatus)
     {
         WriteLock<MutexLock> lock(mutex);
         _ConnectStatus = CLIENT_CONNECT_OK;
@@ -70,12 +71,14 @@ int ConnectStream::OnRecived(Epoller *p, uint32_t buffer_size){
 
     //consume the buffer
     do{
-        resheader.ParserHeader(readbuf);
+        TRACE(GetSockName()<<",recv:"<<readbuf.readpos.get()->buffer);
+
+        int ret = resheader.ParserHeader(readbuf);
 
         if(ret == HTTP_PARSER_FAIL )
         {
-            this->handerMessageError(this,p,HTTP_PARSER_FAIL);
-            WARN(name<<"HTTP_PARSER_FAIL");
+            this->handerMessageError->Run(this,p,HTTP_PARSER_FAIL);
+            WARN(GetSockName()<<"HTTP_PARSER_FAIL");
             return -1;
         }
 
@@ -86,13 +89,13 @@ int ConnectStream::OnRecived(Epoller *p, uint32_t buffer_size){
 
         if(resheader.GetContentLength() < 0)
         {
-            this->handerMessageError(this,p,HTTP_REQ_NOLENGTH);
+            this->handerMessageError->Run(this,p,HTTP_REQ_NOLENGTH);
             return -1;
         }
 
         int body_size = readbuf.writepos - resheader.bodyStart;
 
-        TRACE(name<<"conteng length:"<<resheader.GetContentLength()<<",recv body_size:"<<body_size);
+        TRACE(GetSockName()<<"conteng length:"<<resheader.GetContentLength()<<",recv body_size:"<<body_size);
 
         // need read more
         if(resheader.GetContentLength() > body_size)
@@ -105,8 +108,10 @@ int ConnectStream::OnRecived(Epoller *p, uint32_t buffer_size){
         //process packet
         if(handerMessageRecived)
         {
-            handerMessageRecived->Run(this, p);
+            handerMessageRecived->Run(this, p,buffer_size);
+
             resheader.Reset();
+            readbuf.Reset();
             //begin next parser
         }
 
@@ -124,14 +129,14 @@ int ConnectStream::OnRecived(Epoller *p, uint32_t buffer_size){
 int ConnectStream::OnSended(Epoller *p, uint32_t buffer_size)
 {
 
-    handerMessageSended->Run(this,p);
+    handerMessageSended->Run(this,p,buffer_size);
     return 0;
 }
 
 
 int ConnectStream::OnClose(Epoller* p){
 
-    TRACE(name<<",closed");
+    TRACE(GetSockName()<<",closed");
 
     SocketStream::OnClose(p);
 

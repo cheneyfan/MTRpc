@@ -7,7 +7,6 @@
 #define _MTRPC_EVENT_H_
 
 #include <sys/epoll.h>
-#include <sys/eventfd.h>
 #include <stdint.h>
 #include <string.h>
 #include <string>
@@ -76,12 +75,12 @@ public:
     /// pending events
     volatile uint32_t _events;
 
-    /// to debug()
-    char name[64];
-
     /// the key
     ngx_rbtree_node_t wtimernode;
     ngx_rbtree_node_t rtimernode;
+
+    std::string GetEventName();
+    std::string GetStatusName();
 
 public:
 
@@ -143,11 +142,8 @@ public:
     //thread safe
     int SetEvent(bool readable,bool writeable);
 
-    //on debug
-    virtual void UpdateName();
-    static void UpdateName(int fd, epoll_event* ev, char* buf);
-    static std::string EventStatusStr(uint32_t status);
-
+    static std::string StatusToStr(uint32_t status);
+    static std::string EventToStr(uint32_t event);
 };
 
 }

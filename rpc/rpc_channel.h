@@ -9,6 +9,7 @@ namespace mtrpc {
 class RpcClient;
 class RpcChannelImpl;
 class RpcController;
+class RpcClientController;
 
 class RpcChannelOptions{
 public:
@@ -52,7 +53,8 @@ public:
     /// \brief getController
     /// \return
     ///
-    RpcController* GetController();
+    RpcController *GetController();
+
 
 public:
     RpcChannelImpl* _impl;

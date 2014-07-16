@@ -27,12 +27,13 @@ int MessageStream::OnRecived(Epoller *p, uint32_t buffer_size){
 
     //consume the buffer
     do{
-        reqheader.ParserHeader(readbuf);
+        TRACE(GetSockName()<<",recv:"<<readbuf.readpos.get()->buffer);
+        int ret = reqheader.ParserHeader(readbuf);
 
         if(ret == HTTP_PARSER_FAIL )
         {
-            this->handerMessageError(this,p,HTTP_PARSER_FAIL);
-            WARN(name<<"HTTP_PARSER_FAIL");
+            this->handerMessageError->Run(this,p,HTTP_PARSER_FAIL);
+            WARN(GetSockName()<<"HTTP_PARSER_FAIL");
             return -1;
         }
 
@@ -43,14 +44,14 @@ int MessageStream::OnRecived(Epoller *p, uint32_t buffer_size){
 
         if(reqheader.GetContentLength() < 0)
         {
-            this->handerMessageError(this,p,HTTP_REQ_NOLENGTH);
+            this->handerMessageError->Run(this,p,HTTP_REQ_NOLENGTH);
             return -1;
         }
 
 
         int body_size = readbuf.writepos - reqheader.bodyStart;
 
-        TRACE(name<<"conteng length:"<<reqheader.GetContentLength()<<",recv body_size:"<<body_size);
+        TRACE(GetSockName()<<"conteng length:"<<reqheader.GetContentLength()<<",recv body_size:"<<body_size);
 
         // need read more
         if(reqheader.GetContentLength() > body_size)
@@ -63,8 +64,9 @@ int MessageStream::OnRecived(Epoller *p, uint32_t buffer_size){
         //process packet
         if(handerMessageRecived)
         {
-            handerMessageRecived->Run(this, p);
+            handerMessageRecived->Run(this, p, buffer_size);
             reqheader.Reset();
+            readbuf.Reset();
             //begin next parser
         }
 

@@ -8,41 +8,40 @@
 namespace mtrpc {
 
 RpcChannelImpl::RpcChannelImpl(const RpcChannelOptions &options):
-    _options(options),_stream(NULL){
+    _options(options),
+    _stream(NULL),
+    _poller(NULL),
+    _group(NULL)
+{
 
 }
 
 RpcChannelImpl::~RpcChannelImpl()
 {
-
     if(_stream)
     {
         _stream->ReleaseRef();
     }
 }
 
-bool RpcChannelImpl::IsAddressValid(){
+bool RpcChannelImpl::IsAddressValid()
+{
     return true;
 }
 
 
-RpcController* RpcChannelImpl:: GetController(){
-
-    RpcController* cntl = new RpcController();
+RpcController *RpcChannelImpl::GetController()
+{
+    RpcClientController* cntl = new RpcClientController();
     return cntl;
 }
 
 int RpcChannelImpl::Connect(const std::string& server_ip,int32_t server_port){
 
-
-
-
     _stream = new ConnectStream();
+
     _stream->group = _group;
     _stream->RequireRef();
-
-    _stream->handerWriteable =
-            NewPermanentExtClosure(this,&RpcChannelImpl::OnWriteable);
 
     _stream->handerMessageRecived =
             NewPermanentExtClosure(this,&RpcChannelImpl::OnMessageRecived);
@@ -55,22 +54,26 @@ int RpcChannelImpl::Connect(const std::string& server_ip,int32_t server_port){
 
     int ret = _stream->Connect(server_ip, server_port);
 
-    if(ret == CLIENT_CONNECT_IPROCESS)
-    {
-        _stream->AddEventASync(_poller,true,true);
-        _stream->Wait();
-    }
-
-    if( stream->_ConnectStatus == CLIENT_CONNECT_OK)
+   if( ret == CLIENT_CONNECT_OK)
     {
         _stream->AddEventASync(_poller,true,false);
+        return 0;
+    }
+
+   if(ret == CLIENT_CONNECT_IPROCESS)
+   {
+       _stream->AddEventASync(_poller,true,true);
+       _stream->Wait();
+   }
+
+    if( _stream->_ConnectStatus == CLIENT_CONNECT_OK)
+    {
         return 0;
     }
 
     // release
     _stream->ReleaseRef();
     _stream = NULL;
-
     return -1;
 }
 
@@ -78,7 +81,6 @@ int RpcChannelImpl::Connect(const std::string& server_ip,int32_t server_port){
 
 
 void RpcChannelImpl::OnClose(SocketStream *sream, Epoller *p){
-
 
     _stream->ReleaseRef();
     //TODO reset sream
@@ -104,22 +106,26 @@ void RpcChannelImpl::CallMethod(const ::google::protobuf::MethodDescriptor* meth
 
     cntl->_poller =_poller;
     cntl->_stream = _stream;
-    cntl->_request = request;
-    cntl->_response = response;
-    cntl->_method = method;
+    cntl->_request = const_cast<Message*>(request);
+    cntl->_response = const_cast<Message*>(response);
+    cntl->_method = const_cast< ::google::protobuf::MethodDescriptor*>(method);
     cntl->_done = done;
 
     //invoid the call by event thread
     {
-    WriteLock<MutexLock> lc(pendinglock);
-    if(!pendingcall.empty()){
+        WriteLock<MutexLock> lc(pendinglock);
+        if(!pendingcall.empty()){
+            pendingcall.push(cntl);
+            return;
+        }
+
         pendingcall.push(cntl);
-        return;
+        SendToServer(method, (RpcClientController*)controller, request);
     }
 
-    SendToServer(method, controller, request);
-
-    }
+    //sync
+    if(done == NULL)
+        cntl->Wait();
 }
 
 int RpcChannelImpl::SendToServer(const ::google::protobuf::MethodDescriptor* method,
@@ -128,34 +134,37 @@ int RpcChannelImpl::SendToServer(const ::google::protobuf::MethodDescriptor* met
 
     HttpRequestHeader& reqheader = _stream->reqheader;
     reqheader.Reset();
+
     WriteBuffer& buf = _stream->writebuf;
+    buf.Reset();
 
     reqheader.SetPath(method->full_name());
     reqheader.SetSeq(cntl->GetSeq());
 
     if(!buf.Reserve(MAX_HEADER_SIZE))
     {
-        OnMessageError(stream,p,SERVER_WRIEBUFFER_FULL);
+        OnMessageError(_stream,_poller,SERVER_WRIEBUFFER_FULL);
         return -1;
     }
 
     WriteBuffer::Iterator packetStart = buf.writepos;
-    WriteBuffer::Iterator bodyStart   =  buf.AlignWritePos();
+    WriteBuffer::Iterator bodyStart   = buf.AlignWritePos();
 
     if(!request->SerializeToZeroCopyStream(&buf))
     {
         //roll back
         buf.writepos = packetStart;
-        OnMessageError(stream,p,SERVER_RES_SERIA_FAILED);
-        return;
+        OnMessageError(_stream,_poller,SERVER_RES_SERIA_FAILED);
+        return -1;
     }
 
-
-    cntl->_req_pack_size     = buf.writepos - packetStart;
     uint32_t content_length  = buf.writepos - bodyStart;
-
     reqheader.SetContentLength(content_length);
     reqheader.SerializeHeader(packetStart);
+
+    cntl->_req_pack_size = buf.writepos - packetStart;
+
+    TRACE("send "<<cntl->_req_pack_size <<",header:"<<packetStart.get()->buffer);
 
     _stream->ModEventAsync(_poller,true,true);
 
@@ -164,6 +173,7 @@ int RpcChannelImpl::SendToServer(const ::google::protobuf::MethodDescriptor* met
 
 void RpcChannelImpl::OnMessageSended(ConnectStream* stream,Epoller* p,uint32_t buffer_size){
 
+     RpcClientController *  cntl = NULL;
     {
         WriteLock<MutexLock> lc(pendinglock);
         if(pendingcall.empty() )
@@ -172,7 +182,7 @@ void RpcChannelImpl::OnMessageSended(ConnectStream* stream,Epoller* p,uint32_t b
             return;
         }
 
-        RpcClientController *  cntl = pendingcall.front();
+        cntl = pendingcall.front();
     }
 
 
@@ -182,20 +192,6 @@ void RpcChannelImpl::OnMessageSended(ConnectStream* stream,Epoller* p,uint32_t b
     {
         return ;
     }
-
-    {
-        WriteLock<MutexLock> lc(pendinglock);
-        pending.pop();
-        if(pending.empty())
-        {
-            stream->ModEventAsync(p,true,false);
-            return;
-        }
-        cntl = pending.front();
-    }
-
-    SendMessage(cntl->method, cntl, cntl->_request);
-
 }
 
 void RpcChannelImpl::OnMessageRecived(ConnectStream *sream, Epoller* p,uint32_t buffer_size){
@@ -211,7 +207,9 @@ void RpcChannelImpl::OnMessageRecived(ConnectStream *sream, Epoller* p,uint32_t 
     assert(cntl!=NULL);
 
     int ContentLength = sream->resheader.GetContentLength();
-    if(ContentLength >0 && !cntl->_response->ParseFromZeroCopyStream(&sream->readbuf))
+
+    if(ContentLength >0
+            && !cntl->_response->ParseFromZeroCopyStream(&sream->readbuf))
     {
         OnMessageError(sream,p,SERVER_REQ_PARSER_FAILED);
         return;
@@ -221,8 +219,8 @@ void RpcChannelImpl::OnMessageRecived(ConnectStream *sream, Epoller* p,uint32_t 
     //notify the call
     cntl->SetStatus(sream->resheader.status);
 
-    if(cntl->done)
-        cntl->done->Run();
+    if(cntl->_done)
+        cntl->_done->Run();
 
     cntl = NULL;
 
@@ -234,32 +232,40 @@ void RpcChannelImpl::OnMessageRecived(ConnectStream *sream, Epoller* p,uint32_t 
         }
     }
 
-    if(params == NULL)
-        _stream->ModEventAsync(_poller,true,false);
+    if(cntl == NULL)
+        _stream->ModEventAsync(p,true,false);
     else
-        SendToServer(params->method,params->controller,params->request);
-
+        SendToServer(cntl->_method, cntl, cntl->_request);
 }
-
 
 
 void RpcChannelImpl::OnMessageError(SocketStream* stream, Epoller* p, uint32_t error_code)
 {
       RpcClientController *  cntl = NULL;
-
       {
           WriteLock<MutexLock> wl(pendinglock);
           // 1 remove all pending
           if(!pendingcall.empty())
           {
-              cntl = penging.front();
-              penging.pop();
+              cntl = pendingcall.front();
+              pendingcall.pop();
           }
       }
 
       //notify client
       if(cntl){
           cntl->SetStatus(error_code);
+      }
+
+      {
+          WriteLock<MutexLock> wl(pendinglock);
+          // 1 remove all pending
+          while(!pendingcall.empty())
+          {
+              cntl = pendingcall.front();
+              pendingcall.pop();
+              cntl->SetStatus(CLIENT_CANCEL_BY_ERROR);
+          }
       }
 
       //2 send fail header

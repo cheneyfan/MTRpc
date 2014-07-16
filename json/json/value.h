@@ -16,7 +16,7 @@
 
 /** \brief JSON (JavaScript Object Notation).
  */
-namespace Json {
+namespace mtrpc { namespace Json {
 
    /** \brief Type of the value held by a Value object.
     */
@@ -1063,7 +1063,7 @@ public: // overridden from ValueArrayAllocator
    };
 
 
-} // namespace Json
+}} // namespace mtrpc { namespace Json
 
 
 #endif // CPPTL_JSON_H_INCLUDED

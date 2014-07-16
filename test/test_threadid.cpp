@@ -36,7 +36,7 @@ A am("global");
 int main(int argc,char*argv[]){
 
     atexit(hehe);
-    Json::Value conf;
+    mtrpc::Json::Value conf;
     mtrpc::LogBacker::Init(conf);
 
     A am("main");

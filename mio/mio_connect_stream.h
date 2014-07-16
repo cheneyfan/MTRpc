@@ -1,15 +1,9 @@
 #include "mio/mio_message_stream.h"
-
-
 #include "proto/rpc_http_header.h"
 #include "thread/ext_closure.h"
 #include "common/rwlock.h"
 
 namespace mtrpc {
-
-
-
-
 
 ///
 /// \brief The ConnectStream class
@@ -38,6 +32,7 @@ public :
 
     virtual int OnClose(Epoller* p);
 
+
     void Wait();
 
 
@@ -52,17 +47,14 @@ public :
 
 public:
 
+    ExtClosure<void(ConnectStream* sream,Epoller* p,uint32_t buffer_size)>*  handerMessageRecived;
 
-    ExtClosure<void(ConnectStream* sream,Epoller* p)>*  handerMessageRecived;
-
-    ExtClosure<void(ConnectStream* sream,Epoller* p)>*  handerMessageSended;
-
+    ExtClosure<void(ConnectStream* sream,Epoller* p,uint32_t buffer_size)>*  handerMessageSended;
 
 
     volatile int _ConnectStatus;
     MutexLock mutex;
     ConditionVariable cv;
-
 
     HttpRequestHeader reqheader;
     HttpReponseHeader resheader;

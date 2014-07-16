@@ -40,7 +40,11 @@ static uint32_t EventToMask(uint32_t events)
 Epoller::Epoller()
 {
     //TODO: port to other linux
+#ifdef EPOLL_CLOEXEC
     epollfd = epoll_create1(EPOLL_CLOEXEC);
+#else
+    epollfd = epoll_create(1024);
+#endif
 
     _notify = new EventNotify();
     _notify->SetEvent(true,false);
@@ -73,8 +77,6 @@ void Epoller::Poll()
         epoll_event ev_arr[MAX_EVENT_PROCESS];
 
         //TRACE("waittime:"<<waittime);
-
-        //poll
         int nfds = epoll_wait(epollfd, ev_arr , MAX_EVENT_PROCESS, waittime);
 
         if(nfds <= 0 )
@@ -83,16 +85,12 @@ void Epoller::Poll()
             continue;
         }
 
-        char event_name[64]={0};
-
         //dispatch event
         for(int i= 0; i< nfds; ++i)
         {
             uint32_t revents = ev_arr[i].events;
             IOEvent* ev = (IOEvent*)ev_arr[i].data.ptr;
-
-            IOEvent::UpdateName(ev->_fd, &(ev_arr[i]), event_name);
-            //TRACE_FMG("poll:%u,event:%s",epollfd,event_name);
+            TRACE("Poll:"<<epollfd<<",event:"<<ev->GetEventName());
             uint32_t mask = EventToMask(revents);
             ev->OnEventAsync(this, mask);
         }
@@ -150,8 +148,6 @@ int  Epoller::ProcessTimeOut(){
         waittime = rleft->key < waittime ? rleft->key : waittime ;
     }
 
-    //TRACE_FMG("timer,now:%lu,wkey:%lu,rkey:%lu,wait:%d",nowsec,wleft->key,rleft->key,waittime);
-
     return  waittime == uint32_t(-1)  ? -1:
                 1000*(int64_t(waittime) - int64_t(nowsec) + 1);
 }
@@ -162,17 +158,13 @@ void Epoller::AddEvent(IOEvent* ev)
 
     ev->ev.data.ptr = ev;
     int ret = epoll_ctl(epollfd, EPOLL_CTL_ADD, ev->_fd, &(ev->ev));
-    TRACE_FMG("poll:%u,add event:%s,ret:%d",epollfd,ev->name,ret);
-
-
-
+    TRACE("Poll:"<<epollfd<<",add event:"<<ev->GetEventName()<<",ret:"<<ret);
 }
 
 void Epoller::ModEvent(IOEvent* ev){
 
     int ret = epoll_ctl(epollfd, EPOLL_CTL_MOD, ev->_fd, &(ev->ev));
-
-    TRACE_FMG("poll:%u,mod event:%s,ret:%d",epollfd,ev->name,ret);
+    TRACE("Poll:"<<epollfd<<",mod event:"<<ev->GetEventName()<<",ret:"<<ret);
 
 }
 
@@ -191,12 +183,7 @@ void Epoller::DelEvent(IOEvent* ev){
        ngx_rbtree_delete(&rtimerroot, &ev->rtimernode);
     }
 
-    TRACE_FMG("poll:%u,del event:%s,timeout r:%d w:%d,ret:%d",
-              epollfd,
-              ev->name,
-              ev->rtimernode.key,
-              ev->wtimernode.key,
-              ret);
+    TRACE("Poll:"<<epollfd<<",del event:"<<ev->GetEventName()<<",ret:"<<ret);
 
     ev->ReleaseRef();
 }
@@ -217,9 +204,7 @@ void Epoller::SetReadTimeOut(IOEvent* ev){
     }
 
      ngx_rbtree_insert(&rtimerroot, &ev->rtimernode);
-
-     TRACE_FMG("poll:%u,set Event:%u,ctx:%p,read timeout:%u,write timeout:%u",epollfd,ev->_fd,ev->ev.data.ptr,ev->rtimernode.key,ev->wtimernode.key);
-
+     TRACE("Poll:"<<epollfd<<",event:"<<ev->GetEventName()<<",set readout:"<<ev->rtimernode.key);
      _notify->Notify(1);
 
 }
@@ -241,8 +226,7 @@ void Epoller::SetWriteTimeOut(IOEvent* ev){
      ngx_rbtree_insert(&wtimerroot, &ev->wtimernode);
 
     //need update the wait time
-
-    TRACE_FMG("poll:%u,set Event:%u,ctx:%p,read timeout:%u,write timeout:%u",epollfd,ev->_fd,ev->ev.data.ptr,ev->rtimernode.key,ev->wtimernode.key);
+    TRACE("Poll:"<<epollfd<<",event:"<<ev->GetEventName()<<",set writeout:"<<ev->wtimernode.key);
 
     _notify->Notify(1);
 

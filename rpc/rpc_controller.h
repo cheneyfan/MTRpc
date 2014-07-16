@@ -22,44 +22,29 @@ public:
     RpcController();
     virtual ~RpcController();
 
-    virtual void Reset();
+    virtual void Reset(){}
 
     /// Not implement
-    std::string LocalAddress() const{}
-    std::string RemoteAddress() const{}
+    virtual std::string LocalAddress() const{return "";}
+    virtual std::string RemoteAddress() const{return "";}
 
-    void SetTimeout(int64 timeout_in_ms){}
-    int64 Timeout() const{}
+    virtual void SetTimeout(int64 timeout_in_ms){}
+    virtual int64 Timeout() const{return 0;}
 
-    void SetRequestCompressType(CompressType compress_type){}
-    void SetResponseCompressType(CompressType compress_type){}
+    virtual void SetRequestCompressType(CompressType compress_type){}
+    virtual void SetResponseCompressType(CompressType compress_type){}
 
-    /// Status of rpc call
-    virtual bool Failed() const;
-    virtual int ErrorCode() const;
-    virtual std::string ErrorText() const;
+    virtual void StartCancel(){}
 
-    virtual void SetStatus(int status);
-    virtual void SetFailed(const std::string& reason);
+    virtual bool IsCanceled() const{return false;}
 
-    uint64_t GetSeq();
+    virtual void NotifyOnCancel(google::protobuf::Closure* callback){}
 
-public:
+    ////
+    virtual void SetStatus(int status){}
+    virtual void SetFailed(const std::string& reason){}
 
-    std::string _msg;
-    volatile int  _status;
-
-    uint32_t _req_send_size;
-    uint32_t _req_pack_size;
-
-    uint32_t _res_send_size;
-    uint32_t _res_pack_size;
-
-    Message* _request;
-    Message* _response;
-    SocketStream * _stream;
-    Epoller * _poller;
-
+    virtual uint64_t GetSeq(){return 0;}
 }; // class RpcController
 
 }

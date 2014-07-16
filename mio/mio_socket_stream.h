@@ -53,7 +53,7 @@ public:
     ExtClosure<void(SocketStream* sream,Epoller* p)>* handerClose;
     ExtClosure<void(SocketStream* sream,Epoller* p)>* handerReadTimeOut;
     ExtClosure<void(SocketStream* sream,Epoller* p)>* handerWriteimeOut;
-    ExtClosure<void(SocketStream* sream,Epoller* p,int error_code)>* handerMessageError;
+    ExtClosure<void(SocketStream* sream,Epoller* p,uint32_t error_code)>* handerMessageError;
 
 public:
 
@@ -62,7 +62,7 @@ public:
     virtual int OnSended(Epoller* p,uint32_t buffer_size);
 
 
-    virtual void UpdateName();
+    std::string GetSockName();
 
 public:
     volatile bool _isConnected;

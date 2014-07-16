@@ -101,7 +101,7 @@ public:
 
 
     void SetPath(const std::string p){
-        p = path;
+         path = p;
     }
 
 public:

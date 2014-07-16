@@ -15,8 +15,8 @@ public:
 
     virtual void OnEvent(Epoller* p, uint32_t event_mask) {
 
-        TRACE("event_mask:"<<EventStatusStr(event_mask));
-        std::cout<<time(NULL)<<",event_mask:"<<EventStatusStr(event_mask)<<std::endl;
+        TRACE("event_mask:"<<StatusToStr(event_mask));
+        std::cout<<time(NULL)<<",event_mask:"<<StatusToStr(event_mask)<<std::endl;
         //SetReadTimeOutAsync(p,1+time(NULL));
     }
 

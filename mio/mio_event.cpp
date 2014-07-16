@@ -12,6 +12,10 @@ IOEvent::IOEvent()
 {
     ev.events = EPOLLET;
     ev.data.ptr = this;
+
+    _events = 0;
+    _fd =0;
+
     wtimernode.parent = NULL;
     rtimernode.parent = NULL;
 
@@ -19,7 +23,7 @@ IOEvent::IOEvent()
 }
 
 IOEvent::~IOEvent(){
-    TRACE("event:"<<name<<" dead");
+    TRACE("event:"<<GetEventName()<<" dead");
 
 }
 
@@ -41,7 +45,7 @@ int IOEvent::SetEvent(bool readable,bool writeable){
 
     if(old != ev.events)
     {
-        UpdateName();
+
         return true;
     }
 
@@ -49,9 +53,7 @@ int IOEvent::SetEvent(bool readable,bool writeable){
 }
 
 
-void IOEvent::UpdateName(){
-    UpdateName(_fd,&ev,name);
-}
+
 
 
 
@@ -63,11 +65,7 @@ void IOEvent::OnEventWrapper(Epoller* p){
 
         assert(pre_mask&EVENT_PENDING);
 
-        /*TRACE_FMG("OnEventWrapper name:%s,events:%s,pre_mask:%s",
-                  name,
-                  EventStatusStr(_events).c_str(),
-                  EventStatusStr(pre_mask).c_str());
-                  */
+        TRACE(GetStatusName()<<",pre_mask:"<<StatusToStr(pre_mask));
 
         this->OnEvent(p, pre_mask);
 
@@ -116,7 +114,6 @@ void IOEvent::OnEventAsync(Epoller* p , uint32_t event_mask){
     MioTask * closure =
             NewExtClosure(this,&IOEvent::OnEventWrapper,p);
     group->Post(closure);
-
 }
 
 
@@ -189,14 +186,11 @@ int IOEvent::SetWriteTimeOutAsync(Epoller* p,uint32_t time_sec)
 }
 
 
-void IOEvent::UpdateName(int fd, epoll_event* ee, char* buf){
+std::string IOEvent::EventToStr(uint32_t revents){
 
-    buf += snprintf(buf,
-                    sizeof(name),
-                    "object:%p,%d",
-                    ee->data.ptr,fd);
+    char buffer[64]={0};
+    char *buf = buffer;
 
-    int revents = ee->events;
 
     if(EPOLLET &revents)
     {
@@ -276,9 +270,10 @@ void IOEvent::UpdateName(int fd, epoll_event* ee, char* buf){
         buf += sizeof("_ONESHOT") - 1;
     }
 
+    return std::string(buffer);
 }
 
-std::string IOEvent::EventStatusStr(uint32_t status){
+std::string IOEvent::StatusToStr(uint32_t status){
 
     char buf[256]={0};
     char* ptr = buf;
@@ -336,5 +331,16 @@ std::string IOEvent::EventStatusStr(uint32_t status){
 
 }
 
+std::string IOEvent::GetEventName(){
+     char name[64]={0};
+     snprintf(name,sizeof(name),"%d%s",_fd,EventToStr(ev.events).c_str());
+     return std::string(name);
+}
+
+std::string IOEvent::GetStatusName(){
+    char name[64]={0};
+    snprintf(name,sizeof(name),"%d_%s",_fd,StatusToStr(_events).c_str());
+    return std::string(name);
+}
 
 }

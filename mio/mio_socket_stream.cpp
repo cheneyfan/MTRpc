@@ -33,7 +33,7 @@ void SocketStream::OnEvent(Epoller* p,uint32_t mask)
 {
     int ret = 0;
 
-    TRACE("OnEvent:"<<name<<",mask:"<<EventStatusStr(mask));
+    TRACE("OnEvent:"<<GetSockName()<<",mask:"<<StatusToStr(mask));
 
 
     if(mask & EVENT_CLOSE)
@@ -56,7 +56,7 @@ void SocketStream::OnEvent(Epoller* p,uint32_t mask)
     if(mask & EVENT_ERR)
     {
         _isConnected = false;
-        TRACE(name<<"error:"<<errno<<","<<strerror(errno))
+        TRACE(GetSockName()<<"error:"<<errno<<","<<strerror(errno))
         this->OnClose(p);
         return ;
     }
@@ -81,7 +81,7 @@ void SocketStream::OnEvent(Epoller* p,uint32_t mask)
 
     if(mask & EVENT_WRITE )
     {
-        rthis->OnWriteable(p);
+        this->OnWriteable(p);
     }
 
     if(mask & READ_TIME_OUT )
@@ -104,27 +104,31 @@ int SocketStream::SocketStream::OnConnect(Epoller* p)
     if(local_ip.size() == 0 ||
             peer_ip.size() ==0)
     {
-        TRACE("sock get ip failed:"<<_fd<<",local:"<<local_ip<<":"<<local_port<<",peer:"<<peer_ip<<":"<<peer_port);
+        TRACE(GetSockName()<<",get error:"<<errno<<","<<strerror(errno));
         return -1;
     }
-
-    this->UpdateName();
-
 
     if(handerConnected)
         handerConnected->Run(this,p);
 
-    TRACE("sock connect:"<<_fd<<",local:"<<local_ip<<":"<<local_port<<",peer:"<<peer_ip<<":"<<peer_port);
+    TRACE(GetSockName() <<"connect ok");
 
     return 0;
 }
 
 
-void SocketStream::UpdateName(){
-    snprintf(name,"%d(%s:%d->%s:%d)",
+std::string SocketStream::GetSockName(){
+    char name[64]={0};
+
+    if(_isConnected)
+         snprintf(name,sizeof(name),"%d(%s:%d->%s:%d)",
              _fd,
              local_ip.c_str(), local_port,
              peer_ip.c_str(), peer_port);
+    else
+        snprintf(name,sizeof(name),"%d(unconnect)",
+            _fd);
+    return std::string(name);
 
 }
 
@@ -144,9 +148,9 @@ int SocketStream::OnReadable(Epoller *p)
 
         if(!readbuf.GetReciveBuffer(invec,in_num))
         {
-            WARN(name<<",no buf left in read buf");
+            WARN(GetSockName()<<",no buf left in read buf");
 
-            this->handerMessageError(this,p,SERVER_READBUFFER_FULL);
+            this->handerMessageError->Run(this,p,SERVER_READBUFFER_FULL);
             //close
             return -1;
         }
@@ -157,16 +161,16 @@ int SocketStream::OnReadable(Epoller *p)
         if(ret == -1 &&
                 ( errno == EAGAIN || errno == EWOULDBLOCK || errno == EINTR)) {
             //nead read when next event trigger
-            TRACE(name<<",ret:"<<ret<<",errorno:"<<errno<<",str:"<<strerror(errno));
+            TRACE(GetSockName()<<",ret:"<<ret<<",errorno:"<<errno<<",str:"<<strerror(errno));
             break;
         }else if(ret <= 0){
 
             //some error in socket,need to close
-            WARN(name <<",ret:"<<ret<<",errorno:"<<errno<<",str:"<<strerror(errno));
+            WARN(GetSockName() <<",ret:"<<ret<<",errorno:"<<errno<<",str:"<<strerror(errno));
             return -1;
         }
 
-        TRACE(name<<" read:"<<ret);
+        TRACE(GetSockName()<<" read:"<<ret);
         readbuf.MoveRecivePtr(ret);
 
         read_size += ret;
@@ -187,7 +191,7 @@ int SocketStream::OnWriteable(Epoller *p)
 
     if(writebuf.isEmpty())
     {
-        TRACE(name<<":no buffer to send, disable write");
+        TRACE(GetSockName()<<":no buffer to send, disable write");
         if(_close_when_empty)
             this->OnClose(p);
         else
@@ -207,7 +211,7 @@ int SocketStream::OnWriteable(Epoller *p)
 
         if(!writebuf.GetSendBuffer(outvec,out_num))
         {
-            TRACE("packet has send ,sock:"<<_fd
+            TRACE(GetSockName()
                   <<",writebuf rp:"<<writebuf.readpos.toString()
                   <<",writebuf wp:"<<writebuf.writepos.toString());
             break;
@@ -222,15 +226,15 @@ int SocketStream::OnWriteable(Epoller *p)
                   || errno == EINTR))
         {
             //write at next time
-            TRACE(name <<",ret:"<<ret<<",errorno:"<<errno<<",str:"<<strerror(errno));
+            TRACE(GetSockName() <<",ret:"<<ret<<",errorno:"<<errno<<",str:"<<strerror(errno));
             break;
         }else if(ret <=0 ) {
             //some error in socket
-            WARN(name <<",ret:"<<ret<<",errorno:"<<errno<<",str:"<<strerror(errno));
+            WARN(GetSockName() <<",ret:"<<ret<<",errorno:"<<errno<<",str:"<<strerror(errno));
             return -1;
         }
 
-        TRACE(name<<",send :"<<ret
+        TRACE(GetSockName()<<",send :"<<ret
               <<",writebuf rp:"<<writebuf.readpos.toString()
               <<",writebuf wp:"<<writebuf.writepos.toString());
 
@@ -247,7 +251,7 @@ int SocketStream::OnWriteable(Epoller *p)
 
     if(writebuf.isEmpty())
     {
-        TRACE(name<<":no buffer to send, disable write");
+        TRACE(GetSockName()<<":no buffer to send, disable write");
         if(_close_when_empty)
             this->OnClose(p);
         else
@@ -263,7 +267,7 @@ int SocketStream::OnClose(Epoller *p)
     if(handerClose)
         handerClose->Run(this,p);
 
-    TRACE(name<<" closing");
+    TRACE(GetSockName()<<" closing");
     DelEventAsync(p);
     return 0;
 }
@@ -286,13 +290,13 @@ int SocketStream::OnWriteimeOut(Epoller* p)
 
 int SocketStream::OnRecived(Epoller* p, uint32_t buffer_size)
 {
-    TRACE(name<<" OnRecived");
+    TRACE(GetSockName()<<" OnRecived");
     return 0;
 }
 
 int SocketStream::OnSended(Epoller* p, uint32_t buffer_size)
 {
-    TRACE(name<<" OnSended");
+    TRACE(GetSockName()<<" OnSended");
     return 0;
 }
 

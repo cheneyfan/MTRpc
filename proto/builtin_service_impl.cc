@@ -20,7 +20,8 @@ void BuiltinServiceImpl::Health(::google::protobuf::RpcController* /* controller
         ::google::protobuf::Closure* done)
 {
     response->set_health("helloworld");
-    done->Run();
+    if(done)
+        done->Run();
 }
 
 void BuiltinServiceImpl::ServerOptions(::google::protobuf::RpcController* controller,
@@ -28,7 +29,8 @@ void BuiltinServiceImpl::ServerOptions(::google::protobuf::RpcController* contro
         ::mtrpc::builtin::ServerOptionsResponse* response,
         ::google::protobuf::Closure* done)
 {
-    done->Run();
+    if(done)
+        done->Run();
 }
 
 void BuiltinServiceImpl::UpdateOptions(::google::protobuf::RpcController* controller,
@@ -36,7 +38,8 @@ void BuiltinServiceImpl::UpdateOptions(::google::protobuf::RpcController* contro
         ::mtrpc::builtin::UpdateOptionsResponse* response,
         ::google::protobuf::Closure* done)
 {
-   done->Run();
+    if(done)
+        done->Run();
 }
 
 void BuiltinServiceImpl::ServerStatus(::google::protobuf::RpcController* controller,
@@ -44,7 +47,8 @@ void BuiltinServiceImpl::ServerStatus(::google::protobuf::RpcController* control
         ::mtrpc::builtin::ServerStatusResponse* response,
         ::google::protobuf::Closure* done)
 {
-    done->Run();
+    if(done)
+        done->Run();
 }
 
 void BuiltinServiceImpl::ListService(::google::protobuf::RpcController* controller,
@@ -52,7 +56,8 @@ void BuiltinServiceImpl::ListService(::google::protobuf::RpcController* controll
         ::mtrpc::builtin::ListServiceResponse* response,
         ::google::protobuf::Closure* done)
 {
-    done->Run();
+    if(done)
+        done->Run();
 }
 
 void BuiltinServiceImpl::Stat(::google::protobuf::RpcController* controller,
@@ -60,7 +65,8 @@ void BuiltinServiceImpl::Stat(::google::protobuf::RpcController* controller,
         ::mtrpc::builtin::StatResponse* response,
         ::google::protobuf::Closure* done)
 {
-    done->Run();
+    if(done)
+        done->Run();
 }
 
 } // namespace builtin

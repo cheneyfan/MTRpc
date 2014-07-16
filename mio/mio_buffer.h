@@ -21,7 +21,7 @@
 
 namespace mtrpc {
 
-extern uint32_t DEFAULT_BUFFER_SIZE;
+extern int32_t DEFAULT_BUFFER_SIZE;
 extern uint32_t MAX_BUFFER_PIECES;
 
 
@@ -218,7 +218,7 @@ public:
         return readpos;
     }
 
-    WriteBuffer::Iterator AlignWritePos();
+    Iterator AlignWritePos();
 
     bool Reserve(uint32_t size);
 
@@ -246,6 +246,7 @@ public:
     bool isFull();
     bool isEmpty();
 
+    void Reset();
 
 public:
     uint32_t queNum;

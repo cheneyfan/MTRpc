@@ -1,13 +1,13 @@
 #include "stdio.h"
 #include "log/log.h"
 #include "rpc/rpc_server.h"
-
+#include "common/signalhelper.h"
 using namespace mtrpc;
 
 
 
 int main(int argc,char*argv[]){
-
+  SignalHelper::install_sig_action();
     Json::Value conf;
     //LogBacker::Init(conf);
 

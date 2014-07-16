@@ -37,7 +37,7 @@ void RpcChannel::CallMethod(const ::google::protobuf::MethodDescriptor* method,
 /// \brief getController
 /// \return
 ///
-RpcController* RpcChannel::GetController(){
+RpcController *RpcChannel::GetController(){
 
     return _impl->GetController();
 }

@@ -92,15 +92,17 @@ uint64_t HttpHeader::GetSeq(){
 
 
 std::string HttpHeader::toString(){
-    BufferPieces pi;
+    BufferPieces* pi[1];
+    BufferPieces  p;
+    pi[0] = &p;
 
     IOBuffer::Iterator it;
     it._idx = it._pos = 0;
-    it._que = (BufferPieces**)&pi;
+    it._que = (BufferPieces**)(&pi);
 
     this->SerializeHeader(it);
 
-    return std::string(pi.buffer);
+    return std::string(p.buffer);
 }
 
 
@@ -132,7 +134,8 @@ void HttpHeader::MoveBufTo(uint32_t& s)
 {
 
     char * ptr = buf;
-    while(*ptr ==' ') ptr++;
+    while(*ptr ==' ')
+        ptr++;
 
     sscanf(ptr,"%u",&s);
 
@@ -161,17 +164,10 @@ int HttpRequestHeader::ParserHeader(ReadBuffer & buf){
     std::string key;
     std::string value;
 
-
-
     for(; begin!=end && state!= END ; ++begin)
     {
 
         char c = *begin;
-
-        //onnly support the key size
-        if((pos - this->buf) >= MAX_KEY_LEN)
-            return HTTP_PARSER_FAIL;
-
         std::string method;
 
         switch(state)
@@ -326,7 +322,7 @@ int HttpRequestHeader::SerializeHeader(WriteBuffer::Iterator& it){
     //end
     ret= snprintf(bufptr,size,"\r\n");
     bufptr+=ret;
-    *bufptr = '\0';
+    //*bufptr = '\0';
     size -= ret;
     //trunctate the buffer
     it.get()->size = bufptr - bufpos;
@@ -352,15 +348,17 @@ int HttpReponseHeader::ParserHeader(ReadBuffer & buf){
     for(; begin!=end && state!= END; ++begin)
     {
         char c = *begin;
-
         switch(state)
         {
         case START:
             switch(c)
             {
             case ' ':
-                MoveBufTo(version);
+
+                MoveBufTo(key);
                 state = RES_STATUS;
+
+                key.clear();
                 break;
             default:
                 *pos++ = c;
@@ -375,6 +373,7 @@ int HttpReponseHeader::ParserHeader(ReadBuffer & buf){
             case ' ':
                 MoveBufTo(status);
                 state = RES_STATUS_MESSAGE_R;
+
                 break;
             default:
                 *pos++ = c;
@@ -387,8 +386,9 @@ int HttpReponseHeader::ParserHeader(ReadBuffer & buf){
             switch(c)
             {
             case '\r':
-                MoveBufTo(status_meg);
+                MoveBufTo(status_msg);
                 state = RES_STATUS_MESSAGE_N;
+
                 break;
             default:
                 *pos++ = c;
@@ -401,21 +401,25 @@ int HttpReponseHeader::ParserHeader(ReadBuffer & buf){
             {
             case '\n':
                 state = RES_KEY;
+
                 break;
             default:
                 return HTTP_PARSER_FAIL;
             }
             break;
 
-        case REQ_KEY:
+        case RES_KEY:
+
             switch(c)
             {
             case ':':
                 MoveBufTo(key);
                 state = RES_VALUE_R;
+
                 break;
             case '\r':
                 state = RES_END_R;
+
                 break;
             default:
                 *pos++ = c;
@@ -444,6 +448,7 @@ int HttpReponseHeader::ParserHeader(ReadBuffer & buf){
             {
             case '\n':
                 state = RES_KEY;
+
                 break;
 
             default:
@@ -456,6 +461,7 @@ int HttpReponseHeader::ParserHeader(ReadBuffer & buf){
             case '\n':
                 state = END;
                 bodyStart = begin;
+
                 break;
             default:
                 return HTTP_PARSER_FAIL;
@@ -465,9 +471,7 @@ int HttpReponseHeader::ParserHeader(ReadBuffer & buf){
     }//end for
 
 
-
-    TRACE("paser finished:"<<toString());
-    return state ==END ? HTTP_PASER_FINISH : HTTP_PASER_HALF;
+    return state == END ? HTTP_PASER_FINISH : HTTP_PASER_HALF;
 }
 
 
@@ -480,7 +484,7 @@ int HttpReponseHeader::SerializeHeader(WriteBuffer::Iterator& it){
 
     //head
     int ret = snprintf(bufptr,size,"%s %u %s\r\n"
-                       ,version.c_str(),status,status_meg.c_str());
+                       ,version.c_str(),status,status_msg.c_str());
 
     bufptr+=ret;
     size -= ret;
@@ -499,7 +503,7 @@ int HttpReponseHeader::SerializeHeader(WriteBuffer::Iterator& it){
 
     ret= snprintf(bufptr,size,"\r\n");
     bufptr+=ret;
-    *bufptr = '\0';
+    //*bufptr = '\0';
     size -= ret;
     it.get()->size = bufptr -bufpos;
     return true;

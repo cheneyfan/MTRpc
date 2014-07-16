@@ -28,7 +28,7 @@ public:
 
         b.increment();
 
-        std::cout<<Worker::CurrentWorker()->tid<<",say hehe:"<<name<<",evmask:"<<EventStatusStr(event_mask)<<std::endl;
+        std::cout<<Worker::CurrentWorker()->tid<<",say hehe:"<<GetEventName()<<",evmask:"<<StatusToStr(event_mask)<<std::endl;
         //usleep(100000);
    int e[] = {EVENT_READ,EVENT_WRITE,EVENT_CLOSE,READ_TIME_OUT,WRITE_TIME_OUT};
         int i =0;

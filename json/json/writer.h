@@ -6,7 +6,7 @@
 # include <string>
 # include <iostream>
 
-namespace Json {
+namespace mtrpc { namespace Json {
 
    class Value;
 
@@ -167,7 +167,7 @@ namespace Json {
    /// \see Json::operator>>()
    std::ostream& operator<<( std::ostream&, const Value &root );
 
-} // namespace Json
+}} // namespace mtrpc { namespace Json
 
 
 

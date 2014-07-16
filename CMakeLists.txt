@@ -1,4 +1,4 @@
-project(MTRpcBak CXX)
+project(MTRpc_GIT CXX)
 cmake_minimum_required(VERSION 2.8.9)
 
 
@@ -8,7 +8,8 @@ option(CMAKE_BUILD_TEST "build test " ON)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -ggdb -g3 -fPIC ")
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -msse -msse2 -msse3 -msse4.1 ")
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fpermissive -Wall -Wextra -Wno-unused-variable -Wno-unused-local-typedefs -Wno-unused-parameter")
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=gnu++11 ")
+
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++0x ")
 
 set(CMAKE_BUILD_TYPE debug)
 set(CMAKE_CXX_FLAGS_ALL "${CMAKE_CXX_FLAGS} ${CMAKE_CXX_FLAGS_DEBUG} ")
@@ -41,15 +42,14 @@ add_subdirectory(thread)
 
 #build all lib to mtrpc
 add_library(mtrpc STATIC
+            $<TARGET_OBJECTS:rpc>
+            $<TARGET_OBJECTS:mio>
+            $<TARGET_OBJECTS:proto>
+            $<TARGET_OBJECTS:thread>
+            $<TARGET_OBJECTS:log>
             $<TARGET_OBJECTS:common>
             $<TARGET_OBJECTS:inspect>
             $<TARGET_OBJECTS:json>
-            $<TARGET_OBJECTS:log>
-
-            $<TARGET_OBJECTS:proto>
-            $<TARGET_OBJECTS:thread>
-#            $<TARGET_OBJECTS:mio>
-#            $<TARGET_OBJECTS:rpc>
     )
 
 INSTALL(TARGETS mtrpc DESTINATION "./lib/")

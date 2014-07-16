@@ -4,7 +4,7 @@ namespace mtrpc {
 
 #define MAKE_CASE(name) case name: return (#name)
 
-const char* ErrorCodeToString(int error_code)
+const char* ErrorString(int error_code)
 {
     switch(error_code)
     {
@@ -26,6 +26,7 @@ const char* ErrorCodeToString(int error_code)
         MAKE_CASE(CLIENT_CONNECT_OK);
         MAKE_CASE(CLIENT_CONNECT_FAIL);
         MAKE_CASE(CLIENT_CONNECT_IPROCESS);
+        MAKE_CASE(CLIENT_CANCEL_BY_ERROR);
     }
 
     return "ERROR_UNDEFINED";

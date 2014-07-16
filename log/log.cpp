@@ -23,6 +23,7 @@ __thread char LogHelper::tidstr[8]={0};
 __thread time_t LogHelper::time=0;
 __thread char LogHelper::datebuf[24]={0};
 
+bool is_sync = true;
 
 
 
@@ -122,14 +123,12 @@ void LogHelper:: OutPut(LogEntry* e)
 
     snprintf(e->prefix,sizeof(e->prefix)," - %s.%03ld - %s - ",datebuf,tp.tv_nsec/1000000,tidstr);
 
-#ifdef _SYNC_LOG_
-    {
+    if(is_sync){
         WriteLock<MutexLock> __(LogBacker::spin);
-       LogBacker::OutPut(e);
-    }
-#else
-    cm._loglist.push(e);
-#endif
+        LogBacker::OutPut(e);
+        delete e;
+    }else
+        cm._loglist.push(e);
 }
 
 
@@ -174,6 +173,8 @@ bool LogBacker::isruning = true;
 int LogBacker::Init(Json::Value & conf){
 
     logfile = "a.log";
+
+    is_sync = false;
 
     fd = open(logfile.c_str(),
               O_CREAT|O_TRUNC|O_WRONLY,

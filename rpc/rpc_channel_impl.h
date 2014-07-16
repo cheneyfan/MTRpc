@@ -30,18 +30,16 @@ public:
 
 
     ///
-    /// \brief getController
-    /// \return
-    ///
-    RpcController* GetController();
-
-    ///
     /// \brief Connect
     /// \param server_ip
     /// \param server_port
     /// \return
     ///
     int Connect(const std::string& server_ip,int32_t server_port);
+
+
+
+    RpcController* GetController();
 
     ///
     /// \brief CallMethod
@@ -66,9 +64,6 @@ public:
     void OnMessageRecived(ConnectStream* sream,Epoller* p,uint32_t buffer_size);
 
     void OnMessageSended(ConnectStream* stream, Epoller* p, uint32_t buffer_size);
-
-
-    void OnWriteable(SocketStream* sream,Epoller* p);
 
     void OnMessageError(SocketStream* stream, Epoller* p, uint32_t error_code);
     void OnClose(SocketStream* sream,Epoller* p);

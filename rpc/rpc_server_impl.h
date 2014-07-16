@@ -56,16 +56,17 @@ public:
                                     google::protobuf::MethodDescriptor**method);
 
     bool ParseMethodFullName(const std::string& method_full_name,
-            std::string* service_full_name, std::string* method_name);
+            std::string &service_full_name, std::string &method_name);
+
 
 private:
-
+    Acceptor acceptor;
+    RpcServerOptions _options;
     Epoller * poller;
     WorkGroup* group;
-    Acceptor acceptor;
-private:
-    RpcServerOptions _options;
     ServicePool* _service_pool;
+
+
 
 }; // class RpcServerImpl
 

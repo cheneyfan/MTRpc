@@ -11,7 +11,7 @@
 #pragma warning( disable : 4996 )   // disable warning about strdup being deprecated.
 #endif
 
-namespace Json {
+namespace mtrpc { namespace Json {
 
 // Implementation of class Features
 // ////////////////////////////////
@@ -882,4 +882,4 @@ std::istream& operator>>( std::istream &sin, Value &root )
 }
 
 
-} // namespace Json
+}} // namespace mtrpc { namespace Json
