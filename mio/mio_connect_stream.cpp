@@ -71,7 +71,7 @@ int ConnectStream::OnRecived(Epoller *p, uint32_t buffer_size){
 
     //consume the buffer
     do{
-        TRACE(GetSockName()<<",recv:"<<readbuf.readpos.get()->buffer);
+        TRACE(GetSockName()<<",recv:"<<readbuf.readpos.get()->buffer<<",buffer:"<<buffer_size);
 
         int ret = resheader.ParserHeader(readbuf);
 

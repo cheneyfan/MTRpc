@@ -82,6 +82,7 @@ void ServerConnect::OnMessageRecived(MessageStream* sream,Epoller* p,uint32_t bu
 
     RpcServerController* controller = new RpcServerController();
 
+    controller->_seq  = sream->reqheader.GetSeq();
     controller->_request = request;
     controller->_request = response;
     controller->_stream = _stream;
@@ -123,11 +124,10 @@ void ServerConnect::SendMessage(MessageStream* stream,Epoller* p,RpcServerContro
 
     WriteBuffer& buf = stream->writebuf;
 
-    HttpRequestHeader& reqheader = stream->reqheader;
     HttpReponseHeader& resheader = stream->resheader;
 
     resheader.Reset();
-    resheader.SetSeq(reqheader.GetSeq());
+    resheader.SetSeq(cntl->_seq);
     resheader.SetStatus( OK, "OK");
 
     if(!buf.Reserve(MAX_HEADER_SIZE))

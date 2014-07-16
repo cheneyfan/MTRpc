@@ -74,8 +74,9 @@ public:
     Epoller* _poller;
     WorkGroup* _group;
 
-    MutexLock pendinglock;
-    std::queue<RpcClientController*> pendingcall;
+    MutexLock sendlock;
+    std::queue<RpcClientController*> sendcall;
+    std::queue<RpcClientController*> waitcall;
 
 };
 

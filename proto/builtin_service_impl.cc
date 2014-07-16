@@ -1,5 +1,5 @@
 #include <builtin_service_impl.h>
-
+#include "rpc/rpc_controller_impl.h"
 namespace mtrpc {
 
 namespace builtin {
@@ -14,12 +14,16 @@ BuiltinServiceImpl::~BuiltinServiceImpl()
 {
 }
 
-void BuiltinServiceImpl::Health(::google::protobuf::RpcController* /* controller */,
-        const ::mtrpc::builtin::HealthRequest* /* request */,
+void BuiltinServiceImpl::Health(::google::protobuf::RpcController*  controller ,
+        const ::mtrpc::builtin::HealthRequest*  request ,
         ::mtrpc::builtin::HealthResponse* response,
         ::google::protobuf::Closure* done)
 {
-    response->set_health("helloworld");
+    char buf[1024]={0};
+    RpcServerController* cntl = (RpcServerController* )controller;
+
+    snprintf(buf,1024,"%s_%llu",request->health().c_str(),cntl->_seq);
+    response->set_health(buf);
     if(done)
         done->Run();
 }

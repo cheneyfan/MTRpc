@@ -29,15 +29,24 @@ int main(int argc,char*argv[]){
 
         ::mtrpc::builtin::HealthRequest req;
         ::mtrpc::builtin::HealthResponse res;
-         stub.Health(cntl,&req,&res,NULL);
 
-        if(cntl->Failed())
+
+        for(int i=0;i<2;++i)
         {
+            res.Clear();
+            char buf[32]={0};
+            snprintf(buf,32,"hello_%d_",i);
+
+            req.set_health(buf);
+
+            stub.Health(cntl,&req,&res,NULL);
+
+            cntl->Reset();
+
+
+            std::cout<<"result:"<<res.health()<<std::endl;
 
         }
-
-
-        std::cout<<"result:"<<res.health()<<std::endl;
     }
 
     client.ReleaseChannel(channel);

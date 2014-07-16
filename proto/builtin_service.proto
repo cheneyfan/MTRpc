@@ -12,6 +12,7 @@ package mtrpc.builtin;
 option cc_generic_services = true;
 
 message HealthRequest {
+    optional string health = 1;
 }
 
 message HealthResponse {

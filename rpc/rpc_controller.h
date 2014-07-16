@@ -43,8 +43,8 @@ public:
     ////
     virtual void SetStatus(int status){}
     virtual void SetFailed(const std::string& reason){}
+    virtual  uint64_t GenerateSeq();
 
-    virtual uint64_t GetSeq(){return 0;}
 }; // class RpcController
 
 }

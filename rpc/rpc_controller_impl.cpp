@@ -71,11 +71,6 @@ void RpcControllerImpl::SetFailed(const std::string& reason)
     _msg = reason;
 }
 
-uint64_t RpcControllerImpl::GetSeq()
-{
-    uint64_t t = time(NULL);
-    return  t<<32 | rand();
-}
 
 void RpcControllerImpl::SetStatus(int status)
 {

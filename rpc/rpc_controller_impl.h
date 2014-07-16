@@ -45,14 +45,9 @@ public:
     virtual void SetStatus(int status);
     virtual void SetFailed(const std::string& reason);
 
-    virtual uint64_t GetSeq();
-
-
-
-
 
 public:
-
+    uint64_t _seq;
     std::string _msg;
     volatile int  _status;
 

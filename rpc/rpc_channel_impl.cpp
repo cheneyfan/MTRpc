@@ -113,13 +113,13 @@ void RpcChannelImpl::CallMethod(const ::google::protobuf::MethodDescriptor* meth
 
     //invoid the call by event thread
     {
-        WriteLock<MutexLock> lc(pendinglock);
-        if(!pendingcall.empty()){
-            pendingcall.push(cntl);
+        WriteLock<MutexLock> lc(sendlock);
+        if(!sendcall.empty()){
+            sendcall.push(cntl);
             return;
         }
 
-        pendingcall.push(cntl);
+        sendcall.push(cntl);
         SendToServer(method, (RpcClientController*)controller, request);
     }
 
@@ -139,7 +139,10 @@ int RpcChannelImpl::SendToServer(const ::google::protobuf::MethodDescriptor* met
     buf.Reset();
 
     reqheader.SetPath(method->full_name());
-    reqheader.SetSeq(cntl->GetSeq());
+
+    uint64_t seq = cntl->GenerateSeq();
+    cntl->_seq = seq;
+    reqheader.SetSeq(seq);
 
     if(!buf.Reserve(MAX_HEADER_SIZE))
     {
@@ -173,37 +176,54 @@ int RpcChannelImpl::SendToServer(const ::google::protobuf::MethodDescriptor* met
 
 void RpcChannelImpl::OnMessageSended(ConnectStream* stream,Epoller* p,uint32_t buffer_size){
 
-     RpcClientController *  cntl = NULL;
-    {
-        WriteLock<MutexLock> lc(pendinglock);
-        if(pendingcall.empty() )
+    RpcClientController *  cntl = NULL;
+
+    do{
         {
-            stream->ModEventAsync(p,true,false);
-            return;
+            WriteLock<MutexLock> lc(sendlock);
+            if(sendcall.empty() )
+            {
+                stream->ModEventAsync(p,true,false);
+                return;
+            }
+
+            cntl = sendcall.front();
         }
 
-        cntl = pendingcall.front();
-    }
 
+        TRACE(stream->GetSockName()<<",send:"<<cntl ->_req_send_size<<",pack:"<<cntl ->_req_pack_size<<",buffer_size:"<<buffer_size);
 
-    cntl ->_req_send_size  += buffer_size;
+        cntl ->_req_send_size  += buffer_size;
 
-    if(cntl ->_req_send_size < cntl ->_req_pack_size)
-    {
-        return ;
-    }
+        if(cntl ->_req_send_size < cntl ->_req_pack_size)
+        {
+            return ;
+        }
+
+        waitcall.push(cntl);
+        buffer_size =  cntl ->_req_send_size - cntl ->_req_pack_size;
+
+    }while(buffer_size>0);
 }
 
 void RpcChannelImpl::OnMessageRecived(ConnectStream *sream, Epoller* p,uint32_t buffer_size){
 
-    RpcClientController *  cntl = NULL;
+   if(waitcall.empty())
+   {
+       INFO(sream->GetSockName()<<"no waiting call");
+       return;
+   }
 
+    RpcClientController * cntl = waitcall.front();
+    waitcall.pop();
+
+    if(cntl->_seq !=  sream->resheader.GetSeq())
     {
-        WriteLock<MutexLock> wl(pendinglock);
-        cntl = pendingcall.front();
-        pendingcall.pop();
-    }
 
+        WARN("Seq Not Match,send_req:"<<cntl->_seq<<",res_req:"<<sream->resheader.GetSeq());
+       OnMessageError(sream,p,CLIENT_SEQ_NOT_MATCH);
+        return;
+    }
     assert(cntl!=NULL);
 
     int ContentLength = sream->resheader.GetContentLength();
@@ -213,7 +233,6 @@ void RpcChannelImpl::OnMessageRecived(ConnectStream *sream, Epoller* p,uint32_t 
     {
         OnMessageError(sream,p,SERVER_REQ_PARSER_FAILED);
         return;
-
     }
 
     //notify the call
@@ -223,19 +242,6 @@ void RpcChannelImpl::OnMessageRecived(ConnectStream *sream, Epoller* p,uint32_t 
         cntl->_done->Run();
 
     cntl = NULL;
-
-    {
-        WriteLock<MutexLock> wl(pendinglock);
-        if(!pendingcall.empty())
-        {
-            cntl =  pendingcall.front();
-        }
-    }
-
-    if(cntl == NULL)
-        _stream->ModEventAsync(p,true,false);
-    else
-        SendToServer(cntl->_method, cntl, cntl->_request);
 }
 
 
@@ -243,28 +249,17 @@ void RpcChannelImpl::OnMessageError(SocketStream* stream, Epoller* p, uint32_t e
 {
       RpcClientController *  cntl = NULL;
       {
-          WriteLock<MutexLock> wl(pendinglock);
-          // 1 remove all pending
-          if(!pendingcall.empty())
-          {
-              cntl = pendingcall.front();
-              pendingcall.pop();
-          }
-      }
-
-      //notify client
-      if(cntl){
-          cntl->SetStatus(error_code);
+          WriteLock<MutexLock> wl(sendlock);
+          while(!sendcall.empty())
+              sendcall.pop();
       }
 
       {
-          WriteLock<MutexLock> wl(pendinglock);
-          // 1 remove all pending
-          while(!pendingcall.empty())
+          while(!waitcall.empty())
           {
-              cntl = pendingcall.front();
-              pendingcall.pop();
-              cntl->SetStatus(CLIENT_CANCEL_BY_ERROR);
+              cntl = waitcall.front();
+              waitcall.pop();
+              cntl->SetStatus(error_code);
           }
       }
 

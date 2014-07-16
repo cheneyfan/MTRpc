@@ -79,6 +79,7 @@ void protobuf_AssignDesc_builtin_5fservice_2eproto() {
   GOOGLE_CHECK(file != NULL);
   HealthRequest_descriptor_ = file->message_type(0);
   static const int HealthRequest_offsets_[1] = {
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(HealthRequest, health_),
   };
   HealthRequest_reflection_ =
     new ::google::protobuf::internal::GeneratedMessageReflection(
@@ -413,53 +414,53 @@ void protobuf_AddDesc_builtin_5fservice_2eproto() {
   ::google::protobuf::DescriptorPool::InternalAddGeneratedFile(
     "\n\025builtin_service.proto\022\rmtrpc.builtin\032 "
     "google/protobuf/descriptor.proto\032\020rpc_op"
-    "tion.proto\"\017\n\rHealthRequest\" \n\016HealthRes"
-    "ponse\022\016\n\006health\030\001 \001(\t\"\331\001\n\rServerOptions\022"
-    "\027\n\017work_thread_num\030\001 \001(\003\022\027\n\017keep_alive_t"
-    "ime\030\002 \001(\003\022\037\n\027max_pending_buffer_size\030\003 \001"
-    "(\003\022\031\n\021max_throughput_in\030\004 \001(\003\022\032\n\022max_thr"
-    "oughput_out\030\005 \001(\003\022 \n\030disable_builtin_ser"
-    "vices\030\006 \001(\010\022\034\n\024disable_list_service\030\007 \001("
-    "\010\"\026\n\024ServerOptionsRequest\"F\n\025ServerOptio"
-    "nsResponse\022-\n\007options\030\001 \001(\0132\034.mtrpc.buil"
-    "tin.ServerOptions\"E\n\024UpdateOptionsReques"
-    "t\022-\n\007options\030\001 \001(\0132\034.mtrpc.builtin.Serve"
-    "rOptions\"F\n\025UpdateOptionsResponse\022-\n\007opt"
-    "ions\030\001 \001(\0132\034.mtrpc.builtin.ServerOptions"
-    "\"\025\n\023ServerStatusRequest\"\264\001\n\024ServerStatus"
-    "Response\022\024\n\014is_listening\030\001 \001(\010\022\030\n\020connec"
-    "tion_count\030\002 \001(\003\022\025\n\rservice_count\030\003 \001(\003\022"
-    "\035\n\025pending_message_count\030\004 \001(\003\022\033\n\023pendin"
-    "g_buffer_size\030\005 \001(\003\022\031\n\021pending_data_size"
-    "\030\006 \001(\003\"\024\n\022ListServiceRequest\"\\\n\023ListServ"
-    "iceResponse\022\020\n\010services\030\001 \003(\t\0223\n\005files\030\002"
-    " \003(\0132$.google.protobuf.FileDescriptorPro"
-    "to\"\300\001\n\nMethodStat\022\023\n\013method_name\030\001 \001(\t\022\025"
-    "\n\rsucceed_count\030\002 \001(\003\022\033\n\023succeed_avg_tim"
-    "e_us\030\003 \001(\002\022\033\n\023succeed_max_time_us\030\004 \001(\003\022"
-    "\024\n\014failed_count\030\005 \001(\003\022\032\n\022failed_avg_time"
-    "_us\030\006 \001(\002\022\032\n\022failed_max_time_us\030\007 \001(\003\"\231\001"
-    "\n\013ServiceStat\022\024\n\014service_name\030\001 \001(\t\022\026\n\016p"
-    "eriod_seconds\030\002 \001(\003\022\025\n\rsucceed_count\030\003 \001"
-    "(\003\022\024\n\014failed_count\030\004 \001(\003\022/\n\014method_stats"
-    "\030\005 \003(\0132\031.mtrpc.builtin.MethodStat\"D\n\013Sta"
-    "tRequest\022\031\n\014service_name\030\001 \001(\t:\003all\022\032\n\016p"
-    "eriod_seconds\030\002 \001(\003:\00260\"A\n\014StatResponse\022"
-    "1\n\rservice_stats\030\001 \003(\0132\032.mtrpc.builtin.S"
-    "erviceStat2\214\004\n\016BuiltinService\022E\n\006Health\022"
-    "\034.mtrpc.builtin.HealthRequest\032\035.mtrpc.bu"
-    "iltin.HealthResponse\022Z\n\rServerOptions\022#."
-    "mtrpc.builtin.ServerOptionsRequest\032$.mtr"
-    "pc.builtin.ServerOptionsResponse\022Z\n\rUpda"
-    "teOptions\022#.mtrpc.builtin.UpdateOptionsR"
-    "equest\032$.mtrpc.builtin.UpdateOptionsResp"
-    "onse\022W\n\014ServerStatus\022\".mtrpc.builtin.Ser"
-    "verStatusRequest\032#.mtrpc.builtin.ServerS"
-    "tatusResponse\022Z\n\013ListService\022!.mtrpc.bui"
-    "ltin.ListServiceRequest\032\".mtrpc.builtin."
-    "ListServiceResponse\"\004\220\342\t\001\022\?\n\004Stat\022\032.mtrp"
-    "c.builtin.StatRequest\032\033.mtrpc.builtin.St"
-    "atResponse\032\005\200\342\t\270\027B\003\200\001\001", 1942);
+    "tion.proto\"\037\n\rHealthRequest\022\016\n\006health\030\001 "
+    "\001(\t\" \n\016HealthResponse\022\016\n\006health\030\001 \001(\t\"\331\001"
+    "\n\rServerOptions\022\027\n\017work_thread_num\030\001 \001(\003"
+    "\022\027\n\017keep_alive_time\030\002 \001(\003\022\037\n\027max_pending"
+    "_buffer_size\030\003 \001(\003\022\031\n\021max_throughput_in\030"
+    "\004 \001(\003\022\032\n\022max_throughput_out\030\005 \001(\003\022 \n\030dis"
+    "able_builtin_services\030\006 \001(\010\022\034\n\024disable_l"
+    "ist_service\030\007 \001(\010\"\026\n\024ServerOptionsReques"
+    "t\"F\n\025ServerOptionsResponse\022-\n\007options\030\001 "
+    "\001(\0132\034.mtrpc.builtin.ServerOptions\"E\n\024Upd"
+    "ateOptionsRequest\022-\n\007options\030\001 \001(\0132\034.mtr"
+    "pc.builtin.ServerOptions\"F\n\025UpdateOption"
+    "sResponse\022-\n\007options\030\001 \001(\0132\034.mtrpc.built"
+    "in.ServerOptions\"\025\n\023ServerStatusRequest\""
+    "\264\001\n\024ServerStatusResponse\022\024\n\014is_listening"
+    "\030\001 \001(\010\022\030\n\020connection_count\030\002 \001(\003\022\025\n\rserv"
+    "ice_count\030\003 \001(\003\022\035\n\025pending_message_count"
+    "\030\004 \001(\003\022\033\n\023pending_buffer_size\030\005 \001(\003\022\031\n\021p"
+    "ending_data_size\030\006 \001(\003\"\024\n\022ListServiceReq"
+    "uest\"\\\n\023ListServiceResponse\022\020\n\010services\030"
+    "\001 \003(\t\0223\n\005files\030\002 \003(\0132$.google.protobuf.F"
+    "ileDescriptorProto\"\300\001\n\nMethodStat\022\023\n\013met"
+    "hod_name\030\001 \001(\t\022\025\n\rsucceed_count\030\002 \001(\003\022\033\n"
+    "\023succeed_avg_time_us\030\003 \001(\002\022\033\n\023succeed_ma"
+    "x_time_us\030\004 \001(\003\022\024\n\014failed_count\030\005 \001(\003\022\032\n"
+    "\022failed_avg_time_us\030\006 \001(\002\022\032\n\022failed_max_"
+    "time_us\030\007 \001(\003\"\231\001\n\013ServiceStat\022\024\n\014service"
+    "_name\030\001 \001(\t\022\026\n\016period_seconds\030\002 \001(\003\022\025\n\rs"
+    "ucceed_count\030\003 \001(\003\022\024\n\014failed_count\030\004 \001(\003"
+    "\022/\n\014method_stats\030\005 \003(\0132\031.mtrpc.builtin.M"
+    "ethodStat\"D\n\013StatRequest\022\031\n\014service_name"
+    "\030\001 \001(\t:\003all\022\032\n\016period_seconds\030\002 \001(\003:\00260\""
+    "A\n\014StatResponse\0221\n\rservice_stats\030\001 \003(\0132\032"
+    ".mtrpc.builtin.ServiceStat2\214\004\n\016BuiltinSe"
+    "rvice\022E\n\006Health\022\034.mtrpc.builtin.HealthRe"
+    "quest\032\035.mtrpc.builtin.HealthResponse\022Z\n\r"
+    "ServerOptions\022#.mtrpc.builtin.ServerOpti"
+    "onsRequest\032$.mtrpc.builtin.ServerOptions"
+    "Response\022Z\n\rUpdateOptions\022#.mtrpc.builti"
+    "n.UpdateOptionsRequest\032$.mtrpc.builtin.U"
+    "pdateOptionsResponse\022W\n\014ServerStatus\022\".m"
+    "trpc.builtin.ServerStatusRequest\032#.mtrpc"
+    ".builtin.ServerStatusResponse\022Z\n\013ListSer"
+    "vice\022!.mtrpc.builtin.ListServiceRequest\032"
+    "\".mtrpc.builtin.ListServiceResponse\"\004\220\342\t"
+    "\001\022\?\n\004Stat\022\032.mtrpc.builtin.StatRequest\032\033."
+    "mtrpc.builtin.StatResponse\032\005\200\342\t\270\027B\003\200\001\001", 1958);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "builtin_service.proto", &protobuf_RegisterTypes);
   HealthRequest::default_instance_ = new HealthRequest();
@@ -507,6 +508,7 @@ struct StaticDescriptorInitializer_builtin_5fservice_2eproto {
 // ===================================================================
 
 #ifndef _MSC_VER
+const int HealthRequest::kHealthFieldNumber;
 #endif  // !_MSC_VER
 
 HealthRequest::HealthRequest()
@@ -525,6 +527,7 @@ HealthRequest::HealthRequest(const HealthRequest& from)
 
 void HealthRequest::SharedCtor() {
   _cached_size_ = 0;
+  health_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
 }
 
@@ -533,6 +536,9 @@ HealthRequest::~HealthRequest() {
 }
 
 void HealthRequest::SharedDtor() {
+  if (health_ != &::google::protobuf::internal::kEmptyString) {
+    delete health_;
+  }
   if (this != default_instance_) {
   }
 }
@@ -559,6 +565,13 @@ HealthRequest* HealthRequest::New() const {
 }
 
 void HealthRequest::Clear() {
+  if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+    if (has_health()) {
+      if (health_ != &::google::protobuf::internal::kEmptyString) {
+        health_->clear();
+      }
+    }
+  }
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
   mutable_unknown_fields()->Clear();
 }
@@ -568,12 +581,34 @@ bool HealthRequest::MergePartialFromCodedStream(
 #define DO_(EXPRESSION) if (!(EXPRESSION)) return false
   ::google::protobuf::uint32 tag;
   while ((tag = input->ReadTag()) != 0) {
-    if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-        ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
-      return true;
+    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+      // optional string health = 1;
+      case 1: {
+        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED) {
+          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                input, this->mutable_health()));
+          ::google::protobuf::internal::WireFormat::VerifyUTF8String(
+            this->health().data(), this->health().length(),
+            ::google::protobuf::internal::WireFormat::PARSE);
+        } else {
+          goto handle_uninterpreted;
+        }
+        if (input->ExpectAtEnd()) return true;
+        break;
+      }
+
+      default: {
+      handle_uninterpreted:
+        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
+          return true;
+        }
+        DO_(::google::protobuf::internal::WireFormat::SkipField(
+              input, tag, mutable_unknown_fields()));
+        break;
+      }
     }
-    DO_(::google::protobuf::internal::WireFormat::SkipField(
-          input, tag, mutable_unknown_fields()));
   }
   return true;
 #undef DO_
@@ -581,6 +616,15 @@ bool HealthRequest::MergePartialFromCodedStream(
 
 void HealthRequest::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
+  // optional string health = 1;
+  if (has_health()) {
+    ::google::protobuf::internal::WireFormat::VerifyUTF8String(
+      this->health().data(), this->health().length(),
+      ::google::protobuf::internal::WireFormat::SERIALIZE);
+    ::google::protobuf::internal::WireFormatLite::WriteString(
+      1, this->health(), output);
+  }
+
   if (!unknown_fields().empty()) {
     ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
         unknown_fields(), output);
@@ -589,6 +633,16 @@ void HealthRequest::SerializeWithCachedSizes(
 
 ::google::protobuf::uint8* HealthRequest::SerializeWithCachedSizesToArray(
     ::google::protobuf::uint8* target) const {
+  // optional string health = 1;
+  if (has_health()) {
+    ::google::protobuf::internal::WireFormat::VerifyUTF8String(
+      this->health().data(), this->health().length(),
+      ::google::protobuf::internal::WireFormat::SERIALIZE);
+    target =
+      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+        1, this->health(), target);
+  }
+
   if (!unknown_fields().empty()) {
     target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
         unknown_fields(), target);
@@ -599,6 +653,15 @@ void HealthRequest::SerializeWithCachedSizes(
 int HealthRequest::ByteSize() const {
   int total_size = 0;
 
+  if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+    // optional string health = 1;
+    if (has_health()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::StringSize(
+          this->health());
+    }
+
+  }
   if (!unknown_fields().empty()) {
     total_size +=
       ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
@@ -624,6 +687,11 @@ void HealthRequest::MergeFrom(const ::google::protobuf::Message& from) {
 
 void HealthRequest::MergeFrom(const HealthRequest& from) {
   GOOGLE_CHECK_NE(&from, this);
+  if (from._has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+    if (from.has_health()) {
+      set_health(from.health());
+    }
+  }
   mutable_unknown_fields()->MergeFrom(from.unknown_fields());
 }
 
@@ -646,6 +714,8 @@ bool HealthRequest::IsInitialized() const {
 
 void HealthRequest::Swap(HealthRequest* other) {
   if (other != this) {
+    std::swap(health_, other->health_);
+    std::swap(_has_bits_[0], other->_has_bits_[0]);
     _unknown_fields_.Swap(&other->_unknown_fields_);
     std::swap(_cached_size_, other->_cached_size_);
   }

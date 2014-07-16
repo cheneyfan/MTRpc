@@ -109,14 +109,29 @@ class HealthRequest : public ::google::protobuf::Message {
 
   // accessors -------------------------------------------------------
 
+  // optional string health = 1;
+  inline bool has_health() const;
+  inline void clear_health();
+  static const int kHealthFieldNumber = 1;
+  inline const ::std::string& health() const;
+  inline void set_health(const ::std::string& value);
+  inline void set_health(const char* value);
+  inline void set_health(const char* value, size_t size);
+  inline ::std::string* mutable_health();
+  inline ::std::string* release_health();
+  inline void set_allocated_health(::std::string* health);
+
   // @@protoc_insertion_point(class_scope:mtrpc.builtin.HealthRequest)
  private:
+  inline void set_has_health();
+  inline void clear_has_health();
 
   ::google::protobuf::UnknownFieldSet _unknown_fields_;
 
+  ::std::string* health_;
 
   mutable int _cached_size_;
-  ::google::protobuf::uint32 _has_bits_[1];
+  ::google::protobuf::uint32 _has_bits_[(1 + 31) / 32];
 
   friend void  protobuf_AddDesc_builtin_5fservice_2eproto();
   friend void protobuf_AssignDesc_builtin_5fservice_2eproto();
@@ -1621,6 +1636,76 @@ class BuiltinService_Stub : public BuiltinService {
 // ===================================================================
 
 // HealthRequest
+
+// optional string health = 1;
+inline bool HealthRequest::has_health() const {
+  return (_has_bits_[0] & 0x00000001u) != 0;
+}
+inline void HealthRequest::set_has_health() {
+  _has_bits_[0] |= 0x00000001u;
+}
+inline void HealthRequest::clear_has_health() {
+  _has_bits_[0] &= ~0x00000001u;
+}
+inline void HealthRequest::clear_health() {
+  if (health_ != &::google::protobuf::internal::kEmptyString) {
+    health_->clear();
+  }
+  clear_has_health();
+}
+inline const ::std::string& HealthRequest::health() const {
+  return *health_;
+}
+inline void HealthRequest::set_health(const ::std::string& value) {
+  set_has_health();
+  if (health_ == &::google::protobuf::internal::kEmptyString) {
+    health_ = new ::std::string;
+  }
+  health_->assign(value);
+}
+inline void HealthRequest::set_health(const char* value) {
+  set_has_health();
+  if (health_ == &::google::protobuf::internal::kEmptyString) {
+    health_ = new ::std::string;
+  }
+  health_->assign(value);
+}
+inline void HealthRequest::set_health(const char* value, size_t size) {
+  set_has_health();
+  if (health_ == &::google::protobuf::internal::kEmptyString) {
+    health_ = new ::std::string;
+  }
+  health_->assign(reinterpret_cast<const char*>(value), size);
+}
+inline ::std::string* HealthRequest::mutable_health() {
+  set_has_health();
+  if (health_ == &::google::protobuf::internal::kEmptyString) {
+    health_ = new ::std::string;
+  }
+  return health_;
+}
+inline ::std::string* HealthRequest::release_health() {
+  clear_has_health();
+  if (health_ == &::google::protobuf::internal::kEmptyString) {
+    return NULL;
+  } else {
+    ::std::string* temp = health_;
+    health_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
+    return temp;
+  }
+}
+inline void HealthRequest::set_allocated_health(::std::string* health) {
+  if (health_ != &::google::protobuf::internal::kEmptyString) {
+    delete health_;
+  }
+  if (health) {
+    set_has_health();
+    health_ = health;
+  } else {
+    clear_has_health();
+    health_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
+  }
+}
 
 // -------------------------------------------------------------------
 
