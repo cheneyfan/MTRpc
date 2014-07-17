@@ -58,8 +58,8 @@ public:
 public:
 
     //
-    virtual int OnRecived(Epoller* p,uint32_t buffer_size);
-    virtual int OnSended(Epoller* p,uint32_t buffer_size);
+    virtual int OnRecived(Epoller* p,int32_t buffer_size);
+    virtual int OnSended(Epoller* p,int32_t buffer_size);
 
 
     std::string GetSockName();

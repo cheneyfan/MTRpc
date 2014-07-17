@@ -49,7 +49,7 @@ void RpcControllerImpl::Reset()
 
 bool RpcControllerImpl::Failed() const {
 
-    return _status == OK;
+    return _status != OK;
 }
 
 

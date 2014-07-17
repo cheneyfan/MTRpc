@@ -104,6 +104,8 @@ public:
          path = p;
     }
 
+    virtual void Reset();
+
 public:
     std::string method;
     std::string path;
@@ -119,6 +121,7 @@ public:
     virtual int ParserHeader(ReadBuffer & buf);
     virtual int SerializeHeader(WriteBuffer::Iterator& it);
 
+    virtual void Reset();
 
     void SetStatus(uint32_t s,const std::string msg){
         status = s;

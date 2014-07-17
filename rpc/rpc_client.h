@@ -76,6 +76,8 @@ public:
     // Shutdown the rpc client.
     void Shutdown();
 
+    void Join();
+
     RpcChannel* GetChannel(const std::string& server_addr);
 
     void ReleaseChannel(RpcChannel* channel);

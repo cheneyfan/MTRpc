@@ -20,6 +20,7 @@ SocketStream::SocketStream():
 
 SocketStream:: ~SocketStream(){
 
+
     delete handerConnected;
     delete handerReadable;
     delete handerWriteable;
@@ -74,14 +75,18 @@ void SocketStream::OnEvent(Epoller* p,uint32_t mask)
         _isConnected = true;
     }
 
-    if(mask & EVENT_READ)
+    if(mask & EVENT_READ && 0 !=this->OnReadable(p))
     {
-        this->OnReadable(p);
+        WARN("OnReadable error close:"<<this->GetSockName());
+        this->OnClose(p);
+        return ;
     }
 
-    if(mask & EVENT_WRITE )
+    if(mask & EVENT_WRITE && 0!= this->OnWriteable(p))
     {
-        this->OnWriteable(p);
+         WARN("OnWriteable error close:"<<this->GetSockName());
+        this->OnClose(p);
+        return ;
     }
 
     if(mask & READ_TIME_OUT )
@@ -209,11 +214,15 @@ int SocketStream::OnWriteable(Epoller *p)
         struct iovec outvec[MAX_BUFFER_PIECES];
         int out_num = MAX_BUFFER_PIECES;
 
+        /*TRACE(GetSockName()
+              <<",writebuf rp:"<<writebuf.readpos.toString()
+              <<",writebuf wp:"<<writebuf.writepos.toString());*/
+
         if(!writebuf.GetSendBuffer(outvec,out_num))
         {
-            TRACE(GetSockName()
+            WARN(GetSockName()
                   <<",writebuf rp:"<<writebuf.readpos.toString()
-                  <<",writebuf wp:"<<writebuf.writepos.toString());
+                  <<",writebuf wp:"<<writebuf.writepos.toString()<<",out_num:"<<out_num);
             break;
         }
 
@@ -234,9 +243,10 @@ int SocketStream::OnWriteable(Epoller *p)
             return -1;
         }
 
+        /*
         TRACE(GetSockName()<<",send :"<<ret
               <<",writebuf rp:"<<writebuf.readpos.toString()
-              <<",writebuf wp:"<<writebuf.writepos.toString());
+              <<",writebuf wp:"<<writebuf.writepos.toString());*/
 
         writebuf.MoveSendPtr(ret);
 
@@ -267,7 +277,7 @@ int SocketStream::OnClose(Epoller *p)
     if(handerClose)
         handerClose->Run(this,p);
 
-    TRACE(GetSockName()<<" closing");
+    TRACE(GetSockName()<<":closing");
     DelEventAsync(p);
     return 0;
 }
@@ -288,13 +298,13 @@ int SocketStream::OnWriteimeOut(Epoller* p)
     return 0;
 }
 
-int SocketStream::OnRecived(Epoller* p, uint32_t buffer_size)
+int SocketStream::OnRecived(Epoller* p, int32_t buffer_size)
 {
     TRACE(GetSockName()<<" OnRecived");
     return 0;
 }
 
-int SocketStream::OnSended(Epoller* p, uint32_t buffer_size)
+int SocketStream::OnSended(Epoller* p, int32_t buffer_size)
 {
     TRACE(GetSockName()<<" OnSended");
     return 0;

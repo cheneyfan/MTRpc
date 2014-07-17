@@ -30,8 +30,12 @@ void RpcClientImpl::Start(){
 void RpcClientImpl::Stop(){
 
     _poller->Stop();
-
     _group->Stop();
+}
+
+void RpcClientImpl::Join(){
+
+    _group->join();
 }
 
 RpcClientOptions RpcClientImpl::GetOptions()

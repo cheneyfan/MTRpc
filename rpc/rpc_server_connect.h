@@ -33,9 +33,9 @@ public:
 
 public:
 
-    void OnMessageRecived(MessageStream* stream, Epoller* p, uint32_t buffer_size);
+    void OnMessageRecived(MessageStream* stream, Epoller* p, int32_t buffer_size);
 
-    void OnMessageSended(MessageStream* stream, Epoller* p,uint32_t buffer_size);
+    void OnMessageSended(MessageStream* stream, Epoller* p,int32_t buffer_size);
 
     void OnMessageError(SocketStream* stream, Epoller* p, uint32_t error_code);
 

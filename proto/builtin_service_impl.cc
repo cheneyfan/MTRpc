@@ -1,5 +1,6 @@
 #include <builtin_service_impl.h>
 #include "rpc/rpc_controller_impl.h"
+#include "mio/mio_error_code.h"
 namespace mtrpc {
 
 namespace builtin {
@@ -22,8 +23,11 @@ void BuiltinServiceImpl::Health(::google::protobuf::RpcController*  controller ,
     char buf[1024]={0};
     RpcServerController* cntl = (RpcServerController* )controller;
 
-    snprintf(buf,1024,"%s_%llu",request->health().c_str(),cntl->_seq);
+    snprintf(buf,1024,"%s_%lu",request->health().c_str(),cntl->_seq);
     response->set_health(buf);
+
+
+
     if(done)
         done->Run();
 }

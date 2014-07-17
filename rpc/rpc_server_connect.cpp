@@ -43,14 +43,16 @@ void ServerConnect::Start(Epoller* p,WorkGroup* g)
     _stream->AddEventASync(p,true,false);
 }
 
-void ServerConnect::OnMessageRecived(MessageStream* sream,Epoller* p,uint32_t buffer_size)
+void ServerConnect::OnMessageRecived(MessageStream* sream,Epoller* p,int32_t buffer_size)
 {
     const std::string& method_full_name = sream->reqheader.path;
+
+    //TRACE(sream->GetSockName()<<",method:"<<method_full_name<<"Seq:"<<sream->reqheader.GetSeq());
 
     if(method_full_name.size() == 0)
     {
         OnMessageError(sream,p,HTTP_SERVER_NOTFOUND);
-        WARN("not found server:"<<method_full_name);
+        WARN(sream->GetSockName()<<"not found server:"<<method_full_name);
         return;
     }
 
@@ -62,7 +64,7 @@ void ServerConnect::OnMessageRecived(MessageStream* sream,Epoller* p,uint32_t bu
             || method == NULL)
     {
         OnMessageError(sream,p,HTTP_METHOD_NOTFOUND);
-        WARN("not found method:"<<method_full_name);
+        WARN(sream->GetSockName()<<"not found method:"<<method_full_name);
         return;
     }
 
@@ -71,6 +73,7 @@ void ServerConnect::OnMessageRecived(MessageStream* sream,Epoller* p,uint32_t bu
 
     if(!request->ParseFromZeroCopyStream(&_stream->readbuf))
     {
+        WARN(sream->GetSockName()<<"paser error,read:"<<_stream->readbuf.readpos.toString()<<",write:"<<_stream->readbuf.writepos.toString());
         OnMessageError(sream,p,SERVER_REQ_PARSER_FAILED);
         delete request;
         return;
@@ -82,14 +85,20 @@ void ServerConnect::OnMessageRecived(MessageStream* sream,Epoller* p,uint32_t bu
 
     RpcServerController* controller = new RpcServerController();
 
+
     controller->_seq  = sream->reqheader.GetSeq();
     controller->_request = request;
     controller->_request = response;
     controller->_stream = _stream;
     controller->_poller = p;
 
+    controller->SetStatus(OK);
 
     service->CallMethod(method, controller, request, response, NULL);
+
+    //TRACE(sream->GetSockName()<<"call result:"<<controller->_msg);
+
+    INFO(method->full_name()<<",seq:"<<controller->_seq<<",req:"<<request->DebugString()<<",res:"<<response->DebugString()<<",result:"<<controller->_msg);
 
     if(controller->Failed()){
 
@@ -99,12 +108,6 @@ void ServerConnect::OnMessageRecived(MessageStream* sream,Epoller* p,uint32_t bu
         OnMessageError(sream,p,SERVER_REQ_PARSER_FAILED);
         return ;
     }
-
-    _stream->readbuf.Reset();
-    _stream->writebuf.Reset();
-
-    _stream->reqheader.Reset();
-    _stream->resheader.Reset();
 
     SendMessage(_stream,p,controller,request,response);
 
@@ -116,6 +119,7 @@ void ServerConnect::SendMessage(MessageStream* stream,Epoller* p,RpcServerContro
     if(!pending.empty() )
     {
         pending.push(cntl);
+        TRACE(stream->GetSockName()<<"pending");
         return ;
     }
 
@@ -123,12 +127,15 @@ void ServerConnect::SendMessage(MessageStream* stream,Epoller* p,RpcServerContro
     pending.push(cntl);
 
     WriteBuffer& buf = stream->writebuf;
+    buf.Reset();
 
     HttpReponseHeader& resheader = stream->resheader;
 
     resheader.Reset();
     resheader.SetSeq(cntl->_seq);
     resheader.SetStatus( OK, "OK");
+
+    //TRACE("send Seq:"<<cntl->_seq);
 
     if(!buf.Reserve(MAX_HEADER_SIZE))
     {
@@ -155,19 +162,22 @@ void ServerConnect::SendMessage(MessageStream* stream,Epoller* p,RpcServerContro
         return;
     }
 
-    cntl->_res_pack_size     = buf.writepos - packetStart;
+
 
     uint32_t content_length  = buf.writepos - bodyStart;
 
     resheader.SetContentLength(content_length);
     resheader.SerializeHeader(packetStart);
 
+    cntl->_res_pack_size     = buf.writepos - packetStart;
+
+   // TRACE("send:"<<(packetStart.get()->buffer+packetStart._pos)<<",pack size:"<<cntl->_res_pack_size<<",content_length:"<<content_length);
+
     stream->ModEventAsync(p, true, true);
 
 }
 
-
-void ServerConnect::OnMessageSended(MessageStream* stream, Epoller* p,uint32_t buffer_size)
+void ServerConnect::OnMessageSended(MessageStream* stream, Epoller* p,int32_t buffer_size)
 {
     if(pending.empty() )
     {
@@ -176,6 +186,9 @@ void ServerConnect::OnMessageSended(MessageStream* stream, Epoller* p,uint32_t b
     }
 
     RpcServerController* cntl = pending.front();
+
+   // TRACE(stream->GetSockName()<<",OnMessageSended,send:"<<cntl ->_res_send_size<<",pack:"<<cntl ->_res_pack_size<<",buffer_size:"<<buffer_size);
+
     cntl ->_res_send_size  += buffer_size;
 
     if(cntl ->_res_send_size < cntl ->_res_pack_size)
@@ -194,7 +207,7 @@ void ServerConnect::OnMessageSended(MessageStream* stream, Epoller* p,uint32_t b
         return;
     }
 
-    cntl =pending.front();
+    cntl = pending.front();
     SendMessage(stream,p,cntl,cntl->_request,cntl->_response);
 }
 
@@ -202,14 +215,12 @@ void ServerConnect::OnMessageSended(MessageStream* stream, Epoller* p,uint32_t b
 void ServerConnect::OnMessageError(SocketStream* stream, Epoller* p, uint32_t error_code)
 {
      // 1 remove all pending
-      while(!pending.empty())
-      {
-          RpcServerController* cntl = pending.front();
-          pending.pop();
 
-          delete cntl->_request;
-          delete cntl->_response;
-          delete cntl;
+      RpcServerController* cntl = NULL;
+      if(!pending.empty())
+      {
+          cntl = pending.front();
+          pending.pop();
       }
 
       //2 send fail header
@@ -218,12 +229,23 @@ void ServerConnect::OnMessageError(SocketStream* stream, Epoller* p, uint32_t er
       MessageStream* ms = (MessageStream*)stream;
 
       ms->resheader.Reset();
-      ms->resheader.SetSeq(ms->resheader.GetSeq());
+
+      if(cntl)
+          ms->resheader.SetSeq(cntl->_seq);
+      else
+          ms->resheader.SetSeq(0);
+
       ms->resheader.SetStatus(error_code, ErrorString(error_code));
       ms->resheader.SetContentLength(0);
       ms->resheader.SerializeHeader(packetStart);
       stream->ModEventAsync(p, true, true);
-      stream->_close_when_empty = true;
+      //stream->_close_when_empty = true;
+
+      if(cntl){
+          delete cntl->_request;
+          delete cntl->_response;
+          delete cntl;
+      }
 }
 
 void ServerConnect::OnClose(SocketStream* sream,Epoller* p){

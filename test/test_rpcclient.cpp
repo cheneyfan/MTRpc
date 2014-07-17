@@ -31,25 +31,37 @@ int main(int argc,char*argv[]){
         ::mtrpc::builtin::HealthResponse res;
 
 
-        for(int i=0;i<2;++i)
-        {
-            res.Clear();
-            char buf[32]={0};
-            snprintf(buf,32,"hello_%d_",i);
+        int i =0;
+        char buf[32]={0};
 
-            req.set_health(buf);
+        snprintf(buf,32,"hello_%d_",i);
 
-            stub.Health(cntl,&req,&res,NULL);
+        req.set_health(buf);
 
-            cntl->Reset();
+        stub.Health(cntl,&req,&res,NULL);
+        std::cout<<"error:"<<cntl->ErrorText()<<std::endl;
+        cntl->Reset();
 
+        std::cout<<i<<",result:"<<res.health()<<std::endl;
 
-            std::cout<<"result:"<<res.health()<<std::endl;
+        i = 1;
 
-        }
+        snprintf(buf, 32, "hello_%d_", i);
+
+        req.set_health(buf);
+
+        stub.Health(cntl,&req,&res,NULL);
+
+        std::cout<<"error:"<<cntl->ErrorText()<<std::endl;
+        cntl->Reset();
+        std::cout<<i<<",result:"<<res.health()<<std::endl;
+
+        delete cntl;
     }
 
     client.ReleaseChannel(channel);
+    client.Join();
+
     return 0;
 
 }

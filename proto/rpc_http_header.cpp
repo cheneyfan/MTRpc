@@ -50,13 +50,13 @@ void HttpHeader::SetContentLength(uint32_t length)
         static const std::string key = "Content-Length";
         char buf[32] = {0};
         snprintf(buf, sizeof(buf), "%u", length);
-        headers.insert(std::make_pair(key, std::string(buf)));
+        headers[key]=std::string(buf);
     }
 
     {
         static const std::string key = "Content-Type";
         static const std::string value = "message/protobuf";
-        headers.insert(std::make_pair(key, std::string(value)));
+         headers[key]=std::string(buf);
     }
 }
 
@@ -75,7 +75,7 @@ void HttpHeader::SetSeq(uint64_t seq){
     static const std::string key = "Seq";
     char buf[32] = {0};
     snprintf(buf, sizeof(buf), "%lu", seq);
-    headers.insert(std::make_pair(key, std::string(buf)));
+    headers[key]=std::string(buf);
 }
 
 
@@ -168,7 +168,6 @@ int HttpRequestHeader::ParserHeader(ReadBuffer & buf){
     {
 
         char c = *begin;
-        std::string method;
 
         switch(state)
         {
@@ -178,6 +177,7 @@ int HttpRequestHeader::ParserHeader(ReadBuffer & buf){
             {
             case ' ':
 
+                method.clear();
                 MoveBufTo(method);
                 //only support POST
                 if(strcmp(method.c_str(),"POST") !=0 )
@@ -213,6 +213,7 @@ int HttpRequestHeader::ParserHeader(ReadBuffer & buf){
             switch(c)
             {
             case '\r':
+                version.clear();
                 MoveBufTo(version);
                 state = REQ_VESION_N;
                 break;
@@ -238,6 +239,9 @@ int HttpRequestHeader::ParserHeader(ReadBuffer & buf){
             {
             case ':':
                 MoveBufTo(key);
+                if(key.size() ==0)
+                     return HTTP_PARSER_FAIL;
+
                 state = REQ_VALUE_R;
                 break;
             case '\r':
@@ -254,7 +258,7 @@ int HttpRequestHeader::ParserHeader(ReadBuffer & buf){
             {
             case '\r':
                 MoveBufTo(value);
-                headers.insert(std::make_pair(key,value));
+                headers[key] =value;
                 key.clear();
                 value.clear();
                 state = REQ_VALUE_N;
@@ -306,6 +310,10 @@ int HttpRequestHeader::SerializeHeader(WriteBuffer::Iterator& it){
 
     bufptr += ret;
     size   -= ret;
+    if(size <= 0)
+    {
+        return -1;
+    }
     // key value
 
     for(std::map<std::string,std::string>::iterator it = headers.begin();
@@ -317,6 +325,10 @@ int HttpRequestHeader::SerializeHeader(WriteBuffer::Iterator& it){
         ret = snprintf(bufptr,size,"%s: %s \r\n",key.c_str(),value.c_str());
         bufptr+=ret;
         size -= ret;
+        if(size <= 0)
+        {
+            return -1;
+        }
     }
 
     //end
@@ -324,12 +336,24 @@ int HttpRequestHeader::SerializeHeader(WriteBuffer::Iterator& it){
     bufptr+=ret;
     //*bufptr = '\0';
     size -= ret;
+
+    if(size <= 0)
+    {
+        return -1;
+    }
+
     //trunctate the buffer
-    it.get()->size = bufptr - bufpos;
-    return true;
+    it.get()->size = bufptr - bufpos + it._pos;
+    return 0;
 }
 
 
+void HttpRequestHeader::Reset(){
+
+    HttpHeader::Reset();
+    method="POST";
+    path="";
+}
 
 HttpReponseHeader::HttpReponseHeader():
     HttpHeader()
@@ -432,7 +456,7 @@ int HttpReponseHeader::ParserHeader(ReadBuffer & buf){
             {
             case '\r':
                 MoveBufTo(value);
-                headers.insert(std::make_pair(key,value));
+                headers[key] =value;
 
                 key.clear();
                 value.clear();
@@ -490,6 +514,12 @@ int HttpReponseHeader::SerializeHeader(WriteBuffer::Iterator& it){
     size -= ret;
     // key value
 
+    if(size <= 0)
+    {
+        return -1;
+    }
+
+
     for(std::map<std::string,std::string>::iterator it = headers.begin();
         it!=headers.end();++it)
     {
@@ -499,16 +529,34 @@ int HttpReponseHeader::SerializeHeader(WriteBuffer::Iterator& it){
         ret = snprintf(bufptr,size,"%s: %s \r\n",key.c_str(),value.c_str());
         bufptr+=ret;
         size -= ret;
+
+        if(size <= 0)
+        {
+            return -1;
+        }
+
     }
 
     ret= snprintf(bufptr,size,"\r\n");
     bufptr+=ret;
     //*bufptr = '\0';
     size -= ret;
-    it.get()->size = bufptr -bufpos;
-    return true;
+
+
+    if(size <= 0)
+    {
+        return -1;
+    }
+
+    it.get()->size = bufptr -bufpos + it._pos;;
+    return 0;
 }
 
+void HttpReponseHeader::Reset(){
+    HttpHeader::Reset();
+    status= 0;
+    status_msg.clear();
+}
 
 
 

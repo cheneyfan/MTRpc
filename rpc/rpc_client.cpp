@@ -34,7 +34,9 @@ void RpcClient::Shutdown()
 {
     _impl->Stop();
 }
-
+void RpcClient::Join(){
+    _impl->Join();
+}
 
 RpcChannel* RpcClient::GetChannel(const std::string& server_addr)
 {

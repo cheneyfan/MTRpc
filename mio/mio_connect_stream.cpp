@@ -22,6 +22,9 @@ ConnectStream::ConnectStream()
 
 ConnectStream::~ConnectStream()
 {
+
+
+    close(_fd);
     delete handerMessageRecived;
     delete handerMessageSended;
 
@@ -67,13 +70,16 @@ int ConnectStream::OnConnect(Epoller* p){
 }
 
 
-int ConnectStream::OnRecived(Epoller *p, uint32_t buffer_size){
+int ConnectStream::OnRecived(Epoller *p, int32_t buffer_size){
 
     //consume the buffer
     do{
-        TRACE(GetSockName()<<",recv:"<<readbuf.readpos.get()->buffer<<",buffer:"<<buffer_size);
+       // TRACE(GetSockName()<<",recv:"<<(readbuf.readpos.get()->buffer+readbuf.readpos._pos)<<",buffer:"<<buffer_size);
 
+        IOBuffer::Iterator begin_parser = readbuf.readpos;
         int ret = resheader.ParserHeader(readbuf);
+        buffer_size  -= (readbuf.readpos - begin_parser);
+
 
         if(ret == HTTP_PARSER_FAIL )
         {
@@ -103,7 +109,7 @@ int ConnectStream::OnRecived(Epoller *p, uint32_t buffer_size){
             return 0;
         }
 
-        IOBuffer::Iterator it = readbuf.readpos;
+        IOBuffer::Iterator beginpacket = readbuf.readpos;
 
         //process packet
         if(handerMessageRecived)
@@ -115,10 +121,11 @@ int ConnectStream::OnRecived(Epoller *p, uint32_t buffer_size){
             //begin next parser
         }
 
+        buffer_size = buffer_size -(readbuf.readpos - beginpacket);
+
         if(this->_close_when_empty)
             break;
 
-        buffer_size -= (readbuf.readpos - it);
 
     }while(buffer_size > 0);
 
@@ -126,7 +133,7 @@ int ConnectStream::OnRecived(Epoller *p, uint32_t buffer_size){
 }
 
 
-int ConnectStream::OnSended(Epoller *p, uint32_t buffer_size)
+int ConnectStream::OnSended(Epoller *p, int32_t buffer_size)
 {
 
     handerMessageSended->Run(this,p,buffer_size);

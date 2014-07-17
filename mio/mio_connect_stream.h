@@ -41,15 +41,15 @@ public :
     /// \param p
     /// \return
     ///
-    virtual int OnRecived(Epoller* p, uint32_t buffer_size);
-    virtual int OnSended(Epoller* p, uint32_t buffer_size);
+    virtual int OnRecived(Epoller* p, int32_t buffer_size);
+    virtual int OnSended(Epoller* p, int32_t buffer_size);
 
 
 public:
 
-    ExtClosure<void(ConnectStream* sream,Epoller* p,uint32_t buffer_size)>*  handerMessageRecived;
+    ExtClosure<void(ConnectStream* sream,Epoller* p,int32_t buffer_size)>*  handerMessageRecived;
 
-    ExtClosure<void(ConnectStream* sream,Epoller* p,uint32_t buffer_size)>*  handerMessageSended;
+    ExtClosure<void(ConnectStream* sream,Epoller* p,int32_t buffer_size)>*  handerMessageSended;
 
 
     volatile int _ConnectStatus;

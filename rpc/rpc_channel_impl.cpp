@@ -18,8 +18,13 @@ RpcChannelImpl::RpcChannelImpl(const RpcChannelOptions &options):
 
 RpcChannelImpl::~RpcChannelImpl()
 {
+
     if(_stream)
     {
+        if(_stream->_ConnectStatus == CLIENT_CONNECT_OK)
+        {
+            _stream->OnClose(_poller);
+        }
         _stream->ReleaseRef();
     }
 }
@@ -163,18 +168,22 @@ int RpcChannelImpl::SendToServer(const ::google::protobuf::MethodDescriptor* met
 
     uint32_t content_length  = buf.writepos - bodyStart;
     reqheader.SetContentLength(content_length);
+
+   //TRACE("packetStart:"<<packetStart.toString()<<",size:"<<packetStart.get()->size<<",length:"<<strlen(packetStart.get()->buffer+packetStart._pos));
+
     reqheader.SerializeHeader(packetStart);
+    //TRACE("packetStart:"<<packetStart.toString()<<",size:"<<packetStart.get()->size<<",length:"<<strlen(packetStart.get()->buffer+packetStart._pos));
 
     cntl->_req_pack_size = buf.writepos - packetStart;
 
-    TRACE("send "<<cntl->_req_pack_size <<",header:"<<packetStart.get()->buffer);
+   // TRACE("send "<<cntl->_req_pack_size <<",header:"<<packetStart.get()->buffer);
 
     _stream->ModEventAsync(_poller,true,true);
 
     return 0;
 }
 
-void RpcChannelImpl::OnMessageSended(ConnectStream* stream,Epoller* p,uint32_t buffer_size){
+void RpcChannelImpl::OnMessageSended(ConnectStream* stream,Epoller* p,int32_t buffer_size){
 
     RpcClientController *  cntl = NULL;
 
@@ -191,7 +200,7 @@ void RpcChannelImpl::OnMessageSended(ConnectStream* stream,Epoller* p,uint32_t b
         }
 
 
-        TRACE(stream->GetSockName()<<",send:"<<cntl ->_req_send_size<<",pack:"<<cntl ->_req_pack_size<<",buffer_size:"<<buffer_size);
+       // TRACE(stream->GetSockName()<<",send:"<<cntl ->_req_send_size<<",pack:"<<cntl ->_req_pack_size<<",buffer_size:"<<buffer_size);
 
         cntl ->_req_send_size  += buffer_size;
 
@@ -200,13 +209,14 @@ void RpcChannelImpl::OnMessageSended(ConnectStream* stream,Epoller* p,uint32_t b
             return ;
         }
 
+        sendcall.pop();
         waitcall.push(cntl);
         buffer_size =  cntl ->_req_send_size - cntl ->_req_pack_size;
 
     }while(buffer_size>0);
 }
 
-void RpcChannelImpl::OnMessageRecived(ConnectStream *sream, Epoller* p,uint32_t buffer_size){
+void RpcChannelImpl::OnMessageRecived(ConnectStream *sream, Epoller* p,int32_t buffer_size){
 
    if(waitcall.empty())
    {
@@ -217,11 +227,13 @@ void RpcChannelImpl::OnMessageRecived(ConnectStream *sream, Epoller* p,uint32_t 
     RpcClientController * cntl = waitcall.front();
     waitcall.pop();
 
-    if(cntl->_seq !=  sream->resheader.GetSeq())
+    if(cntl->_seq !=  sream->resheader.GetSeq()
+            && sream->resheader.GetSeq() !=0 )
     {
 
-        WARN("Seq Not Match,send_req:"<<cntl->_seq<<",res_req:"<<sream->resheader.GetSeq());
-       OnMessageError(sream,p,CLIENT_SEQ_NOT_MATCH);
+        WARN("Seq Not Match,send_req:"<<cntl->_seq<<",res_header:"<<sream->resheader.toString());
+        sream->resheader.Reset();
+        OnMessageError(sream,p,CLIENT_SEQ_NOT_MATCH);
         return;
     }
     assert(cntl!=NULL);
@@ -231,9 +243,12 @@ void RpcChannelImpl::OnMessageRecived(ConnectStream *sream, Epoller* p,uint32_t 
     if(ContentLength >0
             && !cntl->_response->ParseFromZeroCopyStream(&sream->readbuf))
     {
+        sream->resheader.Reset();
         OnMessageError(sream,p,SERVER_REQ_PARSER_FAILED);
         return;
     }
+
+
 
     //notify the call
     cntl->SetStatus(sream->resheader.status);
@@ -241,6 +256,9 @@ void RpcChannelImpl::OnMessageRecived(ConnectStream *sream, Epoller* p,uint32_t 
     if(cntl->_done)
         cntl->_done->Run();
 
+
+    sream->resheader.Reset();
+    //TRACE("Rest the resheader:"<<sream->resheader.toString());
     cntl = NULL;
 }
 
@@ -251,15 +269,19 @@ void RpcChannelImpl::OnMessageError(SocketStream* stream, Epoller* p, uint32_t e
       {
           WriteLock<MutexLock> wl(sendlock);
           while(!sendcall.empty())
+          {
+              cntl = sendcall.front();
+              cntl->SetStatus(CLIENT_CANCEL_BY_ERROR);
               sendcall.pop();
+          }
       }
 
       {
           while(!waitcall.empty())
           {
               cntl = waitcall.front();
-              waitcall.pop();
               cntl->SetStatus(error_code);
+              waitcall.pop();
           }
       }
 

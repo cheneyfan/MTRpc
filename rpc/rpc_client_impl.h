@@ -25,6 +25,8 @@ public:
 
     void Stop();
 
+    void Join();
+
     RpcClientOptions GetOptions();
 
     void ResetOptions(const RpcClientOptions& options);

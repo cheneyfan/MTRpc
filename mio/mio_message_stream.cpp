@@ -16,6 +16,8 @@ MessageStream::MessageStream(int sockfd):
 }
 
 MessageStream::~MessageStream(){
+
+    close(_fd);
     delete handerMessageRecived;
     delete handerMessageSended;
 }
@@ -23,12 +25,17 @@ MessageStream::~MessageStream(){
 
 
 
-int MessageStream::OnRecived(Epoller *p, uint32_t buffer_size){
+int MessageStream::OnRecived(Epoller *p, int32_t buffer_size){
 
     //consume the buffer
     do{
-        TRACE(GetSockName()<<",recv:"<<readbuf.readpos.get()->buffer);
+
+        //TRACE(GetSockName()<<",recv,read:"<<readbuf.readpos.toString()<<",write:"<<readbuf.writepos.toString()<<",buffer_size:"<<buffer_size);
+
+        IOBuffer::Iterator begin_parser = readbuf.readpos;
         int ret = reqheader.ParserHeader(readbuf);
+        buffer_size -= (readbuf.readpos - begin_parser);
+
 
         if(ret == HTTP_PARSER_FAIL )
         {
@@ -51,6 +58,7 @@ int MessageStream::OnRecived(Epoller *p, uint32_t buffer_size){
 
         int body_size = readbuf.writepos - reqheader.bodyStart;
 
+
         TRACE(GetSockName()<<"conteng length:"<<reqheader.GetContentLength()<<",recv body_size:"<<body_size);
 
         // need read more
@@ -59,21 +67,25 @@ int MessageStream::OnRecived(Epoller *p, uint32_t buffer_size){
             return 0;
         }
 
-        IOBuffer::Iterator it = readbuf.readpos;
+
+        IOBuffer::Iterator beginpacket = readbuf.readpos;
 
         //process packet
         if(handerMessageRecived)
         {
             handerMessageRecived->Run(this, p, buffer_size);
+
             reqheader.Reset();
             readbuf.Reset();
             //begin next parser
         }
 
+        buffer_size = buffer_size -(readbuf.readpos - beginpacket);
+
         if(this->_close_when_empty)
             break;
 
-        buffer_size -= (readbuf.readpos - it);
+
 
     }while(buffer_size > 0);
 
@@ -81,7 +93,7 @@ int MessageStream::OnRecived(Epoller *p, uint32_t buffer_size){
 }
 
 
-int MessageStream::OnSended(Epoller *p, uint32_t buffer_size)
+int MessageStream::OnSended(Epoller *p, int32_t buffer_size)
 {
 
     //for
