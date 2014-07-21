@@ -7,6 +7,22 @@ option(CMAKE_BUILD_TEST "build test " ON)
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -ggdb -g3 -fPIC ")
 
+#for 64 bit system
+if(CMAKE_SIZEOF_VOID_P EQUAL 8)
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fpermissive -Wall -Wextra ")
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -msse -msse2 -msse3 -msse4.1 ")
+    #set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-unused-variable -Wno-unused-local-typedefs -Wno-unused-parameter")
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++0x ")
+    
+    set(CMAKE_INSTALL_PREFIX "${CMAKE_SOURCE_DIR}/mtprpc_64")
+#for 32 bit system,how sb it is!
+else()
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -march=i686 ")
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fpermissive -Wall -Wextra")
+   
+    #set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std= ")
+    set(CMAKE_INSTALL_PREFIX "${CMAKE_SOURCE_DIR}/mtrpc_32")
+endif()
 
 set(CMAKE_BUILD_TYPE debug)
 set(CMAKE_CXX_FLAGS_ALL "${CMAKE_CXX_FLAGS} ${CMAKE_CXX_FLAGS_DEBUG} ")
@@ -16,23 +32,6 @@ if(CMAKE_BUILD_RELEASE)
     set(CMAKE_BUILD_TYPE relwithdebinfo)
     set(CMAKE_CXX_FLAGS_ALL "${CMAKE_CXX_FLAGS} ${CMAKE_CXX_FLAGS_RELWITHDEBINFO}")
 endif()
-
-#for 64 bit system
-if(CMAKE_SIZEOF_VOID_P EQUAL 8)
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fpermissive -Wall -Wextra -Wno-unused-variable -Wno-unused-local-typedefs -Wno-unused-parameter")
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -msse -msse2 -msse3 -msse4.1 ")
-    set(CMAKE_INSTALL_PREFIX "${CMAKE_SOURCE_DIR}/out64")
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -msse -msse2 -msse3 -msse4.1 ")
-#for 32 bit system,how sb it is!
-else()
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -march=i686")
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fpermissive -Wall -Wextra")
-    set(CMAKE_INSTALL_PREFIX "${CMAKE_SOURCE_DIR}/out32")
-endif()
-
-
-
-set(CMAKE_INSTALL_PREFIX "${CMAKE_SOURCE_DIR}/out")
 
 
 # add thirdparty to globle includes

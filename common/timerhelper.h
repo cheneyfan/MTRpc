@@ -252,7 +252,7 @@ public:
 class TimeMoniter {
 public:
 
-
+#ifdef __x86_64__
     template<typename T1,typename... T2>
     TimeMoniter(unsigned int ms,T1 t1,T2... t2):_ms(ms)
     {
@@ -268,7 +268,14 @@ public:
         buf<<t1;
         Append(t2...);
     }
+#elif __i386__
 
+    template<typename T1>
+    TimeMoniter(unsigned int ms,T1 t1){
+        start = TimerHelper::Now_Millisecond();
+        Append(t1);
+    }
+#endif
     template<typename T1>
     void Append(T1 t1)
     {

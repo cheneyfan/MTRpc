@@ -4,8 +4,9 @@
 #include <time.h>
 #include <unistd.h>
 #include <stdint.h>
+#ifdef __x86_64__
 #include <sys/timerfd.h>
-
+#endif
 #include <map>
 #include <queue>
 

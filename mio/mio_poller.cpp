@@ -20,11 +20,13 @@ static uint32_t EventToMask(uint32_t events)
 
     if(events & EPOLLOUT)
         mask |= EVENT_WRITE;
-
+#ifdef __x86_64__
     if(events & (EPOLLHUP|EPOLLRDHUP))
         mask |= EVENT_CLOSE;
-
-
+#elif __i386__
+    if(events & (EPOLLHUP))
+        mask |= EVENT_CLOSE;
+#endif
 
     if(events & WRITE_TIME_OUT)
         mask |=  WRITE_TIME_OUT;
@@ -40,7 +42,7 @@ static uint32_t EventToMask(uint32_t events)
 Epoller::Epoller()
 {
     //TODO: port to other linux
-#ifdef EPOLL_CLOEXEC
+#ifdef __x86_64__
     epollfd = epoll_create1(EPOLL_CLOEXEC);
 #else
     epollfd = epoll_create(1024);

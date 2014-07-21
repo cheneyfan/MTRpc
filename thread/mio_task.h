@@ -52,7 +52,7 @@ public:
     static Closure From(A* a)
     {
         Closure c;
-        c.h1 = (void*)(&TaskHelper<A,f>);
+        c.h1 = AnyCast<void*>(&TaskHelper<A,f>);
         c.ctx = (void*)a;
         return c;
     }

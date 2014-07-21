@@ -19,7 +19,7 @@ RpcController::~RpcController()
 
 uint64_t RpcController::GenerateSeq(){
 
-    static AtomicInt64 seq;
+    static AtomicInt32 seq;
     return seq.incrementAndGet();
 }
 

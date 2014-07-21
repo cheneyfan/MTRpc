@@ -169,14 +169,14 @@ int RpcChannelImpl::SendToServer(const ::google::protobuf::MethodDescriptor* met
     uint32_t content_length  = buf.writepos - bodyStart;
     reqheader.SetContentLength(content_length);
 
-   //TRACE("packetStart:"<<packetStart.toString()<<",size:"<<packetStart.get()->size<<",length:"<<strlen(packetStart.get()->buffer+packetStart._pos));
+    TRACE("packetStart:"<<packetStart.toString()<<",size:"<<packetStart.get()->size<<",length:"<<strlen(packetStart.get()->buffer+packetStart._pos));
 
     reqheader.SerializeHeader(packetStart);
-    //TRACE("packetStart:"<<packetStart.toString()<<",size:"<<packetStart.get()->size<<",length:"<<strlen(packetStart.get()->buffer+packetStart._pos));
+    TRACE("packetStart:"<<packetStart.toString()<<",size:"<<packetStart.get()->size<<",length:"<<strlen(packetStart.get()->buffer+packetStart._pos));
 
     cntl->_req_pack_size = buf.writepos - packetStart;
 
-   // TRACE("send "<<cntl->_req_pack_size <<",header:"<<packetStart.get()->buffer);
+    TRACE("send "<<cntl->_req_pack_size <<",header:"<<packetStart.get()->buffer);
 
     _stream->ModEventAsync(_poller,true,true);
 
@@ -248,13 +248,11 @@ void RpcChannelImpl::OnMessageRecived(ConnectStream *sream, Epoller* p,int32_t b
         return;
     }
 
-
-
+    if(cntl->_done)
+        cntl->_done->Run();
     //notify the call
     cntl->SetStatus(sream->resheader.status);
 
-    if(cntl->_done)
-        cntl->_done->Run();
 
 
     sream->resheader.Reset();

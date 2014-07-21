@@ -88,7 +88,7 @@ void ServerConnect::OnMessageRecived(MessageStream* sream,Epoller* p,int32_t buf
 
     controller->_seq  = sream->reqheader.GetSeq();
     controller->_request = request;
-    controller->_request = response;
+    controller->_response = response;
     controller->_stream = _stream;
     controller->_poller = p;
 
@@ -97,8 +97,10 @@ void ServerConnect::OnMessageRecived(MessageStream* sream,Epoller* p,int32_t buf
     service->CallMethod(method, controller, request, response, NULL);
 
     //TRACE(sream->GetSockName()<<"call result:"<<controller->_msg);
-
-    INFO(method->full_name()<<",seq:"<<controller->_seq<<",req:"<<request->DebugString()<<",res:"<<response->DebugString()<<",result:"<<controller->_msg);
+    INFO(method->full_name()<<",seq:"<<controller->_seq
+            <<",req:"<<request->ShortDebugString()
+            <<",res:"<<response->ShortDebugString()
+            <<",result:"<<controller->_msg);
 
     if(controller->Failed()){
 

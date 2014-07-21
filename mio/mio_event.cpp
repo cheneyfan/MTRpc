@@ -258,12 +258,14 @@ std::string IOEvent::EventToStr(uint32_t revents){
         buf += sizeof("_HUP") - 1;
     }
 
+#ifdef __x86_64__
     if(EPOLLRDHUP &revents)
     {
         strncpy(buf, "_RDHUP", sizeof("_RDHUP"));
         buf += sizeof("_RDHUP") - 1;
     }
-
+#endif
+    
     if(EPOLLONESHOT &revents)
     {
         strncpy(buf, "_ONESHOT", sizeof("_ONESHOT"));

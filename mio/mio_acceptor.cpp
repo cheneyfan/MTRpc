@@ -34,6 +34,9 @@ void Acceptor::OnEvent(Epoller* p,uint32_t events)
         WARN("Accept a bad socket:"<<sockfd<<",errno:"<<errno<<","<<strerror(errno));
         return;
     }
+    
+    TcpSocket::setNoblock(sockfd, true);
+    TcpSocket::setNoTcpDelay(sockfd, true);
 
     handerAccept->Run(sockfd);
 

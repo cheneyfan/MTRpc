@@ -40,6 +40,11 @@ public:
 
     virtual void NotifyOnCancel(google::protobuf::Closure* callback){}
 
+    virtual bool Failed() const{}
+    virtual int ErrorCode() const{}
+
+    virtual std::string ErrorText() const{}
+
     ////
     virtual void SetStatus(int status){}
     virtual void SetFailed(const std::string& reason){}

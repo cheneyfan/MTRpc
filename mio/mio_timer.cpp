@@ -139,7 +139,9 @@ bool TimerTaskCmp::operator () (const TimerTask* t1, const TimerTask* t2){
 
 EventTimer::EventTimer()
 {
+#ifdef __x86_64__
     _fd = timerfd_create(CLOCK_REALTIME, TFD_NONBLOCK|TFD_CLOEXEC);
+#endif
 }
 
 EventTimer::~EventTimer(){
@@ -286,6 +288,7 @@ void EventTimer::onTimer(Epoller* p,uint32_t events)
 ///
 int EventTimer::updateTimer()
 {
+#ifdef __x86_64__
     // if no task disable
     if(timertasks.empty())
     {
@@ -301,7 +304,9 @@ int EventTimer::updateTimer()
 
     // set new timer
     return ::timerfd_settime(_fd, TFD_TIMER_ABSTIME, &next, NULL);
-
+#elif __i386__
+    return 0;
+#endif
 }
 
 }//name space

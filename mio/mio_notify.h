@@ -44,7 +44,7 @@ public:
 
 #ifdef __i386__
         while(ret>0)
-             ::read(_fd, (char*) &counter,sizeof(counter));
+             ret=::read(_fd, (char*) &counter,sizeof(counter));
 #endif
 
         handerNotify->Run();

@@ -9,13 +9,13 @@
 #include <time.h>
 #include <unistd.h>
 #include <sys/syscall.h>
-
+#include <stdarg.h>
 #include <algorithm>
 
 #include "json/configure.h"
 
 #define LOGBUFFER_MAX_NUM 10000
-#define LOGBUFFER_DEFAULT_SIZE 1024
+#define LOGBUFFER_DEFAULT_SIZE 4096
 #define LOGENTRY_MAX_NUM 1000
 
 #define gettid() syscall(SYS_gettid)
@@ -126,126 +126,210 @@ public:
     /// \param size
     ///
     void toIovec(iovec* v,uint32_t& size);
+    
+    template<typename T>
+        void Format(T* t){
+            if(buf.size < 32 )
+                return;
+            *buf.ptr ++ ='0';
+            *buf.ptr ++ ='x';
+            int len = convertHex(buf.ptr,t) +2;
+            buf.ptr  += len ;
+            buf.size -= len;
 
-
-    void Format(const char* str)
-    {
-        int len = strlen(str);
-        memcpy(buf.ptr,str,len);
-        buf.ptr += len;
-    }
-
+        }
+#ifdef __i386__
+    template<char>
+#endif
     void Format(char* str)
     {
         int len = strlen(str);
+        if(buf.size < len)
+            return;
+
         memcpy(buf.ptr,str,len);
-        buf.ptr += len;
+        buf.ptr  += len;
+        buf.size -= len;
     }
 
+#ifdef __i386__
+    template<const char>
+#endif
+    void Format(const char* str)
+    {
+        int len = strlen(str);
+        if(buf.size < len)
+            return;
+
+        memcpy(buf.ptr,str,len);
+        buf.ptr  += len;
+        buf.size -= len;
+    }
+/*
+    void Format(char* str)
+    {
+        Format((const char*)str);
+    }
+*/
     void Format(char c)
     {
+        if(buf.size < 1)
+            return;
+
         *buf.ptr++ = c;
+        buf.size -= 1;
     }
 
 
     void Format(int d){
-        buf.ptr += convert(buf.ptr,d);
+        if(buf.size < 16 )
+            return;
+
+        int len = convert(buf.ptr,d);
+        buf.ptr  += len ;
+        buf.size -= len;
     }
 
-    void Format(uint32_t d){
-        buf.ptr += convert(buf.ptr,d);
+    void Format(unsigned int  d){
+        if(buf.size < 16 )
+            return;
+
+        int len = convert(buf.ptr,d);
+        buf.ptr  += len ;
+        buf.size -= len;
+    }
+    
+//#ifdef __i386__
+    void Format(long unsigned int  d){
+        if(buf.size < 16 )
+            return;
+
+        int len = convert(buf.ptr,d);
+        buf.ptr  += len ;
+        buf.size -= len;
     }
 
-    void Format(int64_t d){
-        buf.ptr += convert(buf.ptr,d);
+//#endif
+
+    void Format(long long d){
+        if(buf.size < 32 )
+            return;
+
+        int len = convert(buf.ptr,d);
+        buf.ptr  += len ;
+        buf.size -= len;
     }
 
-    void Format(uint64_t d){
-        buf.ptr += convert(buf.ptr,d);
+    void Format(unsigned long long  d){
+
+        if(buf.size < 32 )
+            return;
+
+        int len = convert(buf.ptr,d);
+        buf.ptr  += len ;
+        buf.size -= len;
+
     }
 
     void Format(float d){
-        buf.ptr += sprintf(buf.ptr,"%f",d);
+        if(buf.size < 32 )
+            return;
+        int len = snprintf(buf.ptr,buf.size,"%f",d);
+        buf.ptr  += len ;
+        buf.size -= len;
     }
 
     void Format(double d){
-        buf.ptr += sprintf(buf.ptr,"%lf",d);
+        if(buf.size < 32 )
+            return;
+        int len = snprintf(buf.ptr,buf.size,"%lf",d);
+        buf.ptr  += len ;
+        buf.size -= len;
     }
 
-    template<typename T>
-    void Format(T* t){
-        *buf.ptr ++ ='0';
-        *buf.ptr ++ ='x';
-         buf.ptr += convertHex(buf.ptr,t);
-    }
-
-
+    
+#ifdef __x86_64__
     template<typename T, typename... Args>
-    void Format(const char *str, T value, Args... args)
-    {
-        char * s = const_cast<char*>(str);
+        void Format(const char *str, T value, Args... args)
+        {
+            char * s = const_cast<char*>(str);
 
-        while (*s) {
+            while (*s) {
 
-            if(*s != '%')
-            {
-                *buf.ptr++ = *s++;
-                continue;
-            }
+                if(*s != '%')
+                {
+                    *buf.ptr++ = *s++;
+                    continue;
+                }
 
-            s++;
-            char format[1024]={'%'};
-            char *ptr = format + 1;
+                s++;
+                char format[1024]={'%'};
+                char *ptr = format + 1;
 
-            while(*s)
-            {
-                switch(*s){
-                case 'd':case 'i':
-                case 'o':case 'u':case 'x':case 'X':
-                case 'e':case 'E':
-                case 'f':case 'F':
-                case 'g':case 'G':
-                case 'a':case 'A':
-                case 'p':
+                while(*s)
+                {
+                    switch(*s){
+                        case 'd':case 'i':
+                        case 'o':case 'u':case 'x':case 'X':
+                        case 'e':case 'E':
+                        case 'f':case 'F':
+                        case 'g':case 'G':
+                        case 'a':case 'A':
+                        case 'p':
 
-                    *ptr++= *s++;
-                    *ptr ='\0';
+                            *ptr++= *s++;
+                            *ptr ='\0';
 
-                    buf.ptr += snprintf(buf.ptr,1024,format,value);
+                            buf.ptr += snprintf(buf.ptr,1024,format,value);
 
-                    Format(s, args...);
-                    return ;
-                case 's':
-                case 'c':
-                    s++;
-                    Format(value);
-                    Format(s, args...);
-                    return;
-                case '%':
-                    *buf.ptr++= *s++;
-                    Format(s,value,args...);
-                    return ;
-                default:
-                    *ptr++ = *s++;
+                            Format(s, args...);
+                            return ;
+                        case 's':
+                        case 'c':
+                            s++;
+                            Format(value);
+                            Format(s, args...);
+                            return;
+                        case '%':
+                            *buf.ptr++= *s++;
+                            Format(s,value,args...);
+                            return ;
+                        default:
+                            *ptr++ = *s++;
+                    }
                 }
             }
         }
-    }
+
+#elif __i386__
+    void Format(const char *str,...)
+    {
+
+        va_list args;
+        va_start(args,str);
+
+        int len = snprintf(buf.ptr,buf.size,str,args);
+
+        buf.ptr  += len ;
+        buf.size -= len;
+
+    } 
+#endif
 
     template<typename T>
-    LogEntry& operator<<(T t)
-    {
-        Format(t);
-        return *this;
-    }
+        LogEntry& operator<<(T t)
+        {
+            Format(t);
+            return *this;
+        }
 
     template<int N>
-    LogEntry& operator<<(const char t[N])
-    {
+        LogEntry& operator<<(const char t[N])
+        {
 
-        Format((const char*)t);
-        return *this;
-    }
+            Format((const char*)t);
+            return *this;
+        }
 
 
     LogEntry& operator<<(char t)

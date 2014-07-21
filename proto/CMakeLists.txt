@@ -17,16 +17,16 @@ set(PROTOCMDSHELL  "${PROTOCMDSHELL} ${PROTO_INPUT}")
 STRING(REPLACE ";" " " PROTO_CMD_SHELL "${PROTOCMDSHELL}")
 
 
-file(GLOB_RECURSE HEADERS "*.h")
-file(GLOB_RECURSE SOURCES "*.c[c|p]*")
-file(GLOB_RECURSE PROTO_SOURCES "*.pb.h")
+file(GLOB HEADERS RELATIVE  ${CMAKE_CURRENT_SOURCE_DIR} "*.h")
+file(GLOB SOURCES RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} "*.c[c|p]*")
+file(GLOB PROTO_SOURCES RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} "*.pb.h")
 
 if(NOT PROTO_SOURCES)
 EXECUTE_PROCESS(COMMAND sh -c ${PROTO_CMD_SHELL}
                  WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR})
 
-file(GLOB_RECURSE HEADERS "*.h")
-file(GLOB_RECURSE SOURCES "*.c[c|p]*")
+file(GLOB HEADERS RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} "*.h")
+file(GLOB SOURCES RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} "*.c[c|p]*")
 endif()
 
 #include
@@ -64,7 +64,9 @@ message("Add ${libname} to build")
 add_library(${libname} OBJECT ${SOURCES} ${HEADERS})
 add_library(${libname}_static STATIC $<TARGET_OBJECTS:${libname}>)
 
-INSTALL(TARGETS ${libname}_static DESTINATION "./lib/")
+add_dependencies(${libname} protobuf)
+
+#INSTALL(TARGETS ${libname}_static DESTINATION "./lib/")
 
 
 file(GLOB_RECURSE RPC_HEADES "*.pb.h")

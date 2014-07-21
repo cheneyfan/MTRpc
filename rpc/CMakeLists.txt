@@ -13,7 +13,7 @@ add_library(${libname} OBJECT ${SRC} ${HEADERS})
 add_library(${libname}_static STATIC $<TARGET_OBJECTS:${libname}>)
 
 
-INSTALL(TARGETS ${libname}_static DESTINATION "./lib/")
+#INSTALL(TARGETS ${libname}_static DESTINATION "./lib/")
 
 
 

@@ -1,4 +1,4 @@
-
+MESSAGE("ADD externalproject protobuf:${PROTOPATH}")
 
 externalproject_add(protobuf_build
     DOWNLOAD_DIR ${PROTOPATH}

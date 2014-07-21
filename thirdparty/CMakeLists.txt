@@ -42,13 +42,13 @@ include(ExternalProject)
 set(PROTOPATH ${THIRD_PATH}/protobuf)
 add_thirdparty_library(${PROTOPATH} protobuf)
 if(NOT EXISTS ${PROTOPATH}/lib/libprotobuf.a)
-    add_subdirectory(protobuf)
+    include(thirdparty/protobuf/CMakeLists.txt)
 endif()
 
 
 set(GTESTPATH ${THIRD_PATH}/gtest)
 add_thirdparty_library(${GTESTPATH} gtest)
 if(NOT EXISTS ${GTESTPATH}/lib/libgtest.a)
-   add_subdirectory(gtest)
+   include(thirdparty/gtest/CMakeLists.txt)
 endif()
 

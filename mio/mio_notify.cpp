@@ -1,3 +1,4 @@
+#include "tcpsocket.h"
 #include "mio_notify.h"
 #include "mio_poller.h"
 
@@ -21,6 +22,8 @@ EventNotify::EventNotify():
     int result = pipe(pipefd);
      _fd  = pipefd[0];//for read
      _fdw = pipefd[1];//for write
+     TcpSocket::setNoblock(_fd, true);
+     TcpSocket::setNoblock(_fdw, true);
 #endif
 }
 
