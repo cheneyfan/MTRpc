@@ -178,23 +178,25 @@ int TcpSocket::setKeepAlive(int sockfd, bool on){
 
     int optval = on ? 1 : 0;
     ::setsockopt(sockfd, SOL_SOCKET, SO_KEEPALIVE, &optval, static_cast<socklen_t>(sizeof optval));
-    int idle = 60;
+    // the time first keep
+    int idle = 5;
     if(setsockopt (sockfd, SOL_TCP, TCP_KEEPIDLE, &idle, sizeof idle) != 0)
     {
         return -1;
     }
-
-    int intv = 5;
+    
+    // the interval 
+    int intv = 1;
     if(setsockopt (sockfd, SOL_TCP, TCP_KEEPINTVL, &intv, sizeof intv) != 0)
     {
         return -1;
     }
-
-
-    int cnt = 3;
+    
+    // how many time
+    int cnt =  3;
     if (setsockopt (sockfd, SOL_TCP, TCP_KEEPCNT, &cnt, sizeof cnt) != 0)
     {
-
+     
         return -1;
     }
     return 0;
@@ -266,7 +268,7 @@ int TcpSocket::bind(int sockfd,std::string ip, int port){
 
 int TcpSocket::listen(int sockfd)
 {
-    return ::listen(sockfd, 10);
+    return ::listen(sockfd, 1024);
 }
 
 int TcpSocket::accept(int sockfd,struct sockaddr *addr,socklen_t& addrlen){

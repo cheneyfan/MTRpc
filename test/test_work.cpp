@@ -40,7 +40,7 @@ int main(int argc,char* argv[]){
 
     for(int i=0;i<20000;i++)
     {
-
+       group.Post(NewExtClosure(hello1,vec+i));
     }
 
     mtrpc::SignalHelper::registerCallback<mtrpc::WorkGroup,&mtrpc::WorkGroup::Stop>(&group);

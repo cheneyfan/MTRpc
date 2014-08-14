@@ -13,8 +13,8 @@
 
 namespace mtrpc {
 
-int32_t DEFAULT_BUFFER_SIZE = 4096;
-uint32_t MAX_BUFFER_PIECES = 64;
+int32_t DEFAULT_BUFFER_SIZE = 1024*256;
+uint32_t MAX_BUFFER_PIECES = 16;
 
 
 IOBuffer::IOBuffer():
@@ -38,7 +38,8 @@ IOBuffer::IOBuffer():
 IOBuffer::~IOBuffer(){
     for(uint32_t i=0; i<MAX_BUFFER_PIECES; ++i)
         delete que[i];
-    delete que;
+
+    delete[] que;
 }
 
 WriteBuffer::Iterator IOBuffer::AlignWritePos()

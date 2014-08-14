@@ -27,7 +27,7 @@
 #include "thread/workpool.h"
 #include "common/covert.h"
 
-//#define TRACE_STACK
+#define TRACE_STACK
 #define _SYNC_LOG_
 
 #ifndef TRACE_STACK
@@ -62,6 +62,11 @@ public:
         next(NULL){
     }
 
+    ~LogBuffer(){
+
+        Reset();
+        delete[] buf;
+    }
     forceinline uint32_t left(){
         return size - (ptr - buf);
     }
@@ -71,9 +76,9 @@ public:
         ptr = buf;
         while(next)
         {
-            LogBuffer*  n = next;
+            LogBuffer* n = next->next;
             delete next;
-            next =n ;
+            next = n ;
         }
     }
 
@@ -128,7 +133,7 @@ public:
     void toIovec(iovec* v,uint32_t& size);
     
     template<typename T>
-        void Format(T* t){
+        void Format(const T* t){
             if(buf.size < 32 )
                 return;
             *buf.ptr ++ ='0';
@@ -304,14 +309,15 @@ public:
 #elif __i386__
     void Format(const char *str,...)
     {
-
         va_list args;
         va_start(args,str);
 
         int len = snprintf(buf.ptr,buf.size,str,args);
-
+        if(buf.size < len)
+            return;
         buf.ptr  += len ;
         buf.size -= len;
+        va_end(args);
 
     } 
 #endif

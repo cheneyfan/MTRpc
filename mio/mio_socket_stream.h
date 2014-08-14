@@ -66,6 +66,7 @@ public:
 
 public:
     volatile bool _isConnected;
+    volatile bool _isClosed;
     volatile bool _close_when_empty;
 
     std::string peer_ip;

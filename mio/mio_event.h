@@ -87,20 +87,11 @@ public:
     /// if NULL OnEvent run sync,other wise run in group
     WorkGroup * group;
 
-    AtomicInt32 refcount;
+    volatile int ref_count;
 
-    void RequireRef()
-    {
-        refcount.incrementAndGet();
-    }
+    void RequireRef();
 
-    void ReleaseRef()
-    {
-        if(refcount.decrementAndGet() == 0)
-        {
-            delete this;
-        }
-    }
+    void ReleaseRef();
 
 public:
     ///
@@ -109,6 +100,7 @@ public:
     /// \param event_mask
     ///
     virtual void OnEvent(Epoller* p, uint32_t event_mask) = 0;
+
 
 
 public:
@@ -140,7 +132,7 @@ public:
 
 public:
     //thread safe
-    int SetEvent(bool readable,bool writeable);
+    int SetEvent(bool readable, bool writeable, int trigger=EPOLLET);
 
     static std::string StatusToStr(uint32_t status);
     static std::string EventToStr(uint32_t event);

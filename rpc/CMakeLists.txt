@@ -22,4 +22,4 @@ rpc_client.h
 rpc_controller.h
 rpc_server.h
 )
-INSTALL(FILES ${RPC_HEADES} DESTINATION "./include/")
+INSTALL(FILES ${RPC_HEADES} DESTINATION "./include/rpc/")

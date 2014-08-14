@@ -13,10 +13,12 @@ MessageStream::MessageStream(int sockfd):
     _fd  = sockfd;
     TcpSocket::setNoblock(_fd,true);
     TcpSocket::setNoTcpDelay(_fd,true);
+    TRACE("MessageStream create:"<<_fd);
 }
 
 MessageStream::~MessageStream(){
 
+    TRACE("MessageStream close:"<<_fd);
     close(_fd);
     delete handerMessageRecived;
     delete handerMessageSended;

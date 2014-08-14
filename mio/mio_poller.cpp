@@ -52,6 +52,7 @@ Epoller::Epoller()
     _notify->SetEvent(true,false);
     _notify->handerNotify = NewPermanentExtClosure(this,&Epoller::ProcessPendingTask);
 
+    _notify->RequireRef();
     AddEvent(_notify);
 
     sentinel.key   =0;
@@ -64,19 +65,23 @@ Epoller::Epoller()
 
 Epoller::~Epoller(){
 
+    DelEvent(_notify);
     delete _notify;
+    close(epollfd);
 }
 
 void Epoller::Poll()
 {
     isruning = true;
 
+    epoll_event* ev_arr = new epoll_event[MAX_EVENT_PROCESS];
+
     do{
         // Pending Task may delete event or add timer
 
         int waittime = ProcessTimeOut();
 
-        epoll_event ev_arr[MAX_EVENT_PROCESS];
+
 
         //TRACE("waittime:"<<waittime);
         int nfds = epoll_wait(epollfd, ev_arr , MAX_EVENT_PROCESS, waittime);
@@ -92,15 +97,19 @@ void Epoller::Poll()
         {
             uint32_t revents = ev_arr[i].events;
             IOEvent* ev = (IOEvent*)ev_arr[i].data.ptr;
+            if(ev->_fd  == _notify->_fd)
+                continue;
             TRACE("Poll:"<<epollfd<<",event:"<<ev->GetEventName());
             uint32_t mask = EventToMask(revents);
             ev->OnEventAsync(this, mask);
         }
 
+        ProcessPendingTask();
+
 
     }while(isruning);
 
-
+    delete [] ev_arr;
 }
 
 int  Epoller::ProcessTimeOut(){
@@ -173,7 +182,7 @@ void Epoller::ModEvent(IOEvent* ev){
 
 void Epoller::DelEvent(IOEvent* ev){
 
-    int ret = epoll_ctl(epollfd, EPOLL_CTL_DEL, ev->_fd, &(ev->ev));
+    int ret = epoll_ctl(epollfd, EPOLL_CTL_DEL, ev->_fd, NULL);
 
     if(ev->wtimernode.parent)
     {

@@ -44,8 +44,7 @@ public:
 
     int ConnectionCount();
 
-
-
+    std::string getHostIp();
 
 public:
 

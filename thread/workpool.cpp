@@ -15,7 +15,7 @@ __thread Worker* Worker::thread_worker= NULL;
 
 
 Worker::Worker():
-    isruning(false),
+    isruning(true),
     tid(0),
     threadid(0),
     task(NULL),
@@ -24,6 +24,10 @@ Worker::Worker():
     taskqueue(NULL),
     idleWorker(NULL)
 {
+}
+
+Worker::~Worker(){
+     delete task;
 }
 
 
@@ -60,7 +64,7 @@ Worker* Worker::CurrentWorker(){
 
 void Worker::loop()
 {
-    isruning = true;
+
 
     for(;isruning;)
     {
@@ -86,9 +90,10 @@ void Worker::loop()
             continue;
         }
 
+        WriteLock<MutexLock> wl(mutex);
+
         if(isruning && idleWorker)
         {
-            WriteLock<MutexLock> wl(mutex);
             idleWorker->push(this);
             cv.wait(&mutex._mutex);
         }else{
@@ -107,6 +112,7 @@ void Worker::RunTask(MioTask* t)
     // avoid the thread is moving to idleWorker list
     MioTask* tmp = __sync_lock_test_and_set(&task, t);
 
+    assert(tmp == NULL);
     if(tmp)
     {
         // this should be never happen
@@ -114,6 +120,7 @@ void Worker::RunTask(MioTask* t)
         _group->Post(tmp);
     }
 
+    WriteLock<MutexLock> wl(mutex);
     cv.notifyOne();
 }
 
@@ -144,7 +151,15 @@ int WorkGroup::Init(uint32_t workNum)
         Worker *w = new Worker();
         AddWork(w);
         w->start();
+
+        while(w->tid == 0)
+        {
+            usleep(1000);
+        }
     }
+
+
+
 
     INFO_FMG("start workgroup with workers:%u",workNum);
 
@@ -203,13 +218,22 @@ int WorkGroup::Post(MioTask* task)
 
 
     // some work may be miss the task pushed
-    if(idleWorker.pop(w))
+    while(idleWorker.pop(w))
     {
         //TRACE_FMG("notify idle worker:%p",w);
+        WriteLock<MutexLock> wl(w->mutex);
         w->cv.notifyOne();
     }
 
     return ret;
+}
+
+
+Reply* WorkGroup::PostWithReply(ExtClosure<int()>* task){
+
+       Reply* r = new Reply(task);
+       Post(NewExtClosure(r,&Reply::Run));
+       return r;
 }
 
 

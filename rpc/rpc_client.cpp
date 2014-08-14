@@ -13,6 +13,8 @@ RpcClient::RpcClient(const RpcClientOptions& options)
 RpcClient::~RpcClient()
 {
     Shutdown();
+    _impl->Join();
+    delete _impl;
 }
 
 RpcClientOptions RpcClient::GetOptions()

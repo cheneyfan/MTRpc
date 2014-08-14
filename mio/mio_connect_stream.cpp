@@ -16,7 +16,8 @@ ConnectStream::ConnectStream()
 
     TcpSocket::setNoblock(_fd,true);
     TcpSocket::setNoTcpDelay(_fd,true);
-
+    TcpSocket::setKeepAlive(_fd,true);
+    
     _ConnectStatus = CLIENT_CONNECT_FAIL;
 }
 
@@ -121,6 +122,8 @@ int ConnectStream::OnRecived(Epoller *p, int32_t buffer_size){
             //begin next parser
         }
 
+        TRACE("beginpacket:"<<beginpacket.toString()<<",end:"<<readbuf.readpos.toString());
+
         buffer_size = buffer_size -(readbuf.readpos - beginpacket);
 
         if(this->_close_when_empty)
@@ -136,7 +139,8 @@ int ConnectStream::OnRecived(Epoller *p, int32_t buffer_size){
 int ConnectStream::OnSended(Epoller *p, int32_t buffer_size)
 {
 
-    handerMessageSended->Run(this,p,buffer_size);
+    if(handerMessageSended)
+        handerMessageSended->Run(this,p,buffer_size);
     return 0;
 }
 

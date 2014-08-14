@@ -1,4 +1,7 @@
 #include <sstream>
+#include <stdint.h>
+#include <sys/types.h>
+#include <ifaddrs.h>
 
 #include "thread/closure.h"
 #include "rpc_service_pool.h"
@@ -88,7 +91,9 @@ int RpcServerImpl::Start(const std::string& server_address)
     }
 
     /// begin poll
-    acceptor.AddEventASync(poller,true,false);
+    //acceptor.AddEventASync(poller,true,false);
+    acceptor.SetEvent(true,false,0);
+    poller->AddEvent(&acceptor);
 
 
     group->Post(NewExtClosure(poller,&Epoller::Poll));
@@ -120,8 +125,9 @@ void RpcServerImpl::OnAccept(int sockfd){
     stream->handlerGetServiceAndMethod =
             NewPermanentExtClosure(this,&RpcServerImpl::handlerGetServiceAndMethod);
 
-
     stream->Start(poller,group);
+
+
 
 }
 
@@ -171,6 +177,47 @@ bool RpcServerImpl::ParseMethodFullName(const std::string& method_full_name,
     return true;
 }
 
+
+std::string RpcServerImpl::getHostIp()
+{
+    struct ifaddrs * if_addr = NULL;
+    std::string ip = "";
+
+    if(0 != getifaddrs(&if_addr))
+    {
+        return ip;
+    }
+
+    struct ifaddrs * if_addr_back = if_addr;
+
+    for(; if_addr != NULL; if_addr = if_addr->ifa_next)
+    {
+        // not ipv4
+        if (if_addr->ifa_addr->sa_family != AF_INET)
+            continue;
+
+        void * tmp = &((struct sockaddr_in *)if_addr->ifa_addr)->sin_addr;
+
+        char buffer[256]={0};
+
+        inet_ntop(AF_INET, tmp, buffer, INET_ADDRSTRLEN);
+
+        ip = buffer;
+
+        if(ip.size() == 0 || ip.find("127.0")== 0 || ip.find("10.") != 0)
+        {
+            WARN("not use foriegn "<<ip);
+            continue;
+        }
+
+        break;
+    }
+
+    if(if_addr_back)
+        freeifaddrs(if_addr_back);
+
+    return ip;
+}
 
 }
 

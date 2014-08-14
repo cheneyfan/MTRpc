@@ -2,8 +2,177 @@ package youtu;
 
 option cc_generic_services = true;
 
+//uin search
+message HasUinRequest {
+    repeated uint32 uin = 1;
+}
+
+message HasUinResponse {
+    repeated bool hasuin = 1; 
+}
+
+service HasUinServer {
+    rpc HasUinSearch(HasUinRequest) returns (HasUinResponse);
+}
+
+
+//friend list
+message ListFriendRequest {
+     required uint32 uin = 1;
+}
+
+message ListFriendResponse {
+    required uint32 uin     = 1;
+    repeated uint32 friends = 2;
+    required int32  status  = 3;
+}
+// load the face to redis 
+service ListFriendServer {
+    rpc GetQQFriends(ListFriendRequest) returns (ListFriendResponse);
+    rpc GetQZoneFriends(ListFriendRequest) returns (ListFriendResponse);
+}
+
+//photolist
+message PhotoListRequest {
+     required uint32 uin     = 1;
+     repeated bytes photoid = 2;
+     optional uint32 start   = 3;
+     optional uint32 num     = 4;
+}
+
+message PhotoItem {
+     required bytes photoid = 1;
+     required string url     = 2;
+     required uint32 width   = 3;
+     required uint32 height  = 4;
+}
+
+message PhotoListResponse {
+     required uint32 uin     = 1;
+     repeated PhotoItem res  = 2;
+     required uint32 allnum  = 3;
+     required int32  status  = 4;
+}
+
+service PhotoListServer {
+    rpc GetPhotoList(PhotoListRequest) returns (PhotoListResponse);
+}
+
+//import server
+message ImportRequest{
+      required uint32   uin        = 1;
+      optional int32    maxnum     = 2;
+      optional bool     owneronly  = 3;
+}
+
+message ImportStatus{
+      required uint32 uin         = 1;
+      required uint32 allfacenum  = 2;
+      required uint32 oknum       = 3;
+      required uint32 failnum     = 4;
+      required uint32 undonenum   = 5;
+      required int32 status       = 6;
+}
+
+message ImportStatusResponse{
+      repeated ImportStatus  res  = 1;
+      required int32 status       = 2;
+}
+
+message ListResultRequest{
+      required uint32 uin         = 1;
+      required uint32 start       = 2;
+      required uint32 num         = 3;
+      repeated bytes photoid      = 4;
+}
+
+message FaceListResult{
+      required uint32 uin         = 1;
+      required uint64 faceid      = 2;
+      required bytes  photoid     = 3;
+      required uint64 rect        = 4;
+      required string url         = 5;
+      required uint32 idstate     = 6;
+      required uint32 markstate   = 7;
+      required uint32 identity    = 8;
+      required uint32 marker      = 9;
+}
+
+message ListResultResponse {
+      required uint32 uin         = 1;
+      repeated FaceListResult res = 2;
+      required uint32 allnum      = 3;
+      required int32  status      = 4;
+}
+
+service ImportServer {
+     rpc Import(ImportRequest) returns (ListResultResponse);
+     rpc ImportFriends(ImportRequest) returns (ListResultResponse);
+     
+     rpc ImportStatus(ImportRequest) returns (ImportStatusResponse);
+     rpc ImportFriendsStatus(ImportRequest) returns (ImportStatusResponse);
+}
+
+
+service ListServer{    
+     rpc ListFaces(ListResultRequest)  returns (ListResultResponse);
+     rpc ListAckFaces(ListResultRequest)   returns (ListResultResponse);
+
+}
+
+//indentify
+message IdentifyRequest{
+      required uint32 uin         = 1;
+      required int32  type        = 2;
+      optional bytes photodid     = 3;
+      optional string url         = 4;
+      optional bytes data         = 5;
+      optional uint64 rect        = 6;
+      required uint32 detect_flag = 7; 
+}
+
+message IdentifyItem{
+     required uint32 candidate   = 1;
+     required uint32 similarty   = 2;
+     optional string url         = 3;
+     optional bytes data         = 4;
+}
+
+message IdentifyResponse{
+     repeated IdentifyItem items = 1;
+     required uint32 x           = 2;
+     required uint32 y           = 3;
+     required uint32 w           = 4;
+     required uint32 h           = 5;
+     required string upload_url  = 6;
+     required uint32 status      = 7;
+}
+
+service IdentifyServer {
+     rpc Identify(IdentifyRequest)        returns (IdentifyResponse);
+     rpc IdentifyFriends(IdentifyRequest) returns (IdentifyResponse);
+     rpc Register(IdentifyRequest)        returns (IdentifyResponse);
+}
+
+
+message FeatureItem
+{
+      required uint64 faceid      = 1;
+      required string url         = 2;
+      required uint32 identity    = 3;
+      required bytes  feature     = 4;
+}
+
+
+message FeatureItemList
+{
+    repeated FeatureItem items    = 1;
+}
+
+//de deprecated
+
 message FaceItem {
-    required uint64 faceid = 1;
+    required uint64 faceid  = 1;
     required string photoid = 2;
     required int32  x       = 3;
     required int32  y       = 4;
@@ -22,6 +191,8 @@ message FaceImportResponse {
     repeated uint64 faceid = 1;
 }
 
+
+// load the face to redis 
 service FaceImportServer {
     rpc Import(FaceImportRequest) returns (FaceImportResponse);
 }

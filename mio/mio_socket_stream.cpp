@@ -1,7 +1,7 @@
 #include "mio_socket_stream.h"
 #include "tcpsocket.h"
 #include "log/log.h"
-
+#include "mio/mio_poller.h"
 namespace mtrpc{
 
 SocketStream::SocketStream():
@@ -14,6 +14,7 @@ SocketStream::SocketStream():
     handerWriteimeOut(NULL),
     handerMessageError(NULL),
     _isConnected(false),
+    _isClosed(false),
     _close_when_empty(false)
 {
 }
@@ -34,12 +35,18 @@ void SocketStream::OnEvent(Epoller* p,uint32_t mask)
 {
     int ret = 0;
 
+
+    if(this->_isClosed)
+    {
+        INFO(GetSockName()<<",mask:"<<StatusToStr(mask)<<",has closed");
+        return 0;
+    }
+
     TRACE("OnEvent:"<<GetSockName()<<",mask:"<<StatusToStr(mask));
 
 
     if(mask & EVENT_CLOSE)
     {
-        _isConnected = false;
         //not close directly;
 
         if(writebuf.isEmpty())
@@ -51,12 +58,13 @@ void SocketStream::OnEvent(Epoller* p,uint32_t mask)
             this->_close_when_empty = true;
             this->ModEventAsync(p,true,true);
         }
+
         return ;
     }
 
     if(mask & EVENT_ERR)
     {
-        _isConnected = false;
+
         TRACE(GetSockName()<<"error:"<<errno<<","<<strerror(errno))
         this->OnClose(p);
         return ;
@@ -78,15 +86,17 @@ void SocketStream::OnEvent(Epoller* p,uint32_t mask)
     if(mask & EVENT_READ && 0 !=this->OnReadable(p))
     {
         WARN("OnReadable error close:"<<this->GetSockName());
-        this->OnClose(p);
-        return ;
+        //this->OnClose(p);
+        //return ;
+        mask|= EVENT_CLOSE;
     }
 
     if(mask & EVENT_WRITE && 0!= this->OnWriteable(p))
     {
          WARN("OnWriteable error close:"<<this->GetSockName());
-        this->OnClose(p);
-        return ;
+        //this->OnClose(p);
+        //return ;
+         mask|= EVENT_CLOSE;
     }
 
     if(mask & READ_TIME_OUT )
@@ -97,6 +107,24 @@ void SocketStream::OnEvent(Epoller* p,uint32_t mask)
     if(mask & WRITE_TIME_OUT)
     {
         this->OnWriteimeOut(p);
+    }
+
+    if(mask & EVENT_CLOSE || this->_close_when_empty)
+    {
+        //not close directly;
+
+        if(writebuf.isEmpty())
+        {
+            TRACE("close :"<<this->GetSockName()<<",_close_when_empty:"<<this->_close_when_empty);
+            this->OnClose(p);
+        }
+        else
+        {
+            this->_close_when_empty = true;
+            this->ModEventAsync(p,true,true);
+        }
+
+        return ;
     }
 
 }
@@ -197,10 +225,7 @@ int SocketStream::OnWriteable(Epoller *p)
     if(writebuf.isEmpty())
     {
         TRACE(GetSockName()<<":no buffer to send, disable write");
-        if(_close_when_empty)
-            this->OnClose(p);
-        else
-            ModEventAsync(p,true,false);
+        ModEventAsync(p,true,false);
         return 0;
     }
 
@@ -262,10 +287,7 @@ int SocketStream::OnWriteable(Epoller *p)
     if(writebuf.isEmpty())
     {
         TRACE(GetSockName()<<":no buffer to send, disable write");
-        if(_close_when_empty)
-            this->OnClose(p);
-        else
-            ModEventAsync(p,true,false);
+        ModEventAsync(p,true,false);
     }
 
     return ret;
@@ -274,12 +296,26 @@ int SocketStream::OnWriteable(Epoller *p)
 
 int SocketStream::OnClose(Epoller *p)
 {
-    if(handerClose)
-        handerClose->Run(this,p);
+    //assert(!_isClosed);
 
-    TRACE(GetSockName()<<":closing");
-    DelEventAsync(p);
-    return 0;
+
+    if(!_isClosed)
+    {
+        _isClosed = true;
+        _isConnected = false;
+
+        //epoll_ctl(p->epollfd, EPOLL_CTL_DEL,this->_fd, NULL);
+        TRACE(GetSockName()<<":closing :fd:"<<this->_fd);
+
+        if(handerClose)
+            handerClose->Run(this,p);
+
+        DelEventAsync(p);
+    }else{
+         TRACE(GetSockName()<<":already closed! :fd:"<<this->_fd);
+    }
+
+   return 0;
 }
 
 

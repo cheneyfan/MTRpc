@@ -106,7 +106,7 @@ void LogHelper:: OutPut(LogEntry* e)
     {
         tid = gettid();
         snprintf(tidstr,sizeof(tidstr),"%d",tid);
-        LogBacker::registerThread(&cm);
+  //      LogBacker::registerThread(&cm);
     }
 
     //TODO opt the function
@@ -133,13 +133,14 @@ void LogHelper:: OutPut(LogEntry* e)
 
 
 
-CacheManger::CacheManger(){
-
+CacheManger::CacheManger()
+    :next(NULL)
+{
 }
 
 CacheManger::~CacheManger(){
 
-    LogBacker::unregisterThread(this);
+//    LogBacker::unregisterThread(this);
 }
 
 LogEntry* CacheManger::mallocEntry(){
@@ -181,7 +182,7 @@ int LogBacker::Init(Json::Value & conf){
               S_IRWXU|S_IRWXG|S_IRWXO);
 
     
-    MioTask* task =NewExtClosure(LogBacker::DumperLogger,NULL);
+    MioTask* task = NewExtClosure(LogBacker::DumperLogger, NULL);
     worker.RunTask(task);
     worker.start();
 

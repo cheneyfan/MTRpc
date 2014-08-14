@@ -124,8 +124,8 @@ int SignalHelper::install_sig_action()
 {
     /// user to kill
     signal(SIGQUIT, SignalHelper::signal_handler);
-    //signal(SIGINT,  SignalHelper::signal_handler);
-    //signal(SIGTERM, SignalHelper::signal_handler);
+    signal(SIGINT,  SignalHelper::signal_handler);
+    signal(SIGTERM, SignalHelper::signal_handler);
     signal(SIGUSR1, SignalHelper::signal_handler);
 
 

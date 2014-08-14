@@ -8,7 +8,7 @@
 #include "common/ngx_rbtree.h"
 #include "thread/ext_closure.h"
 
-#define MAX_EVENT_PROCESS 1000
+#define MAX_EVENT_PROCESS 100000
 
 
 

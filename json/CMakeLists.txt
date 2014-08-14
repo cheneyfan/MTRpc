@@ -12,3 +12,7 @@ message("Add ${libname} to build")
 add_library(${libname} OBJECT ${SRC} ${HEADERS})
 add_library(${libname}_static STATIC $<TARGET_OBJECTS:${libname}>)
 #INSTALL(TARGETS ${libname}_static DESTINATION "./lib/")
+
+file(GLOB_RECURSE JSON_HEADER "json/*h")
+INSTALL(FILES ${JSON_HEADER} DESTINATION "include/${libname}/json/")
+INSTALL(FILES configure.h    DESTINATION "include/${libname}/")

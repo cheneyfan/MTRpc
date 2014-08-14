@@ -9,7 +9,7 @@
 namespace mtrpc {
 
 typedef google::protobuf::int64 int64;
-typedef ::google::protobuf::Message Message;
+typedef google::protobuf::Message Message;
 
 class RpcControllerImpl;
 class SocketStream;
@@ -40,10 +40,10 @@ public:
 
     virtual void NotifyOnCancel(google::protobuf::Closure* callback){}
 
-    virtual bool Failed() const{}
-    virtual int ErrorCode() const{}
+    virtual bool Failed() const{return false;}
+    virtual int ErrorCode() const{return 0;}
 
-    virtual std::string ErrorText() const{}
+    virtual std::string ErrorText() const{ return std::string("");}
 
     ////
     virtual void SetStatus(int status){}

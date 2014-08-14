@@ -34,11 +34,2113 @@ void  protobuf_AddDesc_face_2eproto();
 void protobuf_AssignDesc_face_2eproto();
 void protobuf_ShutdownFile_face_2eproto();
 
+class HasUinRequest;
+class HasUinResponse;
+class ListFriendRequest;
+class ListFriendResponse;
+class PhotoListRequest;
+class PhotoItem;
+class PhotoListResponse;
+class ImportRequest;
+class ImportStatus;
+class ImportStatusResponse;
+class ListResultRequest;
+class FaceListResult;
+class ListResultResponse;
+class IdentifyRequest;
+class IdentifyItem;
+class IdentifyResponse;
+class FeatureItem;
+class FeatureItemList;
 class FaceItem;
 class FaceImportRequest;
 class FaceImportResponse;
 
 // ===================================================================
+
+class HasUinRequest : public ::google::protobuf::Message {
+ public:
+  HasUinRequest();
+  virtual ~HasUinRequest();
+
+  HasUinRequest(const HasUinRequest& from);
+
+  inline HasUinRequest& operator=(const HasUinRequest& from) {
+    CopyFrom(from);
+    return *this;
+  }
+
+  inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const {
+    return _unknown_fields_;
+  }
+
+  inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields() {
+    return &_unknown_fields_;
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const HasUinRequest& default_instance();
+
+  void Swap(HasUinRequest* other);
+
+  // implements Message ----------------------------------------------
+
+  HasUinRequest* New() const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const HasUinRequest& from);
+  void MergeFrom(const HasUinRequest& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
+  int GetCachedSize() const { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // repeated uint32 uin = 1;
+  inline int uin_size() const;
+  inline void clear_uin();
+  static const int kUinFieldNumber = 1;
+  inline ::google::protobuf::uint32 uin(int index) const;
+  inline void set_uin(int index, ::google::protobuf::uint32 value);
+  inline void add_uin(::google::protobuf::uint32 value);
+  inline const ::google::protobuf::RepeatedField< ::google::protobuf::uint32 >&
+      uin() const;
+  inline ::google::protobuf::RepeatedField< ::google::protobuf::uint32 >*
+      mutable_uin();
+
+  // @@protoc_insertion_point(class_scope:youtu.HasUinRequest)
+ private:
+
+  ::google::protobuf::UnknownFieldSet _unknown_fields_;
+
+  ::google::protobuf::RepeatedField< ::google::protobuf::uint32 > uin_;
+
+  mutable int _cached_size_;
+  ::google::protobuf::uint32 _has_bits_[(1 + 31) / 32];
+
+  friend void  protobuf_AddDesc_face_2eproto();
+  friend void protobuf_AssignDesc_face_2eproto();
+  friend void protobuf_ShutdownFile_face_2eproto();
+
+  void InitAsDefaultInstance();
+  static HasUinRequest* default_instance_;
+};
+// -------------------------------------------------------------------
+
+class HasUinResponse : public ::google::protobuf::Message {
+ public:
+  HasUinResponse();
+  virtual ~HasUinResponse();
+
+  HasUinResponse(const HasUinResponse& from);
+
+  inline HasUinResponse& operator=(const HasUinResponse& from) {
+    CopyFrom(from);
+    return *this;
+  }
+
+  inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const {
+    return _unknown_fields_;
+  }
+
+  inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields() {
+    return &_unknown_fields_;
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const HasUinResponse& default_instance();
+
+  void Swap(HasUinResponse* other);
+
+  // implements Message ----------------------------------------------
+
+  HasUinResponse* New() const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const HasUinResponse& from);
+  void MergeFrom(const HasUinResponse& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
+  int GetCachedSize() const { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // repeated bool hasuin = 1;
+  inline int hasuin_size() const;
+  inline void clear_hasuin();
+  static const int kHasuinFieldNumber = 1;
+  inline bool hasuin(int index) const;
+  inline void set_hasuin(int index, bool value);
+  inline void add_hasuin(bool value);
+  inline const ::google::protobuf::RepeatedField< bool >&
+      hasuin() const;
+  inline ::google::protobuf::RepeatedField< bool >*
+      mutable_hasuin();
+
+  // @@protoc_insertion_point(class_scope:youtu.HasUinResponse)
+ private:
+
+  ::google::protobuf::UnknownFieldSet _unknown_fields_;
+
+  ::google::protobuf::RepeatedField< bool > hasuin_;
+
+  mutable int _cached_size_;
+  ::google::protobuf::uint32 _has_bits_[(1 + 31) / 32];
+
+  friend void  protobuf_AddDesc_face_2eproto();
+  friend void protobuf_AssignDesc_face_2eproto();
+  friend void protobuf_ShutdownFile_face_2eproto();
+
+  void InitAsDefaultInstance();
+  static HasUinResponse* default_instance_;
+};
+// -------------------------------------------------------------------
+
+class ListFriendRequest : public ::google::protobuf::Message {
+ public:
+  ListFriendRequest();
+  virtual ~ListFriendRequest();
+
+  ListFriendRequest(const ListFriendRequest& from);
+
+  inline ListFriendRequest& operator=(const ListFriendRequest& from) {
+    CopyFrom(from);
+    return *this;
+  }
+
+  inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const {
+    return _unknown_fields_;
+  }
+
+  inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields() {
+    return &_unknown_fields_;
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const ListFriendRequest& default_instance();
+
+  void Swap(ListFriendRequest* other);
+
+  // implements Message ----------------------------------------------
+
+  ListFriendRequest* New() const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const ListFriendRequest& from);
+  void MergeFrom(const ListFriendRequest& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
+  int GetCachedSize() const { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // required uint32 uin = 1;
+  inline bool has_uin() const;
+  inline void clear_uin();
+  static const int kUinFieldNumber = 1;
+  inline ::google::protobuf::uint32 uin() const;
+  inline void set_uin(::google::protobuf::uint32 value);
+
+  // @@protoc_insertion_point(class_scope:youtu.ListFriendRequest)
+ private:
+  inline void set_has_uin();
+  inline void clear_has_uin();
+
+  ::google::protobuf::UnknownFieldSet _unknown_fields_;
+
+  ::google::protobuf::uint32 uin_;
+
+  mutable int _cached_size_;
+  ::google::protobuf::uint32 _has_bits_[(1 + 31) / 32];
+
+  friend void  protobuf_AddDesc_face_2eproto();
+  friend void protobuf_AssignDesc_face_2eproto();
+  friend void protobuf_ShutdownFile_face_2eproto();
+
+  void InitAsDefaultInstance();
+  static ListFriendRequest* default_instance_;
+};
+// -------------------------------------------------------------------
+
+class ListFriendResponse : public ::google::protobuf::Message {
+ public:
+  ListFriendResponse();
+  virtual ~ListFriendResponse();
+
+  ListFriendResponse(const ListFriendResponse& from);
+
+  inline ListFriendResponse& operator=(const ListFriendResponse& from) {
+    CopyFrom(from);
+    return *this;
+  }
+
+  inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const {
+    return _unknown_fields_;
+  }
+
+  inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields() {
+    return &_unknown_fields_;
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const ListFriendResponse& default_instance();
+
+  void Swap(ListFriendResponse* other);
+
+  // implements Message ----------------------------------------------
+
+  ListFriendResponse* New() const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const ListFriendResponse& from);
+  void MergeFrom(const ListFriendResponse& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
+  int GetCachedSize() const { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // required uint32 uin = 1;
+  inline bool has_uin() const;
+  inline void clear_uin();
+  static const int kUinFieldNumber = 1;
+  inline ::google::protobuf::uint32 uin() const;
+  inline void set_uin(::google::protobuf::uint32 value);
+
+  // repeated uint32 friends = 2;
+  inline int friends_size() const;
+  inline void clear_friends();
+  static const int kFriendsFieldNumber = 2;
+  inline ::google::protobuf::uint32 friends(int index) const;
+  inline void set_friends(int index, ::google::protobuf::uint32 value);
+  inline void add_friends(::google::protobuf::uint32 value);
+  inline const ::google::protobuf::RepeatedField< ::google::protobuf::uint32 >&
+      friends() const;
+  inline ::google::protobuf::RepeatedField< ::google::protobuf::uint32 >*
+      mutable_friends();
+
+  // required int32 status = 3;
+  inline bool has_status() const;
+  inline void clear_status();
+  static const int kStatusFieldNumber = 3;
+  inline ::google::protobuf::int32 status() const;
+  inline void set_status(::google::protobuf::int32 value);
+
+  // @@protoc_insertion_point(class_scope:youtu.ListFriendResponse)
+ private:
+  inline void set_has_uin();
+  inline void clear_has_uin();
+  inline void set_has_status();
+  inline void clear_has_status();
+
+  ::google::protobuf::UnknownFieldSet _unknown_fields_;
+
+  ::google::protobuf::RepeatedField< ::google::protobuf::uint32 > friends_;
+  ::google::protobuf::uint32 uin_;
+  ::google::protobuf::int32 status_;
+
+  mutable int _cached_size_;
+  ::google::protobuf::uint32 _has_bits_[(3 + 31) / 32];
+
+  friend void  protobuf_AddDesc_face_2eproto();
+  friend void protobuf_AssignDesc_face_2eproto();
+  friend void protobuf_ShutdownFile_face_2eproto();
+
+  void InitAsDefaultInstance();
+  static ListFriendResponse* default_instance_;
+};
+// -------------------------------------------------------------------
+
+class PhotoListRequest : public ::google::protobuf::Message {
+ public:
+  PhotoListRequest();
+  virtual ~PhotoListRequest();
+
+  PhotoListRequest(const PhotoListRequest& from);
+
+  inline PhotoListRequest& operator=(const PhotoListRequest& from) {
+    CopyFrom(from);
+    return *this;
+  }
+
+  inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const {
+    return _unknown_fields_;
+  }
+
+  inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields() {
+    return &_unknown_fields_;
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const PhotoListRequest& default_instance();
+
+  void Swap(PhotoListRequest* other);
+
+  // implements Message ----------------------------------------------
+
+  PhotoListRequest* New() const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const PhotoListRequest& from);
+  void MergeFrom(const PhotoListRequest& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
+  int GetCachedSize() const { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // required uint32 uin = 1;
+  inline bool has_uin() const;
+  inline void clear_uin();
+  static const int kUinFieldNumber = 1;
+  inline ::google::protobuf::uint32 uin() const;
+  inline void set_uin(::google::protobuf::uint32 value);
+
+  // repeated bytes photoid = 2;
+  inline int photoid_size() const;
+  inline void clear_photoid();
+  static const int kPhotoidFieldNumber = 2;
+  inline const ::std::string& photoid(int index) const;
+  inline ::std::string* mutable_photoid(int index);
+  inline void set_photoid(int index, const ::std::string& value);
+  inline void set_photoid(int index, const char* value);
+  inline void set_photoid(int index, const void* value, size_t size);
+  inline ::std::string* add_photoid();
+  inline void add_photoid(const ::std::string& value);
+  inline void add_photoid(const char* value);
+  inline void add_photoid(const void* value, size_t size);
+  inline const ::google::protobuf::RepeatedPtrField< ::std::string>& photoid() const;
+  inline ::google::protobuf::RepeatedPtrField< ::std::string>* mutable_photoid();
+
+  // optional uint32 start = 3;
+  inline bool has_start() const;
+  inline void clear_start();
+  static const int kStartFieldNumber = 3;
+  inline ::google::protobuf::uint32 start() const;
+  inline void set_start(::google::protobuf::uint32 value);
+
+  // optional uint32 num = 4;
+  inline bool has_num() const;
+  inline void clear_num();
+  static const int kNumFieldNumber = 4;
+  inline ::google::protobuf::uint32 num() const;
+  inline void set_num(::google::protobuf::uint32 value);
+
+  // @@protoc_insertion_point(class_scope:youtu.PhotoListRequest)
+ private:
+  inline void set_has_uin();
+  inline void clear_has_uin();
+  inline void set_has_start();
+  inline void clear_has_start();
+  inline void set_has_num();
+  inline void clear_has_num();
+
+  ::google::protobuf::UnknownFieldSet _unknown_fields_;
+
+  ::google::protobuf::RepeatedPtrField< ::std::string> photoid_;
+  ::google::protobuf::uint32 uin_;
+  ::google::protobuf::uint32 start_;
+  ::google::protobuf::uint32 num_;
+
+  mutable int _cached_size_;
+  ::google::protobuf::uint32 _has_bits_[(4 + 31) / 32];
+
+  friend void  protobuf_AddDesc_face_2eproto();
+  friend void protobuf_AssignDesc_face_2eproto();
+  friend void protobuf_ShutdownFile_face_2eproto();
+
+  void InitAsDefaultInstance();
+  static PhotoListRequest* default_instance_;
+};
+// -------------------------------------------------------------------
+
+class PhotoItem : public ::google::protobuf::Message {
+ public:
+  PhotoItem();
+  virtual ~PhotoItem();
+
+  PhotoItem(const PhotoItem& from);
+
+  inline PhotoItem& operator=(const PhotoItem& from) {
+    CopyFrom(from);
+    return *this;
+  }
+
+  inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const {
+    return _unknown_fields_;
+  }
+
+  inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields() {
+    return &_unknown_fields_;
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const PhotoItem& default_instance();
+
+  void Swap(PhotoItem* other);
+
+  // implements Message ----------------------------------------------
+
+  PhotoItem* New() const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const PhotoItem& from);
+  void MergeFrom(const PhotoItem& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
+  int GetCachedSize() const { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // required bytes photoid = 1;
+  inline bool has_photoid() const;
+  inline void clear_photoid();
+  static const int kPhotoidFieldNumber = 1;
+  inline const ::std::string& photoid() const;
+  inline void set_photoid(const ::std::string& value);
+  inline void set_photoid(const char* value);
+  inline void set_photoid(const void* value, size_t size);
+  inline ::std::string* mutable_photoid();
+  inline ::std::string* release_photoid();
+  inline void set_allocated_photoid(::std::string* photoid);
+
+  // required string url = 2;
+  inline bool has_url() const;
+  inline void clear_url();
+  static const int kUrlFieldNumber = 2;
+  inline const ::std::string& url() const;
+  inline void set_url(const ::std::string& value);
+  inline void set_url(const char* value);
+  inline void set_url(const char* value, size_t size);
+  inline ::std::string* mutable_url();
+  inline ::std::string* release_url();
+  inline void set_allocated_url(::std::string* url);
+
+  // required uint32 width = 3;
+  inline bool has_width() const;
+  inline void clear_width();
+  static const int kWidthFieldNumber = 3;
+  inline ::google::protobuf::uint32 width() const;
+  inline void set_width(::google::protobuf::uint32 value);
+
+  // required uint32 height = 4;
+  inline bool has_height() const;
+  inline void clear_height();
+  static const int kHeightFieldNumber = 4;
+  inline ::google::protobuf::uint32 height() const;
+  inline void set_height(::google::protobuf::uint32 value);
+
+  // @@protoc_insertion_point(class_scope:youtu.PhotoItem)
+ private:
+  inline void set_has_photoid();
+  inline void clear_has_photoid();
+  inline void set_has_url();
+  inline void clear_has_url();
+  inline void set_has_width();
+  inline void clear_has_width();
+  inline void set_has_height();
+  inline void clear_has_height();
+
+  ::google::protobuf::UnknownFieldSet _unknown_fields_;
+
+  ::std::string* photoid_;
+  ::std::string* url_;
+  ::google::protobuf::uint32 width_;
+  ::google::protobuf::uint32 height_;
+
+  mutable int _cached_size_;
+  ::google::protobuf::uint32 _has_bits_[(4 + 31) / 32];
+
+  friend void  protobuf_AddDesc_face_2eproto();
+  friend void protobuf_AssignDesc_face_2eproto();
+  friend void protobuf_ShutdownFile_face_2eproto();
+
+  void InitAsDefaultInstance();
+  static PhotoItem* default_instance_;
+};
+// -------------------------------------------------------------------
+
+class PhotoListResponse : public ::google::protobuf::Message {
+ public:
+  PhotoListResponse();
+  virtual ~PhotoListResponse();
+
+  PhotoListResponse(const PhotoListResponse& from);
+
+  inline PhotoListResponse& operator=(const PhotoListResponse& from) {
+    CopyFrom(from);
+    return *this;
+  }
+
+  inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const {
+    return _unknown_fields_;
+  }
+
+  inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields() {
+    return &_unknown_fields_;
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const PhotoListResponse& default_instance();
+
+  void Swap(PhotoListResponse* other);
+
+  // implements Message ----------------------------------------------
+
+  PhotoListResponse* New() const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const PhotoListResponse& from);
+  void MergeFrom(const PhotoListResponse& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
+  int GetCachedSize() const { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // required uint32 uin = 1;
+  inline bool has_uin() const;
+  inline void clear_uin();
+  static const int kUinFieldNumber = 1;
+  inline ::google::protobuf::uint32 uin() const;
+  inline void set_uin(::google::protobuf::uint32 value);
+
+  // repeated .youtu.PhotoItem res = 2;
+  inline int res_size() const;
+  inline void clear_res();
+  static const int kResFieldNumber = 2;
+  inline const ::youtu::PhotoItem& res(int index) const;
+  inline ::youtu::PhotoItem* mutable_res(int index);
+  inline ::youtu::PhotoItem* add_res();
+  inline const ::google::protobuf::RepeatedPtrField< ::youtu::PhotoItem >&
+      res() const;
+  inline ::google::protobuf::RepeatedPtrField< ::youtu::PhotoItem >*
+      mutable_res();
+
+  // required uint32 allnum = 3;
+  inline bool has_allnum() const;
+  inline void clear_allnum();
+  static const int kAllnumFieldNumber = 3;
+  inline ::google::protobuf::uint32 allnum() const;
+  inline void set_allnum(::google::protobuf::uint32 value);
+
+  // required int32 status = 4;
+  inline bool has_status() const;
+  inline void clear_status();
+  static const int kStatusFieldNumber = 4;
+  inline ::google::protobuf::int32 status() const;
+  inline void set_status(::google::protobuf::int32 value);
+
+  // @@protoc_insertion_point(class_scope:youtu.PhotoListResponse)
+ private:
+  inline void set_has_uin();
+  inline void clear_has_uin();
+  inline void set_has_allnum();
+  inline void clear_has_allnum();
+  inline void set_has_status();
+  inline void clear_has_status();
+
+  ::google::protobuf::UnknownFieldSet _unknown_fields_;
+
+  ::google::protobuf::RepeatedPtrField< ::youtu::PhotoItem > res_;
+  ::google::protobuf::uint32 uin_;
+  ::google::protobuf::uint32 allnum_;
+  ::google::protobuf::int32 status_;
+
+  mutable int _cached_size_;
+  ::google::protobuf::uint32 _has_bits_[(4 + 31) / 32];
+
+  friend void  protobuf_AddDesc_face_2eproto();
+  friend void protobuf_AssignDesc_face_2eproto();
+  friend void protobuf_ShutdownFile_face_2eproto();
+
+  void InitAsDefaultInstance();
+  static PhotoListResponse* default_instance_;
+};
+// -------------------------------------------------------------------
+
+class ImportRequest : public ::google::protobuf::Message {
+ public:
+  ImportRequest();
+  virtual ~ImportRequest();
+
+  ImportRequest(const ImportRequest& from);
+
+  inline ImportRequest& operator=(const ImportRequest& from) {
+    CopyFrom(from);
+    return *this;
+  }
+
+  inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const {
+    return _unknown_fields_;
+  }
+
+  inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields() {
+    return &_unknown_fields_;
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const ImportRequest& default_instance();
+
+  void Swap(ImportRequest* other);
+
+  // implements Message ----------------------------------------------
+
+  ImportRequest* New() const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const ImportRequest& from);
+  void MergeFrom(const ImportRequest& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
+  int GetCachedSize() const { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // required uint32 uin = 1;
+  inline bool has_uin() const;
+  inline void clear_uin();
+  static const int kUinFieldNumber = 1;
+  inline ::google::protobuf::uint32 uin() const;
+  inline void set_uin(::google::protobuf::uint32 value);
+
+  // optional int32 maxnum = 2;
+  inline bool has_maxnum() const;
+  inline void clear_maxnum();
+  static const int kMaxnumFieldNumber = 2;
+  inline ::google::protobuf::int32 maxnum() const;
+  inline void set_maxnum(::google::protobuf::int32 value);
+
+  // optional bool owneronly = 3;
+  inline bool has_owneronly() const;
+  inline void clear_owneronly();
+  static const int kOwneronlyFieldNumber = 3;
+  inline bool owneronly() const;
+  inline void set_owneronly(bool value);
+
+  // @@protoc_insertion_point(class_scope:youtu.ImportRequest)
+ private:
+  inline void set_has_uin();
+  inline void clear_has_uin();
+  inline void set_has_maxnum();
+  inline void clear_has_maxnum();
+  inline void set_has_owneronly();
+  inline void clear_has_owneronly();
+
+  ::google::protobuf::UnknownFieldSet _unknown_fields_;
+
+  ::google::protobuf::uint32 uin_;
+  ::google::protobuf::int32 maxnum_;
+  bool owneronly_;
+
+  mutable int _cached_size_;
+  ::google::protobuf::uint32 _has_bits_[(3 + 31) / 32];
+
+  friend void  protobuf_AddDesc_face_2eproto();
+  friend void protobuf_AssignDesc_face_2eproto();
+  friend void protobuf_ShutdownFile_face_2eproto();
+
+  void InitAsDefaultInstance();
+  static ImportRequest* default_instance_;
+};
+// -------------------------------------------------------------------
+
+class ImportStatus : public ::google::protobuf::Message {
+ public:
+  ImportStatus();
+  virtual ~ImportStatus();
+
+  ImportStatus(const ImportStatus& from);
+
+  inline ImportStatus& operator=(const ImportStatus& from) {
+    CopyFrom(from);
+    return *this;
+  }
+
+  inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const {
+    return _unknown_fields_;
+  }
+
+  inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields() {
+    return &_unknown_fields_;
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const ImportStatus& default_instance();
+
+  void Swap(ImportStatus* other);
+
+  // implements Message ----------------------------------------------
+
+  ImportStatus* New() const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const ImportStatus& from);
+  void MergeFrom(const ImportStatus& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
+  int GetCachedSize() const { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // required uint32 uin = 1;
+  inline bool has_uin() const;
+  inline void clear_uin();
+  static const int kUinFieldNumber = 1;
+  inline ::google::protobuf::uint32 uin() const;
+  inline void set_uin(::google::protobuf::uint32 value);
+
+  // required uint32 allfacenum = 2;
+  inline bool has_allfacenum() const;
+  inline void clear_allfacenum();
+  static const int kAllfacenumFieldNumber = 2;
+  inline ::google::protobuf::uint32 allfacenum() const;
+  inline void set_allfacenum(::google::protobuf::uint32 value);
+
+  // required uint32 oknum = 3;
+  inline bool has_oknum() const;
+  inline void clear_oknum();
+  static const int kOknumFieldNumber = 3;
+  inline ::google::protobuf::uint32 oknum() const;
+  inline void set_oknum(::google::protobuf::uint32 value);
+
+  // required uint32 failnum = 4;
+  inline bool has_failnum() const;
+  inline void clear_failnum();
+  static const int kFailnumFieldNumber = 4;
+  inline ::google::protobuf::uint32 failnum() const;
+  inline void set_failnum(::google::protobuf::uint32 value);
+
+  // required uint32 undonenum = 5;
+  inline bool has_undonenum() const;
+  inline void clear_undonenum();
+  static const int kUndonenumFieldNumber = 5;
+  inline ::google::protobuf::uint32 undonenum() const;
+  inline void set_undonenum(::google::protobuf::uint32 value);
+
+  // required int32 status = 6;
+  inline bool has_status() const;
+  inline void clear_status();
+  static const int kStatusFieldNumber = 6;
+  inline ::google::protobuf::int32 status() const;
+  inline void set_status(::google::protobuf::int32 value);
+
+  // @@protoc_insertion_point(class_scope:youtu.ImportStatus)
+ private:
+  inline void set_has_uin();
+  inline void clear_has_uin();
+  inline void set_has_allfacenum();
+  inline void clear_has_allfacenum();
+  inline void set_has_oknum();
+  inline void clear_has_oknum();
+  inline void set_has_failnum();
+  inline void clear_has_failnum();
+  inline void set_has_undonenum();
+  inline void clear_has_undonenum();
+  inline void set_has_status();
+  inline void clear_has_status();
+
+  ::google::protobuf::UnknownFieldSet _unknown_fields_;
+
+  ::google::protobuf::uint32 uin_;
+  ::google::protobuf::uint32 allfacenum_;
+  ::google::protobuf::uint32 oknum_;
+  ::google::protobuf::uint32 failnum_;
+  ::google::protobuf::uint32 undonenum_;
+  ::google::protobuf::int32 status_;
+
+  mutable int _cached_size_;
+  ::google::protobuf::uint32 _has_bits_[(6 + 31) / 32];
+
+  friend void  protobuf_AddDesc_face_2eproto();
+  friend void protobuf_AssignDesc_face_2eproto();
+  friend void protobuf_ShutdownFile_face_2eproto();
+
+  void InitAsDefaultInstance();
+  static ImportStatus* default_instance_;
+};
+// -------------------------------------------------------------------
+
+class ImportStatusResponse : public ::google::protobuf::Message {
+ public:
+  ImportStatusResponse();
+  virtual ~ImportStatusResponse();
+
+  ImportStatusResponse(const ImportStatusResponse& from);
+
+  inline ImportStatusResponse& operator=(const ImportStatusResponse& from) {
+    CopyFrom(from);
+    return *this;
+  }
+
+  inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const {
+    return _unknown_fields_;
+  }
+
+  inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields() {
+    return &_unknown_fields_;
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const ImportStatusResponse& default_instance();
+
+  void Swap(ImportStatusResponse* other);
+
+  // implements Message ----------------------------------------------
+
+  ImportStatusResponse* New() const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const ImportStatusResponse& from);
+  void MergeFrom(const ImportStatusResponse& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
+  int GetCachedSize() const { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // repeated .youtu.ImportStatus res = 1;
+  inline int res_size() const;
+  inline void clear_res();
+  static const int kResFieldNumber = 1;
+  inline const ::youtu::ImportStatus& res(int index) const;
+  inline ::youtu::ImportStatus* mutable_res(int index);
+  inline ::youtu::ImportStatus* add_res();
+  inline const ::google::protobuf::RepeatedPtrField< ::youtu::ImportStatus >&
+      res() const;
+  inline ::google::protobuf::RepeatedPtrField< ::youtu::ImportStatus >*
+      mutable_res();
+
+  // required int32 status = 2;
+  inline bool has_status() const;
+  inline void clear_status();
+  static const int kStatusFieldNumber = 2;
+  inline ::google::protobuf::int32 status() const;
+  inline void set_status(::google::protobuf::int32 value);
+
+  // @@protoc_insertion_point(class_scope:youtu.ImportStatusResponse)
+ private:
+  inline void set_has_status();
+  inline void clear_has_status();
+
+  ::google::protobuf::UnknownFieldSet _unknown_fields_;
+
+  ::google::protobuf::RepeatedPtrField< ::youtu::ImportStatus > res_;
+  ::google::protobuf::int32 status_;
+
+  mutable int _cached_size_;
+  ::google::protobuf::uint32 _has_bits_[(2 + 31) / 32];
+
+  friend void  protobuf_AddDesc_face_2eproto();
+  friend void protobuf_AssignDesc_face_2eproto();
+  friend void protobuf_ShutdownFile_face_2eproto();
+
+  void InitAsDefaultInstance();
+  static ImportStatusResponse* default_instance_;
+};
+// -------------------------------------------------------------------
+
+class ListResultRequest : public ::google::protobuf::Message {
+ public:
+  ListResultRequest();
+  virtual ~ListResultRequest();
+
+  ListResultRequest(const ListResultRequest& from);
+
+  inline ListResultRequest& operator=(const ListResultRequest& from) {
+    CopyFrom(from);
+    return *this;
+  }
+
+  inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const {
+    return _unknown_fields_;
+  }
+
+  inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields() {
+    return &_unknown_fields_;
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const ListResultRequest& default_instance();
+
+  void Swap(ListResultRequest* other);
+
+  // implements Message ----------------------------------------------
+
+  ListResultRequest* New() const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const ListResultRequest& from);
+  void MergeFrom(const ListResultRequest& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
+  int GetCachedSize() const { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // required uint32 uin = 1;
+  inline bool has_uin() const;
+  inline void clear_uin();
+  static const int kUinFieldNumber = 1;
+  inline ::google::protobuf::uint32 uin() const;
+  inline void set_uin(::google::protobuf::uint32 value);
+
+  // required uint32 start = 2;
+  inline bool has_start() const;
+  inline void clear_start();
+  static const int kStartFieldNumber = 2;
+  inline ::google::protobuf::uint32 start() const;
+  inline void set_start(::google::protobuf::uint32 value);
+
+  // required uint32 num = 3;
+  inline bool has_num() const;
+  inline void clear_num();
+  static const int kNumFieldNumber = 3;
+  inline ::google::protobuf::uint32 num() const;
+  inline void set_num(::google::protobuf::uint32 value);
+
+  // repeated bytes photoid = 4;
+  inline int photoid_size() const;
+  inline void clear_photoid();
+  static const int kPhotoidFieldNumber = 4;
+  inline const ::std::string& photoid(int index) const;
+  inline ::std::string* mutable_photoid(int index);
+  inline void set_photoid(int index, const ::std::string& value);
+  inline void set_photoid(int index, const char* value);
+  inline void set_photoid(int index, const void* value, size_t size);
+  inline ::std::string* add_photoid();
+  inline void add_photoid(const ::std::string& value);
+  inline void add_photoid(const char* value);
+  inline void add_photoid(const void* value, size_t size);
+  inline const ::google::protobuf::RepeatedPtrField< ::std::string>& photoid() const;
+  inline ::google::protobuf::RepeatedPtrField< ::std::string>* mutable_photoid();
+
+  // @@protoc_insertion_point(class_scope:youtu.ListResultRequest)
+ private:
+  inline void set_has_uin();
+  inline void clear_has_uin();
+  inline void set_has_start();
+  inline void clear_has_start();
+  inline void set_has_num();
+  inline void clear_has_num();
+
+  ::google::protobuf::UnknownFieldSet _unknown_fields_;
+
+  ::google::protobuf::uint32 uin_;
+  ::google::protobuf::uint32 start_;
+  ::google::protobuf::RepeatedPtrField< ::std::string> photoid_;
+  ::google::protobuf::uint32 num_;
+
+  mutable int _cached_size_;
+  ::google::protobuf::uint32 _has_bits_[(4 + 31) / 32];
+
+  friend void  protobuf_AddDesc_face_2eproto();
+  friend void protobuf_AssignDesc_face_2eproto();
+  friend void protobuf_ShutdownFile_face_2eproto();
+
+  void InitAsDefaultInstance();
+  static ListResultRequest* default_instance_;
+};
+// -------------------------------------------------------------------
+
+class FaceListResult : public ::google::protobuf::Message {
+ public:
+  FaceListResult();
+  virtual ~FaceListResult();
+
+  FaceListResult(const FaceListResult& from);
+
+  inline FaceListResult& operator=(const FaceListResult& from) {
+    CopyFrom(from);
+    return *this;
+  }
+
+  inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const {
+    return _unknown_fields_;
+  }
+
+  inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields() {
+    return &_unknown_fields_;
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const FaceListResult& default_instance();
+
+  void Swap(FaceListResult* other);
+
+  // implements Message ----------------------------------------------
+
+  FaceListResult* New() const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const FaceListResult& from);
+  void MergeFrom(const FaceListResult& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
+  int GetCachedSize() const { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // required uint32 uin = 1;
+  inline bool has_uin() const;
+  inline void clear_uin();
+  static const int kUinFieldNumber = 1;
+  inline ::google::protobuf::uint32 uin() const;
+  inline void set_uin(::google::protobuf::uint32 value);
+
+  // required uint64 faceid = 2;
+  inline bool has_faceid() const;
+  inline void clear_faceid();
+  static const int kFaceidFieldNumber = 2;
+  inline ::google::protobuf::uint64 faceid() const;
+  inline void set_faceid(::google::protobuf::uint64 value);
+
+  // required bytes photoid = 3;
+  inline bool has_photoid() const;
+  inline void clear_photoid();
+  static const int kPhotoidFieldNumber = 3;
+  inline const ::std::string& photoid() const;
+  inline void set_photoid(const ::std::string& value);
+  inline void set_photoid(const char* value);
+  inline void set_photoid(const void* value, size_t size);
+  inline ::std::string* mutable_photoid();
+  inline ::std::string* release_photoid();
+  inline void set_allocated_photoid(::std::string* photoid);
+
+  // required uint64 rect = 4;
+  inline bool has_rect() const;
+  inline void clear_rect();
+  static const int kRectFieldNumber = 4;
+  inline ::google::protobuf::uint64 rect() const;
+  inline void set_rect(::google::protobuf::uint64 value);
+
+  // required string url = 5;
+  inline bool has_url() const;
+  inline void clear_url();
+  static const int kUrlFieldNumber = 5;
+  inline const ::std::string& url() const;
+  inline void set_url(const ::std::string& value);
+  inline void set_url(const char* value);
+  inline void set_url(const char* value, size_t size);
+  inline ::std::string* mutable_url();
+  inline ::std::string* release_url();
+  inline void set_allocated_url(::std::string* url);
+
+  // required uint32 idstate = 6;
+  inline bool has_idstate() const;
+  inline void clear_idstate();
+  static const int kIdstateFieldNumber = 6;
+  inline ::google::protobuf::uint32 idstate() const;
+  inline void set_idstate(::google::protobuf::uint32 value);
+
+  // required uint32 markstate = 7;
+  inline bool has_markstate() const;
+  inline void clear_markstate();
+  static const int kMarkstateFieldNumber = 7;
+  inline ::google::protobuf::uint32 markstate() const;
+  inline void set_markstate(::google::protobuf::uint32 value);
+
+  // required uint32 identity = 8;
+  inline bool has_identity() const;
+  inline void clear_identity();
+  static const int kIdentityFieldNumber = 8;
+  inline ::google::protobuf::uint32 identity() const;
+  inline void set_identity(::google::protobuf::uint32 value);
+
+  // required uint32 marker = 9;
+  inline bool has_marker() const;
+  inline void clear_marker();
+  static const int kMarkerFieldNumber = 9;
+  inline ::google::protobuf::uint32 marker() const;
+  inline void set_marker(::google::protobuf::uint32 value);
+
+  // @@protoc_insertion_point(class_scope:youtu.FaceListResult)
+ private:
+  inline void set_has_uin();
+  inline void clear_has_uin();
+  inline void set_has_faceid();
+  inline void clear_has_faceid();
+  inline void set_has_photoid();
+  inline void clear_has_photoid();
+  inline void set_has_rect();
+  inline void clear_has_rect();
+  inline void set_has_url();
+  inline void clear_has_url();
+  inline void set_has_idstate();
+  inline void clear_has_idstate();
+  inline void set_has_markstate();
+  inline void clear_has_markstate();
+  inline void set_has_identity();
+  inline void clear_has_identity();
+  inline void set_has_marker();
+  inline void clear_has_marker();
+
+  ::google::protobuf::UnknownFieldSet _unknown_fields_;
+
+  ::google::protobuf::uint64 faceid_;
+  ::std::string* photoid_;
+  ::google::protobuf::uint32 uin_;
+  ::google::protobuf::uint32 idstate_;
+  ::google::protobuf::uint64 rect_;
+  ::std::string* url_;
+  ::google::protobuf::uint32 markstate_;
+  ::google::protobuf::uint32 identity_;
+  ::google::protobuf::uint32 marker_;
+
+  mutable int _cached_size_;
+  ::google::protobuf::uint32 _has_bits_[(9 + 31) / 32];
+
+  friend void  protobuf_AddDesc_face_2eproto();
+  friend void protobuf_AssignDesc_face_2eproto();
+  friend void protobuf_ShutdownFile_face_2eproto();
+
+  void InitAsDefaultInstance();
+  static FaceListResult* default_instance_;
+};
+// -------------------------------------------------------------------
+
+class ListResultResponse : public ::google::protobuf::Message {
+ public:
+  ListResultResponse();
+  virtual ~ListResultResponse();
+
+  ListResultResponse(const ListResultResponse& from);
+
+  inline ListResultResponse& operator=(const ListResultResponse& from) {
+    CopyFrom(from);
+    return *this;
+  }
+
+  inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const {
+    return _unknown_fields_;
+  }
+
+  inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields() {
+    return &_unknown_fields_;
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const ListResultResponse& default_instance();
+
+  void Swap(ListResultResponse* other);
+
+  // implements Message ----------------------------------------------
+
+  ListResultResponse* New() const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const ListResultResponse& from);
+  void MergeFrom(const ListResultResponse& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
+  int GetCachedSize() const { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // required uint32 uin = 1;
+  inline bool has_uin() const;
+  inline void clear_uin();
+  static const int kUinFieldNumber = 1;
+  inline ::google::protobuf::uint32 uin() const;
+  inline void set_uin(::google::protobuf::uint32 value);
+
+  // repeated .youtu.FaceListResult res = 2;
+  inline int res_size() const;
+  inline void clear_res();
+  static const int kResFieldNumber = 2;
+  inline const ::youtu::FaceListResult& res(int index) const;
+  inline ::youtu::FaceListResult* mutable_res(int index);
+  inline ::youtu::FaceListResult* add_res();
+  inline const ::google::protobuf::RepeatedPtrField< ::youtu::FaceListResult >&
+      res() const;
+  inline ::google::protobuf::RepeatedPtrField< ::youtu::FaceListResult >*
+      mutable_res();
+
+  // required uint32 allnum = 3;
+  inline bool has_allnum() const;
+  inline void clear_allnum();
+  static const int kAllnumFieldNumber = 3;
+  inline ::google::protobuf::uint32 allnum() const;
+  inline void set_allnum(::google::protobuf::uint32 value);
+
+  // required int32 status = 4;
+  inline bool has_status() const;
+  inline void clear_status();
+  static const int kStatusFieldNumber = 4;
+  inline ::google::protobuf::int32 status() const;
+  inline void set_status(::google::protobuf::int32 value);
+
+  // @@protoc_insertion_point(class_scope:youtu.ListResultResponse)
+ private:
+  inline void set_has_uin();
+  inline void clear_has_uin();
+  inline void set_has_allnum();
+  inline void clear_has_allnum();
+  inline void set_has_status();
+  inline void clear_has_status();
+
+  ::google::protobuf::UnknownFieldSet _unknown_fields_;
+
+  ::google::protobuf::RepeatedPtrField< ::youtu::FaceListResult > res_;
+  ::google::protobuf::uint32 uin_;
+  ::google::protobuf::uint32 allnum_;
+  ::google::protobuf::int32 status_;
+
+  mutable int _cached_size_;
+  ::google::protobuf::uint32 _has_bits_[(4 + 31) / 32];
+
+  friend void  protobuf_AddDesc_face_2eproto();
+  friend void protobuf_AssignDesc_face_2eproto();
+  friend void protobuf_ShutdownFile_face_2eproto();
+
+  void InitAsDefaultInstance();
+  static ListResultResponse* default_instance_;
+};
+// -------------------------------------------------------------------
+
+class IdentifyRequest : public ::google::protobuf::Message {
+ public:
+  IdentifyRequest();
+  virtual ~IdentifyRequest();
+
+  IdentifyRequest(const IdentifyRequest& from);
+
+  inline IdentifyRequest& operator=(const IdentifyRequest& from) {
+    CopyFrom(from);
+    return *this;
+  }
+
+  inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const {
+    return _unknown_fields_;
+  }
+
+  inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields() {
+    return &_unknown_fields_;
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const IdentifyRequest& default_instance();
+
+  void Swap(IdentifyRequest* other);
+
+  // implements Message ----------------------------------------------
+
+  IdentifyRequest* New() const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const IdentifyRequest& from);
+  void MergeFrom(const IdentifyRequest& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
+  int GetCachedSize() const { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // required uint32 uin = 1;
+  inline bool has_uin() const;
+  inline void clear_uin();
+  static const int kUinFieldNumber = 1;
+  inline ::google::protobuf::uint32 uin() const;
+  inline void set_uin(::google::protobuf::uint32 value);
+
+  // required int32 type = 2;
+  inline bool has_type() const;
+  inline void clear_type();
+  static const int kTypeFieldNumber = 2;
+  inline ::google::protobuf::int32 type() const;
+  inline void set_type(::google::protobuf::int32 value);
+
+  // optional bytes photodid = 3;
+  inline bool has_photodid() const;
+  inline void clear_photodid();
+  static const int kPhotodidFieldNumber = 3;
+  inline const ::std::string& photodid() const;
+  inline void set_photodid(const ::std::string& value);
+  inline void set_photodid(const char* value);
+  inline void set_photodid(const void* value, size_t size);
+  inline ::std::string* mutable_photodid();
+  inline ::std::string* release_photodid();
+  inline void set_allocated_photodid(::std::string* photodid);
+
+  // optional string url = 4;
+  inline bool has_url() const;
+  inline void clear_url();
+  static const int kUrlFieldNumber = 4;
+  inline const ::std::string& url() const;
+  inline void set_url(const ::std::string& value);
+  inline void set_url(const char* value);
+  inline void set_url(const char* value, size_t size);
+  inline ::std::string* mutable_url();
+  inline ::std::string* release_url();
+  inline void set_allocated_url(::std::string* url);
+
+  // optional bytes data = 5;
+  inline bool has_data() const;
+  inline void clear_data();
+  static const int kDataFieldNumber = 5;
+  inline const ::std::string& data() const;
+  inline void set_data(const ::std::string& value);
+  inline void set_data(const char* value);
+  inline void set_data(const void* value, size_t size);
+  inline ::std::string* mutable_data();
+  inline ::std::string* release_data();
+  inline void set_allocated_data(::std::string* data);
+
+  // optional uint64 rect = 6;
+  inline bool has_rect() const;
+  inline void clear_rect();
+  static const int kRectFieldNumber = 6;
+  inline ::google::protobuf::uint64 rect() const;
+  inline void set_rect(::google::protobuf::uint64 value);
+
+  // required uint32 detect_flag = 7;
+  inline bool has_detect_flag() const;
+  inline void clear_detect_flag();
+  static const int kDetectFlagFieldNumber = 7;
+  inline ::google::protobuf::uint32 detect_flag() const;
+  inline void set_detect_flag(::google::protobuf::uint32 value);
+
+  // @@protoc_insertion_point(class_scope:youtu.IdentifyRequest)
+ private:
+  inline void set_has_uin();
+  inline void clear_has_uin();
+  inline void set_has_type();
+  inline void clear_has_type();
+  inline void set_has_photodid();
+  inline void clear_has_photodid();
+  inline void set_has_url();
+  inline void clear_has_url();
+  inline void set_has_data();
+  inline void clear_has_data();
+  inline void set_has_rect();
+  inline void clear_has_rect();
+  inline void set_has_detect_flag();
+  inline void clear_has_detect_flag();
+
+  ::google::protobuf::UnknownFieldSet _unknown_fields_;
+
+  ::google::protobuf::uint32 uin_;
+  ::google::protobuf::int32 type_;
+  ::std::string* photodid_;
+  ::std::string* url_;
+  ::std::string* data_;
+  ::google::protobuf::uint64 rect_;
+  ::google::protobuf::uint32 detect_flag_;
+
+  mutable int _cached_size_;
+  ::google::protobuf::uint32 _has_bits_[(7 + 31) / 32];
+
+  friend void  protobuf_AddDesc_face_2eproto();
+  friend void protobuf_AssignDesc_face_2eproto();
+  friend void protobuf_ShutdownFile_face_2eproto();
+
+  void InitAsDefaultInstance();
+  static IdentifyRequest* default_instance_;
+};
+// -------------------------------------------------------------------
+
+class IdentifyItem : public ::google::protobuf::Message {
+ public:
+  IdentifyItem();
+  virtual ~IdentifyItem();
+
+  IdentifyItem(const IdentifyItem& from);
+
+  inline IdentifyItem& operator=(const IdentifyItem& from) {
+    CopyFrom(from);
+    return *this;
+  }
+
+  inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const {
+    return _unknown_fields_;
+  }
+
+  inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields() {
+    return &_unknown_fields_;
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const IdentifyItem& default_instance();
+
+  void Swap(IdentifyItem* other);
+
+  // implements Message ----------------------------------------------
+
+  IdentifyItem* New() const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const IdentifyItem& from);
+  void MergeFrom(const IdentifyItem& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
+  int GetCachedSize() const { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // required uint32 candidate = 1;
+  inline bool has_candidate() const;
+  inline void clear_candidate();
+  static const int kCandidateFieldNumber = 1;
+  inline ::google::protobuf::uint32 candidate() const;
+  inline void set_candidate(::google::protobuf::uint32 value);
+
+  // required uint32 similarty = 2;
+  inline bool has_similarty() const;
+  inline void clear_similarty();
+  static const int kSimilartyFieldNumber = 2;
+  inline ::google::protobuf::uint32 similarty() const;
+  inline void set_similarty(::google::protobuf::uint32 value);
+
+  // optional string url = 3;
+  inline bool has_url() const;
+  inline void clear_url();
+  static const int kUrlFieldNumber = 3;
+  inline const ::std::string& url() const;
+  inline void set_url(const ::std::string& value);
+  inline void set_url(const char* value);
+  inline void set_url(const char* value, size_t size);
+  inline ::std::string* mutable_url();
+  inline ::std::string* release_url();
+  inline void set_allocated_url(::std::string* url);
+
+  // optional bytes data = 4;
+  inline bool has_data() const;
+  inline void clear_data();
+  static const int kDataFieldNumber = 4;
+  inline const ::std::string& data() const;
+  inline void set_data(const ::std::string& value);
+  inline void set_data(const char* value);
+  inline void set_data(const void* value, size_t size);
+  inline ::std::string* mutable_data();
+  inline ::std::string* release_data();
+  inline void set_allocated_data(::std::string* data);
+
+  // @@protoc_insertion_point(class_scope:youtu.IdentifyItem)
+ private:
+  inline void set_has_candidate();
+  inline void clear_has_candidate();
+  inline void set_has_similarty();
+  inline void clear_has_similarty();
+  inline void set_has_url();
+  inline void clear_has_url();
+  inline void set_has_data();
+  inline void clear_has_data();
+
+  ::google::protobuf::UnknownFieldSet _unknown_fields_;
+
+  ::google::protobuf::uint32 candidate_;
+  ::google::protobuf::uint32 similarty_;
+  ::std::string* url_;
+  ::std::string* data_;
+
+  mutable int _cached_size_;
+  ::google::protobuf::uint32 _has_bits_[(4 + 31) / 32];
+
+  friend void  protobuf_AddDesc_face_2eproto();
+  friend void protobuf_AssignDesc_face_2eproto();
+  friend void protobuf_ShutdownFile_face_2eproto();
+
+  void InitAsDefaultInstance();
+  static IdentifyItem* default_instance_;
+};
+// -------------------------------------------------------------------
+
+class IdentifyResponse : public ::google::protobuf::Message {
+ public:
+  IdentifyResponse();
+  virtual ~IdentifyResponse();
+
+  IdentifyResponse(const IdentifyResponse& from);
+
+  inline IdentifyResponse& operator=(const IdentifyResponse& from) {
+    CopyFrom(from);
+    return *this;
+  }
+
+  inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const {
+    return _unknown_fields_;
+  }
+
+  inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields() {
+    return &_unknown_fields_;
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const IdentifyResponse& default_instance();
+
+  void Swap(IdentifyResponse* other);
+
+  // implements Message ----------------------------------------------
+
+  IdentifyResponse* New() const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const IdentifyResponse& from);
+  void MergeFrom(const IdentifyResponse& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
+  int GetCachedSize() const { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // repeated .youtu.IdentifyItem items = 1;
+  inline int items_size() const;
+  inline void clear_items();
+  static const int kItemsFieldNumber = 1;
+  inline const ::youtu::IdentifyItem& items(int index) const;
+  inline ::youtu::IdentifyItem* mutable_items(int index);
+  inline ::youtu::IdentifyItem* add_items();
+  inline const ::google::protobuf::RepeatedPtrField< ::youtu::IdentifyItem >&
+      items() const;
+  inline ::google::protobuf::RepeatedPtrField< ::youtu::IdentifyItem >*
+      mutable_items();
+
+  // required uint32 x = 2;
+  inline bool has_x() const;
+  inline void clear_x();
+  static const int kXFieldNumber = 2;
+  inline ::google::protobuf::uint32 x() const;
+  inline void set_x(::google::protobuf::uint32 value);
+
+  // required uint32 y = 3;
+  inline bool has_y() const;
+  inline void clear_y();
+  static const int kYFieldNumber = 3;
+  inline ::google::protobuf::uint32 y() const;
+  inline void set_y(::google::protobuf::uint32 value);
+
+  // required uint32 w = 4;
+  inline bool has_w() const;
+  inline void clear_w();
+  static const int kWFieldNumber = 4;
+  inline ::google::protobuf::uint32 w() const;
+  inline void set_w(::google::protobuf::uint32 value);
+
+  // required uint32 h = 5;
+  inline bool has_h() const;
+  inline void clear_h();
+  static const int kHFieldNumber = 5;
+  inline ::google::protobuf::uint32 h() const;
+  inline void set_h(::google::protobuf::uint32 value);
+
+  // required string upload_url = 6;
+  inline bool has_upload_url() const;
+  inline void clear_upload_url();
+  static const int kUploadUrlFieldNumber = 6;
+  inline const ::std::string& upload_url() const;
+  inline void set_upload_url(const ::std::string& value);
+  inline void set_upload_url(const char* value);
+  inline void set_upload_url(const char* value, size_t size);
+  inline ::std::string* mutable_upload_url();
+  inline ::std::string* release_upload_url();
+  inline void set_allocated_upload_url(::std::string* upload_url);
+
+  // required uint32 status = 7;
+  inline bool has_status() const;
+  inline void clear_status();
+  static const int kStatusFieldNumber = 7;
+  inline ::google::protobuf::uint32 status() const;
+  inline void set_status(::google::protobuf::uint32 value);
+
+  // @@protoc_insertion_point(class_scope:youtu.IdentifyResponse)
+ private:
+  inline void set_has_x();
+  inline void clear_has_x();
+  inline void set_has_y();
+  inline void clear_has_y();
+  inline void set_has_w();
+  inline void clear_has_w();
+  inline void set_has_h();
+  inline void clear_has_h();
+  inline void set_has_upload_url();
+  inline void clear_has_upload_url();
+  inline void set_has_status();
+  inline void clear_has_status();
+
+  ::google::protobuf::UnknownFieldSet _unknown_fields_;
+
+  ::google::protobuf::RepeatedPtrField< ::youtu::IdentifyItem > items_;
+  ::google::protobuf::uint32 x_;
+  ::google::protobuf::uint32 y_;
+  ::google::protobuf::uint32 w_;
+  ::google::protobuf::uint32 h_;
+  ::std::string* upload_url_;
+  ::google::protobuf::uint32 status_;
+
+  mutable int _cached_size_;
+  ::google::protobuf::uint32 _has_bits_[(7 + 31) / 32];
+
+  friend void  protobuf_AddDesc_face_2eproto();
+  friend void protobuf_AssignDesc_face_2eproto();
+  friend void protobuf_ShutdownFile_face_2eproto();
+
+  void InitAsDefaultInstance();
+  static IdentifyResponse* default_instance_;
+};
+// -------------------------------------------------------------------
+
+class FeatureItem : public ::google::protobuf::Message {
+ public:
+  FeatureItem();
+  virtual ~FeatureItem();
+
+  FeatureItem(const FeatureItem& from);
+
+  inline FeatureItem& operator=(const FeatureItem& from) {
+    CopyFrom(from);
+    return *this;
+  }
+
+  inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const {
+    return _unknown_fields_;
+  }
+
+  inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields() {
+    return &_unknown_fields_;
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const FeatureItem& default_instance();
+
+  void Swap(FeatureItem* other);
+
+  // implements Message ----------------------------------------------
+
+  FeatureItem* New() const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const FeatureItem& from);
+  void MergeFrom(const FeatureItem& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
+  int GetCachedSize() const { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // required uint64 faceid = 1;
+  inline bool has_faceid() const;
+  inline void clear_faceid();
+  static const int kFaceidFieldNumber = 1;
+  inline ::google::protobuf::uint64 faceid() const;
+  inline void set_faceid(::google::protobuf::uint64 value);
+
+  // required string url = 2;
+  inline bool has_url() const;
+  inline void clear_url();
+  static const int kUrlFieldNumber = 2;
+  inline const ::std::string& url() const;
+  inline void set_url(const ::std::string& value);
+  inline void set_url(const char* value);
+  inline void set_url(const char* value, size_t size);
+  inline ::std::string* mutable_url();
+  inline ::std::string* release_url();
+  inline void set_allocated_url(::std::string* url);
+
+  // required uint32 identity = 3;
+  inline bool has_identity() const;
+  inline void clear_identity();
+  static const int kIdentityFieldNumber = 3;
+  inline ::google::protobuf::uint32 identity() const;
+  inline void set_identity(::google::protobuf::uint32 value);
+
+  // required bytes feature = 4;
+  inline bool has_feature() const;
+  inline void clear_feature();
+  static const int kFeatureFieldNumber = 4;
+  inline const ::std::string& feature() const;
+  inline void set_feature(const ::std::string& value);
+  inline void set_feature(const char* value);
+  inline void set_feature(const void* value, size_t size);
+  inline ::std::string* mutable_feature();
+  inline ::std::string* release_feature();
+  inline void set_allocated_feature(::std::string* feature);
+
+  // @@protoc_insertion_point(class_scope:youtu.FeatureItem)
+ private:
+  inline void set_has_faceid();
+  inline void clear_has_faceid();
+  inline void set_has_url();
+  inline void clear_has_url();
+  inline void set_has_identity();
+  inline void clear_has_identity();
+  inline void set_has_feature();
+  inline void clear_has_feature();
+
+  ::google::protobuf::UnknownFieldSet _unknown_fields_;
+
+  ::google::protobuf::uint64 faceid_;
+  ::std::string* url_;
+  ::std::string* feature_;
+  ::google::protobuf::uint32 identity_;
+
+  mutable int _cached_size_;
+  ::google::protobuf::uint32 _has_bits_[(4 + 31) / 32];
+
+  friend void  protobuf_AddDesc_face_2eproto();
+  friend void protobuf_AssignDesc_face_2eproto();
+  friend void protobuf_ShutdownFile_face_2eproto();
+
+  void InitAsDefaultInstance();
+  static FeatureItem* default_instance_;
+};
+// -------------------------------------------------------------------
+
+class FeatureItemList : public ::google::protobuf::Message {
+ public:
+  FeatureItemList();
+  virtual ~FeatureItemList();
+
+  FeatureItemList(const FeatureItemList& from);
+
+  inline FeatureItemList& operator=(const FeatureItemList& from) {
+    CopyFrom(from);
+    return *this;
+  }
+
+  inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const {
+    return _unknown_fields_;
+  }
+
+  inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields() {
+    return &_unknown_fields_;
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const FeatureItemList& default_instance();
+
+  void Swap(FeatureItemList* other);
+
+  // implements Message ----------------------------------------------
+
+  FeatureItemList* New() const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const FeatureItemList& from);
+  void MergeFrom(const FeatureItemList& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
+  int GetCachedSize() const { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // repeated .youtu.FeatureItem items = 1;
+  inline int items_size() const;
+  inline void clear_items();
+  static const int kItemsFieldNumber = 1;
+  inline const ::youtu::FeatureItem& items(int index) const;
+  inline ::youtu::FeatureItem* mutable_items(int index);
+  inline ::youtu::FeatureItem* add_items();
+  inline const ::google::protobuf::RepeatedPtrField< ::youtu::FeatureItem >&
+      items() const;
+  inline ::google::protobuf::RepeatedPtrField< ::youtu::FeatureItem >*
+      mutable_items();
+
+  // @@protoc_insertion_point(class_scope:youtu.FeatureItemList)
+ private:
+
+  ::google::protobuf::UnknownFieldSet _unknown_fields_;
+
+  ::google::protobuf::RepeatedPtrField< ::youtu::FeatureItem > items_;
+
+  mutable int _cached_size_;
+  ::google::protobuf::uint32 _has_bits_[(1 + 31) / 32];
+
+  friend void  protobuf_AddDesc_face_2eproto();
+  friend void protobuf_AssignDesc_face_2eproto();
+  friend void protobuf_ShutdownFile_face_2eproto();
+
+  void InitAsDefaultInstance();
+  static FeatureItemList* default_instance_;
+};
+// -------------------------------------------------------------------
 
 class FaceItem : public ::google::protobuf::Message {
  public:
@@ -377,6 +2479,416 @@ class FaceImportResponse : public ::google::protobuf::Message {
 };
 // ===================================================================
 
+class HasUinServer_Stub;
+
+class HasUinServer : public ::google::protobuf::Service {
+ protected:
+  // This class should be treated as an abstract interface.
+  inline HasUinServer() {};
+ public:
+  virtual ~HasUinServer();
+
+  typedef HasUinServer_Stub Stub;
+
+  static const ::google::protobuf::ServiceDescriptor* descriptor();
+
+  virtual void HasUinSearch(::google::protobuf::RpcController* controller,
+                       const ::youtu::HasUinRequest* request,
+                       ::youtu::HasUinResponse* response,
+                       ::google::protobuf::Closure* done);
+
+  // implements Service ----------------------------------------------
+
+  const ::google::protobuf::ServiceDescriptor* GetDescriptor();
+  void CallMethod(const ::google::protobuf::MethodDescriptor* method,
+                  ::google::protobuf::RpcController* controller,
+                  const ::google::protobuf::Message* request,
+                  ::google::protobuf::Message* response,
+                  ::google::protobuf::Closure* done);
+  const ::google::protobuf::Message& GetRequestPrototype(
+    const ::google::protobuf::MethodDescriptor* method) const;
+  const ::google::protobuf::Message& GetResponsePrototype(
+    const ::google::protobuf::MethodDescriptor* method) const;
+
+ private:
+  GOOGLE_DISALLOW_EVIL_CONSTRUCTORS(HasUinServer);
+};
+
+class HasUinServer_Stub : public HasUinServer {
+ public:
+  HasUinServer_Stub(::google::protobuf::RpcChannel* channel);
+  HasUinServer_Stub(::google::protobuf::RpcChannel* channel,
+                   ::google::protobuf::Service::ChannelOwnership ownership);
+  ~HasUinServer_Stub();
+
+  inline ::google::protobuf::RpcChannel* channel() { return channel_; }
+
+  // implements HasUinServer ------------------------------------------
+
+  void HasUinSearch(::google::protobuf::RpcController* controller,
+                       const ::youtu::HasUinRequest* request,
+                       ::youtu::HasUinResponse* response,
+                       ::google::protobuf::Closure* done);
+ private:
+  ::google::protobuf::RpcChannel* channel_;
+  bool owns_channel_;
+  GOOGLE_DISALLOW_EVIL_CONSTRUCTORS(HasUinServer_Stub);
+};
+
+
+// -------------------------------------------------------------------
+
+class ListFriendServer_Stub;
+
+class ListFriendServer : public ::google::protobuf::Service {
+ protected:
+  // This class should be treated as an abstract interface.
+  inline ListFriendServer() {};
+ public:
+  virtual ~ListFriendServer();
+
+  typedef ListFriendServer_Stub Stub;
+
+  static const ::google::protobuf::ServiceDescriptor* descriptor();
+
+  virtual void GetQQFriends(::google::protobuf::RpcController* controller,
+                       const ::youtu::ListFriendRequest* request,
+                       ::youtu::ListFriendResponse* response,
+                       ::google::protobuf::Closure* done);
+  virtual void GetQZoneFriends(::google::protobuf::RpcController* controller,
+                       const ::youtu::ListFriendRequest* request,
+                       ::youtu::ListFriendResponse* response,
+                       ::google::protobuf::Closure* done);
+
+  // implements Service ----------------------------------------------
+
+  const ::google::protobuf::ServiceDescriptor* GetDescriptor();
+  void CallMethod(const ::google::protobuf::MethodDescriptor* method,
+                  ::google::protobuf::RpcController* controller,
+                  const ::google::protobuf::Message* request,
+                  ::google::protobuf::Message* response,
+                  ::google::protobuf::Closure* done);
+  const ::google::protobuf::Message& GetRequestPrototype(
+    const ::google::protobuf::MethodDescriptor* method) const;
+  const ::google::protobuf::Message& GetResponsePrototype(
+    const ::google::protobuf::MethodDescriptor* method) const;
+
+ private:
+  GOOGLE_DISALLOW_EVIL_CONSTRUCTORS(ListFriendServer);
+};
+
+class ListFriendServer_Stub : public ListFriendServer {
+ public:
+  ListFriendServer_Stub(::google::protobuf::RpcChannel* channel);
+  ListFriendServer_Stub(::google::protobuf::RpcChannel* channel,
+                   ::google::protobuf::Service::ChannelOwnership ownership);
+  ~ListFriendServer_Stub();
+
+  inline ::google::protobuf::RpcChannel* channel() { return channel_; }
+
+  // implements ListFriendServer ------------------------------------------
+
+  void GetQQFriends(::google::protobuf::RpcController* controller,
+                       const ::youtu::ListFriendRequest* request,
+                       ::youtu::ListFriendResponse* response,
+                       ::google::protobuf::Closure* done);
+  void GetQZoneFriends(::google::protobuf::RpcController* controller,
+                       const ::youtu::ListFriendRequest* request,
+                       ::youtu::ListFriendResponse* response,
+                       ::google::protobuf::Closure* done);
+ private:
+  ::google::protobuf::RpcChannel* channel_;
+  bool owns_channel_;
+  GOOGLE_DISALLOW_EVIL_CONSTRUCTORS(ListFriendServer_Stub);
+};
+
+
+// -------------------------------------------------------------------
+
+class PhotoListServer_Stub;
+
+class PhotoListServer : public ::google::protobuf::Service {
+ protected:
+  // This class should be treated as an abstract interface.
+  inline PhotoListServer() {};
+ public:
+  virtual ~PhotoListServer();
+
+  typedef PhotoListServer_Stub Stub;
+
+  static const ::google::protobuf::ServiceDescriptor* descriptor();
+
+  virtual void GetPhotoList(::google::protobuf::RpcController* controller,
+                       const ::youtu::PhotoListRequest* request,
+                       ::youtu::PhotoListResponse* response,
+                       ::google::protobuf::Closure* done);
+
+  // implements Service ----------------------------------------------
+
+  const ::google::protobuf::ServiceDescriptor* GetDescriptor();
+  void CallMethod(const ::google::protobuf::MethodDescriptor* method,
+                  ::google::protobuf::RpcController* controller,
+                  const ::google::protobuf::Message* request,
+                  ::google::protobuf::Message* response,
+                  ::google::protobuf::Closure* done);
+  const ::google::protobuf::Message& GetRequestPrototype(
+    const ::google::protobuf::MethodDescriptor* method) const;
+  const ::google::protobuf::Message& GetResponsePrototype(
+    const ::google::protobuf::MethodDescriptor* method) const;
+
+ private:
+  GOOGLE_DISALLOW_EVIL_CONSTRUCTORS(PhotoListServer);
+};
+
+class PhotoListServer_Stub : public PhotoListServer {
+ public:
+  PhotoListServer_Stub(::google::protobuf::RpcChannel* channel);
+  PhotoListServer_Stub(::google::protobuf::RpcChannel* channel,
+                   ::google::protobuf::Service::ChannelOwnership ownership);
+  ~PhotoListServer_Stub();
+
+  inline ::google::protobuf::RpcChannel* channel() { return channel_; }
+
+  // implements PhotoListServer ------------------------------------------
+
+  void GetPhotoList(::google::protobuf::RpcController* controller,
+                       const ::youtu::PhotoListRequest* request,
+                       ::youtu::PhotoListResponse* response,
+                       ::google::protobuf::Closure* done);
+ private:
+  ::google::protobuf::RpcChannel* channel_;
+  bool owns_channel_;
+  GOOGLE_DISALLOW_EVIL_CONSTRUCTORS(PhotoListServer_Stub);
+};
+
+
+// -------------------------------------------------------------------
+
+class ImportServer_Stub;
+
+class ImportServer : public ::google::protobuf::Service {
+ protected:
+  // This class should be treated as an abstract interface.
+  inline ImportServer() {};
+ public:
+  virtual ~ImportServer();
+
+  typedef ImportServer_Stub Stub;
+
+  static const ::google::protobuf::ServiceDescriptor* descriptor();
+
+  virtual void Import(::google::protobuf::RpcController* controller,
+                       const ::youtu::ImportRequest* request,
+                       ::youtu::ListResultResponse* response,
+                       ::google::protobuf::Closure* done);
+  virtual void ImportFriends(::google::protobuf::RpcController* controller,
+                       const ::youtu::ImportRequest* request,
+                       ::youtu::ListResultResponse* response,
+                       ::google::protobuf::Closure* done);
+  virtual void ImportStatus(::google::protobuf::RpcController* controller,
+                       const ::youtu::ImportRequest* request,
+                       ::youtu::ImportStatusResponse* response,
+                       ::google::protobuf::Closure* done);
+  virtual void ImportFriendsStatus(::google::protobuf::RpcController* controller,
+                       const ::youtu::ImportRequest* request,
+                       ::youtu::ImportStatusResponse* response,
+                       ::google::protobuf::Closure* done);
+
+  // implements Service ----------------------------------------------
+
+  const ::google::protobuf::ServiceDescriptor* GetDescriptor();
+  void CallMethod(const ::google::protobuf::MethodDescriptor* method,
+                  ::google::protobuf::RpcController* controller,
+                  const ::google::protobuf::Message* request,
+                  ::google::protobuf::Message* response,
+                  ::google::protobuf::Closure* done);
+  const ::google::protobuf::Message& GetRequestPrototype(
+    const ::google::protobuf::MethodDescriptor* method) const;
+  const ::google::protobuf::Message& GetResponsePrototype(
+    const ::google::protobuf::MethodDescriptor* method) const;
+
+ private:
+  GOOGLE_DISALLOW_EVIL_CONSTRUCTORS(ImportServer);
+};
+
+class ImportServer_Stub : public ImportServer {
+ public:
+  ImportServer_Stub(::google::protobuf::RpcChannel* channel);
+  ImportServer_Stub(::google::protobuf::RpcChannel* channel,
+                   ::google::protobuf::Service::ChannelOwnership ownership);
+  ~ImportServer_Stub();
+
+  inline ::google::protobuf::RpcChannel* channel() { return channel_; }
+
+  // implements ImportServer ------------------------------------------
+
+  void Import(::google::protobuf::RpcController* controller,
+                       const ::youtu::ImportRequest* request,
+                       ::youtu::ListResultResponse* response,
+                       ::google::protobuf::Closure* done);
+  void ImportFriends(::google::protobuf::RpcController* controller,
+                       const ::youtu::ImportRequest* request,
+                       ::youtu::ListResultResponse* response,
+                       ::google::protobuf::Closure* done);
+  void ImportStatus(::google::protobuf::RpcController* controller,
+                       const ::youtu::ImportRequest* request,
+                       ::youtu::ImportStatusResponse* response,
+                       ::google::protobuf::Closure* done);
+  void ImportFriendsStatus(::google::protobuf::RpcController* controller,
+                       const ::youtu::ImportRequest* request,
+                       ::youtu::ImportStatusResponse* response,
+                       ::google::protobuf::Closure* done);
+ private:
+  ::google::protobuf::RpcChannel* channel_;
+  bool owns_channel_;
+  GOOGLE_DISALLOW_EVIL_CONSTRUCTORS(ImportServer_Stub);
+};
+
+
+// -------------------------------------------------------------------
+
+class ListServer_Stub;
+
+class ListServer : public ::google::protobuf::Service {
+ protected:
+  // This class should be treated as an abstract interface.
+  inline ListServer() {};
+ public:
+  virtual ~ListServer();
+
+  typedef ListServer_Stub Stub;
+
+  static const ::google::protobuf::ServiceDescriptor* descriptor();
+
+  virtual void ListFaces(::google::protobuf::RpcController* controller,
+                       const ::youtu::ListResultRequest* request,
+                       ::youtu::ListResultResponse* response,
+                       ::google::protobuf::Closure* done);
+  virtual void ListAckFaces(::google::protobuf::RpcController* controller,
+                       const ::youtu::ListResultRequest* request,
+                       ::youtu::ListResultResponse* response,
+                       ::google::protobuf::Closure* done);
+
+  // implements Service ----------------------------------------------
+
+  const ::google::protobuf::ServiceDescriptor* GetDescriptor();
+  void CallMethod(const ::google::protobuf::MethodDescriptor* method,
+                  ::google::protobuf::RpcController* controller,
+                  const ::google::protobuf::Message* request,
+                  ::google::protobuf::Message* response,
+                  ::google::protobuf::Closure* done);
+  const ::google::protobuf::Message& GetRequestPrototype(
+    const ::google::protobuf::MethodDescriptor* method) const;
+  const ::google::protobuf::Message& GetResponsePrototype(
+    const ::google::protobuf::MethodDescriptor* method) const;
+
+ private:
+  GOOGLE_DISALLOW_EVIL_CONSTRUCTORS(ListServer);
+};
+
+class ListServer_Stub : public ListServer {
+ public:
+  ListServer_Stub(::google::protobuf::RpcChannel* channel);
+  ListServer_Stub(::google::protobuf::RpcChannel* channel,
+                   ::google::protobuf::Service::ChannelOwnership ownership);
+  ~ListServer_Stub();
+
+  inline ::google::protobuf::RpcChannel* channel() { return channel_; }
+
+  // implements ListServer ------------------------------------------
+
+  void ListFaces(::google::protobuf::RpcController* controller,
+                       const ::youtu::ListResultRequest* request,
+                       ::youtu::ListResultResponse* response,
+                       ::google::protobuf::Closure* done);
+  void ListAckFaces(::google::protobuf::RpcController* controller,
+                       const ::youtu::ListResultRequest* request,
+                       ::youtu::ListResultResponse* response,
+                       ::google::protobuf::Closure* done);
+ private:
+  ::google::protobuf::RpcChannel* channel_;
+  bool owns_channel_;
+  GOOGLE_DISALLOW_EVIL_CONSTRUCTORS(ListServer_Stub);
+};
+
+
+// -------------------------------------------------------------------
+
+class IdentifyServer_Stub;
+
+class IdentifyServer : public ::google::protobuf::Service {
+ protected:
+  // This class should be treated as an abstract interface.
+  inline IdentifyServer() {};
+ public:
+  virtual ~IdentifyServer();
+
+  typedef IdentifyServer_Stub Stub;
+
+  static const ::google::protobuf::ServiceDescriptor* descriptor();
+
+  virtual void Identify(::google::protobuf::RpcController* controller,
+                       const ::youtu::IdentifyRequest* request,
+                       ::youtu::IdentifyResponse* response,
+                       ::google::protobuf::Closure* done);
+  virtual void IdentifyFriends(::google::protobuf::RpcController* controller,
+                       const ::youtu::IdentifyRequest* request,
+                       ::youtu::IdentifyResponse* response,
+                       ::google::protobuf::Closure* done);
+  virtual void Register(::google::protobuf::RpcController* controller,
+                       const ::youtu::IdentifyRequest* request,
+                       ::youtu::IdentifyResponse* response,
+                       ::google::protobuf::Closure* done);
+
+  // implements Service ----------------------------------------------
+
+  const ::google::protobuf::ServiceDescriptor* GetDescriptor();
+  void CallMethod(const ::google::protobuf::MethodDescriptor* method,
+                  ::google::protobuf::RpcController* controller,
+                  const ::google::protobuf::Message* request,
+                  ::google::protobuf::Message* response,
+                  ::google::protobuf::Closure* done);
+  const ::google::protobuf::Message& GetRequestPrototype(
+    const ::google::protobuf::MethodDescriptor* method) const;
+  const ::google::protobuf::Message& GetResponsePrototype(
+    const ::google::protobuf::MethodDescriptor* method) const;
+
+ private:
+  GOOGLE_DISALLOW_EVIL_CONSTRUCTORS(IdentifyServer);
+};
+
+class IdentifyServer_Stub : public IdentifyServer {
+ public:
+  IdentifyServer_Stub(::google::protobuf::RpcChannel* channel);
+  IdentifyServer_Stub(::google::protobuf::RpcChannel* channel,
+                   ::google::protobuf::Service::ChannelOwnership ownership);
+  ~IdentifyServer_Stub();
+
+  inline ::google::protobuf::RpcChannel* channel() { return channel_; }
+
+  // implements IdentifyServer ------------------------------------------
+
+  void Identify(::google::protobuf::RpcController* controller,
+                       const ::youtu::IdentifyRequest* request,
+                       ::youtu::IdentifyResponse* response,
+                       ::google::protobuf::Closure* done);
+  void IdentifyFriends(::google::protobuf::RpcController* controller,
+                       const ::youtu::IdentifyRequest* request,
+                       ::youtu::IdentifyResponse* response,
+                       ::google::protobuf::Closure* done);
+  void Register(::google::protobuf::RpcController* controller,
+                       const ::youtu::IdentifyRequest* request,
+                       ::youtu::IdentifyResponse* response,
+                       ::google::protobuf::Closure* done);
+ private:
+  ::google::protobuf::RpcChannel* channel_;
+  bool owns_channel_;
+  GOOGLE_DISALLOW_EVIL_CONSTRUCTORS(IdentifyServer_Stub);
+};
+
+
+// -------------------------------------------------------------------
+
 class FaceImportServer_Stub;
 
 class FaceImportServer : public ::google::protobuf::Service {
@@ -438,6 +2950,2240 @@ class FaceImportServer_Stub : public FaceImportServer {
 
 
 // ===================================================================
+
+// HasUinRequest
+
+// repeated uint32 uin = 1;
+inline int HasUinRequest::uin_size() const {
+  return uin_.size();
+}
+inline void HasUinRequest::clear_uin() {
+  uin_.Clear();
+}
+inline ::google::protobuf::uint32 HasUinRequest::uin(int index) const {
+  return uin_.Get(index);
+}
+inline void HasUinRequest::set_uin(int index, ::google::protobuf::uint32 value) {
+  uin_.Set(index, value);
+}
+inline void HasUinRequest::add_uin(::google::protobuf::uint32 value) {
+  uin_.Add(value);
+}
+inline const ::google::protobuf::RepeatedField< ::google::protobuf::uint32 >&
+HasUinRequest::uin() const {
+  return uin_;
+}
+inline ::google::protobuf::RepeatedField< ::google::protobuf::uint32 >*
+HasUinRequest::mutable_uin() {
+  return &uin_;
+}
+
+// -------------------------------------------------------------------
+
+// HasUinResponse
+
+// repeated bool hasuin = 1;
+inline int HasUinResponse::hasuin_size() const {
+  return hasuin_.size();
+}
+inline void HasUinResponse::clear_hasuin() {
+  hasuin_.Clear();
+}
+inline bool HasUinResponse::hasuin(int index) const {
+  return hasuin_.Get(index);
+}
+inline void HasUinResponse::set_hasuin(int index, bool value) {
+  hasuin_.Set(index, value);
+}
+inline void HasUinResponse::add_hasuin(bool value) {
+  hasuin_.Add(value);
+}
+inline const ::google::protobuf::RepeatedField< bool >&
+HasUinResponse::hasuin() const {
+  return hasuin_;
+}
+inline ::google::protobuf::RepeatedField< bool >*
+HasUinResponse::mutable_hasuin() {
+  return &hasuin_;
+}
+
+// -------------------------------------------------------------------
+
+// ListFriendRequest
+
+// required uint32 uin = 1;
+inline bool ListFriendRequest::has_uin() const {
+  return (_has_bits_[0] & 0x00000001u) != 0;
+}
+inline void ListFriendRequest::set_has_uin() {
+  _has_bits_[0] |= 0x00000001u;
+}
+inline void ListFriendRequest::clear_has_uin() {
+  _has_bits_[0] &= ~0x00000001u;
+}
+inline void ListFriendRequest::clear_uin() {
+  uin_ = 0u;
+  clear_has_uin();
+}
+inline ::google::protobuf::uint32 ListFriendRequest::uin() const {
+  return uin_;
+}
+inline void ListFriendRequest::set_uin(::google::protobuf::uint32 value) {
+  set_has_uin();
+  uin_ = value;
+}
+
+// -------------------------------------------------------------------
+
+// ListFriendResponse
+
+// required uint32 uin = 1;
+inline bool ListFriendResponse::has_uin() const {
+  return (_has_bits_[0] & 0x00000001u) != 0;
+}
+inline void ListFriendResponse::set_has_uin() {
+  _has_bits_[0] |= 0x00000001u;
+}
+inline void ListFriendResponse::clear_has_uin() {
+  _has_bits_[0] &= ~0x00000001u;
+}
+inline void ListFriendResponse::clear_uin() {
+  uin_ = 0u;
+  clear_has_uin();
+}
+inline ::google::protobuf::uint32 ListFriendResponse::uin() const {
+  return uin_;
+}
+inline void ListFriendResponse::set_uin(::google::protobuf::uint32 value) {
+  set_has_uin();
+  uin_ = value;
+}
+
+// repeated uint32 friends = 2;
+inline int ListFriendResponse::friends_size() const {
+  return friends_.size();
+}
+inline void ListFriendResponse::clear_friends() {
+  friends_.Clear();
+}
+inline ::google::protobuf::uint32 ListFriendResponse::friends(int index) const {
+  return friends_.Get(index);
+}
+inline void ListFriendResponse::set_friends(int index, ::google::protobuf::uint32 value) {
+  friends_.Set(index, value);
+}
+inline void ListFriendResponse::add_friends(::google::protobuf::uint32 value) {
+  friends_.Add(value);
+}
+inline const ::google::protobuf::RepeatedField< ::google::protobuf::uint32 >&
+ListFriendResponse::friends() const {
+  return friends_;
+}
+inline ::google::protobuf::RepeatedField< ::google::protobuf::uint32 >*
+ListFriendResponse::mutable_friends() {
+  return &friends_;
+}
+
+// required int32 status = 3;
+inline bool ListFriendResponse::has_status() const {
+  return (_has_bits_[0] & 0x00000004u) != 0;
+}
+inline void ListFriendResponse::set_has_status() {
+  _has_bits_[0] |= 0x00000004u;
+}
+inline void ListFriendResponse::clear_has_status() {
+  _has_bits_[0] &= ~0x00000004u;
+}
+inline void ListFriendResponse::clear_status() {
+  status_ = 0;
+  clear_has_status();
+}
+inline ::google::protobuf::int32 ListFriendResponse::status() const {
+  return status_;
+}
+inline void ListFriendResponse::set_status(::google::protobuf::int32 value) {
+  set_has_status();
+  status_ = value;
+}
+
+// -------------------------------------------------------------------
+
+// PhotoListRequest
+
+// required uint32 uin = 1;
+inline bool PhotoListRequest::has_uin() const {
+  return (_has_bits_[0] & 0x00000001u) != 0;
+}
+inline void PhotoListRequest::set_has_uin() {
+  _has_bits_[0] |= 0x00000001u;
+}
+inline void PhotoListRequest::clear_has_uin() {
+  _has_bits_[0] &= ~0x00000001u;
+}
+inline void PhotoListRequest::clear_uin() {
+  uin_ = 0u;
+  clear_has_uin();
+}
+inline ::google::protobuf::uint32 PhotoListRequest::uin() const {
+  return uin_;
+}
+inline void PhotoListRequest::set_uin(::google::protobuf::uint32 value) {
+  set_has_uin();
+  uin_ = value;
+}
+
+// repeated bytes photoid = 2;
+inline int PhotoListRequest::photoid_size() const {
+  return photoid_.size();
+}
+inline void PhotoListRequest::clear_photoid() {
+  photoid_.Clear();
+}
+inline const ::std::string& PhotoListRequest::photoid(int index) const {
+  return photoid_.Get(index);
+}
+inline ::std::string* PhotoListRequest::mutable_photoid(int index) {
+  return photoid_.Mutable(index);
+}
+inline void PhotoListRequest::set_photoid(int index, const ::std::string& value) {
+  photoid_.Mutable(index)->assign(value);
+}
+inline void PhotoListRequest::set_photoid(int index, const char* value) {
+  photoid_.Mutable(index)->assign(value);
+}
+inline void PhotoListRequest::set_photoid(int index, const void* value, size_t size) {
+  photoid_.Mutable(index)->assign(
+    reinterpret_cast<const char*>(value), size);
+}
+inline ::std::string* PhotoListRequest::add_photoid() {
+  return photoid_.Add();
+}
+inline void PhotoListRequest::add_photoid(const ::std::string& value) {
+  photoid_.Add()->assign(value);
+}
+inline void PhotoListRequest::add_photoid(const char* value) {
+  photoid_.Add()->assign(value);
+}
+inline void PhotoListRequest::add_photoid(const void* value, size_t size) {
+  photoid_.Add()->assign(reinterpret_cast<const char*>(value), size);
+}
+inline const ::google::protobuf::RepeatedPtrField< ::std::string>&
+PhotoListRequest::photoid() const {
+  return photoid_;
+}
+inline ::google::protobuf::RepeatedPtrField< ::std::string>*
+PhotoListRequest::mutable_photoid() {
+  return &photoid_;
+}
+
+// optional uint32 start = 3;
+inline bool PhotoListRequest::has_start() const {
+  return (_has_bits_[0] & 0x00000004u) != 0;
+}
+inline void PhotoListRequest::set_has_start() {
+  _has_bits_[0] |= 0x00000004u;
+}
+inline void PhotoListRequest::clear_has_start() {
+  _has_bits_[0] &= ~0x00000004u;
+}
+inline void PhotoListRequest::clear_start() {
+  start_ = 0u;
+  clear_has_start();
+}
+inline ::google::protobuf::uint32 PhotoListRequest::start() const {
+  return start_;
+}
+inline void PhotoListRequest::set_start(::google::protobuf::uint32 value) {
+  set_has_start();
+  start_ = value;
+}
+
+// optional uint32 num = 4;
+inline bool PhotoListRequest::has_num() const {
+  return (_has_bits_[0] & 0x00000008u) != 0;
+}
+inline void PhotoListRequest::set_has_num() {
+  _has_bits_[0] |= 0x00000008u;
+}
+inline void PhotoListRequest::clear_has_num() {
+  _has_bits_[0] &= ~0x00000008u;
+}
+inline void PhotoListRequest::clear_num() {
+  num_ = 0u;
+  clear_has_num();
+}
+inline ::google::protobuf::uint32 PhotoListRequest::num() const {
+  return num_;
+}
+inline void PhotoListRequest::set_num(::google::protobuf::uint32 value) {
+  set_has_num();
+  num_ = value;
+}
+
+// -------------------------------------------------------------------
+
+// PhotoItem
+
+// required bytes photoid = 1;
+inline bool PhotoItem::has_photoid() const {
+  return (_has_bits_[0] & 0x00000001u) != 0;
+}
+inline void PhotoItem::set_has_photoid() {
+  _has_bits_[0] |= 0x00000001u;
+}
+inline void PhotoItem::clear_has_photoid() {
+  _has_bits_[0] &= ~0x00000001u;
+}
+inline void PhotoItem::clear_photoid() {
+  if (photoid_ != &::google::protobuf::internal::kEmptyString) {
+    photoid_->clear();
+  }
+  clear_has_photoid();
+}
+inline const ::std::string& PhotoItem::photoid() const {
+  return *photoid_;
+}
+inline void PhotoItem::set_photoid(const ::std::string& value) {
+  set_has_photoid();
+  if (photoid_ == &::google::protobuf::internal::kEmptyString) {
+    photoid_ = new ::std::string;
+  }
+  photoid_->assign(value);
+}
+inline void PhotoItem::set_photoid(const char* value) {
+  set_has_photoid();
+  if (photoid_ == &::google::protobuf::internal::kEmptyString) {
+    photoid_ = new ::std::string;
+  }
+  photoid_->assign(value);
+}
+inline void PhotoItem::set_photoid(const void* value, size_t size) {
+  set_has_photoid();
+  if (photoid_ == &::google::protobuf::internal::kEmptyString) {
+    photoid_ = new ::std::string;
+  }
+  photoid_->assign(reinterpret_cast<const char*>(value), size);
+}
+inline ::std::string* PhotoItem::mutable_photoid() {
+  set_has_photoid();
+  if (photoid_ == &::google::protobuf::internal::kEmptyString) {
+    photoid_ = new ::std::string;
+  }
+  return photoid_;
+}
+inline ::std::string* PhotoItem::release_photoid() {
+  clear_has_photoid();
+  if (photoid_ == &::google::protobuf::internal::kEmptyString) {
+    return NULL;
+  } else {
+    ::std::string* temp = photoid_;
+    photoid_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
+    return temp;
+  }
+}
+inline void PhotoItem::set_allocated_photoid(::std::string* photoid) {
+  if (photoid_ != &::google::protobuf::internal::kEmptyString) {
+    delete photoid_;
+  }
+  if (photoid) {
+    set_has_photoid();
+    photoid_ = photoid;
+  } else {
+    clear_has_photoid();
+    photoid_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
+  }
+}
+
+// required string url = 2;
+inline bool PhotoItem::has_url() const {
+  return (_has_bits_[0] & 0x00000002u) != 0;
+}
+inline void PhotoItem::set_has_url() {
+  _has_bits_[0] |= 0x00000002u;
+}
+inline void PhotoItem::clear_has_url() {
+  _has_bits_[0] &= ~0x00000002u;
+}
+inline void PhotoItem::clear_url() {
+  if (url_ != &::google::protobuf::internal::kEmptyString) {
+    url_->clear();
+  }
+  clear_has_url();
+}
+inline const ::std::string& PhotoItem::url() const {
+  return *url_;
+}
+inline void PhotoItem::set_url(const ::std::string& value) {
+  set_has_url();
+  if (url_ == &::google::protobuf::internal::kEmptyString) {
+    url_ = new ::std::string;
+  }
+  url_->assign(value);
+}
+inline void PhotoItem::set_url(const char* value) {
+  set_has_url();
+  if (url_ == &::google::protobuf::internal::kEmptyString) {
+    url_ = new ::std::string;
+  }
+  url_->assign(value);
+}
+inline void PhotoItem::set_url(const char* value, size_t size) {
+  set_has_url();
+  if (url_ == &::google::protobuf::internal::kEmptyString) {
+    url_ = new ::std::string;
+  }
+  url_->assign(reinterpret_cast<const char*>(value), size);
+}
+inline ::std::string* PhotoItem::mutable_url() {
+  set_has_url();
+  if (url_ == &::google::protobuf::internal::kEmptyString) {
+    url_ = new ::std::string;
+  }
+  return url_;
+}
+inline ::std::string* PhotoItem::release_url() {
+  clear_has_url();
+  if (url_ == &::google::protobuf::internal::kEmptyString) {
+    return NULL;
+  } else {
+    ::std::string* temp = url_;
+    url_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
+    return temp;
+  }
+}
+inline void PhotoItem::set_allocated_url(::std::string* url) {
+  if (url_ != &::google::protobuf::internal::kEmptyString) {
+    delete url_;
+  }
+  if (url) {
+    set_has_url();
+    url_ = url;
+  } else {
+    clear_has_url();
+    url_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
+  }
+}
+
+// required uint32 width = 3;
+inline bool PhotoItem::has_width() const {
+  return (_has_bits_[0] & 0x00000004u) != 0;
+}
+inline void PhotoItem::set_has_width() {
+  _has_bits_[0] |= 0x00000004u;
+}
+inline void PhotoItem::clear_has_width() {
+  _has_bits_[0] &= ~0x00000004u;
+}
+inline void PhotoItem::clear_width() {
+  width_ = 0u;
+  clear_has_width();
+}
+inline ::google::protobuf::uint32 PhotoItem::width() const {
+  return width_;
+}
+inline void PhotoItem::set_width(::google::protobuf::uint32 value) {
+  set_has_width();
+  width_ = value;
+}
+
+// required uint32 height = 4;
+inline bool PhotoItem::has_height() const {
+  return (_has_bits_[0] & 0x00000008u) != 0;
+}
+inline void PhotoItem::set_has_height() {
+  _has_bits_[0] |= 0x00000008u;
+}
+inline void PhotoItem::clear_has_height() {
+  _has_bits_[0] &= ~0x00000008u;
+}
+inline void PhotoItem::clear_height() {
+  height_ = 0u;
+  clear_has_height();
+}
+inline ::google::protobuf::uint32 PhotoItem::height() const {
+  return height_;
+}
+inline void PhotoItem::set_height(::google::protobuf::uint32 value) {
+  set_has_height();
+  height_ = value;
+}
+
+// -------------------------------------------------------------------
+
+// PhotoListResponse
+
+// required uint32 uin = 1;
+inline bool PhotoListResponse::has_uin() const {
+  return (_has_bits_[0] & 0x00000001u) != 0;
+}
+inline void PhotoListResponse::set_has_uin() {
+  _has_bits_[0] |= 0x00000001u;
+}
+inline void PhotoListResponse::clear_has_uin() {
+  _has_bits_[0] &= ~0x00000001u;
+}
+inline void PhotoListResponse::clear_uin() {
+  uin_ = 0u;
+  clear_has_uin();
+}
+inline ::google::protobuf::uint32 PhotoListResponse::uin() const {
+  return uin_;
+}
+inline void PhotoListResponse::set_uin(::google::protobuf::uint32 value) {
+  set_has_uin();
+  uin_ = value;
+}
+
+// repeated .youtu.PhotoItem res = 2;
+inline int PhotoListResponse::res_size() const {
+  return res_.size();
+}
+inline void PhotoListResponse::clear_res() {
+  res_.Clear();
+}
+inline const ::youtu::PhotoItem& PhotoListResponse::res(int index) const {
+  return res_.Get(index);
+}
+inline ::youtu::PhotoItem* PhotoListResponse::mutable_res(int index) {
+  return res_.Mutable(index);
+}
+inline ::youtu::PhotoItem* PhotoListResponse::add_res() {
+  return res_.Add();
+}
+inline const ::google::protobuf::RepeatedPtrField< ::youtu::PhotoItem >&
+PhotoListResponse::res() const {
+  return res_;
+}
+inline ::google::protobuf::RepeatedPtrField< ::youtu::PhotoItem >*
+PhotoListResponse::mutable_res() {
+  return &res_;
+}
+
+// required uint32 allnum = 3;
+inline bool PhotoListResponse::has_allnum() const {
+  return (_has_bits_[0] & 0x00000004u) != 0;
+}
+inline void PhotoListResponse::set_has_allnum() {
+  _has_bits_[0] |= 0x00000004u;
+}
+inline void PhotoListResponse::clear_has_allnum() {
+  _has_bits_[0] &= ~0x00000004u;
+}
+inline void PhotoListResponse::clear_allnum() {
+  allnum_ = 0u;
+  clear_has_allnum();
+}
+inline ::google::protobuf::uint32 PhotoListResponse::allnum() const {
+  return allnum_;
+}
+inline void PhotoListResponse::set_allnum(::google::protobuf::uint32 value) {
+  set_has_allnum();
+  allnum_ = value;
+}
+
+// required int32 status = 4;
+inline bool PhotoListResponse::has_status() const {
+  return (_has_bits_[0] & 0x00000008u) != 0;
+}
+inline void PhotoListResponse::set_has_status() {
+  _has_bits_[0] |= 0x00000008u;
+}
+inline void PhotoListResponse::clear_has_status() {
+  _has_bits_[0] &= ~0x00000008u;
+}
+inline void PhotoListResponse::clear_status() {
+  status_ = 0;
+  clear_has_status();
+}
+inline ::google::protobuf::int32 PhotoListResponse::status() const {
+  return status_;
+}
+inline void PhotoListResponse::set_status(::google::protobuf::int32 value) {
+  set_has_status();
+  status_ = value;
+}
+
+// -------------------------------------------------------------------
+
+// ImportRequest
+
+// required uint32 uin = 1;
+inline bool ImportRequest::has_uin() const {
+  return (_has_bits_[0] & 0x00000001u) != 0;
+}
+inline void ImportRequest::set_has_uin() {
+  _has_bits_[0] |= 0x00000001u;
+}
+inline void ImportRequest::clear_has_uin() {
+  _has_bits_[0] &= ~0x00000001u;
+}
+inline void ImportRequest::clear_uin() {
+  uin_ = 0u;
+  clear_has_uin();
+}
+inline ::google::protobuf::uint32 ImportRequest::uin() const {
+  return uin_;
+}
+inline void ImportRequest::set_uin(::google::protobuf::uint32 value) {
+  set_has_uin();
+  uin_ = value;
+}
+
+// optional int32 maxnum = 2;
+inline bool ImportRequest::has_maxnum() const {
+  return (_has_bits_[0] & 0x00000002u) != 0;
+}
+inline void ImportRequest::set_has_maxnum() {
+  _has_bits_[0] |= 0x00000002u;
+}
+inline void ImportRequest::clear_has_maxnum() {
+  _has_bits_[0] &= ~0x00000002u;
+}
+inline void ImportRequest::clear_maxnum() {
+  maxnum_ = 0;
+  clear_has_maxnum();
+}
+inline ::google::protobuf::int32 ImportRequest::maxnum() const {
+  return maxnum_;
+}
+inline void ImportRequest::set_maxnum(::google::protobuf::int32 value) {
+  set_has_maxnum();
+  maxnum_ = value;
+}
+
+// optional bool owneronly = 3;
+inline bool ImportRequest::has_owneronly() const {
+  return (_has_bits_[0] & 0x00000004u) != 0;
+}
+inline void ImportRequest::set_has_owneronly() {
+  _has_bits_[0] |= 0x00000004u;
+}
+inline void ImportRequest::clear_has_owneronly() {
+  _has_bits_[0] &= ~0x00000004u;
+}
+inline void ImportRequest::clear_owneronly() {
+  owneronly_ = false;
+  clear_has_owneronly();
+}
+inline bool ImportRequest::owneronly() const {
+  return owneronly_;
+}
+inline void ImportRequest::set_owneronly(bool value) {
+  set_has_owneronly();
+  owneronly_ = value;
+}
+
+// -------------------------------------------------------------------
+
+// ImportStatus
+
+// required uint32 uin = 1;
+inline bool ImportStatus::has_uin() const {
+  return (_has_bits_[0] & 0x00000001u) != 0;
+}
+inline void ImportStatus::set_has_uin() {
+  _has_bits_[0] |= 0x00000001u;
+}
+inline void ImportStatus::clear_has_uin() {
+  _has_bits_[0] &= ~0x00000001u;
+}
+inline void ImportStatus::clear_uin() {
+  uin_ = 0u;
+  clear_has_uin();
+}
+inline ::google::protobuf::uint32 ImportStatus::uin() const {
+  return uin_;
+}
+inline void ImportStatus::set_uin(::google::protobuf::uint32 value) {
+  set_has_uin();
+  uin_ = value;
+}
+
+// required uint32 allfacenum = 2;
+inline bool ImportStatus::has_allfacenum() const {
+  return (_has_bits_[0] & 0x00000002u) != 0;
+}
+inline void ImportStatus::set_has_allfacenum() {
+  _has_bits_[0] |= 0x00000002u;
+}
+inline void ImportStatus::clear_has_allfacenum() {
+  _has_bits_[0] &= ~0x00000002u;
+}
+inline void ImportStatus::clear_allfacenum() {
+  allfacenum_ = 0u;
+  clear_has_allfacenum();
+}
+inline ::google::protobuf::uint32 ImportStatus::allfacenum() const {
+  return allfacenum_;
+}
+inline void ImportStatus::set_allfacenum(::google::protobuf::uint32 value) {
+  set_has_allfacenum();
+  allfacenum_ = value;
+}
+
+// required uint32 oknum = 3;
+inline bool ImportStatus::has_oknum() const {
+  return (_has_bits_[0] & 0x00000004u) != 0;
+}
+inline void ImportStatus::set_has_oknum() {
+  _has_bits_[0] |= 0x00000004u;
+}
+inline void ImportStatus::clear_has_oknum() {
+  _has_bits_[0] &= ~0x00000004u;
+}
+inline void ImportStatus::clear_oknum() {
+  oknum_ = 0u;
+  clear_has_oknum();
+}
+inline ::google::protobuf::uint32 ImportStatus::oknum() const {
+  return oknum_;
+}
+inline void ImportStatus::set_oknum(::google::protobuf::uint32 value) {
+  set_has_oknum();
+  oknum_ = value;
+}
+
+// required uint32 failnum = 4;
+inline bool ImportStatus::has_failnum() const {
+  return (_has_bits_[0] & 0x00000008u) != 0;
+}
+inline void ImportStatus::set_has_failnum() {
+  _has_bits_[0] |= 0x00000008u;
+}
+inline void ImportStatus::clear_has_failnum() {
+  _has_bits_[0] &= ~0x00000008u;
+}
+inline void ImportStatus::clear_failnum() {
+  failnum_ = 0u;
+  clear_has_failnum();
+}
+inline ::google::protobuf::uint32 ImportStatus::failnum() const {
+  return failnum_;
+}
+inline void ImportStatus::set_failnum(::google::protobuf::uint32 value) {
+  set_has_failnum();
+  failnum_ = value;
+}
+
+// required uint32 undonenum = 5;
+inline bool ImportStatus::has_undonenum() const {
+  return (_has_bits_[0] & 0x00000010u) != 0;
+}
+inline void ImportStatus::set_has_undonenum() {
+  _has_bits_[0] |= 0x00000010u;
+}
+inline void ImportStatus::clear_has_undonenum() {
+  _has_bits_[0] &= ~0x00000010u;
+}
+inline void ImportStatus::clear_undonenum() {
+  undonenum_ = 0u;
+  clear_has_undonenum();
+}
+inline ::google::protobuf::uint32 ImportStatus::undonenum() const {
+  return undonenum_;
+}
+inline void ImportStatus::set_undonenum(::google::protobuf::uint32 value) {
+  set_has_undonenum();
+  undonenum_ = value;
+}
+
+// required int32 status = 6;
+inline bool ImportStatus::has_status() const {
+  return (_has_bits_[0] & 0x00000020u) != 0;
+}
+inline void ImportStatus::set_has_status() {
+  _has_bits_[0] |= 0x00000020u;
+}
+inline void ImportStatus::clear_has_status() {
+  _has_bits_[0] &= ~0x00000020u;
+}
+inline void ImportStatus::clear_status() {
+  status_ = 0;
+  clear_has_status();
+}
+inline ::google::protobuf::int32 ImportStatus::status() const {
+  return status_;
+}
+inline void ImportStatus::set_status(::google::protobuf::int32 value) {
+  set_has_status();
+  status_ = value;
+}
+
+// -------------------------------------------------------------------
+
+// ImportStatusResponse
+
+// repeated .youtu.ImportStatus res = 1;
+inline int ImportStatusResponse::res_size() const {
+  return res_.size();
+}
+inline void ImportStatusResponse::clear_res() {
+  res_.Clear();
+}
+inline const ::youtu::ImportStatus& ImportStatusResponse::res(int index) const {
+  return res_.Get(index);
+}
+inline ::youtu::ImportStatus* ImportStatusResponse::mutable_res(int index) {
+  return res_.Mutable(index);
+}
+inline ::youtu::ImportStatus* ImportStatusResponse::add_res() {
+  return res_.Add();
+}
+inline const ::google::protobuf::RepeatedPtrField< ::youtu::ImportStatus >&
+ImportStatusResponse::res() const {
+  return res_;
+}
+inline ::google::protobuf::RepeatedPtrField< ::youtu::ImportStatus >*
+ImportStatusResponse::mutable_res() {
+  return &res_;
+}
+
+// required int32 status = 2;
+inline bool ImportStatusResponse::has_status() const {
+  return (_has_bits_[0] & 0x00000002u) != 0;
+}
+inline void ImportStatusResponse::set_has_status() {
+  _has_bits_[0] |= 0x00000002u;
+}
+inline void ImportStatusResponse::clear_has_status() {
+  _has_bits_[0] &= ~0x00000002u;
+}
+inline void ImportStatusResponse::clear_status() {
+  status_ = 0;
+  clear_has_status();
+}
+inline ::google::protobuf::int32 ImportStatusResponse::status() const {
+  return status_;
+}
+inline void ImportStatusResponse::set_status(::google::protobuf::int32 value) {
+  set_has_status();
+  status_ = value;
+}
+
+// -------------------------------------------------------------------
+
+// ListResultRequest
+
+// required uint32 uin = 1;
+inline bool ListResultRequest::has_uin() const {
+  return (_has_bits_[0] & 0x00000001u) != 0;
+}
+inline void ListResultRequest::set_has_uin() {
+  _has_bits_[0] |= 0x00000001u;
+}
+inline void ListResultRequest::clear_has_uin() {
+  _has_bits_[0] &= ~0x00000001u;
+}
+inline void ListResultRequest::clear_uin() {
+  uin_ = 0u;
+  clear_has_uin();
+}
+inline ::google::protobuf::uint32 ListResultRequest::uin() const {
+  return uin_;
+}
+inline void ListResultRequest::set_uin(::google::protobuf::uint32 value) {
+  set_has_uin();
+  uin_ = value;
+}
+
+// required uint32 start = 2;
+inline bool ListResultRequest::has_start() const {
+  return (_has_bits_[0] & 0x00000002u) != 0;
+}
+inline void ListResultRequest::set_has_start() {
+  _has_bits_[0] |= 0x00000002u;
+}
+inline void ListResultRequest::clear_has_start() {
+  _has_bits_[0] &= ~0x00000002u;
+}
+inline void ListResultRequest::clear_start() {
+  start_ = 0u;
+  clear_has_start();
+}
+inline ::google::protobuf::uint32 ListResultRequest::start() const {
+  return start_;
+}
+inline void ListResultRequest::set_start(::google::protobuf::uint32 value) {
+  set_has_start();
+  start_ = value;
+}
+
+// required uint32 num = 3;
+inline bool ListResultRequest::has_num() const {
+  return (_has_bits_[0] & 0x00000004u) != 0;
+}
+inline void ListResultRequest::set_has_num() {
+  _has_bits_[0] |= 0x00000004u;
+}
+inline void ListResultRequest::clear_has_num() {
+  _has_bits_[0] &= ~0x00000004u;
+}
+inline void ListResultRequest::clear_num() {
+  num_ = 0u;
+  clear_has_num();
+}
+inline ::google::protobuf::uint32 ListResultRequest::num() const {
+  return num_;
+}
+inline void ListResultRequest::set_num(::google::protobuf::uint32 value) {
+  set_has_num();
+  num_ = value;
+}
+
+// repeated bytes photoid = 4;
+inline int ListResultRequest::photoid_size() const {
+  return photoid_.size();
+}
+inline void ListResultRequest::clear_photoid() {
+  photoid_.Clear();
+}
+inline const ::std::string& ListResultRequest::photoid(int index) const {
+  return photoid_.Get(index);
+}
+inline ::std::string* ListResultRequest::mutable_photoid(int index) {
+  return photoid_.Mutable(index);
+}
+inline void ListResultRequest::set_photoid(int index, const ::std::string& value) {
+  photoid_.Mutable(index)->assign(value);
+}
+inline void ListResultRequest::set_photoid(int index, const char* value) {
+  photoid_.Mutable(index)->assign(value);
+}
+inline void ListResultRequest::set_photoid(int index, const void* value, size_t size) {
+  photoid_.Mutable(index)->assign(
+    reinterpret_cast<const char*>(value), size);
+}
+inline ::std::string* ListResultRequest::add_photoid() {
+  return photoid_.Add();
+}
+inline void ListResultRequest::add_photoid(const ::std::string& value) {
+  photoid_.Add()->assign(value);
+}
+inline void ListResultRequest::add_photoid(const char* value) {
+  photoid_.Add()->assign(value);
+}
+inline void ListResultRequest::add_photoid(const void* value, size_t size) {
+  photoid_.Add()->assign(reinterpret_cast<const char*>(value), size);
+}
+inline const ::google::protobuf::RepeatedPtrField< ::std::string>&
+ListResultRequest::photoid() const {
+  return photoid_;
+}
+inline ::google::protobuf::RepeatedPtrField< ::std::string>*
+ListResultRequest::mutable_photoid() {
+  return &photoid_;
+}
+
+// -------------------------------------------------------------------
+
+// FaceListResult
+
+// required uint32 uin = 1;
+inline bool FaceListResult::has_uin() const {
+  return (_has_bits_[0] & 0x00000001u) != 0;
+}
+inline void FaceListResult::set_has_uin() {
+  _has_bits_[0] |= 0x00000001u;
+}
+inline void FaceListResult::clear_has_uin() {
+  _has_bits_[0] &= ~0x00000001u;
+}
+inline void FaceListResult::clear_uin() {
+  uin_ = 0u;
+  clear_has_uin();
+}
+inline ::google::protobuf::uint32 FaceListResult::uin() const {
+  return uin_;
+}
+inline void FaceListResult::set_uin(::google::protobuf::uint32 value) {
+  set_has_uin();
+  uin_ = value;
+}
+
+// required uint64 faceid = 2;
+inline bool FaceListResult::has_faceid() const {
+  return (_has_bits_[0] & 0x00000002u) != 0;
+}
+inline void FaceListResult::set_has_faceid() {
+  _has_bits_[0] |= 0x00000002u;
+}
+inline void FaceListResult::clear_has_faceid() {
+  _has_bits_[0] &= ~0x00000002u;
+}
+inline void FaceListResult::clear_faceid() {
+  faceid_ = GOOGLE_ULONGLONG(0);
+  clear_has_faceid();
+}
+inline ::google::protobuf::uint64 FaceListResult::faceid() const {
+  return faceid_;
+}
+inline void FaceListResult::set_faceid(::google::protobuf::uint64 value) {
+  set_has_faceid();
+  faceid_ = value;
+}
+
+// required bytes photoid = 3;
+inline bool FaceListResult::has_photoid() const {
+  return (_has_bits_[0] & 0x00000004u) != 0;
+}
+inline void FaceListResult::set_has_photoid() {
+  _has_bits_[0] |= 0x00000004u;
+}
+inline void FaceListResult::clear_has_photoid() {
+  _has_bits_[0] &= ~0x00000004u;
+}
+inline void FaceListResult::clear_photoid() {
+  if (photoid_ != &::google::protobuf::internal::kEmptyString) {
+    photoid_->clear();
+  }
+  clear_has_photoid();
+}
+inline const ::std::string& FaceListResult::photoid() const {
+  return *photoid_;
+}
+inline void FaceListResult::set_photoid(const ::std::string& value) {
+  set_has_photoid();
+  if (photoid_ == &::google::protobuf::internal::kEmptyString) {
+    photoid_ = new ::std::string;
+  }
+  photoid_->assign(value);
+}
+inline void FaceListResult::set_photoid(const char* value) {
+  set_has_photoid();
+  if (photoid_ == &::google::protobuf::internal::kEmptyString) {
+    photoid_ = new ::std::string;
+  }
+  photoid_->assign(value);
+}
+inline void FaceListResult::set_photoid(const void* value, size_t size) {
+  set_has_photoid();
+  if (photoid_ == &::google::protobuf::internal::kEmptyString) {
+    photoid_ = new ::std::string;
+  }
+  photoid_->assign(reinterpret_cast<const char*>(value), size);
+}
+inline ::std::string* FaceListResult::mutable_photoid() {
+  set_has_photoid();
+  if (photoid_ == &::google::protobuf::internal::kEmptyString) {
+    photoid_ = new ::std::string;
+  }
+  return photoid_;
+}
+inline ::std::string* FaceListResult::release_photoid() {
+  clear_has_photoid();
+  if (photoid_ == &::google::protobuf::internal::kEmptyString) {
+    return NULL;
+  } else {
+    ::std::string* temp = photoid_;
+    photoid_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
+    return temp;
+  }
+}
+inline void FaceListResult::set_allocated_photoid(::std::string* photoid) {
+  if (photoid_ != &::google::protobuf::internal::kEmptyString) {
+    delete photoid_;
+  }
+  if (photoid) {
+    set_has_photoid();
+    photoid_ = photoid;
+  } else {
+    clear_has_photoid();
+    photoid_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
+  }
+}
+
+// required uint64 rect = 4;
+inline bool FaceListResult::has_rect() const {
+  return (_has_bits_[0] & 0x00000008u) != 0;
+}
+inline void FaceListResult::set_has_rect() {
+  _has_bits_[0] |= 0x00000008u;
+}
+inline void FaceListResult::clear_has_rect() {
+  _has_bits_[0] &= ~0x00000008u;
+}
+inline void FaceListResult::clear_rect() {
+  rect_ = GOOGLE_ULONGLONG(0);
+  clear_has_rect();
+}
+inline ::google::protobuf::uint64 FaceListResult::rect() const {
+  return rect_;
+}
+inline void FaceListResult::set_rect(::google::protobuf::uint64 value) {
+  set_has_rect();
+  rect_ = value;
+}
+
+// required string url = 5;
+inline bool FaceListResult::has_url() const {
+  return (_has_bits_[0] & 0x00000010u) != 0;
+}
+inline void FaceListResult::set_has_url() {
+  _has_bits_[0] |= 0x00000010u;
+}
+inline void FaceListResult::clear_has_url() {
+  _has_bits_[0] &= ~0x00000010u;
+}
+inline void FaceListResult::clear_url() {
+  if (url_ != &::google::protobuf::internal::kEmptyString) {
+    url_->clear();
+  }
+  clear_has_url();
+}
+inline const ::std::string& FaceListResult::url() const {
+  return *url_;
+}
+inline void FaceListResult::set_url(const ::std::string& value) {
+  set_has_url();
+  if (url_ == &::google::protobuf::internal::kEmptyString) {
+    url_ = new ::std::string;
+  }
+  url_->assign(value);
+}
+inline void FaceListResult::set_url(const char* value) {
+  set_has_url();
+  if (url_ == &::google::protobuf::internal::kEmptyString) {
+    url_ = new ::std::string;
+  }
+  url_->assign(value);
+}
+inline void FaceListResult::set_url(const char* value, size_t size) {
+  set_has_url();
+  if (url_ == &::google::protobuf::internal::kEmptyString) {
+    url_ = new ::std::string;
+  }
+  url_->assign(reinterpret_cast<const char*>(value), size);
+}
+inline ::std::string* FaceListResult::mutable_url() {
+  set_has_url();
+  if (url_ == &::google::protobuf::internal::kEmptyString) {
+    url_ = new ::std::string;
+  }
+  return url_;
+}
+inline ::std::string* FaceListResult::release_url() {
+  clear_has_url();
+  if (url_ == &::google::protobuf::internal::kEmptyString) {
+    return NULL;
+  } else {
+    ::std::string* temp = url_;
+    url_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
+    return temp;
+  }
+}
+inline void FaceListResult::set_allocated_url(::std::string* url) {
+  if (url_ != &::google::protobuf::internal::kEmptyString) {
+    delete url_;
+  }
+  if (url) {
+    set_has_url();
+    url_ = url;
+  } else {
+    clear_has_url();
+    url_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
+  }
+}
+
+// required uint32 idstate = 6;
+inline bool FaceListResult::has_idstate() const {
+  return (_has_bits_[0] & 0x00000020u) != 0;
+}
+inline void FaceListResult::set_has_idstate() {
+  _has_bits_[0] |= 0x00000020u;
+}
+inline void FaceListResult::clear_has_idstate() {
+  _has_bits_[0] &= ~0x00000020u;
+}
+inline void FaceListResult::clear_idstate() {
+  idstate_ = 0u;
+  clear_has_idstate();
+}
+inline ::google::protobuf::uint32 FaceListResult::idstate() const {
+  return idstate_;
+}
+inline void FaceListResult::set_idstate(::google::protobuf::uint32 value) {
+  set_has_idstate();
+  idstate_ = value;
+}
+
+// required uint32 markstate = 7;
+inline bool FaceListResult::has_markstate() const {
+  return (_has_bits_[0] & 0x00000040u) != 0;
+}
+inline void FaceListResult::set_has_markstate() {
+  _has_bits_[0] |= 0x00000040u;
+}
+inline void FaceListResult::clear_has_markstate() {
+  _has_bits_[0] &= ~0x00000040u;
+}
+inline void FaceListResult::clear_markstate() {
+  markstate_ = 0u;
+  clear_has_markstate();
+}
+inline ::google::protobuf::uint32 FaceListResult::markstate() const {
+  return markstate_;
+}
+inline void FaceListResult::set_markstate(::google::protobuf::uint32 value) {
+  set_has_markstate();
+  markstate_ = value;
+}
+
+// required uint32 identity = 8;
+inline bool FaceListResult::has_identity() const {
+  return (_has_bits_[0] & 0x00000080u) != 0;
+}
+inline void FaceListResult::set_has_identity() {
+  _has_bits_[0] |= 0x00000080u;
+}
+inline void FaceListResult::clear_has_identity() {
+  _has_bits_[0] &= ~0x00000080u;
+}
+inline void FaceListResult::clear_identity() {
+  identity_ = 0u;
+  clear_has_identity();
+}
+inline ::google::protobuf::uint32 FaceListResult::identity() const {
+  return identity_;
+}
+inline void FaceListResult::set_identity(::google::protobuf::uint32 value) {
+  set_has_identity();
+  identity_ = value;
+}
+
+// required uint32 marker = 9;
+inline bool FaceListResult::has_marker() const {
+  return (_has_bits_[0] & 0x00000100u) != 0;
+}
+inline void FaceListResult::set_has_marker() {
+  _has_bits_[0] |= 0x00000100u;
+}
+inline void FaceListResult::clear_has_marker() {
+  _has_bits_[0] &= ~0x00000100u;
+}
+inline void FaceListResult::clear_marker() {
+  marker_ = 0u;
+  clear_has_marker();
+}
+inline ::google::protobuf::uint32 FaceListResult::marker() const {
+  return marker_;
+}
+inline void FaceListResult::set_marker(::google::protobuf::uint32 value) {
+  set_has_marker();
+  marker_ = value;
+}
+
+// -------------------------------------------------------------------
+
+// ListResultResponse
+
+// required uint32 uin = 1;
+inline bool ListResultResponse::has_uin() const {
+  return (_has_bits_[0] & 0x00000001u) != 0;
+}
+inline void ListResultResponse::set_has_uin() {
+  _has_bits_[0] |= 0x00000001u;
+}
+inline void ListResultResponse::clear_has_uin() {
+  _has_bits_[0] &= ~0x00000001u;
+}
+inline void ListResultResponse::clear_uin() {
+  uin_ = 0u;
+  clear_has_uin();
+}
+inline ::google::protobuf::uint32 ListResultResponse::uin() const {
+  return uin_;
+}
+inline void ListResultResponse::set_uin(::google::protobuf::uint32 value) {
+  set_has_uin();
+  uin_ = value;
+}
+
+// repeated .youtu.FaceListResult res = 2;
+inline int ListResultResponse::res_size() const {
+  return res_.size();
+}
+inline void ListResultResponse::clear_res() {
+  res_.Clear();
+}
+inline const ::youtu::FaceListResult& ListResultResponse::res(int index) const {
+  return res_.Get(index);
+}
+inline ::youtu::FaceListResult* ListResultResponse::mutable_res(int index) {
+  return res_.Mutable(index);
+}
+inline ::youtu::FaceListResult* ListResultResponse::add_res() {
+  return res_.Add();
+}
+inline const ::google::protobuf::RepeatedPtrField< ::youtu::FaceListResult >&
+ListResultResponse::res() const {
+  return res_;
+}
+inline ::google::protobuf::RepeatedPtrField< ::youtu::FaceListResult >*
+ListResultResponse::mutable_res() {
+  return &res_;
+}
+
+// required uint32 allnum = 3;
+inline bool ListResultResponse::has_allnum() const {
+  return (_has_bits_[0] & 0x00000004u) != 0;
+}
+inline void ListResultResponse::set_has_allnum() {
+  _has_bits_[0] |= 0x00000004u;
+}
+inline void ListResultResponse::clear_has_allnum() {
+  _has_bits_[0] &= ~0x00000004u;
+}
+inline void ListResultResponse::clear_allnum() {
+  allnum_ = 0u;
+  clear_has_allnum();
+}
+inline ::google::protobuf::uint32 ListResultResponse::allnum() const {
+  return allnum_;
+}
+inline void ListResultResponse::set_allnum(::google::protobuf::uint32 value) {
+  set_has_allnum();
+  allnum_ = value;
+}
+
+// required int32 status = 4;
+inline bool ListResultResponse::has_status() const {
+  return (_has_bits_[0] & 0x00000008u) != 0;
+}
+inline void ListResultResponse::set_has_status() {
+  _has_bits_[0] |= 0x00000008u;
+}
+inline void ListResultResponse::clear_has_status() {
+  _has_bits_[0] &= ~0x00000008u;
+}
+inline void ListResultResponse::clear_status() {
+  status_ = 0;
+  clear_has_status();
+}
+inline ::google::protobuf::int32 ListResultResponse::status() const {
+  return status_;
+}
+inline void ListResultResponse::set_status(::google::protobuf::int32 value) {
+  set_has_status();
+  status_ = value;
+}
+
+// -------------------------------------------------------------------
+
+// IdentifyRequest
+
+// required uint32 uin = 1;
+inline bool IdentifyRequest::has_uin() const {
+  return (_has_bits_[0] & 0x00000001u) != 0;
+}
+inline void IdentifyRequest::set_has_uin() {
+  _has_bits_[0] |= 0x00000001u;
+}
+inline void IdentifyRequest::clear_has_uin() {
+  _has_bits_[0] &= ~0x00000001u;
+}
+inline void IdentifyRequest::clear_uin() {
+  uin_ = 0u;
+  clear_has_uin();
+}
+inline ::google::protobuf::uint32 IdentifyRequest::uin() const {
+  return uin_;
+}
+inline void IdentifyRequest::set_uin(::google::protobuf::uint32 value) {
+  set_has_uin();
+  uin_ = value;
+}
+
+// required int32 type = 2;
+inline bool IdentifyRequest::has_type() const {
+  return (_has_bits_[0] & 0x00000002u) != 0;
+}
+inline void IdentifyRequest::set_has_type() {
+  _has_bits_[0] |= 0x00000002u;
+}
+inline void IdentifyRequest::clear_has_type() {
+  _has_bits_[0] &= ~0x00000002u;
+}
+inline void IdentifyRequest::clear_type() {
+  type_ = 0;
+  clear_has_type();
+}
+inline ::google::protobuf::int32 IdentifyRequest::type() const {
+  return type_;
+}
+inline void IdentifyRequest::set_type(::google::protobuf::int32 value) {
+  set_has_type();
+  type_ = value;
+}
+
+// optional bytes photodid = 3;
+inline bool IdentifyRequest::has_photodid() const {
+  return (_has_bits_[0] & 0x00000004u) != 0;
+}
+inline void IdentifyRequest::set_has_photodid() {
+  _has_bits_[0] |= 0x00000004u;
+}
+inline void IdentifyRequest::clear_has_photodid() {
+  _has_bits_[0] &= ~0x00000004u;
+}
+inline void IdentifyRequest::clear_photodid() {
+  if (photodid_ != &::google::protobuf::internal::kEmptyString) {
+    photodid_->clear();
+  }
+  clear_has_photodid();
+}
+inline const ::std::string& IdentifyRequest::photodid() const {
+  return *photodid_;
+}
+inline void IdentifyRequest::set_photodid(const ::std::string& value) {
+  set_has_photodid();
+  if (photodid_ == &::google::protobuf::internal::kEmptyString) {
+    photodid_ = new ::std::string;
+  }
+  photodid_->assign(value);
+}
+inline void IdentifyRequest::set_photodid(const char* value) {
+  set_has_photodid();
+  if (photodid_ == &::google::protobuf::internal::kEmptyString) {
+    photodid_ = new ::std::string;
+  }
+  photodid_->assign(value);
+}
+inline void IdentifyRequest::set_photodid(const void* value, size_t size) {
+  set_has_photodid();
+  if (photodid_ == &::google::protobuf::internal::kEmptyString) {
+    photodid_ = new ::std::string;
+  }
+  photodid_->assign(reinterpret_cast<const char*>(value), size);
+}
+inline ::std::string* IdentifyRequest::mutable_photodid() {
+  set_has_photodid();
+  if (photodid_ == &::google::protobuf::internal::kEmptyString) {
+    photodid_ = new ::std::string;
+  }
+  return photodid_;
+}
+inline ::std::string* IdentifyRequest::release_photodid() {
+  clear_has_photodid();
+  if (photodid_ == &::google::protobuf::internal::kEmptyString) {
+    return NULL;
+  } else {
+    ::std::string* temp = photodid_;
+    photodid_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
+    return temp;
+  }
+}
+inline void IdentifyRequest::set_allocated_photodid(::std::string* photodid) {
+  if (photodid_ != &::google::protobuf::internal::kEmptyString) {
+    delete photodid_;
+  }
+  if (photodid) {
+    set_has_photodid();
+    photodid_ = photodid;
+  } else {
+    clear_has_photodid();
+    photodid_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
+  }
+}
+
+// optional string url = 4;
+inline bool IdentifyRequest::has_url() const {
+  return (_has_bits_[0] & 0x00000008u) != 0;
+}
+inline void IdentifyRequest::set_has_url() {
+  _has_bits_[0] |= 0x00000008u;
+}
+inline void IdentifyRequest::clear_has_url() {
+  _has_bits_[0] &= ~0x00000008u;
+}
+inline void IdentifyRequest::clear_url() {
+  if (url_ != &::google::protobuf::internal::kEmptyString) {
+    url_->clear();
+  }
+  clear_has_url();
+}
+inline const ::std::string& IdentifyRequest::url() const {
+  return *url_;
+}
+inline void IdentifyRequest::set_url(const ::std::string& value) {
+  set_has_url();
+  if (url_ == &::google::protobuf::internal::kEmptyString) {
+    url_ = new ::std::string;
+  }
+  url_->assign(value);
+}
+inline void IdentifyRequest::set_url(const char* value) {
+  set_has_url();
+  if (url_ == &::google::protobuf::internal::kEmptyString) {
+    url_ = new ::std::string;
+  }
+  url_->assign(value);
+}
+inline void IdentifyRequest::set_url(const char* value, size_t size) {
+  set_has_url();
+  if (url_ == &::google::protobuf::internal::kEmptyString) {
+    url_ = new ::std::string;
+  }
+  url_->assign(reinterpret_cast<const char*>(value), size);
+}
+inline ::std::string* IdentifyRequest::mutable_url() {
+  set_has_url();
+  if (url_ == &::google::protobuf::internal::kEmptyString) {
+    url_ = new ::std::string;
+  }
+  return url_;
+}
+inline ::std::string* IdentifyRequest::release_url() {
+  clear_has_url();
+  if (url_ == &::google::protobuf::internal::kEmptyString) {
+    return NULL;
+  } else {
+    ::std::string* temp = url_;
+    url_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
+    return temp;
+  }
+}
+inline void IdentifyRequest::set_allocated_url(::std::string* url) {
+  if (url_ != &::google::protobuf::internal::kEmptyString) {
+    delete url_;
+  }
+  if (url) {
+    set_has_url();
+    url_ = url;
+  } else {
+    clear_has_url();
+    url_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
+  }
+}
+
+// optional bytes data = 5;
+inline bool IdentifyRequest::has_data() const {
+  return (_has_bits_[0] & 0x00000010u) != 0;
+}
+inline void IdentifyRequest::set_has_data() {
+  _has_bits_[0] |= 0x00000010u;
+}
+inline void IdentifyRequest::clear_has_data() {
+  _has_bits_[0] &= ~0x00000010u;
+}
+inline void IdentifyRequest::clear_data() {
+  if (data_ != &::google::protobuf::internal::kEmptyString) {
+    data_->clear();
+  }
+  clear_has_data();
+}
+inline const ::std::string& IdentifyRequest::data() const {
+  return *data_;
+}
+inline void IdentifyRequest::set_data(const ::std::string& value) {
+  set_has_data();
+  if (data_ == &::google::protobuf::internal::kEmptyString) {
+    data_ = new ::std::string;
+  }
+  data_->assign(value);
+}
+inline void IdentifyRequest::set_data(const char* value) {
+  set_has_data();
+  if (data_ == &::google::protobuf::internal::kEmptyString) {
+    data_ = new ::std::string;
+  }
+  data_->assign(value);
+}
+inline void IdentifyRequest::set_data(const void* value, size_t size) {
+  set_has_data();
+  if (data_ == &::google::protobuf::internal::kEmptyString) {
+    data_ = new ::std::string;
+  }
+  data_->assign(reinterpret_cast<const char*>(value), size);
+}
+inline ::std::string* IdentifyRequest::mutable_data() {
+  set_has_data();
+  if (data_ == &::google::protobuf::internal::kEmptyString) {
+    data_ = new ::std::string;
+  }
+  return data_;
+}
+inline ::std::string* IdentifyRequest::release_data() {
+  clear_has_data();
+  if (data_ == &::google::protobuf::internal::kEmptyString) {
+    return NULL;
+  } else {
+    ::std::string* temp = data_;
+    data_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
+    return temp;
+  }
+}
+inline void IdentifyRequest::set_allocated_data(::std::string* data) {
+  if (data_ != &::google::protobuf::internal::kEmptyString) {
+    delete data_;
+  }
+  if (data) {
+    set_has_data();
+    data_ = data;
+  } else {
+    clear_has_data();
+    data_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
+  }
+}
+
+// optional uint64 rect = 6;
+inline bool IdentifyRequest::has_rect() const {
+  return (_has_bits_[0] & 0x00000020u) != 0;
+}
+inline void IdentifyRequest::set_has_rect() {
+  _has_bits_[0] |= 0x00000020u;
+}
+inline void IdentifyRequest::clear_has_rect() {
+  _has_bits_[0] &= ~0x00000020u;
+}
+inline void IdentifyRequest::clear_rect() {
+  rect_ = GOOGLE_ULONGLONG(0);
+  clear_has_rect();
+}
+inline ::google::protobuf::uint64 IdentifyRequest::rect() const {
+  return rect_;
+}
+inline void IdentifyRequest::set_rect(::google::protobuf::uint64 value) {
+  set_has_rect();
+  rect_ = value;
+}
+
+// required uint32 detect_flag = 7;
+inline bool IdentifyRequest::has_detect_flag() const {
+  return (_has_bits_[0] & 0x00000040u) != 0;
+}
+inline void IdentifyRequest::set_has_detect_flag() {
+  _has_bits_[0] |= 0x00000040u;
+}
+inline void IdentifyRequest::clear_has_detect_flag() {
+  _has_bits_[0] &= ~0x00000040u;
+}
+inline void IdentifyRequest::clear_detect_flag() {
+  detect_flag_ = 0u;
+  clear_has_detect_flag();
+}
+inline ::google::protobuf::uint32 IdentifyRequest::detect_flag() const {
+  return detect_flag_;
+}
+inline void IdentifyRequest::set_detect_flag(::google::protobuf::uint32 value) {
+  set_has_detect_flag();
+  detect_flag_ = value;
+}
+
+// -------------------------------------------------------------------
+
+// IdentifyItem
+
+// required uint32 candidate = 1;
+inline bool IdentifyItem::has_candidate() const {
+  return (_has_bits_[0] & 0x00000001u) != 0;
+}
+inline void IdentifyItem::set_has_candidate() {
+  _has_bits_[0] |= 0x00000001u;
+}
+inline void IdentifyItem::clear_has_candidate() {
+  _has_bits_[0] &= ~0x00000001u;
+}
+inline void IdentifyItem::clear_candidate() {
+  candidate_ = 0u;
+  clear_has_candidate();
+}
+inline ::google::protobuf::uint32 IdentifyItem::candidate() const {
+  return candidate_;
+}
+inline void IdentifyItem::set_candidate(::google::protobuf::uint32 value) {
+  set_has_candidate();
+  candidate_ = value;
+}
+
+// required uint32 similarty = 2;
+inline bool IdentifyItem::has_similarty() const {
+  return (_has_bits_[0] & 0x00000002u) != 0;
+}
+inline void IdentifyItem::set_has_similarty() {
+  _has_bits_[0] |= 0x00000002u;
+}
+inline void IdentifyItem::clear_has_similarty() {
+  _has_bits_[0] &= ~0x00000002u;
+}
+inline void IdentifyItem::clear_similarty() {
+  similarty_ = 0u;
+  clear_has_similarty();
+}
+inline ::google::protobuf::uint32 IdentifyItem::similarty() const {
+  return similarty_;
+}
+inline void IdentifyItem::set_similarty(::google::protobuf::uint32 value) {
+  set_has_similarty();
+  similarty_ = value;
+}
+
+// optional string url = 3;
+inline bool IdentifyItem::has_url() const {
+  return (_has_bits_[0] & 0x00000004u) != 0;
+}
+inline void IdentifyItem::set_has_url() {
+  _has_bits_[0] |= 0x00000004u;
+}
+inline void IdentifyItem::clear_has_url() {
+  _has_bits_[0] &= ~0x00000004u;
+}
+inline void IdentifyItem::clear_url() {
+  if (url_ != &::google::protobuf::internal::kEmptyString) {
+    url_->clear();
+  }
+  clear_has_url();
+}
+inline const ::std::string& IdentifyItem::url() const {
+  return *url_;
+}
+inline void IdentifyItem::set_url(const ::std::string& value) {
+  set_has_url();
+  if (url_ == &::google::protobuf::internal::kEmptyString) {
+    url_ = new ::std::string;
+  }
+  url_->assign(value);
+}
+inline void IdentifyItem::set_url(const char* value) {
+  set_has_url();
+  if (url_ == &::google::protobuf::internal::kEmptyString) {
+    url_ = new ::std::string;
+  }
+  url_->assign(value);
+}
+inline void IdentifyItem::set_url(const char* value, size_t size) {
+  set_has_url();
+  if (url_ == &::google::protobuf::internal::kEmptyString) {
+    url_ = new ::std::string;
+  }
+  url_->assign(reinterpret_cast<const char*>(value), size);
+}
+inline ::std::string* IdentifyItem::mutable_url() {
+  set_has_url();
+  if (url_ == &::google::protobuf::internal::kEmptyString) {
+    url_ = new ::std::string;
+  }
+  return url_;
+}
+inline ::std::string* IdentifyItem::release_url() {
+  clear_has_url();
+  if (url_ == &::google::protobuf::internal::kEmptyString) {
+    return NULL;
+  } else {
+    ::std::string* temp = url_;
+    url_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
+    return temp;
+  }
+}
+inline void IdentifyItem::set_allocated_url(::std::string* url) {
+  if (url_ != &::google::protobuf::internal::kEmptyString) {
+    delete url_;
+  }
+  if (url) {
+    set_has_url();
+    url_ = url;
+  } else {
+    clear_has_url();
+    url_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
+  }
+}
+
+// optional bytes data = 4;
+inline bool IdentifyItem::has_data() const {
+  return (_has_bits_[0] & 0x00000008u) != 0;
+}
+inline void IdentifyItem::set_has_data() {
+  _has_bits_[0] |= 0x00000008u;
+}
+inline void IdentifyItem::clear_has_data() {
+  _has_bits_[0] &= ~0x00000008u;
+}
+inline void IdentifyItem::clear_data() {
+  if (data_ != &::google::protobuf::internal::kEmptyString) {
+    data_->clear();
+  }
+  clear_has_data();
+}
+inline const ::std::string& IdentifyItem::data() const {
+  return *data_;
+}
+inline void IdentifyItem::set_data(const ::std::string& value) {
+  set_has_data();
+  if (data_ == &::google::protobuf::internal::kEmptyString) {
+    data_ = new ::std::string;
+  }
+  data_->assign(value);
+}
+inline void IdentifyItem::set_data(const char* value) {
+  set_has_data();
+  if (data_ == &::google::protobuf::internal::kEmptyString) {
+    data_ = new ::std::string;
+  }
+  data_->assign(value);
+}
+inline void IdentifyItem::set_data(const void* value, size_t size) {
+  set_has_data();
+  if (data_ == &::google::protobuf::internal::kEmptyString) {
+    data_ = new ::std::string;
+  }
+  data_->assign(reinterpret_cast<const char*>(value), size);
+}
+inline ::std::string* IdentifyItem::mutable_data() {
+  set_has_data();
+  if (data_ == &::google::protobuf::internal::kEmptyString) {
+    data_ = new ::std::string;
+  }
+  return data_;
+}
+inline ::std::string* IdentifyItem::release_data() {
+  clear_has_data();
+  if (data_ == &::google::protobuf::internal::kEmptyString) {
+    return NULL;
+  } else {
+    ::std::string* temp = data_;
+    data_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
+    return temp;
+  }
+}
+inline void IdentifyItem::set_allocated_data(::std::string* data) {
+  if (data_ != &::google::protobuf::internal::kEmptyString) {
+    delete data_;
+  }
+  if (data) {
+    set_has_data();
+    data_ = data;
+  } else {
+    clear_has_data();
+    data_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
+  }
+}
+
+// -------------------------------------------------------------------
+
+// IdentifyResponse
+
+// repeated .youtu.IdentifyItem items = 1;
+inline int IdentifyResponse::items_size() const {
+  return items_.size();
+}
+inline void IdentifyResponse::clear_items() {
+  items_.Clear();
+}
+inline const ::youtu::IdentifyItem& IdentifyResponse::items(int index) const {
+  return items_.Get(index);
+}
+inline ::youtu::IdentifyItem* IdentifyResponse::mutable_items(int index) {
+  return items_.Mutable(index);
+}
+inline ::youtu::IdentifyItem* IdentifyResponse::add_items() {
+  return items_.Add();
+}
+inline const ::google::protobuf::RepeatedPtrField< ::youtu::IdentifyItem >&
+IdentifyResponse::items() const {
+  return items_;
+}
+inline ::google::protobuf::RepeatedPtrField< ::youtu::IdentifyItem >*
+IdentifyResponse::mutable_items() {
+  return &items_;
+}
+
+// required uint32 x = 2;
+inline bool IdentifyResponse::has_x() const {
+  return (_has_bits_[0] & 0x00000002u) != 0;
+}
+inline void IdentifyResponse::set_has_x() {
+  _has_bits_[0] |= 0x00000002u;
+}
+inline void IdentifyResponse::clear_has_x() {
+  _has_bits_[0] &= ~0x00000002u;
+}
+inline void IdentifyResponse::clear_x() {
+  x_ = 0u;
+  clear_has_x();
+}
+inline ::google::protobuf::uint32 IdentifyResponse::x() const {
+  return x_;
+}
+inline void IdentifyResponse::set_x(::google::protobuf::uint32 value) {
+  set_has_x();
+  x_ = value;
+}
+
+// required uint32 y = 3;
+inline bool IdentifyResponse::has_y() const {
+  return (_has_bits_[0] & 0x00000004u) != 0;
+}
+inline void IdentifyResponse::set_has_y() {
+  _has_bits_[0] |= 0x00000004u;
+}
+inline void IdentifyResponse::clear_has_y() {
+  _has_bits_[0] &= ~0x00000004u;
+}
+inline void IdentifyResponse::clear_y() {
+  y_ = 0u;
+  clear_has_y();
+}
+inline ::google::protobuf::uint32 IdentifyResponse::y() const {
+  return y_;
+}
+inline void IdentifyResponse::set_y(::google::protobuf::uint32 value) {
+  set_has_y();
+  y_ = value;
+}
+
+// required uint32 w = 4;
+inline bool IdentifyResponse::has_w() const {
+  return (_has_bits_[0] & 0x00000008u) != 0;
+}
+inline void IdentifyResponse::set_has_w() {
+  _has_bits_[0] |= 0x00000008u;
+}
+inline void IdentifyResponse::clear_has_w() {
+  _has_bits_[0] &= ~0x00000008u;
+}
+inline void IdentifyResponse::clear_w() {
+  w_ = 0u;
+  clear_has_w();
+}
+inline ::google::protobuf::uint32 IdentifyResponse::w() const {
+  return w_;
+}
+inline void IdentifyResponse::set_w(::google::protobuf::uint32 value) {
+  set_has_w();
+  w_ = value;
+}
+
+// required uint32 h = 5;
+inline bool IdentifyResponse::has_h() const {
+  return (_has_bits_[0] & 0x00000010u) != 0;
+}
+inline void IdentifyResponse::set_has_h() {
+  _has_bits_[0] |= 0x00000010u;
+}
+inline void IdentifyResponse::clear_has_h() {
+  _has_bits_[0] &= ~0x00000010u;
+}
+inline void IdentifyResponse::clear_h() {
+  h_ = 0u;
+  clear_has_h();
+}
+inline ::google::protobuf::uint32 IdentifyResponse::h() const {
+  return h_;
+}
+inline void IdentifyResponse::set_h(::google::protobuf::uint32 value) {
+  set_has_h();
+  h_ = value;
+}
+
+// required string upload_url = 6;
+inline bool IdentifyResponse::has_upload_url() const {
+  return (_has_bits_[0] & 0x00000020u) != 0;
+}
+inline void IdentifyResponse::set_has_upload_url() {
+  _has_bits_[0] |= 0x00000020u;
+}
+inline void IdentifyResponse::clear_has_upload_url() {
+  _has_bits_[0] &= ~0x00000020u;
+}
+inline void IdentifyResponse::clear_upload_url() {
+  if (upload_url_ != &::google::protobuf::internal::kEmptyString) {
+    upload_url_->clear();
+  }
+  clear_has_upload_url();
+}
+inline const ::std::string& IdentifyResponse::upload_url() const {
+  return *upload_url_;
+}
+inline void IdentifyResponse::set_upload_url(const ::std::string& value) {
+  set_has_upload_url();
+  if (upload_url_ == &::google::protobuf::internal::kEmptyString) {
+    upload_url_ = new ::std::string;
+  }
+  upload_url_->assign(value);
+}
+inline void IdentifyResponse::set_upload_url(const char* value) {
+  set_has_upload_url();
+  if (upload_url_ == &::google::protobuf::internal::kEmptyString) {
+    upload_url_ = new ::std::string;
+  }
+  upload_url_->assign(value);
+}
+inline void IdentifyResponse::set_upload_url(const char* value, size_t size) {
+  set_has_upload_url();
+  if (upload_url_ == &::google::protobuf::internal::kEmptyString) {
+    upload_url_ = new ::std::string;
+  }
+  upload_url_->assign(reinterpret_cast<const char*>(value), size);
+}
+inline ::std::string* IdentifyResponse::mutable_upload_url() {
+  set_has_upload_url();
+  if (upload_url_ == &::google::protobuf::internal::kEmptyString) {
+    upload_url_ = new ::std::string;
+  }
+  return upload_url_;
+}
+inline ::std::string* IdentifyResponse::release_upload_url() {
+  clear_has_upload_url();
+  if (upload_url_ == &::google::protobuf::internal::kEmptyString) {
+    return NULL;
+  } else {
+    ::std::string* temp = upload_url_;
+    upload_url_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
+    return temp;
+  }
+}
+inline void IdentifyResponse::set_allocated_upload_url(::std::string* upload_url) {
+  if (upload_url_ != &::google::protobuf::internal::kEmptyString) {
+    delete upload_url_;
+  }
+  if (upload_url) {
+    set_has_upload_url();
+    upload_url_ = upload_url;
+  } else {
+    clear_has_upload_url();
+    upload_url_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
+  }
+}
+
+// required uint32 status = 7;
+inline bool IdentifyResponse::has_status() const {
+  return (_has_bits_[0] & 0x00000040u) != 0;
+}
+inline void IdentifyResponse::set_has_status() {
+  _has_bits_[0] |= 0x00000040u;
+}
+inline void IdentifyResponse::clear_has_status() {
+  _has_bits_[0] &= ~0x00000040u;
+}
+inline void IdentifyResponse::clear_status() {
+  status_ = 0u;
+  clear_has_status();
+}
+inline ::google::protobuf::uint32 IdentifyResponse::status() const {
+  return status_;
+}
+inline void IdentifyResponse::set_status(::google::protobuf::uint32 value) {
+  set_has_status();
+  status_ = value;
+}
+
+// -------------------------------------------------------------------
+
+// FeatureItem
+
+// required uint64 faceid = 1;
+inline bool FeatureItem::has_faceid() const {
+  return (_has_bits_[0] & 0x00000001u) != 0;
+}
+inline void FeatureItem::set_has_faceid() {
+  _has_bits_[0] |= 0x00000001u;
+}
+inline void FeatureItem::clear_has_faceid() {
+  _has_bits_[0] &= ~0x00000001u;
+}
+inline void FeatureItem::clear_faceid() {
+  faceid_ = GOOGLE_ULONGLONG(0);
+  clear_has_faceid();
+}
+inline ::google::protobuf::uint64 FeatureItem::faceid() const {
+  return faceid_;
+}
+inline void FeatureItem::set_faceid(::google::protobuf::uint64 value) {
+  set_has_faceid();
+  faceid_ = value;
+}
+
+// required string url = 2;
+inline bool FeatureItem::has_url() const {
+  return (_has_bits_[0] & 0x00000002u) != 0;
+}
+inline void FeatureItem::set_has_url() {
+  _has_bits_[0] |= 0x00000002u;
+}
+inline void FeatureItem::clear_has_url() {
+  _has_bits_[0] &= ~0x00000002u;
+}
+inline void FeatureItem::clear_url() {
+  if (url_ != &::google::protobuf::internal::kEmptyString) {
+    url_->clear();
+  }
+  clear_has_url();
+}
+inline const ::std::string& FeatureItem::url() const {
+  return *url_;
+}
+inline void FeatureItem::set_url(const ::std::string& value) {
+  set_has_url();
+  if (url_ == &::google::protobuf::internal::kEmptyString) {
+    url_ = new ::std::string;
+  }
+  url_->assign(value);
+}
+inline void FeatureItem::set_url(const char* value) {
+  set_has_url();
+  if (url_ == &::google::protobuf::internal::kEmptyString) {
+    url_ = new ::std::string;
+  }
+  url_->assign(value);
+}
+inline void FeatureItem::set_url(const char* value, size_t size) {
+  set_has_url();
+  if (url_ == &::google::protobuf::internal::kEmptyString) {
+    url_ = new ::std::string;
+  }
+  url_->assign(reinterpret_cast<const char*>(value), size);
+}
+inline ::std::string* FeatureItem::mutable_url() {
+  set_has_url();
+  if (url_ == &::google::protobuf::internal::kEmptyString) {
+    url_ = new ::std::string;
+  }
+  return url_;
+}
+inline ::std::string* FeatureItem::release_url() {
+  clear_has_url();
+  if (url_ == &::google::protobuf::internal::kEmptyString) {
+    return NULL;
+  } else {
+    ::std::string* temp = url_;
+    url_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
+    return temp;
+  }
+}
+inline void FeatureItem::set_allocated_url(::std::string* url) {
+  if (url_ != &::google::protobuf::internal::kEmptyString) {
+    delete url_;
+  }
+  if (url) {
+    set_has_url();
+    url_ = url;
+  } else {
+    clear_has_url();
+    url_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
+  }
+}
+
+// required uint32 identity = 3;
+inline bool FeatureItem::has_identity() const {
+  return (_has_bits_[0] & 0x00000004u) != 0;
+}
+inline void FeatureItem::set_has_identity() {
+  _has_bits_[0] |= 0x00000004u;
+}
+inline void FeatureItem::clear_has_identity() {
+  _has_bits_[0] &= ~0x00000004u;
+}
+inline void FeatureItem::clear_identity() {
+  identity_ = 0u;
+  clear_has_identity();
+}
+inline ::google::protobuf::uint32 FeatureItem::identity() const {
+  return identity_;
+}
+inline void FeatureItem::set_identity(::google::protobuf::uint32 value) {
+  set_has_identity();
+  identity_ = value;
+}
+
+// required bytes feature = 4;
+inline bool FeatureItem::has_feature() const {
+  return (_has_bits_[0] & 0x00000008u) != 0;
+}
+inline void FeatureItem::set_has_feature() {
+  _has_bits_[0] |= 0x00000008u;
+}
+inline void FeatureItem::clear_has_feature() {
+  _has_bits_[0] &= ~0x00000008u;
+}
+inline void FeatureItem::clear_feature() {
+  if (feature_ != &::google::protobuf::internal::kEmptyString) {
+    feature_->clear();
+  }
+  clear_has_feature();
+}
+inline const ::std::string& FeatureItem::feature() const {
+  return *feature_;
+}
+inline void FeatureItem::set_feature(const ::std::string& value) {
+  set_has_feature();
+  if (feature_ == &::google::protobuf::internal::kEmptyString) {
+    feature_ = new ::std::string;
+  }
+  feature_->assign(value);
+}
+inline void FeatureItem::set_feature(const char* value) {
+  set_has_feature();
+  if (feature_ == &::google::protobuf::internal::kEmptyString) {
+    feature_ = new ::std::string;
+  }
+  feature_->assign(value);
+}
+inline void FeatureItem::set_feature(const void* value, size_t size) {
+  set_has_feature();
+  if (feature_ == &::google::protobuf::internal::kEmptyString) {
+    feature_ = new ::std::string;
+  }
+  feature_->assign(reinterpret_cast<const char*>(value), size);
+}
+inline ::std::string* FeatureItem::mutable_feature() {
+  set_has_feature();
+  if (feature_ == &::google::protobuf::internal::kEmptyString) {
+    feature_ = new ::std::string;
+  }
+  return feature_;
+}
+inline ::std::string* FeatureItem::release_feature() {
+  clear_has_feature();
+  if (feature_ == &::google::protobuf::internal::kEmptyString) {
+    return NULL;
+  } else {
+    ::std::string* temp = feature_;
+    feature_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
+    return temp;
+  }
+}
+inline void FeatureItem::set_allocated_feature(::std::string* feature) {
+  if (feature_ != &::google::protobuf::internal::kEmptyString) {
+    delete feature_;
+  }
+  if (feature) {
+    set_has_feature();
+    feature_ = feature;
+  } else {
+    clear_has_feature();
+    feature_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
+  }
+}
+
+// -------------------------------------------------------------------
+
+// FeatureItemList
+
+// repeated .youtu.FeatureItem items = 1;
+inline int FeatureItemList::items_size() const {
+  return items_.size();
+}
+inline void FeatureItemList::clear_items() {
+  items_.Clear();
+}
+inline const ::youtu::FeatureItem& FeatureItemList::items(int index) const {
+  return items_.Get(index);
+}
+inline ::youtu::FeatureItem* FeatureItemList::mutable_items(int index) {
+  return items_.Mutable(index);
+}
+inline ::youtu::FeatureItem* FeatureItemList::add_items() {
+  return items_.Add();
+}
+inline const ::google::protobuf::RepeatedPtrField< ::youtu::FeatureItem >&
+FeatureItemList::items() const {
+  return items_;
+}
+inline ::google::protobuf::RepeatedPtrField< ::youtu::FeatureItem >*
+FeatureItemList::mutable_items() {
+  return &items_;
+}
+
+// -------------------------------------------------------------------
 
 // FaceItem
 

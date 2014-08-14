@@ -24,6 +24,48 @@
 namespace mtrpc{
 
 
+class Reply
+{
+public:
+
+     Reply(ExtClosure<int()>* task):
+         ret(0),
+         isdone(false),
+         _task(task)
+     {
+     }
+
+     ~Reply(){}
+
+     void Run()
+     {
+         ret = _task->Run();
+         {
+            WriteLock<MutexLock> _lc(_mutex);
+            isdone = true;
+            _cv.notifyOne();
+         }
+     }
+
+     int  Wait()
+     {
+         while(!isdone)
+         {
+             WriteLock<MutexLock> _lc(_mutex);
+             _cv.wait(&_mutex._mutex);
+         }
+         
+         return ret;
+     }
+
+private:
+    volatile int ret;
+    volatile bool isdone;
+    ExtClosure<int()>* _task;
+    MutexLock _mutex;
+    ConditionVariable _cv;
+    
+};
 
 
 class WorkGroup;
@@ -40,6 +82,7 @@ public:
     ///
     Worker();
 
+    ~Worker();
     ///
     /// \brief do_job
     /// \param ctx
@@ -133,6 +176,9 @@ public:
     /// \return
     ///
     int Post(MioTask* task);
+
+
+    Reply* PostWithReply(ExtClosure<int()>* task);
 
     ///
     /// \brief Loop

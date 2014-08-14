@@ -14,3 +14,6 @@ add_library(${libname}_static STATIC $<TARGET_OBJECTS:${libname}>)
 
 
 #INSTALL(TARGETS ${libname}_static DESTINATION "./lib/")
+
+
+INSTALL(FILES ${HEADERS} DESTINATION "include/${libname}")

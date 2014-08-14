@@ -102,7 +102,7 @@ public:
 
         ASSERT_DEBUG(!tail->next);
 
-        t= tail->_t;
+        t = tail->_t;
 
         if(pre)
         {
@@ -117,8 +117,11 @@ public:
             head = NULL;
         }
 
+        delete tail;
+        tail = pre;
+        return true;
 
-
+/*
         if(_cache_size > 1024)
         {
             delete tail;
@@ -133,7 +136,7 @@ public:
         _cache_size++;
 
         tail = pre;
-
+*/
         return true;
     }
 

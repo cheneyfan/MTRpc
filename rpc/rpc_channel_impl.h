@@ -68,13 +68,14 @@ public:
     void OnMessageError(SocketStream* stream, Epoller* p, uint32_t error_code);
     void OnClose(SocketStream* sream,Epoller* p);
 
+    void OnWriteable(SocketStream* sream,Epoller* p);
+
 public:
     RpcChannelOptions _options;
     ConnectStream * _stream;
     Epoller* _poller;
     WorkGroup* _group;
 
-    MutexLock sendlock;
     std::queue<RpcClientController*> sendcall;
     std::queue<RpcClientController*> waitcall;
 

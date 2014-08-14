@@ -14,24 +14,47 @@ IOEvent::IOEvent()
     ev.data.ptr = this;
 
     _events = 0;
-    _fd =0;
+    _fd = 0;
 
     wtimernode.parent = NULL;
     rtimernode.parent = NULL;
 
     group = NULL;
+
+    ref_count = 0;
 }
 
 IOEvent::~IOEvent(){
     TRACE("event:"<<GetEventName()<<" dead");
-
 }
 
-int IOEvent::SetEvent(bool readable,bool writeable){
+
+
+void IOEvent::RequireRef()
+{
+   int ret =  __sync_fetch_and_add(&ref_count,1);
+   TRACE(GetEventName()<<",add ref:"<<ref_count<<",ret:"<<ret);
+}
+
+void IOEvent::ReleaseRef()
+{
+
+    int ret =  __sync_sub_and_fetch(&ref_count,1);
+
+    TRACE(GetEventName()<<",dec ref:"<<ref_count<<",ret:"<<ref_count);
+
+    if( ret == 0)
+    {
+        delete this;
+    }
+}
+
+
+int IOEvent::SetEvent(bool readable,bool writeable,int trigger){
 
     uint32_t old = ev.events;
 
-    ev.events = EPOLLET;
+    ev.events = trigger;
 
     if(readable)
         ev.events |= (EPOLLIN|EPOLLPRI);
@@ -106,6 +129,7 @@ void IOEvent::OnEventAsync(Epoller* p , uint32_t event_mask){
 
     if(pre_mask & EVENT_PROCESSING )
     {
+
         return ;
     }
 
@@ -125,10 +149,12 @@ int IOEvent::AddEventASync(Epoller* p,bool readable,bool wirteable)
 
     RequireRef();
 
-    MioTask * closure =
-            NewExtClosure(p,&Epoller::AddEvent,this);
+    //MioTask * closure =
+    //        NewExtClosure(p,&Epoller::AddEvent,this);
 
-    p->PostTask(closure);
+    //p->PostTask(closure);
+
+    p->AddEvent(this);
 
     return 0;
 }
@@ -138,10 +164,11 @@ int IOEvent::ModEventAsync(Epoller* p,bool readable,bool wirteable)
     if(this->SetEvent(readable,wirteable))
     {
 
-        MioTask * closure =
-                NewExtClosure(p,&Epoller::ModEvent,this);
+        //MioTask * closure =
+        //        NewExtClosure(p,&Epoller::ModEvent,this);
 
-        p->PostTask(closure);
+        //p->PostTask(closure);
+        p->ModEvent(this);
     }
 
     return 0;

@@ -22,7 +22,8 @@ RpcClientImpl::~RpcClientImpl(){
 
 void RpcClientImpl::Start(){
 
-    _group->Init(2);
+    _group->Init(_options.work_thread_num);
+
     MioTask* task = NewExtClosure(_poller,&Epoller::Poll);
     _group->Post(task);
 }

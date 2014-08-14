@@ -40,7 +40,7 @@ public:
 
 
     bool Start(const std::string& server_address);
-
+    bool Start(uint32_t port);
 
     void Stop();
 

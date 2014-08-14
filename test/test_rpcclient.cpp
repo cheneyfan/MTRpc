@@ -4,13 +4,15 @@
 #include "rpc/rpc_client.h"
 #include "proto/builtin_service.pb.h"
 #include "common/signalhelper.h"
-using namespace mtrpc;
+#include "proto/face.pb.h"
 
+using namespace mtrpc;
+using namespace youtu;
 
 
 int main(int argc,char*argv[]){
 
-    SignalHelper::install_sig_action();
+    //SignalHelper::install_sig_action();
 
     const std::string addr = "127.0.0.1:8000";
 
@@ -18,48 +20,29 @@ int main(int argc,char*argv[]){
     RpcClient client;
 
     RpcChannel* channel = client.GetChannel(addr);
-
+    TRACE("get channel ok"<<channel);
 
 
     if(channel){
 
         RpcController* cntl = channel->GetController();
 
-        builtin::BuiltinService_Stub stub(channel);
+         FaceImportServer_Stub stub(channel);
 
-        ::mtrpc::builtin::HealthRequest req;
-        ::mtrpc::builtin::HealthResponse res;
+        ::youtu::FaceImportRequest req;
+        ::youtu::FaceImportResponse res;
 
-
-        int i =0;
-        char buf[32]={0};
-
-        snprintf(buf,32,"hello_%d_",i);
-
-        req.set_health(buf);
-
-        stub.Health(cntl,&req,&res,NULL);
+         req.set_uin(0);
+        stub.Import(cntl,&req,&res,NULL);
         std::cout<<"error:"<<cntl->ErrorText()<<std::endl;
         cntl->Reset();
 
-        std::cout<<i<<",result:"<<res.health()<<std::endl;
-
-        i = 1;
-
-        snprintf(buf, 32, "hello_%d_", i);
-
-        req.set_health(buf);
-
-        stub.Health(cntl,&req,&res,NULL);
-
-        std::cout<<"error:"<<cntl->ErrorText()<<std::endl;
-        cntl->Reset();
-        std::cout<<i<<",result:"<<res.health()<<std::endl;
-
+        std::cout<<",result:"<<res.faceid_size()<<std::endl;
         delete cntl;
     }
 
     client.ReleaseChannel(channel);
+    client.Shutdown();
     client.Join();
 
     return 0;

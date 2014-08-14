@@ -27,20 +27,24 @@ void Acceptor::OnEvent(Epoller* p,uint32_t events)
     struct sockaddr_in addr;
     socklen_t socksize = sizeof(sockaddr_in);
 
-    int sockfd = TcpSocket::accept(_fd, (sockaddr*)&addr, socksize);
+    int sockfd =0;
+    do{
+        sockfd = TcpSocket::accept(_fd, (sockaddr*)&addr, socksize);
 
-    if(sockfd < 0)
-    {
-        WARN("Accept a bad socket:"<<sockfd<<",errno:"<<errno<<","<<strerror(errno));
-        return;
-    }
-    
-    TcpSocket::setNoblock(sockfd, true);
-    TcpSocket::setNoTcpDelay(sockfd, true);
+        if(sockfd < 0)
+        {
+            WARN("Accept a bad socket:"<<sockfd<<",errno:"<<errno<<","<<strerror(errno));
+            return;
+        }
 
-    handerAccept->Run(sockfd);
+        TcpSocket::setNoblock(sockfd, true);
+        TcpSocket::setNoTcpDelay(sockfd, true);
 
-    TRACE_FMG("accept a new connection: sockfd:%u",sockfd);
+        handerAccept->Run(sockfd);
+        TRACE_FMG("accept a new connection: sockfd:%u",sockfd);
+
+    }while(sockfd <= 0);
+
 }
 
 int Acceptor::StartListen(const char* host,int port){

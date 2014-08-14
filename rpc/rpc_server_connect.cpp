@@ -41,6 +41,9 @@ void ServerConnect::Start(Epoller* p,WorkGroup* g)
             NewPermanentExtClosure(this,&ServerConnect::OnMessageError);
 
     _stream->AddEventASync(p,true,false);
+
+    //TRACE("accept :"<<_stream->GetSockName());
+
 }
 
 void ServerConnect::OnMessageRecived(MessageStream* sream,Epoller* p,int32_t buffer_size)
@@ -71,6 +74,7 @@ void ServerConnect::OnMessageRecived(MessageStream* sream,Epoller* p,int32_t buf
     google::protobuf::Message* request
             = service->GetRequestPrototype(method).New();
 
+    _stream->readbuf.BeginPacket();
     if(!request->ParseFromZeroCopyStream(&_stream->readbuf))
     {
         WARN(sream->GetSockName()<<"paser error,read:"<<_stream->readbuf.readpos.toString()<<",write:"<<_stream->readbuf.writepos.toString());
@@ -152,6 +156,7 @@ void ServerConnect::SendMessage(MessageStream* stream,Epoller* p,RpcServerContro
     WriteBuffer::Iterator packetStart = buf.writepos;
     WriteBuffer::Iterator bodyStart   =  buf.AlignWritePos();
 
+    buf.BeginPacket();
     if(!response->SerializeToZeroCopyStream(&buf))
     {
         //roll back
@@ -217,6 +222,7 @@ void ServerConnect::OnMessageSended(MessageStream* stream, Epoller* p,int32_t bu
 void ServerConnect::OnMessageError(SocketStream* stream, Epoller* p, uint32_t error_code)
 {
      // 1 remove all pending
+      WARN("ERROR:"<<stream->GetSockName()<<","<<ErrorString(error_code));
 
       RpcServerController* cntl = NULL;
       if(!pending.empty())
@@ -262,8 +268,9 @@ void ServerConnect::OnClose(SocketStream* sream,Epoller* p){
         delete cntl;
     }
 
+     TRACE(_stream->GetSockName()<<",ServerConnect down!");
     _stream->ReleaseRef();
-    TRACE("ServerConnect down!");
+
     delete this;
 }
 
