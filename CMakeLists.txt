@@ -1,4 +1,4 @@
-project(MTRpc_SVN CXX)
+project(MTRpc_GIT CXX)
 cmake_minimum_required(VERSION 2.8.9)
 
 

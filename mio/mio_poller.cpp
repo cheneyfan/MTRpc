@@ -66,7 +66,6 @@ Epoller::Epoller()
 Epoller::~Epoller(){
 
     DelEvent(_notify);
-    delete _notify;
     close(epollfd);
 }
 

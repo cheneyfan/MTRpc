@@ -16,7 +16,7 @@ public:
                          ::google::protobuf::Closure* done){
 
         TRACE("sleep 10 secnd");
-        sleep(10);
+        sleep(1);
         response->add_faceid(0);
 
     }
