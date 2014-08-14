@@ -76,11 +76,11 @@ void SignalHelper::getBacktrace(char* buffer, int size,int start,int num){
 
         char exename[256]={0};
         char func[256]={0};
-
+        //printf("%s",symbols[i]);
         sscanf(symbols[i],"%256[^(](%256[^+)]", exename, func);
 
         int flongth = strlen(func);
-        if( flongth ==0)
+        if( flongth == 0)
             continue;
 
         if(flongth< 2)
@@ -101,12 +101,25 @@ void SignalHelper::getBacktrace(char* buffer, int size,int start,int num){
         int status = 0;
         abi::__cxa_demangle(func, exename, &longth, &status);
         //std::cout<<"sy:"<<symbols[i]<<",fun:"<<func<<",d:"<<exename<<",l:"<<longth<<",status:"<<status<<std::endl;
+        char funcname[256]={0};
+        char paraname[256]={0};
+        sscanf(exename,"%256[^(](%256[^+)]", funcname, paraname);
 
-        longth =strlen(exename);
+        int pos = 0;
+        int last = 0;
+        while(funcname[pos++]!='\0'){if(funcname[pos] == ':') last=pos;}
+        if(last)
+            memmove(funcname,funcname+last+1, pos-last-1);
+
+        longth =strlen(funcname);
+
         if(status==0  && (buffer +longth < end))
         {
-            strncpy(buffer,exename,longth);
+            strncpy(buffer,"<",1);
+            buffer+= 1;
+            strncpy(buffer,funcname,longth);
             buffer+= longth;
+
         }
     }
 

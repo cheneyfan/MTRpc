@@ -9,6 +9,17 @@
 using namespace mtrpc;
 using namespace youtu;
 
+class A {
+public :
+    A(){
+
+        char buffer[2048]={0};
+
+        SignalHelper::getBacktrace(buffer,2048,0,5);
+        printf("buffer:%s",buffer);
+    }
+
+};
 
 int main(int argc,char*argv[]){
 
@@ -16,6 +27,7 @@ int main(int argc,char*argv[]){
 
     const std::string addr = "127.0.0.1:8000";
 
+    A a;
 
     RpcClient client;
 

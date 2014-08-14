@@ -5,7 +5,7 @@ cmake_minimum_required(VERSION 2.8.9)
 option(CMAKE_BUILD_RELEASE "build release version" OFF)
 option(CMAKE_BUILD_TEST "build test " ON)
 
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -ggdb -g3 -fPIC ")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -ggdb -g3 -fPIC -rdynamic ")
 
 #for 64 bit system
 if(CMAKE_SIZEOF_VOID_P EQUAL 8)

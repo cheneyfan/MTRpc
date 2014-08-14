@@ -27,11 +27,11 @@
 #include "thread/workpool.h"
 #include "common/covert.h"
 
-#define TRACE_STACK
+//#define TRACE_STACK
 #define _SYNC_LOG_
 
+#define __PRETTY_FUNCTION__ __FUNCTION__
 #ifndef TRACE_STACK
-    #define __PRETTY_FUNCTION__ __FUNCTION__
 #endif
 
 namespace mtrpc {

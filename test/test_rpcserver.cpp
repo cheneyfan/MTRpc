@@ -3,6 +3,7 @@
 #include "rpc/rpc_server.h"
 #include "common/signalhelper.h"
 #include "proto/face.pb.h"
+#include "common/signalhelper.h"
 
 using namespace mtrpc;
 using namespace youtu;
@@ -16,7 +17,13 @@ public:
                          ::google::protobuf::Closure* done){
 
         TRACE("sleep 10 secnd");
-        sleep(1);
+        //sleep(10);
+
+        char buffer[2048]={0};
+
+        SignalHelper::getBacktrace(buffer,2048,0,5);
+        printf("buffer:%s",buffer);
+
         response->add_faceid(0);
 
     }
