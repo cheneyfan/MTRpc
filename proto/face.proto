@@ -15,6 +15,21 @@ service HasUinServer {
     rpc HasUinSearch(HasUinRequest) returns (HasUinResponse);
 }
 
+//friend with face list
+message ListFaceFriendRequest {
+     required uint32 uin = 1;
+}   
+    
+message ListFaceFriendResponse {
+    required uint32 uin     = 1;
+    repeated uint32 friends = 2;
+    required int32  status  = 3;
+}   
+// load the face to redis 
+service ListFaceFriendServer {
+    rpc GetQQFaceFriends(ListFaceFriendRequest) returns (ListFaceFriendResponse);
+}
+
 
 //friend list
 message ListFriendRequest {
@@ -106,8 +121,8 @@ message ListResultResponse {
 }
 
 service ImportServer {
-     rpc Import(ImportRequest) returns (ListResultResponse);
-     rpc ImportFriends(ImportRequest) returns (ListResultResponse);
+     rpc Import(ImportRequest) returns (ImportStatusResponse);
+     rpc ImportFriends(ImportRequest) returns (ImportStatusResponse);
      
      rpc ImportStatus(ImportRequest) returns (ImportStatusResponse);
      rpc ImportFriendsStatus(ImportRequest) returns (ImportStatusResponse);

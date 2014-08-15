@@ -36,6 +36,8 @@ void protobuf_ShutdownFile_face_2eproto();
 
 class HasUinRequest;
 class HasUinResponse;
+class ListFaceFriendRequest;
+class ListFaceFriendResponse;
 class ListFriendRequest;
 class ListFriendResponse;
 class PhotoListRequest;
@@ -225,6 +227,193 @@ class HasUinResponse : public ::google::protobuf::Message {
 
   void InitAsDefaultInstance();
   static HasUinResponse* default_instance_;
+};
+// -------------------------------------------------------------------
+
+class ListFaceFriendRequest : public ::google::protobuf::Message {
+ public:
+  ListFaceFriendRequest();
+  virtual ~ListFaceFriendRequest();
+
+  ListFaceFriendRequest(const ListFaceFriendRequest& from);
+
+  inline ListFaceFriendRequest& operator=(const ListFaceFriendRequest& from) {
+    CopyFrom(from);
+    return *this;
+  }
+
+  inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const {
+    return _unknown_fields_;
+  }
+
+  inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields() {
+    return &_unknown_fields_;
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const ListFaceFriendRequest& default_instance();
+
+  void Swap(ListFaceFriendRequest* other);
+
+  // implements Message ----------------------------------------------
+
+  ListFaceFriendRequest* New() const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const ListFaceFriendRequest& from);
+  void MergeFrom(const ListFaceFriendRequest& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
+  int GetCachedSize() const { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // required uint32 uin = 1;
+  inline bool has_uin() const;
+  inline void clear_uin();
+  static const int kUinFieldNumber = 1;
+  inline ::google::protobuf::uint32 uin() const;
+  inline void set_uin(::google::protobuf::uint32 value);
+
+  // @@protoc_insertion_point(class_scope:youtu.ListFaceFriendRequest)
+ private:
+  inline void set_has_uin();
+  inline void clear_has_uin();
+
+  ::google::protobuf::UnknownFieldSet _unknown_fields_;
+
+  ::google::protobuf::uint32 uin_;
+
+  mutable int _cached_size_;
+  ::google::protobuf::uint32 _has_bits_[(1 + 31) / 32];
+
+  friend void  protobuf_AddDesc_face_2eproto();
+  friend void protobuf_AssignDesc_face_2eproto();
+  friend void protobuf_ShutdownFile_face_2eproto();
+
+  void InitAsDefaultInstance();
+  static ListFaceFriendRequest* default_instance_;
+};
+// -------------------------------------------------------------------
+
+class ListFaceFriendResponse : public ::google::protobuf::Message {
+ public:
+  ListFaceFriendResponse();
+  virtual ~ListFaceFriendResponse();
+
+  ListFaceFriendResponse(const ListFaceFriendResponse& from);
+
+  inline ListFaceFriendResponse& operator=(const ListFaceFriendResponse& from) {
+    CopyFrom(from);
+    return *this;
+  }
+
+  inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const {
+    return _unknown_fields_;
+  }
+
+  inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields() {
+    return &_unknown_fields_;
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const ListFaceFriendResponse& default_instance();
+
+  void Swap(ListFaceFriendResponse* other);
+
+  // implements Message ----------------------------------------------
+
+  ListFaceFriendResponse* New() const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const ListFaceFriendResponse& from);
+  void MergeFrom(const ListFaceFriendResponse& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
+  int GetCachedSize() const { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // required uint32 uin = 1;
+  inline bool has_uin() const;
+  inline void clear_uin();
+  static const int kUinFieldNumber = 1;
+  inline ::google::protobuf::uint32 uin() const;
+  inline void set_uin(::google::protobuf::uint32 value);
+
+  // repeated uint32 friends = 2;
+  inline int friends_size() const;
+  inline void clear_friends();
+  static const int kFriendsFieldNumber = 2;
+  inline ::google::protobuf::uint32 friends(int index) const;
+  inline void set_friends(int index, ::google::protobuf::uint32 value);
+  inline void add_friends(::google::protobuf::uint32 value);
+  inline const ::google::protobuf::RepeatedField< ::google::protobuf::uint32 >&
+      friends() const;
+  inline ::google::protobuf::RepeatedField< ::google::protobuf::uint32 >*
+      mutable_friends();
+
+  // required int32 status = 3;
+  inline bool has_status() const;
+  inline void clear_status();
+  static const int kStatusFieldNumber = 3;
+  inline ::google::protobuf::int32 status() const;
+  inline void set_status(::google::protobuf::int32 value);
+
+  // @@protoc_insertion_point(class_scope:youtu.ListFaceFriendResponse)
+ private:
+  inline void set_has_uin();
+  inline void clear_has_uin();
+  inline void set_has_status();
+  inline void clear_has_status();
+
+  ::google::protobuf::UnknownFieldSet _unknown_fields_;
+
+  ::google::protobuf::RepeatedField< ::google::protobuf::uint32 > friends_;
+  ::google::protobuf::uint32 uin_;
+  ::google::protobuf::int32 status_;
+
+  mutable int _cached_size_;
+  ::google::protobuf::uint32 _has_bits_[(3 + 31) / 32];
+
+  friend void  protobuf_AddDesc_face_2eproto();
+  friend void protobuf_AssignDesc_face_2eproto();
+  friend void protobuf_ShutdownFile_face_2eproto();
+
+  void InitAsDefaultInstance();
+  static ListFaceFriendResponse* default_instance_;
 };
 // -------------------------------------------------------------------
 
@@ -2538,6 +2727,65 @@ class HasUinServer_Stub : public HasUinServer {
 
 // -------------------------------------------------------------------
 
+class ListFaceFriendServer_Stub;
+
+class ListFaceFriendServer : public ::google::protobuf::Service {
+ protected:
+  // This class should be treated as an abstract interface.
+  inline ListFaceFriendServer() {};
+ public:
+  virtual ~ListFaceFriendServer();
+
+  typedef ListFaceFriendServer_Stub Stub;
+
+  static const ::google::protobuf::ServiceDescriptor* descriptor();
+
+  virtual void GetQQFaceFriends(::google::protobuf::RpcController* controller,
+                       const ::youtu::ListFaceFriendRequest* request,
+                       ::youtu::ListFaceFriendResponse* response,
+                       ::google::protobuf::Closure* done);
+
+  // implements Service ----------------------------------------------
+
+  const ::google::protobuf::ServiceDescriptor* GetDescriptor();
+  void CallMethod(const ::google::protobuf::MethodDescriptor* method,
+                  ::google::protobuf::RpcController* controller,
+                  const ::google::protobuf::Message* request,
+                  ::google::protobuf::Message* response,
+                  ::google::protobuf::Closure* done);
+  const ::google::protobuf::Message& GetRequestPrototype(
+    const ::google::protobuf::MethodDescriptor* method) const;
+  const ::google::protobuf::Message& GetResponsePrototype(
+    const ::google::protobuf::MethodDescriptor* method) const;
+
+ private:
+  GOOGLE_DISALLOW_EVIL_CONSTRUCTORS(ListFaceFriendServer);
+};
+
+class ListFaceFriendServer_Stub : public ListFaceFriendServer {
+ public:
+  ListFaceFriendServer_Stub(::google::protobuf::RpcChannel* channel);
+  ListFaceFriendServer_Stub(::google::protobuf::RpcChannel* channel,
+                   ::google::protobuf::Service::ChannelOwnership ownership);
+  ~ListFaceFriendServer_Stub();
+
+  inline ::google::protobuf::RpcChannel* channel() { return channel_; }
+
+  // implements ListFaceFriendServer ------------------------------------------
+
+  void GetQQFaceFriends(::google::protobuf::RpcController* controller,
+                       const ::youtu::ListFaceFriendRequest* request,
+                       ::youtu::ListFaceFriendResponse* response,
+                       ::google::protobuf::Closure* done);
+ private:
+  ::google::protobuf::RpcChannel* channel_;
+  bool owns_channel_;
+  GOOGLE_DISALLOW_EVIL_CONSTRUCTORS(ListFaceFriendServer_Stub);
+};
+
+
+// -------------------------------------------------------------------
+
 class ListFriendServer_Stub;
 
 class ListFriendServer : public ::google::protobuf::Service {
@@ -2679,11 +2927,11 @@ class ImportServer : public ::google::protobuf::Service {
 
   virtual void Import(::google::protobuf::RpcController* controller,
                        const ::youtu::ImportRequest* request,
-                       ::youtu::ListResultResponse* response,
+                       ::youtu::ImportStatusResponse* response,
                        ::google::protobuf::Closure* done);
   virtual void ImportFriends(::google::protobuf::RpcController* controller,
                        const ::youtu::ImportRequest* request,
-                       ::youtu::ListResultResponse* response,
+                       ::youtu::ImportStatusResponse* response,
                        ::google::protobuf::Closure* done);
   virtual void ImportStatus(::google::protobuf::RpcController* controller,
                        const ::youtu::ImportRequest* request,
@@ -2724,11 +2972,11 @@ class ImportServer_Stub : public ImportServer {
 
   void Import(::google::protobuf::RpcController* controller,
                        const ::youtu::ImportRequest* request,
-                       ::youtu::ListResultResponse* response,
+                       ::youtu::ImportStatusResponse* response,
                        ::google::protobuf::Closure* done);
   void ImportFriends(::google::protobuf::RpcController* controller,
                        const ::youtu::ImportRequest* request,
-                       ::youtu::ListResultResponse* response,
+                       ::youtu::ImportStatusResponse* response,
                        ::google::protobuf::Closure* done);
   void ImportStatus(::google::protobuf::RpcController* controller,
                        const ::youtu::ImportRequest* request,
@@ -3005,6 +3253,105 @@ HasUinResponse::hasuin() const {
 inline ::google::protobuf::RepeatedField< bool >*
 HasUinResponse::mutable_hasuin() {
   return &hasuin_;
+}
+
+// -------------------------------------------------------------------
+
+// ListFaceFriendRequest
+
+// required uint32 uin = 1;
+inline bool ListFaceFriendRequest::has_uin() const {
+  return (_has_bits_[0] & 0x00000001u) != 0;
+}
+inline void ListFaceFriendRequest::set_has_uin() {
+  _has_bits_[0] |= 0x00000001u;
+}
+inline void ListFaceFriendRequest::clear_has_uin() {
+  _has_bits_[0] &= ~0x00000001u;
+}
+inline void ListFaceFriendRequest::clear_uin() {
+  uin_ = 0u;
+  clear_has_uin();
+}
+inline ::google::protobuf::uint32 ListFaceFriendRequest::uin() const {
+  return uin_;
+}
+inline void ListFaceFriendRequest::set_uin(::google::protobuf::uint32 value) {
+  set_has_uin();
+  uin_ = value;
+}
+
+// -------------------------------------------------------------------
+
+// ListFaceFriendResponse
+
+// required uint32 uin = 1;
+inline bool ListFaceFriendResponse::has_uin() const {
+  return (_has_bits_[0] & 0x00000001u) != 0;
+}
+inline void ListFaceFriendResponse::set_has_uin() {
+  _has_bits_[0] |= 0x00000001u;
+}
+inline void ListFaceFriendResponse::clear_has_uin() {
+  _has_bits_[0] &= ~0x00000001u;
+}
+inline void ListFaceFriendResponse::clear_uin() {
+  uin_ = 0u;
+  clear_has_uin();
+}
+inline ::google::protobuf::uint32 ListFaceFriendResponse::uin() const {
+  return uin_;
+}
+inline void ListFaceFriendResponse::set_uin(::google::protobuf::uint32 value) {
+  set_has_uin();
+  uin_ = value;
+}
+
+// repeated uint32 friends = 2;
+inline int ListFaceFriendResponse::friends_size() const {
+  return friends_.size();
+}
+inline void ListFaceFriendResponse::clear_friends() {
+  friends_.Clear();
+}
+inline ::google::protobuf::uint32 ListFaceFriendResponse::friends(int index) const {
+  return friends_.Get(index);
+}
+inline void ListFaceFriendResponse::set_friends(int index, ::google::protobuf::uint32 value) {
+  friends_.Set(index, value);
+}
+inline void ListFaceFriendResponse::add_friends(::google::protobuf::uint32 value) {
+  friends_.Add(value);
+}
+inline const ::google::protobuf::RepeatedField< ::google::protobuf::uint32 >&
+ListFaceFriendResponse::friends() const {
+  return friends_;
+}
+inline ::google::protobuf::RepeatedField< ::google::protobuf::uint32 >*
+ListFaceFriendResponse::mutable_friends() {
+  return &friends_;
+}
+
+// required int32 status = 3;
+inline bool ListFaceFriendResponse::has_status() const {
+  return (_has_bits_[0] & 0x00000004u) != 0;
+}
+inline void ListFaceFriendResponse::set_has_status() {
+  _has_bits_[0] |= 0x00000004u;
+}
+inline void ListFaceFriendResponse::clear_has_status() {
+  _has_bits_[0] &= ~0x00000004u;
+}
+inline void ListFaceFriendResponse::clear_status() {
+  status_ = 0;
+  clear_has_status();
+}
+inline ::google::protobuf::int32 ListFaceFriendResponse::status() const {
+  return status_;
+}
+inline void ListFaceFriendResponse::set_status(::google::protobuf::int32 value) {
+  set_has_status();
+  status_ = value;
 }
 
 // -------------------------------------------------------------------

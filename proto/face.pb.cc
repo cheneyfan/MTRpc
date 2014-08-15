@@ -26,6 +26,12 @@ const ::google::protobuf::internal::GeneratedMessageReflection*
 const ::google::protobuf::Descriptor* HasUinResponse_descriptor_ = NULL;
 const ::google::protobuf::internal::GeneratedMessageReflection*
   HasUinResponse_reflection_ = NULL;
+const ::google::protobuf::Descriptor* ListFaceFriendRequest_descriptor_ = NULL;
+const ::google::protobuf::internal::GeneratedMessageReflection*
+  ListFaceFriendRequest_reflection_ = NULL;
+const ::google::protobuf::Descriptor* ListFaceFriendResponse_descriptor_ = NULL;
+const ::google::protobuf::internal::GeneratedMessageReflection*
+  ListFaceFriendResponse_reflection_ = NULL;
 const ::google::protobuf::Descriptor* ListFriendRequest_descriptor_ = NULL;
 const ::google::protobuf::internal::GeneratedMessageReflection*
   ListFriendRequest_reflection_ = NULL;
@@ -84,6 +90,7 @@ const ::google::protobuf::Descriptor* FaceImportResponse_descriptor_ = NULL;
 const ::google::protobuf::internal::GeneratedMessageReflection*
   FaceImportResponse_reflection_ = NULL;
 const ::google::protobuf::ServiceDescriptor* HasUinServer_descriptor_ = NULL;
+const ::google::protobuf::ServiceDescriptor* ListFaceFriendServer_descriptor_ = NULL;
 const ::google::protobuf::ServiceDescriptor* ListFriendServer_descriptor_ = NULL;
 const ::google::protobuf::ServiceDescriptor* PhotoListServer_descriptor_ = NULL;
 const ::google::protobuf::ServiceDescriptor* ImportServer_descriptor_ = NULL;
@@ -130,7 +137,39 @@ void protobuf_AssignDesc_face_2eproto() {
       ::google::protobuf::DescriptorPool::generated_pool(),
       ::google::protobuf::MessageFactory::generated_factory(),
       sizeof(HasUinResponse));
-  ListFriendRequest_descriptor_ = file->message_type(2);
+  ListFaceFriendRequest_descriptor_ = file->message_type(2);
+  static const int ListFaceFriendRequest_offsets_[1] = {
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ListFaceFriendRequest, uin_),
+  };
+  ListFaceFriendRequest_reflection_ =
+    new ::google::protobuf::internal::GeneratedMessageReflection(
+      ListFaceFriendRequest_descriptor_,
+      ListFaceFriendRequest::default_instance_,
+      ListFaceFriendRequest_offsets_,
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ListFaceFriendRequest, _has_bits_[0]),
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ListFaceFriendRequest, _unknown_fields_),
+      -1,
+      ::google::protobuf::DescriptorPool::generated_pool(),
+      ::google::protobuf::MessageFactory::generated_factory(),
+      sizeof(ListFaceFriendRequest));
+  ListFaceFriendResponse_descriptor_ = file->message_type(3);
+  static const int ListFaceFriendResponse_offsets_[3] = {
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ListFaceFriendResponse, uin_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ListFaceFriendResponse, friends_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ListFaceFriendResponse, status_),
+  };
+  ListFaceFriendResponse_reflection_ =
+    new ::google::protobuf::internal::GeneratedMessageReflection(
+      ListFaceFriendResponse_descriptor_,
+      ListFaceFriendResponse::default_instance_,
+      ListFaceFriendResponse_offsets_,
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ListFaceFriendResponse, _has_bits_[0]),
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ListFaceFriendResponse, _unknown_fields_),
+      -1,
+      ::google::protobuf::DescriptorPool::generated_pool(),
+      ::google::protobuf::MessageFactory::generated_factory(),
+      sizeof(ListFaceFriendResponse));
+  ListFriendRequest_descriptor_ = file->message_type(4);
   static const int ListFriendRequest_offsets_[1] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ListFriendRequest, uin_),
   };
@@ -145,7 +184,7 @@ void protobuf_AssignDesc_face_2eproto() {
       ::google::protobuf::DescriptorPool::generated_pool(),
       ::google::protobuf::MessageFactory::generated_factory(),
       sizeof(ListFriendRequest));
-  ListFriendResponse_descriptor_ = file->message_type(3);
+  ListFriendResponse_descriptor_ = file->message_type(5);
   static const int ListFriendResponse_offsets_[3] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ListFriendResponse, uin_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ListFriendResponse, friends_),
@@ -162,7 +201,7 @@ void protobuf_AssignDesc_face_2eproto() {
       ::google::protobuf::DescriptorPool::generated_pool(),
       ::google::protobuf::MessageFactory::generated_factory(),
       sizeof(ListFriendResponse));
-  PhotoListRequest_descriptor_ = file->message_type(4);
+  PhotoListRequest_descriptor_ = file->message_type(6);
   static const int PhotoListRequest_offsets_[4] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(PhotoListRequest, uin_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(PhotoListRequest, photoid_),
@@ -180,7 +219,7 @@ void protobuf_AssignDesc_face_2eproto() {
       ::google::protobuf::DescriptorPool::generated_pool(),
       ::google::protobuf::MessageFactory::generated_factory(),
       sizeof(PhotoListRequest));
-  PhotoItem_descriptor_ = file->message_type(5);
+  PhotoItem_descriptor_ = file->message_type(7);
   static const int PhotoItem_offsets_[4] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(PhotoItem, photoid_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(PhotoItem, url_),
@@ -198,7 +237,7 @@ void protobuf_AssignDesc_face_2eproto() {
       ::google::protobuf::DescriptorPool::generated_pool(),
       ::google::protobuf::MessageFactory::generated_factory(),
       sizeof(PhotoItem));
-  PhotoListResponse_descriptor_ = file->message_type(6);
+  PhotoListResponse_descriptor_ = file->message_type(8);
   static const int PhotoListResponse_offsets_[4] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(PhotoListResponse, uin_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(PhotoListResponse, res_),
@@ -216,7 +255,7 @@ void protobuf_AssignDesc_face_2eproto() {
       ::google::protobuf::DescriptorPool::generated_pool(),
       ::google::protobuf::MessageFactory::generated_factory(),
       sizeof(PhotoListResponse));
-  ImportRequest_descriptor_ = file->message_type(7);
+  ImportRequest_descriptor_ = file->message_type(9);
   static const int ImportRequest_offsets_[3] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ImportRequest, uin_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ImportRequest, maxnum_),
@@ -233,7 +272,7 @@ void protobuf_AssignDesc_face_2eproto() {
       ::google::protobuf::DescriptorPool::generated_pool(),
       ::google::protobuf::MessageFactory::generated_factory(),
       sizeof(ImportRequest));
-  ImportStatus_descriptor_ = file->message_type(8);
+  ImportStatus_descriptor_ = file->message_type(10);
   static const int ImportStatus_offsets_[6] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ImportStatus, uin_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ImportStatus, allfacenum_),
@@ -253,7 +292,7 @@ void protobuf_AssignDesc_face_2eproto() {
       ::google::protobuf::DescriptorPool::generated_pool(),
       ::google::protobuf::MessageFactory::generated_factory(),
       sizeof(ImportStatus));
-  ImportStatusResponse_descriptor_ = file->message_type(9);
+  ImportStatusResponse_descriptor_ = file->message_type(11);
   static const int ImportStatusResponse_offsets_[2] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ImportStatusResponse, res_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ImportStatusResponse, status_),
@@ -269,7 +308,7 @@ void protobuf_AssignDesc_face_2eproto() {
       ::google::protobuf::DescriptorPool::generated_pool(),
       ::google::protobuf::MessageFactory::generated_factory(),
       sizeof(ImportStatusResponse));
-  ListResultRequest_descriptor_ = file->message_type(10);
+  ListResultRequest_descriptor_ = file->message_type(12);
   static const int ListResultRequest_offsets_[4] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ListResultRequest, uin_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ListResultRequest, start_),
@@ -287,7 +326,7 @@ void protobuf_AssignDesc_face_2eproto() {
       ::google::protobuf::DescriptorPool::generated_pool(),
       ::google::protobuf::MessageFactory::generated_factory(),
       sizeof(ListResultRequest));
-  FaceListResult_descriptor_ = file->message_type(11);
+  FaceListResult_descriptor_ = file->message_type(13);
   static const int FaceListResult_offsets_[9] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(FaceListResult, uin_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(FaceListResult, faceid_),
@@ -310,7 +349,7 @@ void protobuf_AssignDesc_face_2eproto() {
       ::google::protobuf::DescriptorPool::generated_pool(),
       ::google::protobuf::MessageFactory::generated_factory(),
       sizeof(FaceListResult));
-  ListResultResponse_descriptor_ = file->message_type(12);
+  ListResultResponse_descriptor_ = file->message_type(14);
   static const int ListResultResponse_offsets_[4] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ListResultResponse, uin_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ListResultResponse, res_),
@@ -328,7 +367,7 @@ void protobuf_AssignDesc_face_2eproto() {
       ::google::protobuf::DescriptorPool::generated_pool(),
       ::google::protobuf::MessageFactory::generated_factory(),
       sizeof(ListResultResponse));
-  IdentifyRequest_descriptor_ = file->message_type(13);
+  IdentifyRequest_descriptor_ = file->message_type(15);
   static const int IdentifyRequest_offsets_[7] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(IdentifyRequest, uin_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(IdentifyRequest, type_),
@@ -349,7 +388,7 @@ void protobuf_AssignDesc_face_2eproto() {
       ::google::protobuf::DescriptorPool::generated_pool(),
       ::google::protobuf::MessageFactory::generated_factory(),
       sizeof(IdentifyRequest));
-  IdentifyItem_descriptor_ = file->message_type(14);
+  IdentifyItem_descriptor_ = file->message_type(16);
   static const int IdentifyItem_offsets_[4] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(IdentifyItem, candidate_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(IdentifyItem, similarty_),
@@ -367,7 +406,7 @@ void protobuf_AssignDesc_face_2eproto() {
       ::google::protobuf::DescriptorPool::generated_pool(),
       ::google::protobuf::MessageFactory::generated_factory(),
       sizeof(IdentifyItem));
-  IdentifyResponse_descriptor_ = file->message_type(15);
+  IdentifyResponse_descriptor_ = file->message_type(17);
   static const int IdentifyResponse_offsets_[7] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(IdentifyResponse, items_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(IdentifyResponse, x_),
@@ -388,7 +427,7 @@ void protobuf_AssignDesc_face_2eproto() {
       ::google::protobuf::DescriptorPool::generated_pool(),
       ::google::protobuf::MessageFactory::generated_factory(),
       sizeof(IdentifyResponse));
-  FeatureItem_descriptor_ = file->message_type(16);
+  FeatureItem_descriptor_ = file->message_type(18);
   static const int FeatureItem_offsets_[4] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(FeatureItem, faceid_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(FeatureItem, url_),
@@ -406,7 +445,7 @@ void protobuf_AssignDesc_face_2eproto() {
       ::google::protobuf::DescriptorPool::generated_pool(),
       ::google::protobuf::MessageFactory::generated_factory(),
       sizeof(FeatureItem));
-  FeatureItemList_descriptor_ = file->message_type(17);
+  FeatureItemList_descriptor_ = file->message_type(19);
   static const int FeatureItemList_offsets_[1] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(FeatureItemList, items_),
   };
@@ -421,7 +460,7 @@ void protobuf_AssignDesc_face_2eproto() {
       ::google::protobuf::DescriptorPool::generated_pool(),
       ::google::protobuf::MessageFactory::generated_factory(),
       sizeof(FeatureItemList));
-  FaceItem_descriptor_ = file->message_type(18);
+  FaceItem_descriptor_ = file->message_type(20);
   static const int FaceItem_offsets_[8] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(FaceItem, faceid_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(FaceItem, photoid_),
@@ -443,7 +482,7 @@ void protobuf_AssignDesc_face_2eproto() {
       ::google::protobuf::DescriptorPool::generated_pool(),
       ::google::protobuf::MessageFactory::generated_factory(),
       sizeof(FaceItem));
-  FaceImportRequest_descriptor_ = file->message_type(19);
+  FaceImportRequest_descriptor_ = file->message_type(21);
   static const int FaceImportRequest_offsets_[2] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(FaceImportRequest, uin_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(FaceImportRequest, items_),
@@ -459,7 +498,7 @@ void protobuf_AssignDesc_face_2eproto() {
       ::google::protobuf::DescriptorPool::generated_pool(),
       ::google::protobuf::MessageFactory::generated_factory(),
       sizeof(FaceImportRequest));
-  FaceImportResponse_descriptor_ = file->message_type(20);
+  FaceImportResponse_descriptor_ = file->message_type(22);
   static const int FaceImportResponse_offsets_[1] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(FaceImportResponse, faceid_),
   };
@@ -475,12 +514,13 @@ void protobuf_AssignDesc_face_2eproto() {
       ::google::protobuf::MessageFactory::generated_factory(),
       sizeof(FaceImportResponse));
   HasUinServer_descriptor_ = file->service(0);
-  ListFriendServer_descriptor_ = file->service(1);
-  PhotoListServer_descriptor_ = file->service(2);
-  ImportServer_descriptor_ = file->service(3);
-  ListServer_descriptor_ = file->service(4);
-  IdentifyServer_descriptor_ = file->service(5);
-  FaceImportServer_descriptor_ = file->service(6);
+  ListFaceFriendServer_descriptor_ = file->service(1);
+  ListFriendServer_descriptor_ = file->service(2);
+  PhotoListServer_descriptor_ = file->service(3);
+  ImportServer_descriptor_ = file->service(4);
+  ListServer_descriptor_ = file->service(5);
+  IdentifyServer_descriptor_ = file->service(6);
+  FaceImportServer_descriptor_ = file->service(7);
 }
 
 namespace {
@@ -497,6 +537,10 @@ void protobuf_RegisterTypes(const ::std::string&) {
     HasUinRequest_descriptor_, &HasUinRequest::default_instance());
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
     HasUinResponse_descriptor_, &HasUinResponse::default_instance());
+  ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
+    ListFaceFriendRequest_descriptor_, &ListFaceFriendRequest::default_instance());
+  ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
+    ListFaceFriendResponse_descriptor_, &ListFaceFriendResponse::default_instance());
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
     ListFriendRequest_descriptor_, &ListFriendRequest::default_instance());
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
@@ -544,6 +588,10 @@ void protobuf_ShutdownFile_face_2eproto() {
   delete HasUinRequest_reflection_;
   delete HasUinResponse::default_instance_;
   delete HasUinResponse_reflection_;
+  delete ListFaceFriendRequest::default_instance_;
+  delete ListFaceFriendRequest_reflection_;
+  delete ListFaceFriendResponse::default_instance_;
+  delete ListFaceFriendResponse_reflection_;
   delete ListFriendRequest::default_instance_;
   delete ListFriendRequest_reflection_;
   delete ListFriendResponse::default_instance_;
@@ -593,78 +641,86 @@ void protobuf_AddDesc_face_2eproto() {
   ::google::protobuf::DescriptorPool::InternalAddGeneratedFile(
     "\n\nface.proto\022\005youtu\"\034\n\rHasUinRequest\022\013\n\003"
     "uin\030\001 \003(\r\" \n\016HasUinResponse\022\016\n\006hasuin\030\001 "
-    "\003(\010\" \n\021ListFriendRequest\022\013\n\003uin\030\001 \002(\r\"B\n"
-    "\022ListFriendResponse\022\013\n\003uin\030\001 \002(\r\022\017\n\007frie"
-    "nds\030\002 \003(\r\022\016\n\006status\030\003 \002(\005\"L\n\020PhotoListRe"
-    "quest\022\013\n\003uin\030\001 \002(\r\022\017\n\007photoid\030\002 \003(\014\022\r\n\005s"
-    "tart\030\003 \001(\r\022\013\n\003num\030\004 \001(\r\"H\n\tPhotoItem\022\017\n\007"
-    "photoid\030\001 \002(\014\022\013\n\003url\030\002 \002(\t\022\r\n\005width\030\003 \002("
-    "\r\022\016\n\006height\030\004 \002(\r\"_\n\021PhotoListResponse\022\013"
-    "\n\003uin\030\001 \002(\r\022\035\n\003res\030\002 \003(\0132\020.youtu.PhotoIt"
-    "em\022\016\n\006allnum\030\003 \002(\r\022\016\n\006status\030\004 \002(\005\"\?\n\rIm"
-    "portRequest\022\013\n\003uin\030\001 \002(\r\022\016\n\006maxnum\030\002 \001(\005"
-    "\022\021\n\towneronly\030\003 \001(\010\"r\n\014ImportStatus\022\013\n\003u"
-    "in\030\001 \002(\r\022\022\n\nallfacenum\030\002 \002(\r\022\r\n\005oknum\030\003 "
-    "\002(\r\022\017\n\007failnum\030\004 \002(\r\022\021\n\tundonenum\030\005 \002(\r\022"
-    "\016\n\006status\030\006 \002(\005\"H\n\024ImportStatusResponse\022"
-    " \n\003res\030\001 \003(\0132\023.youtu.ImportStatus\022\016\n\006sta"
-    "tus\030\002 \002(\005\"M\n\021ListResultRequest\022\013\n\003uin\030\001 "
-    "\002(\r\022\r\n\005start\030\002 \002(\r\022\013\n\003num\030\003 \002(\r\022\017\n\007photo"
-    "id\030\004 \003(\014\"\237\001\n\016FaceListResult\022\013\n\003uin\030\001 \002(\r"
-    "\022\016\n\006faceid\030\002 \002(\004\022\017\n\007photoid\030\003 \002(\014\022\014\n\004rec"
-    "t\030\004 \002(\004\022\013\n\003url\030\005 \002(\t\022\017\n\007idstate\030\006 \002(\r\022\021\n"
-    "\tmarkstate\030\007 \002(\r\022\020\n\010identity\030\010 \002(\r\022\016\n\006ma"
-    "rker\030\t \002(\r\"e\n\022ListResultResponse\022\013\n\003uin\030"
-    "\001 \002(\r\022\"\n\003res\030\002 \003(\0132\025.youtu.FaceListResul"
-    "t\022\016\n\006allnum\030\003 \002(\r\022\016\n\006status\030\004 \002(\005\"|\n\017Ide"
-    "ntifyRequest\022\013\n\003uin\030\001 \002(\r\022\014\n\004type\030\002 \002(\005\022"
-    "\020\n\010photodid\030\003 \001(\014\022\013\n\003url\030\004 \001(\t\022\014\n\004data\030\005"
-    " \001(\014\022\014\n\004rect\030\006 \001(\004\022\023\n\013detect_flag\030\007 \002(\r\""
-    "O\n\014IdentifyItem\022\021\n\tcandidate\030\001 \002(\r\022\021\n\tsi"
-    "milarty\030\002 \002(\r\022\013\n\003url\030\003 \001(\t\022\014\n\004data\030\004 \001(\014"
-    "\"\206\001\n\020IdentifyResponse\022\"\n\005items\030\001 \003(\0132\023.y"
-    "outu.IdentifyItem\022\t\n\001x\030\002 \002(\r\022\t\n\001y\030\003 \002(\r\022"
-    "\t\n\001w\030\004 \002(\r\022\t\n\001h\030\005 \002(\r\022\022\n\nupload_url\030\006 \002("
-    "\t\022\016\n\006status\030\007 \002(\r\"M\n\013FeatureItem\022\016\n\006face"
-    "id\030\001 \002(\004\022\013\n\003url\030\002 \002(\t\022\020\n\010identity\030\003 \002(\r\022"
-    "\017\n\007feature\030\004 \002(\014\"4\n\017FeatureItemList\022!\n\005i"
-    "tems\030\001 \003(\0132\022.youtu.FeatureItem\"v\n\010FaceIt"
-    "em\022\016\n\006faceid\030\001 \002(\004\022\017\n\007photoid\030\002 \002(\t\022\t\n\001x"
-    "\030\003 \002(\005\022\t\n\001y\030\004 \002(\005\022\t\n\001w\030\005 \002(\005\022\t\n\001h\030\006 \002(\005\022"
-    "\r\n\005width\030\007 \001(\005\022\016\n\006hegiht\030\010 \001(\005\"@\n\021FaceIm"
-    "portRequest\022\013\n\003uin\030\001 \002(\r\022\036\n\005items\030\002 \003(\0132"
-    "\017.youtu.FaceItem\"$\n\022FaceImportResponse\022\016"
-    "\n\006faceid\030\001 \003(\0042K\n\014HasUinServer\022;\n\014HasUin"
-    "Search\022\024.youtu.HasUinRequest\032\025.youtu.Has"
-    "UinResponse2\237\001\n\020ListFriendServer\022C\n\014GetQ"
-    "QFriends\022\030.youtu.ListFriendRequest\032\031.you"
-    "tu.ListFriendResponse\022F\n\017GetQZoneFriends"
-    "\022\030.youtu.ListFriendRequest\032\031.youtu.ListF"
-    "riendResponse2T\n\017PhotoListServer\022A\n\014GetP"
-    "hotoList\022\027.youtu.PhotoListRequest\032\030.yout"
-    "u.PhotoListResponse2\230\002\n\014ImportServer\0229\n\006"
-    "Import\022\024.youtu.ImportRequest\032\031.youtu.Lis"
-    "tResultResponse\022@\n\rImportFriends\022\024.youtu"
-    ".ImportRequest\032\031.youtu.ListResultRespons"
-    "e\022A\n\014ImportStatus\022\024.youtu.ImportRequest\032"
-    "\033.youtu.ImportStatusResponse\022H\n\023ImportFr"
-    "iendsStatus\022\024.youtu.ImportRequest\032\033.yout"
-    "u.ImportStatusResponse2\223\001\n\nListServer\022@\n"
-    "\tListFaces\022\030.youtu.ListResultRequest\032\031.y"
-    "outu.ListResultResponse\022C\n\014ListAckFaces\022"
-    "\030.youtu.ListResultRequest\032\031.youtu.ListRe"
-    "sultResponse2\316\001\n\016IdentifyServer\022;\n\010Ident"
-    "ify\022\026.youtu.IdentifyRequest\032\027.youtu.Iden"
-    "tifyResponse\022B\n\017IdentifyFriends\022\026.youtu."
+    "\003(\010\"$\n\025ListFaceFriendRequest\022\013\n\003uin\030\001 \002("
+    "\r\"F\n\026ListFaceFriendResponse\022\013\n\003uin\030\001 \002(\r"
+    "\022\017\n\007friends\030\002 \003(\r\022\016\n\006status\030\003 \002(\005\" \n\021Lis"
+    "tFriendRequest\022\013\n\003uin\030\001 \002(\r\"B\n\022ListFrien"
+    "dResponse\022\013\n\003uin\030\001 \002(\r\022\017\n\007friends\030\002 \003(\r\022"
+    "\016\n\006status\030\003 \002(\005\"L\n\020PhotoListRequest\022\013\n\003u"
+    "in\030\001 \002(\r\022\017\n\007photoid\030\002 \003(\014\022\r\n\005start\030\003 \001(\r"
+    "\022\013\n\003num\030\004 \001(\r\"H\n\tPhotoItem\022\017\n\007photoid\030\001 "
+    "\002(\014\022\013\n\003url\030\002 \002(\t\022\r\n\005width\030\003 \002(\r\022\016\n\006heigh"
+    "t\030\004 \002(\r\"_\n\021PhotoListResponse\022\013\n\003uin\030\001 \002("
+    "\r\022\035\n\003res\030\002 \003(\0132\020.youtu.PhotoItem\022\016\n\006alln"
+    "um\030\003 \002(\r\022\016\n\006status\030\004 \002(\005\"\?\n\rImportReques"
+    "t\022\013\n\003uin\030\001 \002(\r\022\016\n\006maxnum\030\002 \001(\005\022\021\n\townero"
+    "nly\030\003 \001(\010\"r\n\014ImportStatus\022\013\n\003uin\030\001 \002(\r\022\022"
+    "\n\nallfacenum\030\002 \002(\r\022\r\n\005oknum\030\003 \002(\r\022\017\n\007fai"
+    "lnum\030\004 \002(\r\022\021\n\tundonenum\030\005 \002(\r\022\016\n\006status\030"
+    "\006 \002(\005\"H\n\024ImportStatusResponse\022 \n\003res\030\001 \003"
+    "(\0132\023.youtu.ImportStatus\022\016\n\006status\030\002 \002(\005\""
+    "M\n\021ListResultRequest\022\013\n\003uin\030\001 \002(\r\022\r\n\005sta"
+    "rt\030\002 \002(\r\022\013\n\003num\030\003 \002(\r\022\017\n\007photoid\030\004 \003(\014\"\237"
+    "\001\n\016FaceListResult\022\013\n\003uin\030\001 \002(\r\022\016\n\006faceid"
+    "\030\002 \002(\004\022\017\n\007photoid\030\003 \002(\014\022\014\n\004rect\030\004 \002(\004\022\013\n"
+    "\003url\030\005 \002(\t\022\017\n\007idstate\030\006 \002(\r\022\021\n\tmarkstate"
+    "\030\007 \002(\r\022\020\n\010identity\030\010 \002(\r\022\016\n\006marker\030\t \002(\r"
+    "\"e\n\022ListResultResponse\022\013\n\003uin\030\001 \002(\r\022\"\n\003r"
+    "es\030\002 \003(\0132\025.youtu.FaceListResult\022\016\n\006allnu"
+    "m\030\003 \002(\r\022\016\n\006status\030\004 \002(\005\"|\n\017IdentifyReque"
+    "st\022\013\n\003uin\030\001 \002(\r\022\014\n\004type\030\002 \002(\005\022\020\n\010photodi"
+    "d\030\003 \001(\014\022\013\n\003url\030\004 \001(\t\022\014\n\004data\030\005 \001(\014\022\014\n\004re"
+    "ct\030\006 \001(\004\022\023\n\013detect_flag\030\007 \002(\r\"O\n\014Identif"
+    "yItem\022\021\n\tcandidate\030\001 \002(\r\022\021\n\tsimilarty\030\002 "
+    "\002(\r\022\013\n\003url\030\003 \001(\t\022\014\n\004data\030\004 \001(\014\"\206\001\n\020Ident"
+    "ifyResponse\022\"\n\005items\030\001 \003(\0132\023.youtu.Ident"
+    "ifyItem\022\t\n\001x\030\002 \002(\r\022\t\n\001y\030\003 \002(\r\022\t\n\001w\030\004 \002(\r"
+    "\022\t\n\001h\030\005 \002(\r\022\022\n\nupload_url\030\006 \002(\t\022\016\n\006statu"
+    "s\030\007 \002(\r\"M\n\013FeatureItem\022\016\n\006faceid\030\001 \002(\004\022\013"
+    "\n\003url\030\002 \002(\t\022\020\n\010identity\030\003 \002(\r\022\017\n\007feature"
+    "\030\004 \002(\014\"4\n\017FeatureItemList\022!\n\005items\030\001 \003(\013"
+    "2\022.youtu.FeatureItem\"v\n\010FaceItem\022\016\n\006face"
+    "id\030\001 \002(\004\022\017\n\007photoid\030\002 \002(\t\022\t\n\001x\030\003 \002(\005\022\t\n\001"
+    "y\030\004 \002(\005\022\t\n\001w\030\005 \002(\005\022\t\n\001h\030\006 \002(\005\022\r\n\005width\030\007"
+    " \001(\005\022\016\n\006hegiht\030\010 \001(\005\"@\n\021FaceImportReques"
+    "t\022\013\n\003uin\030\001 \002(\r\022\036\n\005items\030\002 \003(\0132\017.youtu.Fa"
+    "ceItem\"$\n\022FaceImportResponse\022\016\n\006faceid\030\001"
+    " \003(\0042K\n\014HasUinServer\022;\n\014HasUinSearch\022\024.y"
+    "outu.HasUinRequest\032\025.youtu.HasUinRespons"
+    "e2g\n\024ListFaceFriendServer\022O\n\020GetQQFaceFr"
+    "iends\022\034.youtu.ListFaceFriendRequest\032\035.yo"
+    "utu.ListFaceFriendResponse2\237\001\n\020ListFrien"
+    "dServer\022C\n\014GetQQFriends\022\030.youtu.ListFrie"
+    "ndRequest\032\031.youtu.ListFriendResponse\022F\n\017"
+    "GetQZoneFriends\022\030.youtu.ListFriendReques"
+    "t\032\031.youtu.ListFriendResponse2T\n\017PhotoLis"
+    "tServer\022A\n\014GetPhotoList\022\027.youtu.PhotoLis"
+    "tRequest\032\030.youtu.PhotoListResponse2\234\002\n\014I"
+    "mportServer\022;\n\006Import\022\024.youtu.ImportRequ"
+    "est\032\033.youtu.ImportStatusResponse\022B\n\rImpo"
+    "rtFriends\022\024.youtu.ImportRequest\032\033.youtu."
+    "ImportStatusResponse\022A\n\014ImportStatus\022\024.y"
+    "outu.ImportRequest\032\033.youtu.ImportStatusR"
+    "esponse\022H\n\023ImportFriendsStatus\022\024.youtu.I"
+    "mportRequest\032\033.youtu.ImportStatusRespons"
+    "e2\223\001\n\nListServer\022@\n\tListFaces\022\030.youtu.Li"
+    "stResultRequest\032\031.youtu.ListResultRespon"
+    "se\022C\n\014ListAckFaces\022\030.youtu.ListResultReq"
+    "uest\032\031.youtu.ListResultResponse2\316\001\n\016Iden"
+    "tifyServer\022;\n\010Identify\022\026.youtu.IdentifyR"
+    "equest\032\027.youtu.IdentifyResponse\022B\n\017Ident"
+    "ifyFriends\022\026.youtu.IdentifyRequest\032\027.you"
+    "tu.IdentifyResponse\022;\n\010Register\022\026.youtu."
     "IdentifyRequest\032\027.youtu.IdentifyResponse"
-    "\022;\n\010Register\022\026.youtu.IdentifyRequest\032\027.y"
-    "outu.IdentifyResponse2Q\n\020FaceImportServe"
-    "r\022=\n\006Import\022\030.youtu.FaceImportRequest\032\031."
-    "youtu.FaceImportResponseB\003\200\001\001", 2789);
+    "2Q\n\020FaceImportServer\022=\n\006Import\022\030.youtu.F"
+    "aceImportRequest\032\031.youtu.FaceImportRespo"
+    "nseB\003\200\001\001", 3008);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "face.proto", &protobuf_RegisterTypes);
   HasUinRequest::default_instance_ = new HasUinRequest();
   HasUinResponse::default_instance_ = new HasUinResponse();
+  ListFaceFriendRequest::default_instance_ = new ListFaceFriendRequest();
+  ListFaceFriendResponse::default_instance_ = new ListFaceFriendResponse();
   ListFriendRequest::default_instance_ = new ListFriendRequest();
   ListFriendResponse::default_instance_ = new ListFriendResponse();
   PhotoListRequest::default_instance_ = new PhotoListRequest();
@@ -686,6 +742,8 @@ void protobuf_AddDesc_face_2eproto() {
   FaceImportResponse::default_instance_ = new FaceImportResponse();
   HasUinRequest::default_instance_->InitAsDefaultInstance();
   HasUinResponse::default_instance_->InitAsDefaultInstance();
+  ListFaceFriendRequest::default_instance_->InitAsDefaultInstance();
+  ListFaceFriendResponse::default_instance_->InitAsDefaultInstance();
   ListFriendRequest::default_instance_->InitAsDefaultInstance();
   ListFriendResponse::default_instance_->InitAsDefaultInstance();
   PhotoListRequest::default_instance_->InitAsDefaultInstance();
@@ -1130,6 +1188,512 @@ void HasUinResponse::Swap(HasUinResponse* other) {
   ::google::protobuf::Metadata metadata;
   metadata.descriptor = HasUinResponse_descriptor_;
   metadata.reflection = HasUinResponse_reflection_;
+  return metadata;
+}
+
+
+// ===================================================================
+
+#ifndef _MSC_VER
+const int ListFaceFriendRequest::kUinFieldNumber;
+#endif  // !_MSC_VER
+
+ListFaceFriendRequest::ListFaceFriendRequest()
+  : ::google::protobuf::Message() {
+  SharedCtor();
+}
+
+void ListFaceFriendRequest::InitAsDefaultInstance() {
+}
+
+ListFaceFriendRequest::ListFaceFriendRequest(const ListFaceFriendRequest& from)
+  : ::google::protobuf::Message() {
+  SharedCtor();
+  MergeFrom(from);
+}
+
+void ListFaceFriendRequest::SharedCtor() {
+  _cached_size_ = 0;
+  uin_ = 0u;
+  ::memset(_has_bits_, 0, sizeof(_has_bits_));
+}
+
+ListFaceFriendRequest::~ListFaceFriendRequest() {
+  SharedDtor();
+}
+
+void ListFaceFriendRequest::SharedDtor() {
+  if (this != default_instance_) {
+  }
+}
+
+void ListFaceFriendRequest::SetCachedSize(int size) const {
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+}
+const ::google::protobuf::Descriptor* ListFaceFriendRequest::descriptor() {
+  protobuf_AssignDescriptorsOnce();
+  return ListFaceFriendRequest_descriptor_;
+}
+
+const ListFaceFriendRequest& ListFaceFriendRequest::default_instance() {
+  if (default_instance_ == NULL) protobuf_AddDesc_face_2eproto();
+  return *default_instance_;
+}
+
+ListFaceFriendRequest* ListFaceFriendRequest::default_instance_ = NULL;
+
+ListFaceFriendRequest* ListFaceFriendRequest::New() const {
+  return new ListFaceFriendRequest;
+}
+
+void ListFaceFriendRequest::Clear() {
+  if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+    uin_ = 0u;
+  }
+  ::memset(_has_bits_, 0, sizeof(_has_bits_));
+  mutable_unknown_fields()->Clear();
+}
+
+bool ListFaceFriendRequest::MergePartialFromCodedStream(
+    ::google::protobuf::io::CodedInputStream* input) {
+#define DO_(EXPRESSION) if (!(EXPRESSION)) return false
+  ::google::protobuf::uint32 tag;
+  while ((tag = input->ReadTag()) != 0) {
+    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+      // required uint32 uin = 1;
+      case 1: {
+        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_UINT32>(
+                 input, &uin_)));
+          set_has_uin();
+        } else {
+          goto handle_uninterpreted;
+        }
+        if (input->ExpectAtEnd()) return true;
+        break;
+      }
+
+      default: {
+      handle_uninterpreted:
+        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
+          return true;
+        }
+        DO_(::google::protobuf::internal::WireFormat::SkipField(
+              input, tag, mutable_unknown_fields()));
+        break;
+      }
+    }
+  }
+  return true;
+#undef DO_
+}
+
+void ListFaceFriendRequest::SerializeWithCachedSizes(
+    ::google::protobuf::io::CodedOutputStream* output) const {
+  // required uint32 uin = 1;
+  if (has_uin()) {
+    ::google::protobuf::internal::WireFormatLite::WriteUInt32(1, this->uin(), output);
+  }
+
+  if (!unknown_fields().empty()) {
+    ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
+        unknown_fields(), output);
+  }
+}
+
+::google::protobuf::uint8* ListFaceFriendRequest::SerializeWithCachedSizesToArray(
+    ::google::protobuf::uint8* target) const {
+  // required uint32 uin = 1;
+  if (has_uin()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteUInt32ToArray(1, this->uin(), target);
+  }
+
+  if (!unknown_fields().empty()) {
+    target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
+        unknown_fields(), target);
+  }
+  return target;
+}
+
+int ListFaceFriendRequest::ByteSize() const {
+  int total_size = 0;
+
+  if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+    // required uint32 uin = 1;
+    if (has_uin()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::UInt32Size(
+          this->uin());
+    }
+
+  }
+  if (!unknown_fields().empty()) {
+    total_size +=
+      ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
+        unknown_fields());
+  }
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = total_size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+  return total_size;
+}
+
+void ListFaceFriendRequest::MergeFrom(const ::google::protobuf::Message& from) {
+  GOOGLE_CHECK_NE(&from, this);
+  const ListFaceFriendRequest* source =
+    ::google::protobuf::internal::dynamic_cast_if_available<const ListFaceFriendRequest*>(
+      &from);
+  if (source == NULL) {
+    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
+  } else {
+    MergeFrom(*source);
+  }
+}
+
+void ListFaceFriendRequest::MergeFrom(const ListFaceFriendRequest& from) {
+  GOOGLE_CHECK_NE(&from, this);
+  if (from._has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+    if (from.has_uin()) {
+      set_uin(from.uin());
+    }
+  }
+  mutable_unknown_fields()->MergeFrom(from.unknown_fields());
+}
+
+void ListFaceFriendRequest::CopyFrom(const ::google::protobuf::Message& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void ListFaceFriendRequest::CopyFrom(const ListFaceFriendRequest& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool ListFaceFriendRequest::IsInitialized() const {
+  if ((_has_bits_[0] & 0x00000001) != 0x00000001) return false;
+
+  return true;
+}
+
+void ListFaceFriendRequest::Swap(ListFaceFriendRequest* other) {
+  if (other != this) {
+    std::swap(uin_, other->uin_);
+    std::swap(_has_bits_[0], other->_has_bits_[0]);
+    _unknown_fields_.Swap(&other->_unknown_fields_);
+    std::swap(_cached_size_, other->_cached_size_);
+  }
+}
+
+::google::protobuf::Metadata ListFaceFriendRequest::GetMetadata() const {
+  protobuf_AssignDescriptorsOnce();
+  ::google::protobuf::Metadata metadata;
+  metadata.descriptor = ListFaceFriendRequest_descriptor_;
+  metadata.reflection = ListFaceFriendRequest_reflection_;
+  return metadata;
+}
+
+
+// ===================================================================
+
+#ifndef _MSC_VER
+const int ListFaceFriendResponse::kUinFieldNumber;
+const int ListFaceFriendResponse::kFriendsFieldNumber;
+const int ListFaceFriendResponse::kStatusFieldNumber;
+#endif  // !_MSC_VER
+
+ListFaceFriendResponse::ListFaceFriendResponse()
+  : ::google::protobuf::Message() {
+  SharedCtor();
+}
+
+void ListFaceFriendResponse::InitAsDefaultInstance() {
+}
+
+ListFaceFriendResponse::ListFaceFriendResponse(const ListFaceFriendResponse& from)
+  : ::google::protobuf::Message() {
+  SharedCtor();
+  MergeFrom(from);
+}
+
+void ListFaceFriendResponse::SharedCtor() {
+  _cached_size_ = 0;
+  uin_ = 0u;
+  status_ = 0;
+  ::memset(_has_bits_, 0, sizeof(_has_bits_));
+}
+
+ListFaceFriendResponse::~ListFaceFriendResponse() {
+  SharedDtor();
+}
+
+void ListFaceFriendResponse::SharedDtor() {
+  if (this != default_instance_) {
+  }
+}
+
+void ListFaceFriendResponse::SetCachedSize(int size) const {
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+}
+const ::google::protobuf::Descriptor* ListFaceFriendResponse::descriptor() {
+  protobuf_AssignDescriptorsOnce();
+  return ListFaceFriendResponse_descriptor_;
+}
+
+const ListFaceFriendResponse& ListFaceFriendResponse::default_instance() {
+  if (default_instance_ == NULL) protobuf_AddDesc_face_2eproto();
+  return *default_instance_;
+}
+
+ListFaceFriendResponse* ListFaceFriendResponse::default_instance_ = NULL;
+
+ListFaceFriendResponse* ListFaceFriendResponse::New() const {
+  return new ListFaceFriendResponse;
+}
+
+void ListFaceFriendResponse::Clear() {
+  if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+    uin_ = 0u;
+    status_ = 0;
+  }
+  friends_.Clear();
+  ::memset(_has_bits_, 0, sizeof(_has_bits_));
+  mutable_unknown_fields()->Clear();
+}
+
+bool ListFaceFriendResponse::MergePartialFromCodedStream(
+    ::google::protobuf::io::CodedInputStream* input) {
+#define DO_(EXPRESSION) if (!(EXPRESSION)) return false
+  ::google::protobuf::uint32 tag;
+  while ((tag = input->ReadTag()) != 0) {
+    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+      // required uint32 uin = 1;
+      case 1: {
+        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_UINT32>(
+                 input, &uin_)));
+          set_has_uin();
+        } else {
+          goto handle_uninterpreted;
+        }
+        if (input->ExpectTag(16)) goto parse_friends;
+        break;
+      }
+
+      // repeated uint32 friends = 2;
+      case 2: {
+        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
+         parse_friends:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadRepeatedPrimitive<
+                   ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_UINT32>(
+                 1, 16, input, this->mutable_friends())));
+        } else if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag)
+                   == ::google::protobuf::internal::WireFormatLite::
+                      WIRETYPE_LENGTH_DELIMITED) {
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPackedPrimitiveNoInline<
+                   ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_UINT32>(
+                 input, this->mutable_friends())));
+        } else {
+          goto handle_uninterpreted;
+        }
+        if (input->ExpectTag(16)) goto parse_friends;
+        if (input->ExpectTag(24)) goto parse_status;
+        break;
+      }
+
+      // required int32 status = 3;
+      case 3: {
+        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
+         parse_status:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
+                 input, &status_)));
+          set_has_status();
+        } else {
+          goto handle_uninterpreted;
+        }
+        if (input->ExpectAtEnd()) return true;
+        break;
+      }
+
+      default: {
+      handle_uninterpreted:
+        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
+          return true;
+        }
+        DO_(::google::protobuf::internal::WireFormat::SkipField(
+              input, tag, mutable_unknown_fields()));
+        break;
+      }
+    }
+  }
+  return true;
+#undef DO_
+}
+
+void ListFaceFriendResponse::SerializeWithCachedSizes(
+    ::google::protobuf::io::CodedOutputStream* output) const {
+  // required uint32 uin = 1;
+  if (has_uin()) {
+    ::google::protobuf::internal::WireFormatLite::WriteUInt32(1, this->uin(), output);
+  }
+
+  // repeated uint32 friends = 2;
+  for (int i = 0; i < this->friends_size(); i++) {
+    ::google::protobuf::internal::WireFormatLite::WriteUInt32(
+      2, this->friends(i), output);
+  }
+
+  // required int32 status = 3;
+  if (has_status()) {
+    ::google::protobuf::internal::WireFormatLite::WriteInt32(3, this->status(), output);
+  }
+
+  if (!unknown_fields().empty()) {
+    ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
+        unknown_fields(), output);
+  }
+}
+
+::google::protobuf::uint8* ListFaceFriendResponse::SerializeWithCachedSizesToArray(
+    ::google::protobuf::uint8* target) const {
+  // required uint32 uin = 1;
+  if (has_uin()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteUInt32ToArray(1, this->uin(), target);
+  }
+
+  // repeated uint32 friends = 2;
+  for (int i = 0; i < this->friends_size(); i++) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      WriteUInt32ToArray(2, this->friends(i), target);
+  }
+
+  // required int32 status = 3;
+  if (has_status()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(3, this->status(), target);
+  }
+
+  if (!unknown_fields().empty()) {
+    target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
+        unknown_fields(), target);
+  }
+  return target;
+}
+
+int ListFaceFriendResponse::ByteSize() const {
+  int total_size = 0;
+
+  if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+    // required uint32 uin = 1;
+    if (has_uin()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::UInt32Size(
+          this->uin());
+    }
+
+    // required int32 status = 3;
+    if (has_status()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::Int32Size(
+          this->status());
+    }
+
+  }
+  // repeated uint32 friends = 2;
+  {
+    int data_size = 0;
+    for (int i = 0; i < this->friends_size(); i++) {
+      data_size += ::google::protobuf::internal::WireFormatLite::
+        UInt32Size(this->friends(i));
+    }
+    total_size += 1 * this->friends_size() + data_size;
+  }
+
+  if (!unknown_fields().empty()) {
+    total_size +=
+      ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
+        unknown_fields());
+  }
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = total_size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+  return total_size;
+}
+
+void ListFaceFriendResponse::MergeFrom(const ::google::protobuf::Message& from) {
+  GOOGLE_CHECK_NE(&from, this);
+  const ListFaceFriendResponse* source =
+    ::google::protobuf::internal::dynamic_cast_if_available<const ListFaceFriendResponse*>(
+      &from);
+  if (source == NULL) {
+    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
+  } else {
+    MergeFrom(*source);
+  }
+}
+
+void ListFaceFriendResponse::MergeFrom(const ListFaceFriendResponse& from) {
+  GOOGLE_CHECK_NE(&from, this);
+  friends_.MergeFrom(from.friends_);
+  if (from._has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+    if (from.has_uin()) {
+      set_uin(from.uin());
+    }
+    if (from.has_status()) {
+      set_status(from.status());
+    }
+  }
+  mutable_unknown_fields()->MergeFrom(from.unknown_fields());
+}
+
+void ListFaceFriendResponse::CopyFrom(const ::google::protobuf::Message& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void ListFaceFriendResponse::CopyFrom(const ListFaceFriendResponse& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool ListFaceFriendResponse::IsInitialized() const {
+  if ((_has_bits_[0] & 0x00000005) != 0x00000005) return false;
+
+  return true;
+}
+
+void ListFaceFriendResponse::Swap(ListFaceFriendResponse* other) {
+  if (other != this) {
+    std::swap(uin_, other->uin_);
+    friends_.Swap(&other->friends_);
+    std::swap(status_, other->status_);
+    std::swap(_has_bits_[0], other->_has_bits_[0]);
+    _unknown_fields_.Swap(&other->_unknown_fields_);
+    std::swap(_cached_size_, other->_cached_size_);
+  }
+}
+
+::google::protobuf::Metadata ListFaceFriendResponse::GetMetadata() const {
+  protobuf_AssignDescriptorsOnce();
+  ::google::protobuf::Metadata metadata;
+  metadata.descriptor = ListFaceFriendResponse_descriptor_;
+  metadata.reflection = ListFaceFriendResponse_reflection_;
   return metadata;
 }
 
@@ -7741,6 +8305,89 @@ void HasUinServer_Stub::HasUinSearch(::google::protobuf::RpcController* controll
 }
 // ===================================================================
 
+ListFaceFriendServer::~ListFaceFriendServer() {}
+
+const ::google::protobuf::ServiceDescriptor* ListFaceFriendServer::descriptor() {
+  protobuf_AssignDescriptorsOnce();
+  return ListFaceFriendServer_descriptor_;
+}
+
+const ::google::protobuf::ServiceDescriptor* ListFaceFriendServer::GetDescriptor() {
+  protobuf_AssignDescriptorsOnce();
+  return ListFaceFriendServer_descriptor_;
+}
+
+void ListFaceFriendServer::GetQQFaceFriends(::google::protobuf::RpcController* controller,
+                         const ::youtu::ListFaceFriendRequest*,
+                         ::youtu::ListFaceFriendResponse*,
+                         ::google::protobuf::Closure* done) {
+  controller->SetFailed("Method GetQQFaceFriends() not implemented.");
+  done->Run();
+}
+
+void ListFaceFriendServer::CallMethod(const ::google::protobuf::MethodDescriptor* method,
+                             ::google::protobuf::RpcController* controller,
+                             const ::google::protobuf::Message* request,
+                             ::google::protobuf::Message* response,
+                             ::google::protobuf::Closure* done) {
+  GOOGLE_DCHECK_EQ(method->service(), ListFaceFriendServer_descriptor_);
+  switch(method->index()) {
+    case 0:
+      GetQQFaceFriends(controller,
+             ::google::protobuf::down_cast<const ::youtu::ListFaceFriendRequest*>(request),
+             ::google::protobuf::down_cast< ::youtu::ListFaceFriendResponse*>(response),
+             done);
+      break;
+    default:
+      GOOGLE_LOG(FATAL) << "Bad method index; this should never happen.";
+      break;
+  }
+}
+
+const ::google::protobuf::Message& ListFaceFriendServer::GetRequestPrototype(
+    const ::google::protobuf::MethodDescriptor* method) const {
+  GOOGLE_DCHECK_EQ(method->service(), descriptor());
+  switch(method->index()) {
+    case 0:
+      return ::youtu::ListFaceFriendRequest::default_instance();
+    default:
+      GOOGLE_LOG(FATAL) << "Bad method index; this should never happen.";
+      return *reinterpret_cast< ::google::protobuf::Message*>(NULL);
+  }
+}
+
+const ::google::protobuf::Message& ListFaceFriendServer::GetResponsePrototype(
+    const ::google::protobuf::MethodDescriptor* method) const {
+  GOOGLE_DCHECK_EQ(method->service(), descriptor());
+  switch(method->index()) {
+    case 0:
+      return ::youtu::ListFaceFriendResponse::default_instance();
+    default:
+      GOOGLE_LOG(FATAL) << "Bad method index; this should never happen.";
+      return *reinterpret_cast< ::google::protobuf::Message*>(NULL);
+  }
+}
+
+ListFaceFriendServer_Stub::ListFaceFriendServer_Stub(::google::protobuf::RpcChannel* channel)
+  : channel_(channel), owns_channel_(false) {}
+ListFaceFriendServer_Stub::ListFaceFriendServer_Stub(
+    ::google::protobuf::RpcChannel* channel,
+    ::google::protobuf::Service::ChannelOwnership ownership)
+  : channel_(channel),
+    owns_channel_(ownership == ::google::protobuf::Service::STUB_OWNS_CHANNEL) {}
+ListFaceFriendServer_Stub::~ListFaceFriendServer_Stub() {
+  if (owns_channel_) delete channel_;
+}
+
+void ListFaceFriendServer_Stub::GetQQFaceFriends(::google::protobuf::RpcController* controller,
+                              const ::youtu::ListFaceFriendRequest* request,
+                              ::youtu::ListFaceFriendResponse* response,
+                              ::google::protobuf::Closure* done) {
+  channel_->CallMethod(descriptor()->method(0),
+                       controller, request, response, done);
+}
+// ===================================================================
+
 ListFriendServer::~ListFriendServer() {}
 
 const ::google::protobuf::ServiceDescriptor* ListFriendServer::descriptor() {
@@ -7946,7 +8593,7 @@ const ::google::protobuf::ServiceDescriptor* ImportServer::GetDescriptor() {
 
 void ImportServer::Import(::google::protobuf::RpcController* controller,
                          const ::youtu::ImportRequest*,
-                         ::youtu::ListResultResponse*,
+                         ::youtu::ImportStatusResponse*,
                          ::google::protobuf::Closure* done) {
   controller->SetFailed("Method Import() not implemented.");
   done->Run();
@@ -7954,7 +8601,7 @@ void ImportServer::Import(::google::protobuf::RpcController* controller,
 
 void ImportServer::ImportFriends(::google::protobuf::RpcController* controller,
                          const ::youtu::ImportRequest*,
-                         ::youtu::ListResultResponse*,
+                         ::youtu::ImportStatusResponse*,
                          ::google::protobuf::Closure* done) {
   controller->SetFailed("Method ImportFriends() not implemented.");
   done->Run();
@@ -7986,13 +8633,13 @@ void ImportServer::CallMethod(const ::google::protobuf::MethodDescriptor* method
     case 0:
       Import(controller,
              ::google::protobuf::down_cast<const ::youtu::ImportRequest*>(request),
-             ::google::protobuf::down_cast< ::youtu::ListResultResponse*>(response),
+             ::google::protobuf::down_cast< ::youtu::ImportStatusResponse*>(response),
              done);
       break;
     case 1:
       ImportFriends(controller,
              ::google::protobuf::down_cast<const ::youtu::ImportRequest*>(request),
-             ::google::protobuf::down_cast< ::youtu::ListResultResponse*>(response),
+             ::google::protobuf::down_cast< ::youtu::ImportStatusResponse*>(response),
              done);
       break;
     case 2:
@@ -8036,9 +8683,9 @@ const ::google::protobuf::Message& ImportServer::GetResponsePrototype(
   GOOGLE_DCHECK_EQ(method->service(), descriptor());
   switch(method->index()) {
     case 0:
-      return ::youtu::ListResultResponse::default_instance();
+      return ::youtu::ImportStatusResponse::default_instance();
     case 1:
-      return ::youtu::ListResultResponse::default_instance();
+      return ::youtu::ImportStatusResponse::default_instance();
     case 2:
       return ::youtu::ImportStatusResponse::default_instance();
     case 3:
@@ -8062,14 +8709,14 @@ ImportServer_Stub::~ImportServer_Stub() {
 
 void ImportServer_Stub::Import(::google::protobuf::RpcController* controller,
                               const ::youtu::ImportRequest* request,
-                              ::youtu::ListResultResponse* response,
+                              ::youtu::ImportStatusResponse* response,
                               ::google::protobuf::Closure* done) {
   channel_->CallMethod(descriptor()->method(0),
                        controller, request, response, done);
 }
 void ImportServer_Stub::ImportFriends(::google::protobuf::RpcController* controller,
                               const ::youtu::ImportRequest* request,
-                              ::youtu::ListResultResponse* response,
+                              ::youtu::ImportStatusResponse* response,
                               ::google::protobuf::Closure* done) {
   channel_->CallMethod(descriptor()->method(1),
                        controller, request, response, done);
