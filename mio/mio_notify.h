@@ -39,9 +39,8 @@ public:
     ///
     virtual void OnEvent(Epoller* p,uint32_t mask){
 
-
         uint64_t counter = 0;
-
+        int ret = ::read(_fd, (char*) &counter,sizeof(counter));
         while(ret>0)
             ret=::read(_fd, (char*) &counter,sizeof(counter));
 

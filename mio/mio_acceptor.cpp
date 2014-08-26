@@ -41,7 +41,10 @@ void Acceptor::OnEvent(Epoller* p,uint32_t events)
         TcpSocket::setNoTcpDelay(sockfd, true);
 
         handerAccept->Run(sockfd);
-        TRACE_FMG("accept a new connection: sockfd:%u",sockfd);
+        std::string ip;
+        int port = 0;
+        TcpSocket::getpeer(sockfd,ip,port);
+        TRACE("accept a new connection: sockfd:"<<sockfd<<",ip:"<<ip<<port);
 
     }while(sockfd <= 0);
 

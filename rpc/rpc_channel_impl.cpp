@@ -63,17 +63,21 @@ int RpcChannelImpl::Connect(const std::string& server_ip,int32_t server_port){
 
     int ret = _stream->Connect(server_ip, server_port);
 
-   if( ret == CLIENT_CONNECT_OK)
+    if( ret == CLIENT_CONNECT_OK)
     {
         _stream->AddEventASync(_poller,true,false);
         return 0;
     }
 
-   if(ret == CLIENT_CONNECT_IPROCESS)
-   {
-       _stream->AddEventASync(_poller,true,true);
-       _stream->Wait();
-   }
+    if(ret != CLIENT_CONNECT_IPROCESS)
+    {
+        _stream->ReleaseRef();
+        _stream = NULL;
+        return -1;
+    }
+
+    _stream->AddEventASync(_poller,true,true);
+    _stream->Wait();
 
     if( _stream->_ConnectStatus == CLIENT_CONNECT_OK)
     {
@@ -81,9 +85,7 @@ int RpcChannelImpl::Connect(const std::string& server_ip,int32_t server_port){
         return 0;
     }
 
-    // release
-    _stream->ReleaseRef();
-    _stream = NULL;
+    //Will delete by close
     return -1;
 }
 
@@ -92,16 +94,15 @@ int RpcChannelImpl::Connect(const std::string& server_ip,int32_t server_port){
 
 void RpcChannelImpl::OnClose(SocketStream *sream, Epoller *p){
 
-    //_stream->ReleaseRef();
+    //
     //TODO reset sream
     //delete this;
-    TRACE("close:"<<sream->GetSockName()<<",send:"<<sendcall.size()<<",wait:"<<waitcall.size());
+    TRACE("close:"<<sream->GetSockName()<<",send:"<<sendcall.empty()<<",wait:"<<waitcall.size());
 
-    if(sendcall.size() > 0 || waitcall.size() >0)
+    if(!sendcall.empty() || !waitcall.empty())
         OnMessageError(sream,p,CLIENT_CANCEL_BY_CLOSE);
 
-
-
+    _stream->ReleaseRef();
 }
 
 
@@ -143,12 +144,12 @@ void RpcChannelImpl::CallMethod(const ::google::protobuf::MethodDescriptor* meth
 
 void RpcChannelImpl::OnWriteable(SocketStream* sream,Epoller* p)
 {
-    if(sendcall.empty())
+
+    RpcClientController* cntl = NULL;
+    if(!sendcall.pop(cntl))
         return ;
 
-    RpcClientController* cntl = sendcall.front();
     SendToServer(cntl->_method,cntl,cntl->_request);
-    sendcall.pop();
     waitcall.push(cntl);
 }
 
@@ -211,16 +212,18 @@ void RpcChannelImpl::OnMessageSended(ConnectStream* stream,Epoller* p,int32_t bu
     RpcClientController *  cntl = NULL;
 
     do{
+
+        cntl = NULL;
+
+
+        if(!sendcall.pop(cntl) )
         {
-
-            if(sendcall.empty() )
-            {
-                stream->ModEventAsync(p,true,false);
-                return;
-            }
-
-            cntl = sendcall.front();
+            stream->ModEventAsync(p,true,false);
+            return;
         }
+
+
+
 
 
        // TRACE(stream->GetSockName()<<",send:"<<cntl ->_req_send_size<<",pack:"<<cntl ->_req_pack_size<<",buffer_size:"<<buffer_size);
@@ -232,7 +235,6 @@ void RpcChannelImpl::OnMessageSended(ConnectStream* stream,Epoller* p,int32_t bu
             return ;
         }
 
-        sendcall.pop();
         waitcall.push(cntl);
         buffer_size =  cntl ->_req_send_size - cntl ->_req_pack_size;
 
@@ -263,7 +265,7 @@ void RpcChannelImpl::OnMessageRecived(ConnectStream *sream, Epoller* p,int32_t b
     assert(cntl!=NULL);
 
     int ContentLength = sream->resheader.GetContentLength();
-
+    TRACE("recive pocket:"<<sream->GetSockName()<<",buffer_size:"<<buffer_size<<",content:"<<ContentLength);
 
     sream->readbuf.BeginPacket();
     if(ContentLength >0
@@ -295,11 +297,11 @@ void RpcChannelImpl::OnMessageError(SocketStream* stream, Epoller* p, uint32_t e
       RpcClientController *  cntl = NULL;
       {
 
-          while(!sendcall.empty())
+          while(sendcall.pop(cntl))
           {
-              cntl = sendcall.front();
+
               cntl->SetStatus(CLIENT_CANCEL_BY_ERROR);
-              sendcall.pop();
+              cntl = NULL;
           }
       }
 

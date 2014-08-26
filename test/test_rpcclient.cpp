@@ -5,32 +5,19 @@
 #include "proto/builtin_service.pb.h"
 #include "common/signalhelper.h"
 #include "proto/face.pb.h"
+#include "common/serverstat.h"
 
 using namespace mtrpc;
 using namespace youtu;
 
-class A {
-public :
-    A(){
 
-        char buffer[2048]={0};
 
-        SignalHelper::getBacktrace(buffer,2048,0,5);
-        printf("buffer:%s",buffer);
-    }
 
-};
+void Test(RpcClient& client)
+{
 
-int main(int argc,char*argv[]){
-
-    //SignalHelper::install_sig_action();
 
     const std::string addr = "127.0.0.1:8000";
-
-    A a;
-
-    RpcClient client;
-
     RpcChannel* channel = client.GetChannel(addr);
     TRACE("get channel ok"<<channel);
 
@@ -39,21 +26,49 @@ int main(int argc,char*argv[]){
 
         RpcController* cntl = channel->GetController();
 
-         FaceImportServer_Stub stub(channel);
+        FaceImportServer_Stub stub(channel);
 
         ::youtu::FaceImportRequest req;
         ::youtu::FaceImportResponse res;
 
-         req.set_uin(0);
-        stub.Import(cntl,&req,&res,NULL);
+        req.set_uin(0);
+        {
+            while(true){
+                ServerState::StateTimeMs("test");
+                stub.Import(cntl,&req,&res,NULL);
+                cntl->Reset();
+            }
+        }
         std::cout<<"error:"<<cntl->ErrorText()<<std::endl;
-        cntl->Reset();
+
 
         std::cout<<",result:"<<res.faceid_size()<<std::endl;
         delete cntl;
     }
 
     client.ReleaseChannel(channel);
+}
+
+
+int main(int argc,char*argv[]){
+
+    ServerState::registerStatus("test");
+    ServerState::startDumper("s.log");
+
+
+    RpcClientOptions opt;
+    opt.work_thread_num = atoi(argv[1]);
+    std::cout<<"start :"<<opt.work_thread_num<<std::endl;
+
+    RpcClient client(opt);
+
+    WorkGroup group;
+    group.Init( opt.work_thread_num);
+    for(int i=0;i<opt.work_thread_num;++i)
+        group.Post(NewExtClosure(Test,client));
+
+    group.join();
+
     client.Shutdown();
     client.Join();
 

@@ -6,15 +6,25 @@
 #include "common/singleton.h"
 #include "common/signalhelper.h"
 
+#define ENABLE_LOG
+#ifdef ENABLE_LOG
+const char* DEBUG_LEVEL = "DEBUG";
+const char* TRACE_LEVEL = "TRACE";
+const char* INFO__LEVEL = "INFO_";
+const char* WARN__LEVEL = "WARN_";
+const char* ERROR_LEVEL = "ERROR";
+#else
+const char* DEBUG_LEVEL = NULL;
+const char* TRACE_LEVEL = NULL;
+const char* INFO__LEVEL = NULL;
+const char* WARN__LEVEL = NULL;
+const char* ERROR_LEVEL = NULL;
+#endif
 
 namespace mtrpc {
 
 
-const char* DEBUG_LEVEL = "DEBUG";
-const char* TRACE_LEVEL = "TRACE";
-const char* INFO__LEVEL = "INFO_";
-const char* WARN__LEVEL = "WARN_ ";
-const char* ERROR_LEVEL = "ERROR";
+
 const char* SPLIT = " - ";
 const char* ENDL  = "\n";
 

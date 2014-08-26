@@ -115,6 +115,8 @@ int ConnectStream::OnRecived(Epoller *p, int32_t buffer_size){
         //process packet
         if(handerMessageRecived)
         {
+            TRACE("beging handerMessageRecived:"<<buffer_size<<",beginpacket:"<<beginpacket.toString());
+
             handerMessageRecived->Run(this, p,buffer_size);
 
             resheader.Reset();

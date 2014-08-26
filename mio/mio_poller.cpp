@@ -53,7 +53,7 @@ Epoller::Epoller()
     _notify->handerNotify = NewPermanentExtClosure(this,&Epoller::ProcessPendingTask);
 
     _notify->RequireRef();
-    AddEvent(_notify);
+    AddEvent(_notify,true,false);
 
     sentinel.key   =0;
     sentinel.left = &sentinel;
@@ -163,18 +163,22 @@ int  Epoller::ProcessTimeOut(){
 }
 
 
-void Epoller::AddEvent(IOEvent* ev)
+void Epoller::AddEvent(IOEvent* ev,bool readable,bool wirteable)
 {
 
     ev->ev.data.ptr = ev;
+    ev->SetEvent(readable,wirteable);
     int ret = epoll_ctl(epollfd, EPOLL_CTL_ADD, ev->_fd, &(ev->ev));
     TRACE("Poll:"<<epollfd<<",add event:"<<ev->GetEventName()<<",ret:"<<ret);
 }
 
-void Epoller::ModEvent(IOEvent* ev){
+void Epoller::ModEvent(IOEvent* ev, bool readable, bool wirteable){
 
+    if(ev->SetEvent(readable,wirteable))
+    {
     int ret = epoll_ctl(epollfd, EPOLL_CTL_MOD, ev->_fd, &(ev->ev));
     TRACE("Poll:"<<epollfd<<",mod event:"<<ev->GetEventName()<<",ret:"<<ret);
+    }
 
 }
 

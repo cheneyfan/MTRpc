@@ -219,13 +219,19 @@ int SocketStream::OnReadable(Epoller *p)
 
 int SocketStream::OnWriteable(Epoller *p)
 {
-    if(handerWriteable)
-        handerWriteable->Run(this,p);
 
     if(writebuf.isEmpty())
     {
         TRACE(GetSockName()<<":no buffer to send, disable write");
         ModEventAsync(p,true,false);
+    }
+
+    if(handerWriteable)
+        handerWriteable->Run(this,p);
+    
+    if(writebuf.isEmpty())
+    {
+        TRACE(GetSockName()<<":no buffer to send, disable write");
         return 0;
     }
 
@@ -239,9 +245,9 @@ int SocketStream::OnWriteable(Epoller *p)
         struct iovec outvec[MAX_BUFFER_PIECES];
         int out_num = MAX_BUFFER_PIECES;
 
-        /*TRACE(GetSockName()
+        TRACE(GetSockName()
               <<",writebuf rp:"<<writebuf.readpos.toString()
-              <<",writebuf wp:"<<writebuf.writepos.toString());*/
+              <<",writebuf wp:"<<writebuf.writepos.toString());
 
         if(!writebuf.GetSendBuffer(outvec,out_num))
         {
@@ -290,7 +296,7 @@ int SocketStream::OnWriteable(Epoller *p)
         ModEventAsync(p,true,false);
     }
 
-    return ret;
+    return 0;
 }
 
 

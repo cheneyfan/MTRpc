@@ -4,6 +4,8 @@
 #include "mio/mio_error_code.h"
 #include "log/log.h"
 #include "mio/mio_poller.h"
+#include "common/timerhelper.h"
+#include "common/serverstat.h"
 
 namespace mtrpc {
 
@@ -98,13 +100,17 @@ void ServerConnect::OnMessageRecived(MessageStream* sream,Epoller* p,int32_t buf
 
     controller->SetStatus(OK);
 
-    service->CallMethod(method, controller, request, response, NULL);
+    {
+        ServerState::StateTimeMs _m(method->full_name(),false);
+        service->CallMethod(method, controller, request, response, NULL);
+        uint64_t elapse =  _m.Elapse();
 
-    //TRACE(sream->GetSockName()<<"call result:"<<controller->_msg);
-    INFO(method->full_name()<<",seq:"<<controller->_seq
-            <<",req:"<<request->ShortDebugString()
-            <<",res:"<<response->ShortDebugString()
-            <<",result:"<<controller->_msg);
+        //TRACE(sream->GetSockName()<<"call result:"<<controller->_msg);
+        INFO(method->full_name()<<",seq:"<<controller->_seq
+             <<",req:"<<request->ShortDebugString()
+             <<",res:"<<response->ShortDebugString()
+             <<",result:"<<controller->_msg<<",time:"<<elapse);
+    }
 
     if(controller->Failed()){
 
@@ -178,7 +184,7 @@ void ServerConnect::SendMessage(MessageStream* stream,Epoller* p,RpcServerContro
 
     cntl->_res_pack_size     = buf.writepos - packetStart;
 
-   // TRACE("send:"<<(packetStart.get()->buffer+packetStart._pos)<<",pack size:"<<cntl->_res_pack_size<<",content_length:"<<content_length);
+   TRACE("send,readpos:"<<buf.readpos.toString()<<",writepos:"<<buf.writepos.toString()<<",packetStart:"<<packetStart.toString()<<",body start:"<<bodyStart.toString()<<",beginpacket:"<<buf.beginWrite.toString()<<",pack size:"<<cntl->_res_pack_size<<",content_length:"<<content_length);
 
     stream->ModEventAsync(p, true, true);
 
@@ -194,7 +200,7 @@ void ServerConnect::OnMessageSended(MessageStream* stream, Epoller* p,int32_t bu
 
     RpcServerController* cntl = pending.front();
 
-   // TRACE(stream->GetSockName()<<",OnMessageSended,send:"<<cntl ->_res_send_size<<",pack:"<<cntl ->_res_pack_size<<",buffer_size:"<<buffer_size);
+   TRACE(stream->GetSockName()<<",OnMessageSended,send:"<<cntl ->_res_send_size<<",pack:"<<cntl ->_res_pack_size<<",buffer_size:"<<buffer_size);
 
     cntl ->_res_send_size  += buffer_size;
 

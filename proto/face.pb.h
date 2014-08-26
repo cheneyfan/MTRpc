@@ -1806,12 +1806,29 @@ class IdentifyRequest : public ::google::protobuf::Message {
   inline ::google::protobuf::uint64 rect() const;
   inline void set_rect(::google::protobuf::uint64 value);
 
-  // required uint32 detect_flag = 7;
-  inline bool has_detect_flag() const;
-  inline void clear_detect_flag();
-  static const int kDetectFlagFieldNumber = 7;
-  inline ::google::protobuf::uint32 detect_flag() const;
-  inline void set_detect_flag(::google::protobuf::uint32 value);
+  // optional string name = 7;
+  inline bool has_name() const;
+  inline void clear_name();
+  static const int kNameFieldNumber = 7;
+  inline const ::std::string& name() const;
+  inline void set_name(const ::std::string& value);
+  inline void set_name(const char* value);
+  inline void set_name(const char* value, size_t size);
+  inline ::std::string* mutable_name();
+  inline ::std::string* release_name();
+  inline void set_allocated_name(::std::string* name);
+
+  // repeated uint32 candidate = 8;
+  inline int candidate_size() const;
+  inline void clear_candidate();
+  static const int kCandidateFieldNumber = 8;
+  inline ::google::protobuf::uint32 candidate(int index) const;
+  inline void set_candidate(int index, ::google::protobuf::uint32 value);
+  inline void add_candidate(::google::protobuf::uint32 value);
+  inline const ::google::protobuf::RepeatedField< ::google::protobuf::uint32 >&
+      candidate() const;
+  inline ::google::protobuf::RepeatedField< ::google::protobuf::uint32 >*
+      mutable_candidate();
 
   // @@protoc_insertion_point(class_scope:youtu.IdentifyRequest)
  private:
@@ -1827,8 +1844,8 @@ class IdentifyRequest : public ::google::protobuf::Message {
   inline void clear_has_data();
   inline void set_has_rect();
   inline void clear_has_rect();
-  inline void set_has_detect_flag();
-  inline void clear_has_detect_flag();
+  inline void set_has_name();
+  inline void clear_has_name();
 
   ::google::protobuf::UnknownFieldSet _unknown_fields_;
 
@@ -1838,10 +1855,11 @@ class IdentifyRequest : public ::google::protobuf::Message {
   ::std::string* url_;
   ::std::string* data_;
   ::google::protobuf::uint64 rect_;
-  ::google::protobuf::uint32 detect_flag_;
+  ::std::string* name_;
+  ::google::protobuf::RepeatedField< ::google::protobuf::uint32 > candidate_;
 
   mutable int _cached_size_;
-  ::google::protobuf::uint32 _has_bits_[(7 + 31) / 32];
+  ::google::protobuf::uint32 _has_bits_[(8 + 31) / 32];
 
   friend void  protobuf_AddDesc_face_2eproto();
   friend void protobuf_AssignDesc_face_2eproto();
@@ -4894,26 +4912,99 @@ inline void IdentifyRequest::set_rect(::google::protobuf::uint64 value) {
   rect_ = value;
 }
 
-// required uint32 detect_flag = 7;
-inline bool IdentifyRequest::has_detect_flag() const {
+// optional string name = 7;
+inline bool IdentifyRequest::has_name() const {
   return (_has_bits_[0] & 0x00000040u) != 0;
 }
-inline void IdentifyRequest::set_has_detect_flag() {
+inline void IdentifyRequest::set_has_name() {
   _has_bits_[0] |= 0x00000040u;
 }
-inline void IdentifyRequest::clear_has_detect_flag() {
+inline void IdentifyRequest::clear_has_name() {
   _has_bits_[0] &= ~0x00000040u;
 }
-inline void IdentifyRequest::clear_detect_flag() {
-  detect_flag_ = 0u;
-  clear_has_detect_flag();
+inline void IdentifyRequest::clear_name() {
+  if (name_ != &::google::protobuf::internal::kEmptyString) {
+    name_->clear();
+  }
+  clear_has_name();
 }
-inline ::google::protobuf::uint32 IdentifyRequest::detect_flag() const {
-  return detect_flag_;
+inline const ::std::string& IdentifyRequest::name() const {
+  return *name_;
 }
-inline void IdentifyRequest::set_detect_flag(::google::protobuf::uint32 value) {
-  set_has_detect_flag();
-  detect_flag_ = value;
+inline void IdentifyRequest::set_name(const ::std::string& value) {
+  set_has_name();
+  if (name_ == &::google::protobuf::internal::kEmptyString) {
+    name_ = new ::std::string;
+  }
+  name_->assign(value);
+}
+inline void IdentifyRequest::set_name(const char* value) {
+  set_has_name();
+  if (name_ == &::google::protobuf::internal::kEmptyString) {
+    name_ = new ::std::string;
+  }
+  name_->assign(value);
+}
+inline void IdentifyRequest::set_name(const char* value, size_t size) {
+  set_has_name();
+  if (name_ == &::google::protobuf::internal::kEmptyString) {
+    name_ = new ::std::string;
+  }
+  name_->assign(reinterpret_cast<const char*>(value), size);
+}
+inline ::std::string* IdentifyRequest::mutable_name() {
+  set_has_name();
+  if (name_ == &::google::protobuf::internal::kEmptyString) {
+    name_ = new ::std::string;
+  }
+  return name_;
+}
+inline ::std::string* IdentifyRequest::release_name() {
+  clear_has_name();
+  if (name_ == &::google::protobuf::internal::kEmptyString) {
+    return NULL;
+  } else {
+    ::std::string* temp = name_;
+    name_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
+    return temp;
+  }
+}
+inline void IdentifyRequest::set_allocated_name(::std::string* name) {
+  if (name_ != &::google::protobuf::internal::kEmptyString) {
+    delete name_;
+  }
+  if (name) {
+    set_has_name();
+    name_ = name;
+  } else {
+    clear_has_name();
+    name_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
+  }
+}
+
+// repeated uint32 candidate = 8;
+inline int IdentifyRequest::candidate_size() const {
+  return candidate_.size();
+}
+inline void IdentifyRequest::clear_candidate() {
+  candidate_.Clear();
+}
+inline ::google::protobuf::uint32 IdentifyRequest::candidate(int index) const {
+  return candidate_.Get(index);
+}
+inline void IdentifyRequest::set_candidate(int index, ::google::protobuf::uint32 value) {
+  candidate_.Set(index, value);
+}
+inline void IdentifyRequest::add_candidate(::google::protobuf::uint32 value) {
+  candidate_.Add(value);
+}
+inline const ::google::protobuf::RepeatedField< ::google::protobuf::uint32 >&
+IdentifyRequest::candidate() const {
+  return candidate_;
+}
+inline ::google::protobuf::RepeatedField< ::google::protobuf::uint32 >*
+IdentifyRequest::mutable_candidate() {
+  return &candidate_;
 }
 
 // -------------------------------------------------------------------

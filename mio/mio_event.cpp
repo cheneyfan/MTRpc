@@ -144,32 +144,19 @@ void IOEvent::OnEventAsync(Epoller* p , uint32_t event_mask){
 
 int IOEvent::AddEventASync(Epoller* p,bool readable,bool wirteable)
 {
-    //ev.data.ptr = this;
-    this->SetEvent(readable,wirteable);
 
     RequireRef();
-
-    //MioTask * closure =
-    //        NewExtClosure(p,&Epoller::AddEvent,this);
-
-    //p->PostTask(closure);
-
-    p->AddEvent(this);
-
+    MioTask * closure =
+            NewExtClosure(p,&Epoller::AddEvent,this,readable,wirteable);
+    p->PostTask(closure);
     return 0;
 }
 
 int IOEvent::ModEventAsync(Epoller* p,bool readable,bool wirteable)
 {
-    if(this->SetEvent(readable,wirteable))
-    {
-
-        //MioTask * closure =
-        //        NewExtClosure(p,&Epoller::ModEvent,this);
-
-        //p->PostTask(closure);
-        p->ModEvent(this);
-    }
+    MioTask * closure =
+            NewExtClosure(p,&Epoller::ModEvent,this,readable,wirteable);
+    p->PostTask(closure);
 
     return 0;
 }

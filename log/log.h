@@ -34,13 +34,16 @@
 #ifndef TRACE_STACK
 #endif
 
-namespace mtrpc {
 
 extern const char* DEBUG_LEVEL;
 extern const char* TRACE_LEVEL;
 extern const char* INFO__LEVEL;
 extern const char* WARN__LEVEL;
 extern const char* ERROR_LEVEL;
+
+namespace mtrpc {
+
+
 extern const char* SPLIT;
 extern const char* ENDL;
 
@@ -445,91 +448,91 @@ public:
 
 
 #define DEBUG_FMG(format,args...) \
-    do{ \
+    if(DEBUG_LEVEL){ \
     ::mtrpc::LogEntry * e = ::mtrpc::CacheManger::mallocEntry();\
-    e->Reset(::mtrpc::DEBUG_LEVEL,__FILE__,__LINE__,__PRETTY_FUNCTION__); \
+    e->Reset(DEBUG_LEVEL,__FILE__,__LINE__,__PRETTY_FUNCTION__); \
     e->Format(format,args); e->Format('\0');\
     ::mtrpc::LogHelper::OutPut(e); \
-}while(0);
+};
 
 
 #define TRACE_FMG(format,args...) \
-    do{ \
+    if(TRACE_LEVEL){ \
     ::mtrpc::LogEntry * e = ::mtrpc::CacheManger::mallocEntry();\
-    e->Reset(::mtrpc::TRACE_LEVEL,__FILE__,__LINE__,__PRETTY_FUNCTION__); \
+    e->Reset(TRACE_LEVEL,__FILE__,__LINE__,__PRETTY_FUNCTION__); \
     e->Format(format,args);e->Format('\0'); \
     ::mtrpc::LogHelper::OutPut(e); \
-}while(0);
+};
 
 #define INFO_FMG(format,args...) \
-    do{ \
+    if(INFO__LEVEL){ \
     ::mtrpc::LogEntry * e = ::mtrpc::CacheManger::mallocEntry();\
-    e->Reset(::mtrpc::INFO__LEVEL,__FILE__,__LINE__,__PRETTY_FUNCTION__); \
+    e->Reset(INFO__LEVEL,__FILE__,__LINE__,__PRETTY_FUNCTION__); \
     e->Format(format,args);e->Format('\0'); \
     ::mtrpc::LogHelper::OutPut(e); \
-}while(0);
+};
 
 #define WARN_FMG(format,args...) \
-    do{ \
+    if(WARN__LEVEL){ \
     ::mtrpc::LogEntry * e = ::mtrpc::CacheManger::mallocEntry();\
-    e->Reset(::mtrpc::WARN__LEVEL,__FILE__,__LINE__,__PRETTY_FUNCTION__); \
+    e->Reset(WARN__LEVEL,__FILE__,__LINE__,__PRETTY_FUNCTION__); \
     e->Format(format,args);e->Format('\0');\
     ::mtrpc::LogHelper::OutPut(e); \
-}while(0);
+};
 
 
 #define ERROR_FMG(format,args...) \
-    do{ \
+    if(ERROR_LEVEL){ \
     ::mtrpc::LogEntry * e = ::mtrpc::CacheManger::mallocEntry();\
-    e->Reset(::mtrpc::ERROR_LEVEL,__FILE__,__LINE__,__PRETTY_FUNCTION__); \
+    e->Reset(ERROR_LEVEL,__FILE__,__LINE__,__PRETTY_FUNCTION__); \
     e->Format(format,args);e->Format('\0'); \
     ::mtrpc::LogHelper::OutPut(e); \
-}while(0);
+};
 
 
 
 #define DEBUG(x) \
-    do{ \
+    if(DEBUG_LEVEL){ \
     ::mtrpc::LogEntry * e = ::mtrpc::CacheManger::mallocEntry();\
-    e->Reset(::mtrpc::DEBUG_LEVEL,__FILE__,__LINE__,__PRETTY_FUNCTION__); \
+    e->Reset(DEBUG_LEVEL,__FILE__,__LINE__,__PRETTY_FUNCTION__); \
     (*e)<<x<<'\0'; \
     ::mtrpc::LogHelper::OutPut(e); \
-}while(0);
+};
 
 
 #define TRACE(x) \
-    do{ \
+    if(TRACE_LEVEL){ \
     ::mtrpc::LogEntry * e = ::mtrpc::CacheManger::mallocEntry();\
-    e->Reset(::mtrpc::TRACE_LEVEL,__FILE__,__LINE__,__PRETTY_FUNCTION__); \
+    e->Reset(TRACE_LEVEL,__FILE__,__LINE__,__PRETTY_FUNCTION__); \
     (*e)<<x<<'\0'; \
     ::mtrpc::LogHelper::OutPut(e); \
-}while(0);
+};
 
 
 #define INFO(x) \
-    do{ \
+    if(INFO__LEVEL){ \
     ::mtrpc::LogEntry * e = ::mtrpc::CacheManger::mallocEntry();\
-    e->Reset(::mtrpc::INFO__LEVEL,__FILE__,__LINE__, __PRETTY_FUNCTION__); \
+    e->Reset(INFO__LEVEL,__FILE__,__LINE__, __PRETTY_FUNCTION__); \
     (*e)<<x<<'\0';  \
     ::mtrpc::LogHelper::OutPut(e); \
-}while(0);
+};
 
 
 #define WARN(x) \
-    do{ \
+    if(WARN__LEVEL){ \
     ::mtrpc::LogEntry * e = ::mtrpc::CacheManger::mallocEntry();\
-    e->Reset(::mtrpc::WARN__LEVEL,__FILE__,__LINE__,__PRETTY_FUNCTION__); \
+    e->Reset(WARN__LEVEL,__FILE__,__LINE__,__PRETTY_FUNCTION__); \
     (*e)<<x<<'\0';  \
     ::mtrpc::LogHelper::OutPut(e); \
 }while(0);
 
 #define ERROR(x) \
-    do{ \
+    if(ERROR_LEVEL){ \
     ::mtrpc::LogEntry * e = ::mtrpc::CacheManger::mallocEntry();\
-    e->Reset(::mtrpc::ERROR_LEVEL,__FILE__,__LINE__,__PRETTY_FUNCTION__); \
+    e->Reset(ERROR_LEVEL,__FILE__,__LINE__,__PRETTY_FUNCTION__); \
     (*e)<<x<<'\0'; \
     ::mtrpc::LogHelper::OutPut(e); \
-}while(0);
+};
 
 
 

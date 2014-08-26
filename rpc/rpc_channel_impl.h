@@ -7,6 +7,7 @@
 #include <google/protobuf/service.h>
 #include "rpc_channel.h"
 #include "common/rwlock.h"
+#include "common/spinlist.h"
 
 namespace mtrpc {
 class RpcClient;
@@ -76,7 +77,9 @@ public:
     Epoller* _poller;
     WorkGroup* _group;
 
-    std::queue<RpcClientController*> sendcall;
+    //Use SpinList make sure thread safety
+    SpinList<RpcClientController*,MutexLock> sendcall;
+
     std::queue<RpcClientController*> waitcall;
 
 };

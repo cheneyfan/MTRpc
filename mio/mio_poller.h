@@ -36,14 +36,14 @@ public:
     /// \param ev
     /// \return
     ///
-    void AddEvent(IOEvent* ev);
+    void AddEvent(IOEvent* ev, bool readable, bool wirteable);
 
     ///
     /// \brief ModEvent
     /// \param ev
     /// \return
     ///
-    void ModEvent(IOEvent* ev);
+    void ModEvent(IOEvent* ev,bool readable,bool wirteable);
 
     ///
     /// \brief DelEvent, must only run in poll thread

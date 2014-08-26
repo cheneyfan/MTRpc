@@ -78,6 +78,7 @@ message ImportRequest{
       required uint32   uin        = 1;
       optional int32    maxnum     = 2;
       optional bool     owneronly  = 3;
+      
 }
 
 message ImportStatus{
@@ -143,7 +144,8 @@ message IdentifyRequest{
       optional string url         = 4;
       optional bytes data         = 5;
       optional uint64 rect        = 6;
-      required uint32 detect_flag = 7; 
+      optional string name     = 7;
+      repeated uint32 candidate    = 8;// if not 0,identity from this set 
 }
 
 message IdentifyItem{
@@ -174,7 +176,7 @@ message FeatureItem
 {
       required uint64 faceid      = 1;
       required string url         = 2;
-      required uint32 identity    = 3;
+      required uint32 identity     = 3;
       required bytes  feature     = 4;
 }
 

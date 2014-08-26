@@ -30,6 +30,10 @@ enum HTTP_PARSER_STATE
 
 };
 
+static const std::string Content_Length_key = "Content-Length";
+static const std::string Content_type_key = "Content-Type";
+static const std::string Content_type_value = "message/protobuf";
+static const std::string Seq_key = "Seq";
 
 HttpHeader::HttpHeader(){
     Reset();
@@ -47,23 +51,20 @@ void HttpHeader::Reset(){
 void HttpHeader::SetContentLength(uint32_t length)
 {
     {
-        static const std::string key = "Content-Length";
+
         char buf[32] = {0};
         snprintf(buf, sizeof(buf), "%u", length);
-        headers[key]=std::string(buf);
+        headers[Content_Length_key]=std::string(buf);
     }
-
     {
-        static const std::string key = "Content-Type";
-        static const std::string value = "message/protobuf";
-         headers[key]=std::string(buf);
+
+        headers[Content_type_key]=Content_type_value;
     }
 }
 
 int HttpHeader::GetContentLength(){
 
-    const std::string key = "Content-Length";
-    std::map<std::string,std::string>::iterator it = headers.find(key);
+    std::map<std::string,std::string>::iterator it = headers.find(Content_Length_key);
     if(it == headers.end())
         return -1;
 
@@ -72,17 +73,17 @@ int HttpHeader::GetContentLength(){
 
 void HttpHeader::SetSeq(uint64_t seq){
 
-    static const std::string key = "Seq";
+
     char buf[32] = {0};
     snprintf(buf, sizeof(buf), "%lu", seq);
-    headers[key]=std::string(buf);
+    headers[Seq_key]=std::string(buf);
 }
 
 
 uint64_t HttpHeader::GetSeq(){
 
-    const std::string key = "Seq";
-    std::map<std::string,std::string>::iterator it = headers.find(key);
+
+    std::map<std::string,std::string>::iterator it = headers.find(Seq_key);
     if(it == headers.end())
         return -1;
     return strtoull(it->second.c_str(),NULL,10);

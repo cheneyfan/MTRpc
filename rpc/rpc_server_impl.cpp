@@ -19,6 +19,8 @@
 #include "proto/builtin_service_impl.h"
 #include "log/log.h"
 #include "rpc_server_connect.h"
+
+#include "common/serverstat.h"
 namespace mtrpc {
 
 
@@ -44,6 +46,15 @@ bool RpcServerImpl::RegisterService(google::protobuf::Service* service,
 {
     const google::protobuf::ServiceDescriptor * desc
             = service->GetDescriptor();
+    // register for state
+    for(int i =0;i<desc->method_count();++i)
+    {
+        const google::protobuf::MethodDescriptor * mdesc
+                = desc->method(i);
+        ServerState::registerStatus(mdesc->full_name());
+    }
+
+
     return _service_pool->RegisterService(service, take_ownership);
 }
 
@@ -93,7 +104,7 @@ int RpcServerImpl::Start(const std::string& server_address)
     /// begin poll
     //acceptor.AddEventASync(poller,true,false);
     acceptor.SetEvent(true,false,0);
-    poller->AddEvent(&acceptor);
+    poller->AddEvent(&acceptor,true,false);
 
 
     group->Post(NewExtClosure(poller,&Epoller::Poll));

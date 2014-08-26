@@ -23,7 +23,7 @@
 
 #include <pthread.h>
 
-#define barrier() __asm__ __volatile__("mfence":::"memory")
+//#define barrier() __asm__ __volatile__("mfence":::"memory")
 //sfence:在sfence指令前的写操作当必须在sfence指令后的写操作前完成。
 //lfence：在lfence指令前的读操作当必须在lfence指令后的读操作前完成。
 //mfence：在mfence指令前的读写操作当必须在mfence指令后的读写操作前完成。

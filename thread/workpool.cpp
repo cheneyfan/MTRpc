@@ -34,7 +34,13 @@ Worker::~Worker(){
 void *Worker::do_job(void* ctx){
 
     thread_worker = (Worker*)ctx;
-    thread_worker->tid = gettid();
+
+   // notify the start method
+    {
+        WriteLock<MutexLock> wl(thread_worker->mutex);
+        thread_worker->tid = gettid();
+        thread_worker->cv.notifyOne();
+    }
 
     INFO_FMG("worker:%p %u start loop",thread_worker,thread_worker->tid);
     thread_worker->loop();
@@ -45,6 +51,12 @@ void *Worker::do_job(void* ctx){
 
 void Worker::start(){
     pthread_create(&threadid, NULL, do_job, this);
+
+    WriteLock<MutexLock> wl(mutex);
+    //wait the thread in loop
+    while(tid == 0){
+        cv.wait(&mutex._mutex);
+    }
 }
 
 
@@ -151,15 +163,7 @@ int WorkGroup::Init(uint32_t workNum)
         Worker *w = new Worker();
         AddWork(w);
         w->start();
-
-        while(w->tid == 0)
-        {
-            usleep(1000);
-        }
     }
-
-
-
 
     INFO_FMG("start workgroup with workers:%u",workNum);
 
