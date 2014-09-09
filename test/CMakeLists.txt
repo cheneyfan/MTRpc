@@ -19,9 +19,20 @@ include_directories("${CMAKE_CURRENT_SOURCE_DIR}")
 
 
 foreach(testfile ${SRC})
+
+if(TCMALLOC_ENABLE)
    add_exe_item(${testfile}
           mtrpc 
           gtest
           protobuf
+         # tcmalloc unwind
           pthread rt gcc_s)
+else()
+   add_exe_item(${testfile}
+          mtrpc
+          gtest
+          protobuf
+          pthread rt gcc_s)
+endif()
+
 endforeach()

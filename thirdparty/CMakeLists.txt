@@ -52,3 +52,11 @@ if(NOT EXISTS ${GTESTPATH}/lib/libgtest.a)
    include(thirdparty/gtest/CMakeLists.txt)
 endif()
 
+
+if(TCMALLOC_ENABLE)
+    set(TCMALLOCPATH ${THIRD_PATH}/gperf)
+    add_thirdparty_library(${TCMALLOCPATH} tcmalloc)
+    if(NOT EXISTS ${TCMALLOCPATH}/lib/tcmalloc.a)
+        include(thirdparty/gperf/CMakeLists.txt)
+    endif()
+endif()

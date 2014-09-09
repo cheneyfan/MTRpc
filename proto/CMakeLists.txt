@@ -62,7 +62,7 @@ message("Add ${libname} to build ${PROTO_GEN}")
 
 message("Add ${libname} to build")
 add_library(${libname} OBJECT ${SOURCES} ${HEADERS})
-add_library(${libname}_static STATIC $<TARGET_OBJECTS:${libname}>)
+#add_library(${libname}_static STATIC $<TARGET_OBJECTS:${libname}>)
 
 add_dependencies(${libname} protobuf)
 

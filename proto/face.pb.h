@@ -1749,12 +1749,17 @@ class IdentifyRequest : public ::google::protobuf::Message {
 
   // accessors -------------------------------------------------------
 
-  // required uint32 uin = 1;
+  // required string uin = 1;
   inline bool has_uin() const;
   inline void clear_uin();
   static const int kUinFieldNumber = 1;
-  inline ::google::protobuf::uint32 uin() const;
-  inline void set_uin(::google::protobuf::uint32 value);
+  inline const ::std::string& uin() const;
+  inline void set_uin(const ::std::string& value);
+  inline void set_uin(const char* value);
+  inline void set_uin(const char* value, size_t size);
+  inline ::std::string* mutable_uin();
+  inline ::std::string* release_uin();
+  inline void set_allocated_uin(::std::string* uin);
 
   // required int32 type = 2;
   inline bool has_type() const;
@@ -1806,29 +1811,40 @@ class IdentifyRequest : public ::google::protobuf::Message {
   inline ::google::protobuf::uint64 rect() const;
   inline void set_rect(::google::protobuf::uint64 value);
 
-  // optional string name = 7;
+  // optional bytes name = 7;
   inline bool has_name() const;
   inline void clear_name();
   static const int kNameFieldNumber = 7;
   inline const ::std::string& name() const;
   inline void set_name(const ::std::string& value);
   inline void set_name(const char* value);
-  inline void set_name(const char* value, size_t size);
+  inline void set_name(const void* value, size_t size);
   inline ::std::string* mutable_name();
   inline ::std::string* release_name();
   inline void set_allocated_name(::std::string* name);
 
-  // repeated uint32 candidate = 8;
+  // repeated string candidate = 8;
   inline int candidate_size() const;
   inline void clear_candidate();
   static const int kCandidateFieldNumber = 8;
-  inline ::google::protobuf::uint32 candidate(int index) const;
-  inline void set_candidate(int index, ::google::protobuf::uint32 value);
-  inline void add_candidate(::google::protobuf::uint32 value);
-  inline const ::google::protobuf::RepeatedField< ::google::protobuf::uint32 >&
-      candidate() const;
-  inline ::google::protobuf::RepeatedField< ::google::protobuf::uint32 >*
-      mutable_candidate();
+  inline const ::std::string& candidate(int index) const;
+  inline ::std::string* mutable_candidate(int index);
+  inline void set_candidate(int index, const ::std::string& value);
+  inline void set_candidate(int index, const char* value);
+  inline void set_candidate(int index, const char* value, size_t size);
+  inline ::std::string* add_candidate();
+  inline void add_candidate(const ::std::string& value);
+  inline void add_candidate(const char* value);
+  inline void add_candidate(const char* value, size_t size);
+  inline const ::google::protobuf::RepeatedPtrField< ::std::string>& candidate() const;
+  inline ::google::protobuf::RepeatedPtrField< ::std::string>* mutable_candidate();
+
+  // optional int32 proto_type = 9;
+  inline bool has_proto_type() const;
+  inline void clear_proto_type();
+  static const int kProtoTypeFieldNumber = 9;
+  inline ::google::protobuf::int32 proto_type() const;
+  inline void set_proto_type(::google::protobuf::int32 value);
 
   // @@protoc_insertion_point(class_scope:youtu.IdentifyRequest)
  private:
@@ -1846,20 +1862,23 @@ class IdentifyRequest : public ::google::protobuf::Message {
   inline void clear_has_rect();
   inline void set_has_name();
   inline void clear_has_name();
+  inline void set_has_proto_type();
+  inline void clear_has_proto_type();
 
   ::google::protobuf::UnknownFieldSet _unknown_fields_;
 
-  ::google::protobuf::uint32 uin_;
-  ::google::protobuf::int32 type_;
+  ::std::string* uin_;
   ::std::string* photodid_;
   ::std::string* url_;
   ::std::string* data_;
+  ::google::protobuf::int32 type_;
+  ::google::protobuf::int32 proto_type_;
   ::google::protobuf::uint64 rect_;
   ::std::string* name_;
-  ::google::protobuf::RepeatedField< ::google::protobuf::uint32 > candidate_;
+  ::google::protobuf::RepeatedPtrField< ::std::string> candidate_;
 
   mutable int _cached_size_;
-  ::google::protobuf::uint32 _has_bits_[(8 + 31) / 32];
+  ::google::protobuf::uint32 _has_bits_[(9 + 31) / 32];
 
   friend void  protobuf_AddDesc_face_2eproto();
   friend void protobuf_AssignDesc_face_2eproto();
@@ -1924,12 +1943,17 @@ class IdentifyItem : public ::google::protobuf::Message {
 
   // accessors -------------------------------------------------------
 
-  // required uint32 candidate = 1;
+  // required string candidate = 1;
   inline bool has_candidate() const;
   inline void clear_candidate();
   static const int kCandidateFieldNumber = 1;
-  inline ::google::protobuf::uint32 candidate() const;
-  inline void set_candidate(::google::protobuf::uint32 value);
+  inline const ::std::string& candidate() const;
+  inline void set_candidate(const ::std::string& value);
+  inline void set_candidate(const char* value);
+  inline void set_candidate(const char* value, size_t size);
+  inline ::std::string* mutable_candidate();
+  inline ::std::string* release_candidate();
+  inline void set_allocated_candidate(::std::string* candidate);
 
   // required uint32 similarty = 2;
   inline bool has_similarty() const;
@@ -1975,10 +1999,10 @@ class IdentifyItem : public ::google::protobuf::Message {
 
   ::google::protobuf::UnknownFieldSet _unknown_fields_;
 
-  ::google::protobuf::uint32 candidate_;
-  ::google::protobuf::uint32 similarty_;
+  ::std::string* candidate_;
   ::std::string* url_;
   ::std::string* data_;
+  ::google::protobuf::uint32 similarty_;
 
   mutable int _cached_size_;
   ::google::protobuf::uint32 _has_bits_[(4 + 31) / 32];
@@ -2215,12 +2239,17 @@ class FeatureItem : public ::google::protobuf::Message {
   inline ::std::string* release_url();
   inline void set_allocated_url(::std::string* url);
 
-  // required uint32 identity = 3;
+  // required string identity = 3;
   inline bool has_identity() const;
   inline void clear_identity();
   static const int kIdentityFieldNumber = 3;
-  inline ::google::protobuf::uint32 identity() const;
-  inline void set_identity(::google::protobuf::uint32 value);
+  inline const ::std::string& identity() const;
+  inline void set_identity(const ::std::string& value);
+  inline void set_identity(const char* value);
+  inline void set_identity(const char* value, size_t size);
+  inline ::std::string* mutable_identity();
+  inline ::std::string* release_identity();
+  inline void set_allocated_identity(::std::string* identity);
 
   // required bytes feature = 4;
   inline bool has_feature() const;
@@ -2234,6 +2263,18 @@ class FeatureItem : public ::google::protobuf::Message {
   inline ::std::string* release_feature();
   inline void set_allocated_feature(::std::string* feature);
 
+  // optional bytes name = 5;
+  inline bool has_name() const;
+  inline void clear_name();
+  static const int kNameFieldNumber = 5;
+  inline const ::std::string& name() const;
+  inline void set_name(const ::std::string& value);
+  inline void set_name(const char* value);
+  inline void set_name(const void* value, size_t size);
+  inline ::std::string* mutable_name();
+  inline ::std::string* release_name();
+  inline void set_allocated_name(::std::string* name);
+
   // @@protoc_insertion_point(class_scope:youtu.FeatureItem)
  private:
   inline void set_has_faceid();
@@ -2244,16 +2285,19 @@ class FeatureItem : public ::google::protobuf::Message {
   inline void clear_has_identity();
   inline void set_has_feature();
   inline void clear_has_feature();
+  inline void set_has_name();
+  inline void clear_has_name();
 
   ::google::protobuf::UnknownFieldSet _unknown_fields_;
 
   ::google::protobuf::uint64 faceid_;
   ::std::string* url_;
+  ::std::string* identity_;
   ::std::string* feature_;
-  ::google::protobuf::uint32 identity_;
+  ::std::string* name_;
 
   mutable int _cached_size_;
-  ::google::protobuf::uint32 _has_bits_[(4 + 31) / 32];
+  ::google::protobuf::uint32 _has_bits_[(5 + 31) / 32];
 
   friend void  protobuf_AddDesc_face_2eproto();
   friend void protobuf_AssignDesc_face_2eproto();
@@ -4636,7 +4680,7 @@ inline void ListResultResponse::set_status(::google::protobuf::int32 value) {
 
 // IdentifyRequest
 
-// required uint32 uin = 1;
+// required string uin = 1;
 inline bool IdentifyRequest::has_uin() const {
   return (_has_bits_[0] & 0x00000001u) != 0;
 }
@@ -4647,15 +4691,63 @@ inline void IdentifyRequest::clear_has_uin() {
   _has_bits_[0] &= ~0x00000001u;
 }
 inline void IdentifyRequest::clear_uin() {
-  uin_ = 0u;
+  if (uin_ != &::google::protobuf::internal::kEmptyString) {
+    uin_->clear();
+  }
   clear_has_uin();
 }
-inline ::google::protobuf::uint32 IdentifyRequest::uin() const {
+inline const ::std::string& IdentifyRequest::uin() const {
+  return *uin_;
+}
+inline void IdentifyRequest::set_uin(const ::std::string& value) {
+  set_has_uin();
+  if (uin_ == &::google::protobuf::internal::kEmptyString) {
+    uin_ = new ::std::string;
+  }
+  uin_->assign(value);
+}
+inline void IdentifyRequest::set_uin(const char* value) {
+  set_has_uin();
+  if (uin_ == &::google::protobuf::internal::kEmptyString) {
+    uin_ = new ::std::string;
+  }
+  uin_->assign(value);
+}
+inline void IdentifyRequest::set_uin(const char* value, size_t size) {
+  set_has_uin();
+  if (uin_ == &::google::protobuf::internal::kEmptyString) {
+    uin_ = new ::std::string;
+  }
+  uin_->assign(reinterpret_cast<const char*>(value), size);
+}
+inline ::std::string* IdentifyRequest::mutable_uin() {
+  set_has_uin();
+  if (uin_ == &::google::protobuf::internal::kEmptyString) {
+    uin_ = new ::std::string;
+  }
   return uin_;
 }
-inline void IdentifyRequest::set_uin(::google::protobuf::uint32 value) {
-  set_has_uin();
-  uin_ = value;
+inline ::std::string* IdentifyRequest::release_uin() {
+  clear_has_uin();
+  if (uin_ == &::google::protobuf::internal::kEmptyString) {
+    return NULL;
+  } else {
+    ::std::string* temp = uin_;
+    uin_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
+    return temp;
+  }
+}
+inline void IdentifyRequest::set_allocated_uin(::std::string* uin) {
+  if (uin_ != &::google::protobuf::internal::kEmptyString) {
+    delete uin_;
+  }
+  if (uin) {
+    set_has_uin();
+    uin_ = uin;
+  } else {
+    clear_has_uin();
+    uin_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
+  }
 }
 
 // required int32 type = 2;
@@ -4912,7 +5004,7 @@ inline void IdentifyRequest::set_rect(::google::protobuf::uint64 value) {
   rect_ = value;
 }
 
-// optional string name = 7;
+// optional bytes name = 7;
 inline bool IdentifyRequest::has_name() const {
   return (_has_bits_[0] & 0x00000040u) != 0;
 }
@@ -4945,7 +5037,7 @@ inline void IdentifyRequest::set_name(const char* value) {
   }
   name_->assign(value);
 }
-inline void IdentifyRequest::set_name(const char* value, size_t size) {
+inline void IdentifyRequest::set_name(const void* value, size_t size) {
   set_has_name();
   if (name_ == &::google::protobuf::internal::kEmptyString) {
     name_ = new ::std::string;
@@ -4982,36 +5074,77 @@ inline void IdentifyRequest::set_allocated_name(::std::string* name) {
   }
 }
 
-// repeated uint32 candidate = 8;
+// repeated string candidate = 8;
 inline int IdentifyRequest::candidate_size() const {
   return candidate_.size();
 }
 inline void IdentifyRequest::clear_candidate() {
   candidate_.Clear();
 }
-inline ::google::protobuf::uint32 IdentifyRequest::candidate(int index) const {
+inline const ::std::string& IdentifyRequest::candidate(int index) const {
   return candidate_.Get(index);
 }
-inline void IdentifyRequest::set_candidate(int index, ::google::protobuf::uint32 value) {
-  candidate_.Set(index, value);
+inline ::std::string* IdentifyRequest::mutable_candidate(int index) {
+  return candidate_.Mutable(index);
 }
-inline void IdentifyRequest::add_candidate(::google::protobuf::uint32 value) {
-  candidate_.Add(value);
+inline void IdentifyRequest::set_candidate(int index, const ::std::string& value) {
+  candidate_.Mutable(index)->assign(value);
 }
-inline const ::google::protobuf::RepeatedField< ::google::protobuf::uint32 >&
+inline void IdentifyRequest::set_candidate(int index, const char* value) {
+  candidate_.Mutable(index)->assign(value);
+}
+inline void IdentifyRequest::set_candidate(int index, const char* value, size_t size) {
+  candidate_.Mutable(index)->assign(
+    reinterpret_cast<const char*>(value), size);
+}
+inline ::std::string* IdentifyRequest::add_candidate() {
+  return candidate_.Add();
+}
+inline void IdentifyRequest::add_candidate(const ::std::string& value) {
+  candidate_.Add()->assign(value);
+}
+inline void IdentifyRequest::add_candidate(const char* value) {
+  candidate_.Add()->assign(value);
+}
+inline void IdentifyRequest::add_candidate(const char* value, size_t size) {
+  candidate_.Add()->assign(reinterpret_cast<const char*>(value), size);
+}
+inline const ::google::protobuf::RepeatedPtrField< ::std::string>&
 IdentifyRequest::candidate() const {
   return candidate_;
 }
-inline ::google::protobuf::RepeatedField< ::google::protobuf::uint32 >*
+inline ::google::protobuf::RepeatedPtrField< ::std::string>*
 IdentifyRequest::mutable_candidate() {
   return &candidate_;
+}
+
+// optional int32 proto_type = 9;
+inline bool IdentifyRequest::has_proto_type() const {
+  return (_has_bits_[0] & 0x00000100u) != 0;
+}
+inline void IdentifyRequest::set_has_proto_type() {
+  _has_bits_[0] |= 0x00000100u;
+}
+inline void IdentifyRequest::clear_has_proto_type() {
+  _has_bits_[0] &= ~0x00000100u;
+}
+inline void IdentifyRequest::clear_proto_type() {
+  proto_type_ = 0;
+  clear_has_proto_type();
+}
+inline ::google::protobuf::int32 IdentifyRequest::proto_type() const {
+  return proto_type_;
+}
+inline void IdentifyRequest::set_proto_type(::google::protobuf::int32 value) {
+  set_has_proto_type();
+  proto_type_ = value;
 }
 
 // -------------------------------------------------------------------
 
 // IdentifyItem
 
-// required uint32 candidate = 1;
+// required string candidate = 1;
 inline bool IdentifyItem::has_candidate() const {
   return (_has_bits_[0] & 0x00000001u) != 0;
 }
@@ -5022,15 +5155,63 @@ inline void IdentifyItem::clear_has_candidate() {
   _has_bits_[0] &= ~0x00000001u;
 }
 inline void IdentifyItem::clear_candidate() {
-  candidate_ = 0u;
+  if (candidate_ != &::google::protobuf::internal::kEmptyString) {
+    candidate_->clear();
+  }
   clear_has_candidate();
 }
-inline ::google::protobuf::uint32 IdentifyItem::candidate() const {
+inline const ::std::string& IdentifyItem::candidate() const {
+  return *candidate_;
+}
+inline void IdentifyItem::set_candidate(const ::std::string& value) {
+  set_has_candidate();
+  if (candidate_ == &::google::protobuf::internal::kEmptyString) {
+    candidate_ = new ::std::string;
+  }
+  candidate_->assign(value);
+}
+inline void IdentifyItem::set_candidate(const char* value) {
+  set_has_candidate();
+  if (candidate_ == &::google::protobuf::internal::kEmptyString) {
+    candidate_ = new ::std::string;
+  }
+  candidate_->assign(value);
+}
+inline void IdentifyItem::set_candidate(const char* value, size_t size) {
+  set_has_candidate();
+  if (candidate_ == &::google::protobuf::internal::kEmptyString) {
+    candidate_ = new ::std::string;
+  }
+  candidate_->assign(reinterpret_cast<const char*>(value), size);
+}
+inline ::std::string* IdentifyItem::mutable_candidate() {
+  set_has_candidate();
+  if (candidate_ == &::google::protobuf::internal::kEmptyString) {
+    candidate_ = new ::std::string;
+  }
   return candidate_;
 }
-inline void IdentifyItem::set_candidate(::google::protobuf::uint32 value) {
-  set_has_candidate();
-  candidate_ = value;
+inline ::std::string* IdentifyItem::release_candidate() {
+  clear_has_candidate();
+  if (candidate_ == &::google::protobuf::internal::kEmptyString) {
+    return NULL;
+  } else {
+    ::std::string* temp = candidate_;
+    candidate_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
+    return temp;
+  }
+}
+inline void IdentifyItem::set_allocated_candidate(::std::string* candidate) {
+  if (candidate_ != &::google::protobuf::internal::kEmptyString) {
+    delete candidate_;
+  }
+  if (candidate) {
+    set_has_candidate();
+    candidate_ = candidate;
+  } else {
+    clear_has_candidate();
+    candidate_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
+  }
 }
 
 // required uint32 similarty = 2;
@@ -5500,7 +5681,7 @@ inline void FeatureItem::set_allocated_url(::std::string* url) {
   }
 }
 
-// required uint32 identity = 3;
+// required string identity = 3;
 inline bool FeatureItem::has_identity() const {
   return (_has_bits_[0] & 0x00000004u) != 0;
 }
@@ -5511,15 +5692,63 @@ inline void FeatureItem::clear_has_identity() {
   _has_bits_[0] &= ~0x00000004u;
 }
 inline void FeatureItem::clear_identity() {
-  identity_ = 0u;
+  if (identity_ != &::google::protobuf::internal::kEmptyString) {
+    identity_->clear();
+  }
   clear_has_identity();
 }
-inline ::google::protobuf::uint32 FeatureItem::identity() const {
+inline const ::std::string& FeatureItem::identity() const {
+  return *identity_;
+}
+inline void FeatureItem::set_identity(const ::std::string& value) {
+  set_has_identity();
+  if (identity_ == &::google::protobuf::internal::kEmptyString) {
+    identity_ = new ::std::string;
+  }
+  identity_->assign(value);
+}
+inline void FeatureItem::set_identity(const char* value) {
+  set_has_identity();
+  if (identity_ == &::google::protobuf::internal::kEmptyString) {
+    identity_ = new ::std::string;
+  }
+  identity_->assign(value);
+}
+inline void FeatureItem::set_identity(const char* value, size_t size) {
+  set_has_identity();
+  if (identity_ == &::google::protobuf::internal::kEmptyString) {
+    identity_ = new ::std::string;
+  }
+  identity_->assign(reinterpret_cast<const char*>(value), size);
+}
+inline ::std::string* FeatureItem::mutable_identity() {
+  set_has_identity();
+  if (identity_ == &::google::protobuf::internal::kEmptyString) {
+    identity_ = new ::std::string;
+  }
   return identity_;
 }
-inline void FeatureItem::set_identity(::google::protobuf::uint32 value) {
-  set_has_identity();
-  identity_ = value;
+inline ::std::string* FeatureItem::release_identity() {
+  clear_has_identity();
+  if (identity_ == &::google::protobuf::internal::kEmptyString) {
+    return NULL;
+  } else {
+    ::std::string* temp = identity_;
+    identity_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
+    return temp;
+  }
+}
+inline void FeatureItem::set_allocated_identity(::std::string* identity) {
+  if (identity_ != &::google::protobuf::internal::kEmptyString) {
+    delete identity_;
+  }
+  if (identity) {
+    set_has_identity();
+    identity_ = identity;
+  } else {
+    clear_has_identity();
+    identity_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
+  }
 }
 
 // required bytes feature = 4;
@@ -5589,6 +5818,76 @@ inline void FeatureItem::set_allocated_feature(::std::string* feature) {
   } else {
     clear_has_feature();
     feature_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
+  }
+}
+
+// optional bytes name = 5;
+inline bool FeatureItem::has_name() const {
+  return (_has_bits_[0] & 0x00000010u) != 0;
+}
+inline void FeatureItem::set_has_name() {
+  _has_bits_[0] |= 0x00000010u;
+}
+inline void FeatureItem::clear_has_name() {
+  _has_bits_[0] &= ~0x00000010u;
+}
+inline void FeatureItem::clear_name() {
+  if (name_ != &::google::protobuf::internal::kEmptyString) {
+    name_->clear();
+  }
+  clear_has_name();
+}
+inline const ::std::string& FeatureItem::name() const {
+  return *name_;
+}
+inline void FeatureItem::set_name(const ::std::string& value) {
+  set_has_name();
+  if (name_ == &::google::protobuf::internal::kEmptyString) {
+    name_ = new ::std::string;
+  }
+  name_->assign(value);
+}
+inline void FeatureItem::set_name(const char* value) {
+  set_has_name();
+  if (name_ == &::google::protobuf::internal::kEmptyString) {
+    name_ = new ::std::string;
+  }
+  name_->assign(value);
+}
+inline void FeatureItem::set_name(const void* value, size_t size) {
+  set_has_name();
+  if (name_ == &::google::protobuf::internal::kEmptyString) {
+    name_ = new ::std::string;
+  }
+  name_->assign(reinterpret_cast<const char*>(value), size);
+}
+inline ::std::string* FeatureItem::mutable_name() {
+  set_has_name();
+  if (name_ == &::google::protobuf::internal::kEmptyString) {
+    name_ = new ::std::string;
+  }
+  return name_;
+}
+inline ::std::string* FeatureItem::release_name() {
+  clear_has_name();
+  if (name_ == &::google::protobuf::internal::kEmptyString) {
+    return NULL;
+  } else {
+    ::std::string* temp = name_;
+    name_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
+    return temp;
+  }
+}
+inline void FeatureItem::set_allocated_name(::std::string* name) {
+  if (name_ != &::google::protobuf::internal::kEmptyString) {
+    delete name_;
+  }
+  if (name) {
+    set_has_name();
+    name_ = name;
+  } else {
+    clear_has_name();
+    name_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
   }
 }
 

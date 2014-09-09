@@ -174,7 +174,7 @@ void CacheManger::free(LogBuffer* b){
 
 int LogBacker::fd = 1;
 std::string LogBacker::logfile;
-Worker LogBacker::worker;
+Worker*  LogBacker::worker = new Worker();
 SpinList<LogEntry*,SpinLock> LogBacker::_loglist;
 CacheManger * LogBacker::next = NULL;
 MutexLock LogBacker::spin;
@@ -193,8 +193,8 @@ int LogBacker::Init(Json::Value & conf){
 
     
     MioTask* task = NewExtClosure(LogBacker::DumperLogger, NULL);
-    worker.RunTask(task);
-    worker.start();
+    worker->RunTask(task);
+    worker->start();
 
     mtrpc::SignalHelper::registerCallback(LogBacker::Stop);
 
@@ -209,13 +209,13 @@ int LogBacker::Init(Json::Value & conf){
 void LogBacker::Stop(void*){
 
     isruning = false;
-    worker.join();
+    worker->join();
 }
 
 void LogBacker::Close(){
 
     isruning = false;
-    worker.join();
+    worker->join();
 
     CacheManger& cm = ThreadLocalSingleton<CacheManger>::instance();
 
@@ -225,11 +225,12 @@ void LogBacker::Close(){
 
     DumperDefault(NULL, 0);
     close(fd);
+    delete worker;
 }
 
 
 void LogBacker::Join(){
-    worker.join();
+    worker->join();
 }
 
 void LogBacker::registerThread(CacheManger* cm){

@@ -138,18 +138,19 @@ service ListServer{
 
 //indentify
 message IdentifyRequest{
-      required uint32 uin         = 1;
+      required string uin         = 1;
       required int32  type        = 2;
       optional bytes photodid     = 3;
       optional string url         = 4;
       optional bytes data         = 5;
       optional uint64 rect        = 6;
-      optional string name     = 7;
-      repeated uint32 candidate    = 8;// if not 0,identity from this set 
+      optional bytes name        = 7;
+      repeated string candidate   = 8;// if not 0,identity from this set 
+      optional int32 proto_type    = 9;
 }
 
 message IdentifyItem{
-     required uint32 candidate   = 1;
+     required string candidate   = 1;
      required uint32 similarty   = 2;
      optional string url         = 3;
      optional bytes data         = 4;
@@ -176,8 +177,9 @@ message FeatureItem
 {
       required uint64 faceid      = 1;
       required string url         = 2;
-      required uint32 identity     = 3;
+      required string identity    = 3;
       required bytes  feature     = 4;
+      optional bytes  name        = 5;
 }
 
 

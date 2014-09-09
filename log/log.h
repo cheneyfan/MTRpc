@@ -24,7 +24,7 @@
 
 
 #include "common/spinlist.h"
-#include "thread/workpool.h"
+
 #include "common/covert.h"
 
 //#define TRACE_STACK
@@ -103,7 +103,7 @@ public:
     char prefix[64];
 
 #ifndef TRACE_STACK
-   char lin[16];
+    char lin[16];
 #else
     char lin[512];
 #endif
@@ -136,16 +136,16 @@ public:
     void toIovec(iovec* v,uint32_t& size);
     
     template<typename T>
-        void Format(const T* t){
-            if(buf.size < 32 )
-                return;
-            *buf.ptr ++ ='0';
-            *buf.ptr ++ ='x';
-            int len = convertHex(buf.ptr,t) +2;
-            buf.ptr  += len ;
-            buf.size -= len;
+    void Format(const T* t){
+        if(buf.size < 32 )
+            return;
+        *buf.ptr ++ ='0';
+        *buf.ptr ++ ='x';
+        int len = convertHex(buf.ptr,t) +2;
+        buf.ptr  += len ;
+        buf.size -= len;
 
-        }
+    }
 #ifdef __i386__
     template<char>
 #endif
@@ -173,7 +173,7 @@ public:
         buf.ptr  += len;
         buf.size -= len;
     }
-/*
+    /*
     void Format(char* str)
     {
         Format((const char*)str);
@@ -207,7 +207,7 @@ public:
         buf.size -= len;
     }
     
-//#ifdef __i386__
+    //#ifdef __i386__
     void Format(long unsigned int  d){
         if(buf.size < 16 )
             return;
@@ -217,7 +217,7 @@ public:
         buf.size -= len;
     }
 
-//#endif
+    //#endif
 
     void Format(long long d){
         if(buf.size < 32 )
@@ -258,56 +258,56 @@ public:
     
 #ifdef __x86_64__
     template<typename T, typename... Args>
-        void Format(const char *str, T value, Args... args)
-        {
-            char * s = const_cast<char*>(str);
+    void Format(const char *str, T value, Args... args)
+    {
+        char * s = const_cast<char*>(str);
 
-            while (*s) {
+        while (*s) {
 
-                if(*s != '%')
-                {
-                    *buf.ptr++ = *s++;
-                    continue;
-                }
+            if(*s != '%')
+            {
+                *buf.ptr++ = *s++;
+                continue;
+            }
 
-                s++;
-                char format[1024]={'%'};
-                char *ptr = format + 1;
+            s++;
+            char format[1024]={'%'};
+            char *ptr = format + 1;
 
-                while(*s)
-                {
-                    switch(*s){
-                        case 'd':case 'i':
-                        case 'o':case 'u':case 'x':case 'X':
-                        case 'e':case 'E':
-                        case 'f':case 'F':
-                        case 'g':case 'G':
-                        case 'a':case 'A':
-                        case 'p':
+            while(*s)
+            {
+                switch(*s){
+                case 'd':case 'i':
+                case 'o':case 'u':case 'x':case 'X':
+                case 'e':case 'E':
+                case 'f':case 'F':
+                case 'g':case 'G':
+                case 'a':case 'A':
+                case 'p':
 
-                            *ptr++= *s++;
-                            *ptr ='\0';
+                    *ptr++= *s++;
+                    *ptr ='\0';
 
-                            buf.ptr += snprintf(buf.ptr,1024,format,value);
+                    buf.ptr += snprintf(buf.ptr,1024,format,value);
 
-                            Format(s, args...);
-                            return ;
-                        case 's':
-                        case 'c':
-                            s++;
-                            Format(value);
-                            Format(s, args...);
-                            return;
-                        case '%':
-                            *buf.ptr++= *s++;
-                            Format(s,value,args...);
-                            return ;
-                        default:
-                            *ptr++ = *s++;
-                    }
+                    Format(s, args...);
+                    return ;
+                case 's':
+                case 'c':
+                    s++;
+                    Format(value);
+                    Format(s, args...);
+                    return;
+                case '%':
+                    *buf.ptr++= *s++;
+                    Format(s,value,args...);
+                    return ;
+                default:
+                    *ptr++ = *s++;
                 }
             }
         }
+    }
 
 #elif __i386__
     void Format(const char *str,...)
@@ -322,23 +322,23 @@ public:
         buf.size -= len;
         va_end(args);
 
-    } 
+    }
 #endif
 
     template<typename T>
-        LogEntry& operator<<(T t)
-        {
-            Format(t);
-            return *this;
-        }
+    LogEntry& operator<<(T t)
+    {
+        Format(t);
+        return *this;
+    }
 
     template<int N>
-        LogEntry& operator<<(const char t[N])
-        {
+    LogEntry& operator<<(const char t[N])
+    {
 
-            Format((const char*)t);
-            return *this;
-        }
+        Format((const char*)t);
+        return *this;
+    }
 
 
     LogEntry& operator<<(char t)
@@ -385,6 +385,7 @@ public:
     static __thread char datebuf[24];
 };
 
+class Worker;
 //
 class LogBacker {
 
@@ -436,7 +437,7 @@ public:
 
     static int fd;
     static std::string logfile;
-    static Worker worker;
+    static Worker* worker;
     static SpinList<LogEntry*,SpinLock> _loglist;
     static CacheManger* next;
     static MutexLock spin;
@@ -453,7 +454,7 @@ public:
     e->Reset(DEBUG_LEVEL,__FILE__,__LINE__,__PRETTY_FUNCTION__); \
     e->Format(format,args); e->Format('\0');\
     ::mtrpc::LogHelper::OutPut(e); \
-};
+    };
 
 
 #define TRACE_FMG(format,args...) \
@@ -462,7 +463,7 @@ public:
     e->Reset(TRACE_LEVEL,__FILE__,__LINE__,__PRETTY_FUNCTION__); \
     e->Format(format,args);e->Format('\0'); \
     ::mtrpc::LogHelper::OutPut(e); \
-};
+    };
 
 #define INFO_FMG(format,args...) \
     if(INFO__LEVEL){ \
@@ -470,7 +471,7 @@ public:
     e->Reset(INFO__LEVEL,__FILE__,__LINE__,__PRETTY_FUNCTION__); \
     e->Format(format,args);e->Format('\0'); \
     ::mtrpc::LogHelper::OutPut(e); \
-};
+    };
 
 #define WARN_FMG(format,args...) \
     if(WARN__LEVEL){ \
@@ -478,7 +479,7 @@ public:
     e->Reset(WARN__LEVEL,__FILE__,__LINE__,__PRETTY_FUNCTION__); \
     e->Format(format,args);e->Format('\0');\
     ::mtrpc::LogHelper::OutPut(e); \
-};
+    };
 
 
 #define ERROR_FMG(format,args...) \
@@ -487,7 +488,7 @@ public:
     e->Reset(ERROR_LEVEL,__FILE__,__LINE__,__PRETTY_FUNCTION__); \
     e->Format(format,args);e->Format('\0'); \
     ::mtrpc::LogHelper::OutPut(e); \
-};
+    };
 
 
 
@@ -497,7 +498,7 @@ public:
     e->Reset(DEBUG_LEVEL,__FILE__,__LINE__,__PRETTY_FUNCTION__); \
     (*e)<<x<<'\0'; \
     ::mtrpc::LogHelper::OutPut(e); \
-};
+    };
 
 
 #define TRACE(x) \
@@ -506,7 +507,7 @@ public:
     e->Reset(TRACE_LEVEL,__FILE__,__LINE__,__PRETTY_FUNCTION__); \
     (*e)<<x<<'\0'; \
     ::mtrpc::LogHelper::OutPut(e); \
-};
+    };
 
 
 #define INFO(x) \
@@ -515,7 +516,7 @@ public:
     e->Reset(INFO__LEVEL,__FILE__,__LINE__, __PRETTY_FUNCTION__); \
     (*e)<<x<<'\0';  \
     ::mtrpc::LogHelper::OutPut(e); \
-};
+    };
 
 
 #define WARN(x) \
@@ -524,7 +525,7 @@ public:
     e->Reset(WARN__LEVEL,__FILE__,__LINE__,__PRETTY_FUNCTION__); \
     (*e)<<x<<'\0';  \
     ::mtrpc::LogHelper::OutPut(e); \
-}while(0);
+    };
 
 #define ERROR(x) \
     if(ERROR_LEVEL){ \
@@ -532,13 +533,13 @@ public:
     e->Reset(ERROR_LEVEL,__FILE__,__LINE__,__PRETTY_FUNCTION__); \
     (*e)<<x<<'\0'; \
     ::mtrpc::LogHelper::OutPut(e); \
-};
+    };
 
 
 
 #define CHECK_LOG(x,m) \
-            if(!(x)){WARN("check failed:"#x<<","#m":"<<m);}
+    if(!(x)){WARN("check failed:"#x<<","#m":"<<m);}
 
 #define SCHECK(expression) \
-            if(!(expression)){WARN("check failed:"#expression);}
+    if(!(expression)){WARN("check failed:"#expression);}
 #endif
