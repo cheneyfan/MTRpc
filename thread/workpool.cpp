@@ -222,7 +222,7 @@ int WorkGroup::Post(MioTask* task)
 
 
     // some work may be miss the task pushed
-    while(idleWorker.pop(w))
+    if(idleWorker.pop(w))
     {
         //TRACE_FMG("notify idle worker:%p",w);
         WriteLock<MutexLock> wl(w->mutex);

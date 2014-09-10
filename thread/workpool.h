@@ -197,8 +197,8 @@ public:
 
 public:
     Worker* workerlist;
-    SpinList<MioTask*,MutexLock> taskQueue;
-    SpinList<Worker*,MutexLock> idleWorker;
+    SpinList<MioTask*,SpinLock> taskQueue;
+    SpinList<Worker* ,SpinLock> idleWorker;
 
 };
 
