@@ -44,7 +44,7 @@ int testDelay(Delay * d)
     d->start = TimerHelper::Now_Microsecond();
 
     d->tid   = NoLockWorker::CurrentWorker()->tid;
-    usleep(1000);
+    usleep(1);
     //TRACE("do:"<<d->id);
     d->done  = TimerHelper::Now_Microsecond(); 
 }
@@ -67,6 +67,7 @@ int main(int argc,char* argv[]){
     NoLockWorkGroup group(1024*1024);
     
     group.Init(threadnum);
+    sleep(1);
     
     std::vector<Delay> delay;
     std::vector<Reply*> res;

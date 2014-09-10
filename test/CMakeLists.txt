@@ -25,7 +25,7 @@ if(TCMALLOC_ENABLE)
           mtrpc 
           gtest
           protobuf
-         # tcmalloc unwind
+          tcmalloc unwind
           pthread rt gcc_s)
 else()
    add_exe_item(${testfile}

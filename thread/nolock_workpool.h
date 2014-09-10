@@ -69,36 +69,13 @@ private:
 
 class NoLockWorker;
 
-class TaskEntry
-{
-    public:
 
-    TaskEntry():
-        _task(NULL),
-        worker(NULL)
-    {
-    }
-
-    void Put(ExtClosure<void()> *task);
-
-    void Get(ExtClosure<void()>* &task,NoLockWorker* w)
-    {
-        task = __sync_lock_test_and_set(&_task,NULL);
-        if(task == NULL)
-        {
-            __sync_lock_test_and_set(&worker,w);
-        }
-    }
-public:
-    volatile ExtClosure<void()>* _task;
-    volatile NoLockWorker* worker;
-};
 
 class NoLockQueue
 {
    public:
     NoLockQueue(uint32_t blockSize):
-        task_list(new TaskEntry[blockSize]),
+        task_list(new uint64_t[blockSize]),
         capacity(blockSize),
         size(0),
         cusume_id(0),
@@ -106,29 +83,15 @@ class NoLockQueue
     {
     }
 
-    bool Put(ExtClosure<void()>* task)
-    {
-
-        //TimeMoniter push_queue(0,"NoLockQueue put");
-        /*int cur_size = __sync_fetch_and_add(&size,1);
-        //unlikely
-        if(cur_size>=capacity)
-        {
-            __sync_fetch_and_sub(&size,1);
-            return false;
-        }*/
-
-        int idx = __sync_fetch_and_add(&producer_id, 1) % capacity;
-        task_list[idx].Put(task);
-        return true;
-    }
+    bool Put(ExtClosure<void()>* task);
 
 
     bool Get(ExtClosure<void()>*& task,NoLockWorker* w);
 
    public:
-    TaskEntry * task_list;
-    int capacity ;
+
+    uint64_t* task_list;
+    int capacity;
     volatile int  size;
     volatile int cusume_id;
     volatile int producer_id;
