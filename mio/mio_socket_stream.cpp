@@ -203,7 +203,7 @@ int SocketStream::OnReadable(Epoller *p)
             return -1;
         }
 
-        TRACE(GetSockName()<<" read:"<<ret);
+        TRACE(GetSockName()<<" read:"<<ret<<",buffer:"<<readbuf.end().getBuffer());
         readbuf.MoveRecivePtr(ret);
 
         read_size += ret;

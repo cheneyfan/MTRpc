@@ -2,7 +2,7 @@
 #define _MTRPC_RPC_CONTROLLER_IMPL_H_
 
 #include <google/protobuf/service.h>
-#include "proto/rpc_option.pb.h"
+
 
 #include "rpc_controller.h"
 #include "common/rwlock.h"
@@ -27,8 +27,8 @@ public:
     virtual void SetTimeout(int64 timeout_in_ms){}
     virtual int64 Timeout() const{return 0;}
 
-    virtual void SetRequestCompressType(CompressType compress_type){}
-    virtual void SetResponseCompressType(CompressType compress_type){}
+    //virtual void SetRequestCompressType(CompressType compress_type){}
+    //virtual void SetResponseCompressType(CompressType compress_type){}
 
     virtual void StartCancel(){}
 

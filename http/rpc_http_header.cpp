@@ -149,9 +149,6 @@ void HttpHeader::MoveBufTo(uint32_t& s)
     pos=buf;
 }
 
-int HttpHeader::GetPendSize(){
-   return pos-buf;
-}
 
 HttpRequestHeader::HttpRequestHeader():
     HttpHeader()
@@ -172,14 +169,7 @@ int HttpRequestHeader::ParserHeader(ReadBuffer & buf){
     {
 
         char c = *begin;
-        int current_append_size = GetPendSize();
-        
-        if( current_append_size >= MAX_KEY_LEN )
-        {
-             WARN("Max Http Key is:"<<MAX_KEY_LEN<<",current:"<<current_append_size);
-             return HTTP_PARSER_FAIL;
-        }
-        
+
         switch(state)
         {
 

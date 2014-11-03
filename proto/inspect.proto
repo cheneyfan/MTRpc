@@ -1,0 +1,49 @@
+package mtrpc.inspect;
+
+
+option cc_generic_services = true;
+
+// we use json for read able although 
+// this will need some works
+// but it's will convenient for the user get the service status 
+// convenient
+message Request{
+    optional bytes json = 1;
+}
+
+message Response{
+    optional bytes json = 1;
+}
+
+
+service Machine{
+     rpc cpu(Request) returns (Response);
+     rpc mem(Request) returns (Response);
+     rpc net(Request) returns (Response);
+     rpc disk(Request) returns (Response);
+}
+
+service Process{
+     rpc cpu(Request) returns (Response);
+     rpc mem(Request) returns (Response);
+     rpc net(Request) returns (Response);
+     rpc disk(Request) returns (Response);
+     rpc fd(Request) returns (Response);
+}
+
+service Service 
+{
+
+     rpc version(Request) returns (Response);
+     rpc api(Request) returns (Response);
+     
+     rpc accept(Request) returns (Response);
+     rpc connections(Request) returns (Response);
+}
+
+//for Application Stat
+service Application {
+     rpc interface(Request) returns (Response);
+     rpc requeststatus(Request) returns (Response);
+}
+

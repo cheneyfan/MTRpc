@@ -74,7 +74,7 @@ public:
     /// helper the parser
     void MoveBufTo(std::string& s);
     void MoveBufTo(uint32_t& s);
-    int GetPendSize();
+
     int header_size;
     int body_size;
 

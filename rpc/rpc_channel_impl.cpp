@@ -4,7 +4,9 @@
 #include "mio/mio_connect_stream.h"
 #include "rpc_controller_impl.h"
 #include "log/log.h"
-
+#include "thread/workpool.h"
+#include "google/protobuf/message.h"
+#include "google/protobuf/descriptor.h"
 namespace mtrpc {
 
 RpcChannelImpl::RpcChannelImpl(const RpcChannelOptions &options):
@@ -45,7 +47,9 @@ int RpcChannelImpl::Connect(const std::string& server_ip,int32_t server_port){
 
     _stream = new ConnectStream();
 
-    _stream->group = _group;
+    if(_group->workerNum > 1)
+         _stream->group = _group;
+
     _stream->RequireRef();
 
     _stream->handerMessageRecived =
@@ -163,7 +167,7 @@ int RpcChannelImpl::SendToServer(const ::google::protobuf::MethodDescriptor* met
     WriteBuffer& buf = _stream->writebuf;
     buf.Reset();
 
-    reqheader.SetPath(method->full_name());
+    reqheader.SetPath("/"+method->full_name());
 
     uint64_t seq = cntl->GenerateSeq();
     cntl->_seq = seq;

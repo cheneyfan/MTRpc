@@ -6,7 +6,7 @@ macro(add_exe_item exefile)
 
     add_executable(${TARGET} ${exefile})
     target_link_libraries(${TARGET} ${ARGN})
-    #set_target_properties(${TARGET} PROPERTIES LINK_FLAGS "-static-libgcc -static-libstdc++ -Wl,--no-undefined")
+    set_target_properties(${TARGET} PROPERTIES LINK_FLAGS "-static-libgcc -static-libstdc++ -Wl,--no-undefined")
 endmacro(add_exe_item)
 
 
@@ -25,7 +25,7 @@ if(TCMALLOC_ENABLE)
           mtrpc 
           gtest
           protobuf
-          tcmalloc unwind
+         # tcmalloc unwind
           pthread rt gcc_s)
 else()
    add_exe_item(${testfile}

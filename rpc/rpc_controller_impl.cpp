@@ -1,5 +1,5 @@
 #include "rpc_controller_impl.h"
-#include "proto/rpc_option.pb.h"
+
 #include "mio/mio_error_code.h"
 #include "common/serverstat.h"
 namespace mtrpc {

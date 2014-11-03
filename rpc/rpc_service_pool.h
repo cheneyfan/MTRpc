@@ -15,7 +15,7 @@
 #include <google/protobuf/descriptor.h>
 
 
-#include "proto/builtin_service.pb.h"
+
 
 #include "common/murmurhash.h"
 #include "log/log.h"
@@ -115,22 +115,6 @@ public:
         }
     }
 
-    void LatestStats(int slot_count, mtrpc::builtin::MethodStat* stat_out)
-    {
-        SCHECK(stat_out != NULL);
-        stat_out->Clear();
-        StatSlot stat;
-        LatestStats(slot_count, &stat);
-        stat_out->set_method_name(_desc->full_name());
-        stat_out->set_succeed_count(stat.succeed_count);
-        stat_out->set_succeed_avg_time_us(stat.succeed_count > 0 ?
-                (float)stat.succeed_process_time / stat.succeed_count : 0);
-        stat_out->set_succeed_max_time_us(stat.succeed_max_process_time);
-        stat_out->set_failed_count(stat.failed_count);
-        stat_out->set_failed_avg_time_us(stat.failed_count > 0 ?
-                (float)stat.failed_process_time / stat.failed_count : 0);
-        stat_out->set_failed_max_time_us(stat.failed_max_process_time);
-    }
 
 private:
     const google::protobuf::MethodDescriptor* _desc;
@@ -206,32 +190,8 @@ public:
         _method_boards[method_id].LatestStats(slot_count, stat_out);
     }
 
-    void LatestStats(int method_id, int slot_count, mtrpc::builtin::MethodStat* stat_out)
-    {
-        SCHECK(method_id >=0 && method_id < _method_count);
-        _method_boards[method_id].LatestStats(slot_count, stat_out);
-    }
 
-    void LatestStats(int64 expect_period, mtrpc::builtin::ServiceStat* stat_out)
-    {
-        SCHECK(stat_out != NULL);
-        stat_out->Clear();
-        int64 real_period;
-        int slot_count;
-        GetRealPeriod(expect_period, &real_period, &slot_count);
-        stat_out->set_service_name(ServiceName());
-        stat_out->set_period_seconds(real_period);
-        stat_out->set_succeed_count(0);
-        stat_out->set_failed_count(0);
-        for (int i = 0; i < _method_count; ++i) {
-            mtrpc::builtin::MethodStat* method_stat = stat_out->add_method_stats();
-            LatestStats(i, slot_count, method_stat);
-            stat_out->set_succeed_count(
-                    stat_out->succeed_count() + method_stat->succeed_count());
-            stat_out->set_failed_count(
-                    stat_out->failed_count() + method_stat->failed_count());
-        }
-    }
+
 
 private:
     void GetRealPeriod(int64 expect_period, int64* real_period, int* slot_count)
@@ -337,25 +297,7 @@ public:
                 it != board_list.end(); ++it) {
             svc_list->push_back((*it)->Service());
         }
-    }
-
-    void ListService(mtrpc::builtin::ListServiceResponse* response)
-    {
-        SCHECK(response != NULL);
-        response->Clear();
-        // get services
-        std::list<google::protobuf::Service*> svc_list;
-        ListService(&svc_list);
-        // add to response
-        std::set<std::string> added_file_set;
-        for (std::list<google::protobuf::Service*>::iterator it = svc_list.begin();
-                it != svc_list.end(); ++it)
-        {
-            const google::protobuf::ServiceDescriptor* sd = (*it)->GetDescriptor();
-            AddFileDescriptor(response, &added_file_set, sd->file());
-            *(response->add_services()) = sd->full_name();
-        }
-    }
+  }
 
     int ServiceCount()
     {
@@ -377,19 +319,7 @@ private:
         return murmurhash(name.c_str(), name.size()) % SERVICE_CACHE_SLOT_COUNT;
     }
 
-    void AddFileDescriptor(mtrpc::builtin::ListServiceResponse* response,
-            std::set<std::string>* added_file_set, const google::protobuf::FileDescriptor* fd)
-    {
-        for (int i = 0; i < fd->dependency_count(); ++i) {
-            const google::protobuf::FileDescriptor* dfd = fd->dependency(i);
-            AddFileDescriptor(response, added_file_set, dfd);
-        }
-        if (added_file_set->find(fd->name()) == added_file_set->end()) {
-            google::protobuf::FileDescriptorProto* fdp = response->add_files();
-            fd->CopyTo(fdp);
-            added_file_set->insert(fd->name());
-        }
-    }
+
 
 private:
     typedef std::map<std::string, ServiceBoard*> ServiceMap;

@@ -1,0 +1,27 @@
+package youtu;
+option java_package = "org.youtuface";
+option java_outer_classname = "Classify";
+option cc_generic_services = true;
+
+message ClassRequest
+{
+    required bytes photoid = 1;
+    required bytes data = 2;
+}
+
+message ClassResult
+{
+    required string tags = 1;
+    required float  sim  = 2;
+}
+
+message ClassResponse
+{
+    repeated ClassResult resultArr = 1;
+    repeated string similarUrl = 2;
+    optional float  computeTime=3; 
+}
+
+service ImageClass {
+    rpc classify(ClassRequest) returns (ClassResponse);
+}

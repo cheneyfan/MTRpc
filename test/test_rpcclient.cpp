@@ -2,7 +2,7 @@
 #include "log/log.h"
 
 #include "rpc/rpc_client.h"
-#include "proto/builtin_service.pb.h"
+
 #include "common/signalhelper.h"
 #include "proto/face.pb.h"
 #include "common/serverstat.h"
@@ -17,7 +17,7 @@ void Test(RpcClient& client)
 {
 
 
-    const std::string addr = "127.0.0.1:8000";
+    const std::string addr = "127.0.0.1:8003";
     RpcChannel* channel = client.GetChannel(addr);
     TRACE("get channel ok"<<channel);
 
@@ -31,13 +31,14 @@ void Test(RpcClient& client)
         ::youtu::FaceImportRequest req;
         ::youtu::FaceImportResponse res;
 
-        req.set_uin(0);
+        req.set_uin(10000);
         {
-            while(true){
+           // while(true){
                 ServerState::StateTimeMs("test");
                 stub.Import(cntl,&req,&res,NULL);
+                TRACE("res  num:"<<res.faceid_size()<<",faceid:"<<res.faceid(0))
                 cntl->Reset();
-            }
+           // }
         }
         std::cout<<"error:"<<cntl->ErrorText()<<std::endl;
 
@@ -57,7 +58,10 @@ int main(int argc,char*argv[]){
 
 
     RpcClientOptions opt;
-    opt.work_thread_num = atoi(argv[1]);
+    opt.work_thread_num = 1;
+    if(argc > 1)
+         opt.work_thread_num = atoi(argv[1]);
+
     std::cout<<"start :"<<opt.work_thread_num<<std::endl;
 
     RpcClient client(opt);

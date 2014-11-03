@@ -6,6 +6,7 @@
 #include "mio/mio_poller.h"
 #include "common/timerhelper.h"
 #include "common/serverstat.h"
+#include "google/protobuf/message.h"
 
 namespace mtrpc {
 
@@ -29,7 +30,10 @@ void ServerConnect::Start(Epoller* p,WorkGroup* g)
 {
     _poller = p;
     _group  = g;
-    _stream->group = g;
+
+    if(g->workerNum > 1)
+        _stream->group = g;
+
 
     _stream->handerMessageRecived  =
             NewPermanentExtClosure(this,&ServerConnect::OnMessageRecived);
@@ -50,7 +54,7 @@ void ServerConnect::Start(Epoller* p,WorkGroup* g)
 
 void ServerConnect::OnMessageRecived(MessageStream* sream,Epoller* p,int32_t buffer_size)
 {
-    const std::string& method_full_name = sream->reqheader.path;
+    const std::string& method_full_name = sream->reqheader.path.substr(1);
 
     //TRACE(sream->GetSockName()<<",method:"<<method_full_name<<"Seq:"<<sream->reqheader.GetSeq());
 
@@ -163,6 +167,9 @@ void ServerConnect::SendMessage(MessageStream* stream,Epoller* p,RpcServerContro
     WriteBuffer::Iterator bodyStart   =  buf.AlignWritePos();
 
     buf.BeginPacket();
+
+    TRACE("Serial buf,write:"<<bodyStart.toString()<<",read:"<<buf.readpos.toString()<<",used:"<<buf.GetBufferUsed()<<",left:"<<buf.GetBufferLeft());
+
     if(!response->SerializeToZeroCopyStream(&buf))
     {
         //roll back

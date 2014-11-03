@@ -146,8 +146,13 @@ EventTimer::EventTimer()
 
 EventTimer::~EventTimer(){
     ::close(_fd);
+
 }
 
+void EventTimer::OnEvent(Epoller* p,uint32_t mask){
+
+
+}
 
 
 

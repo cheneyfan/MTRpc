@@ -24,8 +24,9 @@ public:
         SignalHelper::getBacktrace(buffer,2048,0,5);
         printf("buffer:%s",buffer);
 
-        response->add_faceid(0);
-      */
+        */
+        response->add_faceid(123456);
+
     }
 };
 
@@ -34,8 +35,9 @@ int main(int argc,char*argv[]){
     //LogBacker::Init(conf);
 
     RpcServerOptions opt;
-
-    opt.work_thread_num = atoi(argv[1]);
+    opt.work_thread_num = 1;
+    //if(argc > 1)
+    //    opt.work_thread_num = atoi(argv[1]);
     std::cout<<"start :"<<opt.work_thread_num<<std::endl;
 
     RpcServer svr(opt);
@@ -44,7 +46,7 @@ int main(int argc,char*argv[]){
     //SignalHelper::registerCallbak<RpcServer,&RpcServer::Stop>(&svr);
 
     svr.RegisterService(new A());
-    svr.Start("127.0.0.1:8000");
+    svr.Start(atoi(argv[1]));
     svr.Join();
     return 0;
 

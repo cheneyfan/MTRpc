@@ -48,10 +48,10 @@ endif()
 
 set(GTESTPATH ${THIRD_PATH}/gtest)
 add_thirdparty_library(${GTESTPATH} gtest)
+MESSAGE("$GTESTPATH")
 if(NOT EXISTS ${GTESTPATH}/lib/libgtest.a)
    include(thirdparty/gtest/CMakeLists.txt)
 endif()
-
 
 if(TCMALLOC_ENABLE)
     set(TCMALLOCPATH ${THIRD_PATH}/gperf)

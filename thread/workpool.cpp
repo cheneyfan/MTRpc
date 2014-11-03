@@ -153,27 +153,31 @@ void Worker::Stop(){
 }
 
 
-int WorkGroup::Init(uint32_t workNum)
+
+WorkGroup::WorkGroup():
+    workerlist(NULL),
+    workerNum(0)
 {
 
-    workNum = ( workNum == 0  ? 1 : workNum);
+}
 
-    for(uint32_t i =0; i< workNum; ++i)
+int WorkGroup::Init(uint32_t w)
+{
+
+    workerNum = ( w == 0  ? 1 : w);
+
+    for(uint32_t i =0; i< workerNum; ++i)
     {
         Worker *w = new Worker();
         AddWork(w);
         w->start();
     }
 
-    INFO_FMG("start workgroup with workers:%u",workNum);
+    INFO_FMG("start workgroup with workers:%u",workerNum);
 
     return 0;
 }
 
-
-WorkGroup::WorkGroup():workerlist(NULL){
-
-}
 
 WorkGroup::~WorkGroup(){
 

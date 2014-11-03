@@ -16,14 +16,15 @@
 #include "mio/mio_poller.h"
 #include "mio/mio_notify.h"
 
-#include "proto/builtin_service_impl.h"
+
 #include "log/log.h"
 #include "rpc_server_connect.h"
 
 #include "common/serverstat.h"
+
+#include "http/inspecter.h"
+
 namespace mtrpc {
-
-
 
 
 
@@ -85,7 +86,11 @@ int RpcServerImpl::Start(const std::string& server_address)
 {
 
     //build in
-    RegisterService(new builtin::BuiltinServiceImpl());
+    RegisterService(new inspect::MachineImpl());
+    RegisterService(new inspect::ProcessImpl());
+    RegisterService(new inspect::ServiceImpl());
+    RegisterService(new inspect::ApplicationImpl());
+
 
     /// init work group
     group->Init(_options.work_thread_num);
