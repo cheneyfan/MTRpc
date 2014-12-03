@@ -51,11 +51,12 @@ int MessageStream::OnRecived(Epoller *p, int32_t buffer_size){
             return 0;
         }
 
+        /*
         if(reqheader.GetContentLength() < 0)
         {
             this->handerMessageError->Run(this,p,HTTP_REQ_NOLENGTH);
             return -1;
-        }
+        }*/
 
 
         int body_size = readbuf.writepos - reqheader.bodyStart;

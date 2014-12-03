@@ -11,6 +11,20 @@
 namespace mtrpc {
 
 
+void TaskEntry::Put(ExtClosure<void()>* task)
+{
+    //TimeMoniter push_queue(0,"TaskEntry put");
+    //set
+    __sync_lock_test_and_set(&_task,task);
+
+    NoLockWorker* w = __sync_val_compare_and_swap(&worker,NULL,NULL);
+
+    if(w)
+    {
+        w->RunTask(_task);
+    }
+}
+
 
 pid_t NoLockWorker::pid = getpid();
 __thread NoLockWorker* NoLockWorker::thread_worker= NULL;
@@ -74,30 +88,19 @@ NoLockWorker* NoLockWorker::CurrentWorker(){
 }
 
 
-bool NoLockQueue::Put(ExtClosure<void()>* task)
-{
-
-    int idx = __sync_fetch_and_add(&producer_id, 1) % capacity;
-
-    uint64_t p = __sync_val_compare_and_swap(task_list+idx,0,uint64_t(task));
-    if(p)
-    {
-        ((NoLockWorker*)p)->RunTask(task);
-    }
-
-    return true;
-}
 
 bool NoLockQueue::Get(ExtClosure<void()>*& task,NoLockWorker* w)
 {
+     //int cur_size = __sync_fetch_and_sub(&size,1);
+     /*if(cur_size < 0)
+     {
+         __sync_fetch_and_add(&size,1);
+         return false;
+     }*/
 
      int idx = __sync_fetch_and_add (&cusume_id, 1) % capacity;
-
-
-    uint64_t p = __sync_val_compare_and_swap(task_list+idx,0,uint64_t(w));
-
-    task = (ExtClosure<void()>*)p;
-
+     //TRACE("tid:"<<w->tid<<",idx:"<<idx);
+     task_list[idx].Get(task,w);
      return true;
 }
 

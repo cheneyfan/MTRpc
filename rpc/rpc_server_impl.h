@@ -12,6 +12,9 @@
 #include "mio/mio_acceptor.h"
 
 #include "google/protobuf/message.h"
+
+#include <list>
+
 namespace mtrpc{
 
 class Epoller;
@@ -54,10 +57,16 @@ public:
                                     google::protobuf::Service**service,
                                     google::protobuf::MethodDescriptor**method);
 
+    bool listAllRegisterService(std::list<std::string>& servers);
+
     bool ParseMethodFullName(const std::string& method_full_name,
             std::string &service_full_name, std::string &method_name);
 
 
+    static google::protobuf::LogHandler* ServerLogHander(
+                           google::protobuf::LogLevel level,
+                           const char* filename, int line,
+                           const std::string& message);
 private:
     Acceptor acceptor;
     RpcServerOptions _options;

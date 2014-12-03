@@ -3,7 +3,7 @@
 #include "gtest/gtest.h"
 
 #include "log/log.h"
-#include "proto/rpc_http_header.h"
+#include "http/rpc_http_header.h"
 
 using namespace mtrpc;
 

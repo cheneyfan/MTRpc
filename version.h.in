@@ -1,0 +1,35 @@
+// a config info from CMAKE
+
+#define PROJECT_NAME   "@TARGET@"
+#define PROJECT_VESION "@VERSION_FULL@"
+#define SVN_VESION     "@VERSION_REVISION@"
+#define BUILD_TIME     __DATE__ " " __TIME__
+#define BUILD_FLAGS    "@CMAKE_CXX_COMPILER@ @CMAKE_CXX_FLAGS_ALL@"
+
+static void print_version()
+{
+    printf("PROJECT_NAME : %s\n",PROJECT_NAME);
+    printf("PROJECT_VESION : %s\n",PROJECT_VESION);
+    printf("SVN_VESION : %s\n",SVN_VESION);
+    printf("BUILD_TIME : %s\n",BUILD_TIME);
+    printf("BUILD_FLAGS: %s\n",BUILD_FLAGS);
+}
+
+
+
+static void print_help(char const * execname)
+{
+    printf("Usage:%s [option]\n", execname);
+    printf("Options:\n");
+    printf("  -h        print this message\n");
+    printf("  -v        print the version\n");
+    printf("  -f cfgfilepath\n");
+}
+
+
+static void parse_argv(int argc,char * argv[]){
+    if(argc == 2 && 0 == strcmp(argv[1],"-v")){
+        print_version();
+        exit(0);
+    }
+}

@@ -53,7 +53,7 @@ int testDelay(Delay * d)
 {
     d->start = TimerHelper::Now_Microsecond();
 
-    usleep(1);
+    usleep(1000);
     //TRACE("do:"<<d->id);
     d->done  = TimerHelper::Now_Microsecond(); 
 }

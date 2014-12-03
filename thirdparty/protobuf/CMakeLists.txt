@@ -21,4 +21,4 @@ add_custom_target(protobuf_clean COMMAND rm -fr build
 )
 
 add_dependencies(protobuf protobuf_build)
-add_dependencies(protobuf_build protobuf_clean)
+#add_dependencies(protobuf_build protobuf_clean)

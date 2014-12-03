@@ -2,7 +2,7 @@
 #include "mio_socket_stream.h"
 
 
-#include "proto/rpc_http_header.h"
+#include "http/rpc_http_header.h"
 #include "thread/ext_closure.h"
 namespace mtrpc {
 

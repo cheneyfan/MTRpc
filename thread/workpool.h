@@ -162,7 +162,7 @@ public:
     /// \param workNum
     /// \return
     ///
-    int Init(uint32_t workNum);
+    int Init(uint32_t w);
 
     ///
     /// \brief AddWork
@@ -198,7 +198,8 @@ public:
 public:
     Worker* workerlist;
     SpinList<MioTask*,MutexLock> taskQueue;
-    SpinList<Worker* ,MutexLock> idleWorker;
+    SpinList<Worker*,MutexLock> idleWorker;
+    int workerNum;
 
 };
 

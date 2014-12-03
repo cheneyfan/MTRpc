@@ -5,6 +5,8 @@
 #include <stdio.h>
 #include <sys/uio.h>
 #include <stdint.h>
+#include <sys/stat.h>
+#include <sys/types.h>
 
 #include <time.h>
 #include <unistd.h>
@@ -134,7 +136,7 @@ public:
     /// \param size
     ///
     void toIovec(iovec* v,uint32_t& size);
-    
+
     template<typename T>
     void Format(const T* t){
         if(buf.size < 32 )
@@ -206,7 +208,7 @@ public:
         buf.ptr  += len ;
         buf.size -= len;
     }
-    
+
     //#ifdef __i386__
     void Format(long unsigned int  d){
         if(buf.size < 16 )
@@ -255,7 +257,7 @@ public:
         buf.size -= len;
     }
 
-    
+
 #ifdef __x86_64__
     template<typename T, typename... Args>
     void Format(const char *str, T value, Args... args)
@@ -382,7 +384,9 @@ public:
     static __thread uint32_t tid;
     static __thread char tidstr[8];
     static __thread time_t time;
+    static __thread time_t last_create;
     static __thread char datebuf[24];
+    static __thread char format_datebuf[24];
 };
 
 class Worker;
@@ -398,7 +402,7 @@ public:
     ///
     static int Init(Json::Value & conf);
 
-
+    static int Init();
     static void Stop(void *);
     static void Close();
 
@@ -436,12 +440,14 @@ public:
 public:
 
     static int fd;
-    static std::string logfile;
+    static char logfile[256];
     static Worker* worker;
     static SpinList<LogEntry*,SpinLock> _loglist;
     static CacheManger* next;
     static MutexLock spin;
     static bool isruning;
+    static std::string dirname;
+    static bool isinit;
 };
 
 }//namespace

@@ -1,4 +1,4 @@
-
+MESSAGE("include gtest project")
 
 externalproject_add(gtest_build
 DOWNLOAD_DIR ${GTESTPATH}
@@ -25,5 +25,5 @@ WORKING_DIRECTORY ${GTESTPATH}
 )
 
 add_dependencies(gtest gtest_build)
-add_dependencies(gtest_build gtest_clean)
+#add_dependencies(gtest_build gtest_clean)
 

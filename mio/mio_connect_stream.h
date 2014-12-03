@@ -1,5 +1,5 @@
 #include "mio/mio_message_stream.h"
-#include "proto/rpc_http_header.h"
+#include "http/rpc_http_header.h"
 #include "thread/ext_closure.h"
 #include "common/rwlock.h"
 

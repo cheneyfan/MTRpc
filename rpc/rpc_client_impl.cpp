@@ -4,6 +4,7 @@
 #include "rpc_client_impl.h"
 #include "rpc_channel.h"
 #include "rpc_channel_impl.h"
+#include "log/log.h"
 
 namespace mtrpc {
 
@@ -12,12 +13,21 @@ RpcClientImpl::RpcClientImpl(const RpcClientOptions& opt):
 _options(opt){
     _poller = new Epoller();
     _group  = new WorkGroup();
+    google::protobuf::SetLogHandler(ClientLogHander);
 }
 
 RpcClientImpl::~RpcClientImpl(){
 
     delete _poller;
     delete _group;
+}
+
+google::protobuf::LogHandler* RpcClientImpl::ClientLogHander(
+        google::protobuf::LogLevel level,
+        const char* filename, int line,
+        const std::string& message)
+{
+    ERROR("message:"<<message<<",file:"<<filename<<",line:"<<line<<",level:"<<level);
 }
 
 void RpcClientImpl::Start(){

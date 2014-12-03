@@ -190,7 +190,12 @@ bool IOBuffer::MoveSendPtr(int size){
 
 int IOBuffer::GetBufferLeft(){
 
-    return readpos  - writepos;
+    if(readpos == writepos)
+    {
+        return MAX_BUFFER_PIECES * DEFAULT_BUFFER_SIZE;
+    }
+
+    return readpos - writepos;
 }
 
 uint32_t IOBuffer::GetBufferUsed(){

@@ -368,7 +368,7 @@ void protobuf_AssignDesc_face_2eproto() {
       ::google::protobuf::MessageFactory::generated_factory(),
       sizeof(ListResultResponse));
   IdentifyRequest_descriptor_ = file->message_type(15);
-  static const int IdentifyRequest_offsets_[9] = {
+  static const int IdentifyRequest_offsets_[10] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(IdentifyRequest, uin_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(IdentifyRequest, type_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(IdentifyRequest, photodid_),
@@ -378,6 +378,7 @@ void protobuf_AssignDesc_face_2eproto() {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(IdentifyRequest, name_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(IdentifyRequest, candidate_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(IdentifyRequest, proto_type_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(IdentifyRequest, photo_data_),
   };
   IdentifyRequest_reflection_ =
     new ::google::protobuf::internal::GeneratedMessageReflection(
@@ -670,55 +671,57 @@ void protobuf_AddDesc_face_2eproto() {
     "\030\007 \002(\r\022\020\n\010identity\030\010 \002(\r\022\016\n\006marker\030\t \002(\r"
     "\"e\n\022ListResultResponse\022\013\n\003uin\030\001 \002(\r\022\"\n\003r"
     "es\030\002 \003(\0132\025.youtu.FaceListResult\022\016\n\006allnu"
-    "m\030\003 \002(\r\022\016\n\006status\030\004 \002(\005\"\234\001\n\017IdentifyRequ"
+    "m\030\003 \002(\r\022\016\n\006status\030\004 \002(\005\"\260\001\n\017IdentifyRequ"
     "est\022\013\n\003uin\030\001 \002(\t\022\014\n\004type\030\002 \002(\005\022\020\n\010photod"
     "id\030\003 \001(\014\022\013\n\003url\030\004 \001(\t\022\014\n\004data\030\005 \001(\014\022\014\n\004r"
     "ect\030\006 \001(\004\022\014\n\004name\030\007 \001(\014\022\021\n\tcandidate\030\010 \003"
-    "(\t\022\022\n\nproto_type\030\t \001(\005\"O\n\014IdentifyItem\022\021"
-    "\n\tcandidate\030\001 \002(\t\022\021\n\tsimilarty\030\002 \002(\r\022\013\n\003"
-    "url\030\003 \001(\t\022\014\n\004data\030\004 \001(\014\"\206\001\n\020IdentifyResp"
-    "onse\022\"\n\005items\030\001 \003(\0132\023.youtu.IdentifyItem"
-    "\022\t\n\001x\030\002 \002(\r\022\t\n\001y\030\003 \002(\r\022\t\n\001w\030\004 \002(\r\022\t\n\001h\030\005"
-    " \002(\r\022\022\n\nupload_url\030\006 \002(\t\022\016\n\006status\030\007 \002(\r"
-    "\"[\n\013FeatureItem\022\016\n\006faceid\030\001 \002(\004\022\013\n\003url\030\002"
-    " \002(\t\022\020\n\010identity\030\003 \002(\t\022\017\n\007feature\030\004 \002(\014\022"
-    "\014\n\004name\030\005 \001(\014\"4\n\017FeatureItemList\022!\n\005item"
-    "s\030\001 \003(\0132\022.youtu.FeatureItem\"v\n\010FaceItem\022"
-    "\016\n\006faceid\030\001 \002(\004\022\017\n\007photoid\030\002 \002(\t\022\t\n\001x\030\003 "
-    "\002(\005\022\t\n\001y\030\004 \002(\005\022\t\n\001w\030\005 \002(\005\022\t\n\001h\030\006 \002(\005\022\r\n\005"
-    "width\030\007 \001(\005\022\016\n\006hegiht\030\010 \001(\005\"@\n\021FaceImpor"
-    "tRequest\022\013\n\003uin\030\001 \002(\r\022\036\n\005items\030\002 \003(\0132\017.y"
-    "outu.FaceItem\"$\n\022FaceImportResponse\022\016\n\006f"
-    "aceid\030\001 \003(\0042K\n\014HasUinServer\022;\n\014HasUinSea"
-    "rch\022\024.youtu.HasUinRequest\032\025.youtu.HasUin"
-    "Response2g\n\024ListFaceFriendServer\022O\n\020GetQ"
-    "QFaceFriends\022\034.youtu.ListFaceFriendReque"
-    "st\032\035.youtu.ListFaceFriendResponse2\237\001\n\020Li"
-    "stFriendServer\022C\n\014GetQQFriends\022\030.youtu.L"
-    "istFriendRequest\032\031.youtu.ListFriendRespo"
-    "nse\022F\n\017GetQZoneFriends\022\030.youtu.ListFrien"
-    "dRequest\032\031.youtu.ListFriendResponse2T\n\017P"
-    "hotoListServer\022A\n\014GetPhotoList\022\027.youtu.P"
-    "hotoListRequest\032\030.youtu.PhotoListRespons"
-    "e2\234\002\n\014ImportServer\022;\n\006Import\022\024.youtu.Imp"
-    "ortRequest\032\033.youtu.ImportStatusResponse\022"
-    "B\n\rImportFriends\022\024.youtu.ImportRequest\032\033"
-    ".youtu.ImportStatusResponse\022A\n\014ImportSta"
-    "tus\022\024.youtu.ImportRequest\032\033.youtu.Import"
-    "StatusResponse\022H\n\023ImportFriendsStatus\022\024."
-    "youtu.ImportRequest\032\033.youtu.ImportStatus"
-    "Response2\223\001\n\nListServer\022@\n\tListFaces\022\030.y"
-    "outu.ListResultRequest\032\031.youtu.ListResul"
-    "tResponse\022C\n\014ListAckFaces\022\030.youtu.ListRe"
-    "sultRequest\032\031.youtu.ListResultResponse2\316"
-    "\001\n\016IdentifyServer\022;\n\010Identify\022\026.youtu.Id"
-    "entifyRequest\032\027.youtu.IdentifyResponse\022B"
-    "\n\017IdentifyFriends\022\026.youtu.IdentifyReques"
-    "t\032\027.youtu.IdentifyResponse\022;\n\010Register\022\026"
-    ".youtu.IdentifyRequest\032\027.youtu.IdentifyR"
-    "esponse2Q\n\020FaceImportServer\022=\n\006Import\022\030."
-    "youtu.FaceImportRequest\032\031.youtu.FaceImpo"
-    "rtResponseB\003\200\001\001", 3055);
+    "(\t\022\022\n\nproto_type\030\t \001(\005\022\022\n\nphoto_data\030\n \003"
+    "(\014\"O\n\014IdentifyItem\022\021\n\tcandidate\030\001 \002(\t\022\021\n"
+    "\tsimilarty\030\002 \002(\r\022\013\n\003url\030\003 \001(\t\022\014\n\004data\030\004 "
+    "\001(\014\"\206\001\n\020IdentifyResponse\022\"\n\005items\030\001 \003(\0132"
+    "\023.youtu.IdentifyItem\022\t\n\001x\030\002 \002(\r\022\t\n\001y\030\003 \002"
+    "(\r\022\t\n\001w\030\004 \002(\r\022\t\n\001h\030\005 \002(\r\022\022\n\nupload_url\030\006"
+    " \002(\t\022\016\n\006status\030\007 \002(\r\"[\n\013FeatureItem\022\016\n\006f"
+    "aceid\030\001 \002(\004\022\013\n\003url\030\002 \002(\t\022\020\n\010identity\030\003 \002"
+    "(\t\022\017\n\007feature\030\004 \002(\014\022\014\n\004name\030\005 \001(\014\"4\n\017Fea"
+    "tureItemList\022!\n\005items\030\001 \003(\0132\022.youtu.Feat"
+    "ureItem\"v\n\010FaceItem\022\016\n\006faceid\030\001 \002(\004\022\017\n\007p"
+    "hotoid\030\002 \002(\t\022\t\n\001x\030\003 \002(\005\022\t\n\001y\030\004 \002(\005\022\t\n\001w\030"
+    "\005 \002(\005\022\t\n\001h\030\006 \002(\005\022\r\n\005width\030\007 \001(\005\022\016\n\006hegih"
+    "t\030\010 \001(\005\"@\n\021FaceImportRequest\022\013\n\003uin\030\001 \002("
+    "\r\022\036\n\005items\030\002 \003(\0132\017.youtu.FaceItem\"$\n\022Fac"
+    "eImportResponse\022\016\n\006faceid\030\001 \003(\0042K\n\014HasUi"
+    "nServer\022;\n\014HasUinSearch\022\024.youtu.HasUinRe"
+    "quest\032\025.youtu.HasUinResponse2g\n\024ListFace"
+    "FriendServer\022O\n\020GetQQFaceFriends\022\034.youtu"
+    ".ListFaceFriendRequest\032\035.youtu.ListFaceF"
+    "riendResponse2\237\001\n\020ListFriendServer\022C\n\014Ge"
+    "tQQFriends\022\030.youtu.ListFriendRequest\032\031.y"
+    "outu.ListFriendResponse\022F\n\017GetQZoneFrien"
+    "ds\022\030.youtu.ListFriendRequest\032\031.youtu.Lis"
+    "tFriendResponse2T\n\017PhotoListServer\022A\n\014Ge"
+    "tPhotoList\022\027.youtu.PhotoListRequest\032\030.yo"
+    "utu.PhotoListResponse2\234\002\n\014ImportServer\022;"
+    "\n\006Import\022\024.youtu.ImportRequest\032\033.youtu.I"
+    "mportStatusResponse\022B\n\rImportFriends\022\024.y"
+    "outu.ImportRequest\032\033.youtu.ImportStatusR"
+    "esponse\022A\n\014ImportStatus\022\024.youtu.ImportRe"
+    "quest\032\033.youtu.ImportStatusResponse\022H\n\023Im"
+    "portFriendsStatus\022\024.youtu.ImportRequest\032"
+    "\033.youtu.ImportStatusResponse2\223\001\n\nListSer"
+    "ver\022@\n\tListFaces\022\030.youtu.ListResultReque"
+    "st\032\031.youtu.ListResultResponse\022C\n\014ListAck"
+    "Faces\022\030.youtu.ListResultRequest\032\031.youtu."
+    "ListResultResponse2\220\002\n\016IdentifyServer\022;\n"
+    "\010Identify\022\026.youtu.IdentifyRequest\032\027.yout"
+    "u.IdentifyResponse\022B\n\017IdentifyFriends\022\026."
+    "youtu.IdentifyRequest\032\027.youtu.IdentifyRe"
+    "sponse\022;\n\010Register\022\026.youtu.IdentifyReque"
+    "st\032\027.youtu.IdentifyResponse\022@\n\rIdentifyD"
+    "atas\022\026.youtu.IdentifyRequest\032\027.youtu.Ide"
+    "ntifyResponse2Q\n\020FaceImportServer\022=\n\006Imp"
+    "ort\022\030.youtu.FaceImportRequest\032\031.youtu.Fa"
+    "ceImportResponseB\003\200\001\001", 3141);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "face.proto", &protobuf_RegisterTypes);
   HasUinRequest::default_instance_ = new HasUinRequest();
@@ -5401,6 +5404,7 @@ const int IdentifyRequest::kRectFieldNumber;
 const int IdentifyRequest::kNameFieldNumber;
 const int IdentifyRequest::kCandidateFieldNumber;
 const int IdentifyRequest::kProtoTypeFieldNumber;
+const int IdentifyRequest::kPhotoDataFieldNumber;
 #endif  // !_MSC_VER
 
 IdentifyRequest::IdentifyRequest()
@@ -5509,6 +5513,7 @@ void IdentifyRequest::Clear() {
     proto_type_ = 0;
   }
   candidate_.Clear();
+  photo_data_.Clear();
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
   mutable_unknown_fields()->Clear();
 }
@@ -5657,6 +5662,21 @@ bool IdentifyRequest::MergePartialFromCodedStream(
         } else {
           goto handle_uninterpreted;
         }
+        if (input->ExpectTag(82)) goto parse_photo_data;
+        break;
+      }
+
+      // repeated bytes photo_data = 10;
+      case 10: {
+        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED) {
+         parse_photo_data:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadBytes(
+                input, this->add_photo_data()));
+        } else {
+          goto handle_uninterpreted;
+        }
+        if (input->ExpectTag(82)) goto parse_photo_data;
         if (input->ExpectAtEnd()) return true;
         break;
       }
@@ -5739,6 +5759,12 @@ void IdentifyRequest::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::WriteInt32(9, this->proto_type(), output);
   }
 
+  // repeated bytes photo_data = 10;
+  for (int i = 0; i < this->photo_data_size(); i++) {
+    ::google::protobuf::internal::WireFormatLite::WriteBytes(
+      10, this->photo_data(i), output);
+  }
+
   if (!unknown_fields().empty()) {
     ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
         unknown_fields(), output);
@@ -5810,6 +5836,12 @@ void IdentifyRequest::SerializeWithCachedSizes(
   // optional int32 proto_type = 9;
   if (has_proto_type()) {
     target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(9, this->proto_type(), target);
+  }
+
+  // repeated bytes photo_data = 10;
+  for (int i = 0; i < this->photo_data_size(); i++) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      WriteBytesToArray(10, this->photo_data(i), target);
   }
 
   if (!unknown_fields().empty()) {
@@ -5889,6 +5921,13 @@ int IdentifyRequest::ByteSize() const {
       this->candidate(i));
   }
 
+  // repeated bytes photo_data = 10;
+  total_size += 1 * this->photo_data_size();
+  for (int i = 0; i < this->photo_data_size(); i++) {
+    total_size += ::google::protobuf::internal::WireFormatLite::BytesSize(
+      this->photo_data(i));
+  }
+
   if (!unknown_fields().empty()) {
     total_size +=
       ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
@@ -5915,6 +5954,7 @@ void IdentifyRequest::MergeFrom(const ::google::protobuf::Message& from) {
 void IdentifyRequest::MergeFrom(const IdentifyRequest& from) {
   GOOGLE_CHECK_NE(&from, this);
   candidate_.MergeFrom(from.candidate_);
+  photo_data_.MergeFrom(from.photo_data_);
   if (from._has_bits_[0 / 32] & (0xffu << (0 % 32))) {
     if (from.has_uin()) {
       set_uin(from.uin());
@@ -5975,6 +6015,7 @@ void IdentifyRequest::Swap(IdentifyRequest* other) {
     std::swap(name_, other->name_);
     candidate_.Swap(&other->candidate_);
     std::swap(proto_type_, other->proto_type_);
+    photo_data_.Swap(&other->photo_data_);
     std::swap(_has_bits_[0], other->_has_bits_[0]);
     _unknown_fields_.Swap(&other->_unknown_fields_);
     std::swap(_cached_size_, other->_cached_size_);
@@ -9086,6 +9127,14 @@ void IdentifyServer::Register(::google::protobuf::RpcController* controller,
   done->Run();
 }
 
+void IdentifyServer::IdentifyDatas(::google::protobuf::RpcController* controller,
+                         const ::youtu::IdentifyRequest*,
+                         ::youtu::IdentifyResponse*,
+                         ::google::protobuf::Closure* done) {
+  controller->SetFailed("Method IdentifyDatas() not implemented.");
+  done->Run();
+}
+
 void IdentifyServer::CallMethod(const ::google::protobuf::MethodDescriptor* method,
                              ::google::protobuf::RpcController* controller,
                              const ::google::protobuf::Message* request,
@@ -9111,6 +9160,12 @@ void IdentifyServer::CallMethod(const ::google::protobuf::MethodDescriptor* meth
              ::google::protobuf::down_cast< ::youtu::IdentifyResponse*>(response),
              done);
       break;
+    case 3:
+      IdentifyDatas(controller,
+             ::google::protobuf::down_cast<const ::youtu::IdentifyRequest*>(request),
+             ::google::protobuf::down_cast< ::youtu::IdentifyResponse*>(response),
+             done);
+      break;
     default:
       GOOGLE_LOG(FATAL) << "Bad method index; this should never happen.";
       break;
@@ -9127,6 +9182,8 @@ const ::google::protobuf::Message& IdentifyServer::GetRequestPrototype(
       return ::youtu::IdentifyRequest::default_instance();
     case 2:
       return ::youtu::IdentifyRequest::default_instance();
+    case 3:
+      return ::youtu::IdentifyRequest::default_instance();
     default:
       GOOGLE_LOG(FATAL) << "Bad method index; this should never happen.";
       return *reinterpret_cast< ::google::protobuf::Message*>(NULL);
@@ -9142,6 +9199,8 @@ const ::google::protobuf::Message& IdentifyServer::GetResponsePrototype(
     case 1:
       return ::youtu::IdentifyResponse::default_instance();
     case 2:
+      return ::youtu::IdentifyResponse::default_instance();
+    case 3:
       return ::youtu::IdentifyResponse::default_instance();
     default:
       GOOGLE_LOG(FATAL) << "Bad method index; this should never happen.";
@@ -9179,6 +9238,13 @@ void IdentifyServer_Stub::Register(::google::protobuf::RpcController* controller
                               ::youtu::IdentifyResponse* response,
                               ::google::protobuf::Closure* done) {
   channel_->CallMethod(descriptor()->method(2),
+                       controller, request, response, done);
+}
+void IdentifyServer_Stub::IdentifyDatas(::google::protobuf::RpcController* controller,
+                              const ::youtu::IdentifyRequest* request,
+                              ::youtu::IdentifyResponse* response,
+                              ::google::protobuf::Closure* done) {
+  channel_->CallMethod(descriptor()->method(3),
                        controller, request, response, done);
 }
 // ===================================================================

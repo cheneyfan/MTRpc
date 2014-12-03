@@ -56,19 +56,15 @@ void HttpHeader::SetContentLength(uint32_t length)
         snprintf(buf, sizeof(buf), "%u", length);
         headers[Content_Length_key]=std::string(buf);
     }
-    {
-
-        headers[Content_type_key]=Content_type_value;
-    }
 }
 
 int HttpHeader::GetContentLength(){
 
     std::map<std::string,std::string>::iterator it = headers.find(Content_Length_key);
     if(it == headers.end())
-        return -1;
+        return 0;
 
-    return strtol(it->second.c_str(),NULL,10);
+    return strtol(it->second.c_str(), NULL, 10);
 }
 
 void HttpHeader::SetSeq(uint64_t seq){
@@ -91,6 +87,43 @@ uint64_t HttpHeader::GetSeq(){
 }
 
 
+int HttpHeader::SerializeBody(const std::string& body, WriteBuffer::Iterator& it ){
+
+    char * bufptr = it.get()->buffer + it._pos;
+    int size      = it.get()->size - it._pos;
+
+    char * bufpos = bufptr;
+    const char * body_start = body.c_str();
+    const char * end = body_start + body.size();
+
+    while(body_start < end)
+    {
+        int remian = end - body_start;
+
+        if(remian <= size)
+        {
+            memcpy(bufptr, body_start, remian);
+            body_start += remian;
+            bufptr  += remian;
+
+        }else{
+            memcpy(bufptr, body_start, size);
+            body_start += size;
+            bufptr  += size;
+            it._pos += bufptr;
+
+            // move next buffer
+            ++ it;
+            bufptr = it.get()->buffer + it._pos;
+            bufpos = bufptr;
+            size = it.get()->size - it._pos;
+        }
+    }
+
+    //update the pos
+    it._pos = bufptr - bufpos;
+    return 0;
+}
 
 std::string HttpHeader::toString(){
     BufferPieces* pi[1];
@@ -146,9 +179,12 @@ void HttpHeader::MoveBufTo(uint32_t& s)
         ptr++;
     }
 
-    pos=buf;
+    pos = buf;
 }
 
+int HttpHeader::GetPendSize(){
+   return pos - buf;
+}
 
 HttpRequestHeader::HttpRequestHeader():
     HttpHeader()
@@ -169,7 +205,14 @@ int HttpRequestHeader::ParserHeader(ReadBuffer & buf){
     {
 
         char c = *begin;
-
+        int current_append_size = GetPendSize();
+        
+        if( current_append_size >= MAX_KEY_LEN )
+        {
+             WARN("Max Http Key is:"<<MAX_KEY_LEN<<",current:"<<current_append_size);
+             return HTTP_PARSER_FAIL;
+        }
+        
         switch(state)
         {
 
@@ -180,9 +223,9 @@ int HttpRequestHeader::ParserHeader(ReadBuffer & buf){
 
                 method.clear();
                 MoveBufTo(method);
-                //only support POST
-                if(strcmp(method.c_str(),"POST") !=0 )
-                    return HTTP_PARSER_FAIL;
+                //only support POST && GET
+                //if(strcmp(method.c_str(),"POST") !=0 || )
+                //    return HTTP_PARSER_FAIL;
 
                 state = REQ_PATH;
                 break;
@@ -301,7 +344,7 @@ int HttpRequestHeader::ParserHeader(ReadBuffer & buf){
 int HttpRequestHeader::SerializeHeader(WriteBuffer::Iterator& it){
 
     char * bufptr = it.get()->buffer + it._pos;
-    int size      = it.get()->size;
+    int size      = it.get()->size  - it._pos;
 
     char * bufpos = bufptr;
 
@@ -333,7 +376,7 @@ int HttpRequestHeader::SerializeHeader(WriteBuffer::Iterator& it){
     }
 
     //end
-    ret= snprintf(bufptr,size,"\r\n");
+    ret = snprintf(bufptr,size,"\r\n");
     bufptr+=ret;
     //*bufptr = '\0';
     size -= ret;
@@ -503,12 +546,12 @@ int HttpReponseHeader::ParserHeader(ReadBuffer & buf){
 int HttpReponseHeader::SerializeHeader(WriteBuffer::Iterator& it){
 
     char * bufptr = it.get()->buffer + it._pos;
-    int size      = it.get()->size;
+    int size      = it.get()->size - it._pos;
 
     char * bufpos = bufptr;
 
     //head
-    int ret = snprintf(bufptr,size,"%s %u %s\r\n"
+    int ret = snprintf(bufptr, size,"%s %u %s\r\n"
                        ,version.c_str(),status,status_msg.c_str());
 
     bufptr+=ret;
@@ -528,7 +571,7 @@ int HttpReponseHeader::SerializeHeader(WriteBuffer::Iterator& it){
         std::string value = it->second;
 
         ret = snprintf(bufptr,size,"%s: %s \r\n",key.c_str(),value.c_str());
-        bufptr+=ret;
+        bufptr += ret;
         size -= ret;
 
         if(size <= 0)
@@ -538,8 +581,8 @@ int HttpReponseHeader::SerializeHeader(WriteBuffer::Iterator& it){
 
     }
 
-    ret= snprintf(bufptr,size,"\r\n");
-    bufptr+=ret;
+    ret= snprintf(bufptr, size, "\r\n");
+    bufptr += ret;
     //*bufptr = '\0';
     size -= ret;
 
@@ -549,9 +592,16 @@ int HttpReponseHeader::SerializeHeader(WriteBuffer::Iterator& it){
         return -1;
     }
 
-    it.get()->size = bufptr -bufpos + it._pos;;
+
+    // this is the size in buffer piece
+    it.get()->size = bufptr - bufpos + it._pos;
+
     return 0;
 }
+
+
+
+
 
 void HttpReponseHeader::Reset(){
     HttpHeader::Reset();

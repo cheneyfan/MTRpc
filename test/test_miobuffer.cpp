@@ -3,7 +3,7 @@
 #include "stdio.h"
 #include "mio/mio_buffer.h"
 #include "log/log.h"
-#include "proto/builtin_service.pb.h"
+
 
 using namespace mtrpc;
 
@@ -177,7 +177,7 @@ TEST(IOBUFFER,IOBUFFER_ITERATOR )
 
 TEST(READBUF,READBUF)
 {
-#define _4
+//#define _4
 #ifdef _4
     mtrpc::builtin::MethodStat m ;
     m.set_method_name("hehe");
