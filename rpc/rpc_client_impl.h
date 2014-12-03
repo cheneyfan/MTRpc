@@ -36,6 +36,12 @@ public:
     RpcChannel* GetChannel(const std::string& server_addr);
     void ReleaseChannel(RpcChannel* channel);
 
+
+    static google::protobuf::LogHandler* ClientLogHander(
+                           google::protobuf::LogLevel level,
+                           const char* filename, int line,
+                           const std::string& message);
+
 public:
     RpcClientOptions _options;
 

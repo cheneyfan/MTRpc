@@ -35,11 +35,22 @@ RpcServerImpl::RpcServerImpl(const RpcServerOptions& options):
     group (new WorkGroup()),
     _service_pool(new ServicePool())
 {
+    google::protobuf::SetLogHandler(ServerLogHander);
 }
 
 RpcServerImpl::~RpcServerImpl()
 {
 
+}
+
+
+
+google::protobuf::LogHandler* RpcServerImpl::ServerLogHander(
+        google::protobuf::LogLevel level,
+        const char* filename, int line,
+        const std::string& message)
+{
+    ERROR("message:"<<message<<",file:"<<filename<<",line:"<<line<<",level:"<<level);
 }
 
 bool RpcServerImpl::RegisterService(google::protobuf::Service* service,
@@ -141,6 +152,9 @@ void RpcServerImpl::OnAccept(int sockfd){
     stream->handlerGetServiceAndMethod =
             NewPermanentExtClosure(this,&RpcServerImpl::handlerGetServiceAndMethod);
 
+    stream->handlerGetServiceList =
+            NewPermanentExtClosure(this,&RpcServerImpl::listAllRegisterService);
+
     stream->Start(poller,group);
 
 
@@ -235,6 +249,35 @@ std::string RpcServerImpl::getHostIp()
     return ip;
 }
 
+
+bool RpcServerImpl::listAllRegisterService(std::list<std::string>& servers)
+{
+    std::map<std::string, ServiceBoard*>::iterator it =
+            _service_pool->_service_map.begin();
+    std::map<std::string, ServiceBoard*>::iterator end =
+            _service_pool->_service_map.end();
+
+    for(; it != end; ++it)
+    {
+        ServiceBoard* b = it->second;
+
+        for( int i = b->_svc_desc->method_count() -1; i>=0; --i){
+            const google::protobuf::MethodDescriptor* m = b->_svc_desc->method(0);
+
+            const std::string & request = m->input_type()->full_name();
+            const std::string & response = m->output_type()->full_name();
+            const std::string & method = m->full_name();
+
+            std::stringstream str;
+            str<<response<<" "<<method<<"("<<request<<")"<<std::endl;
+            //TRACE("list :"<<response<<" "<<method<<"("<<request<<")");
+
+            servers.push_back(str.str());
+        }
+    }
+
+    return true;
+}
 }
 
 

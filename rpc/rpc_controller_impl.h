@@ -49,6 +49,7 @@ public:
 public:
     uint64_t _seq;
     std::string _msg;
+    std::string body;
     volatile int  _status;
 
     uint32_t _req_send_size;

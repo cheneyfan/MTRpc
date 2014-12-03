@@ -205,7 +205,7 @@ private:
         *slot_count = sc;
     }
 
-private:
+public:
     ServiceBoard* _next;
     google::protobuf::Service* _svc;
     bool _own;
@@ -321,7 +321,7 @@ private:
 
 
 
-private:
+public:
     typedef std::map<std::string, ServiceBoard*> ServiceMap;
     ServiceMap _service_map;
     MutexLock _service_map_lock;

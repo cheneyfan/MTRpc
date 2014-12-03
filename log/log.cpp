@@ -30,8 +30,11 @@ const char* ENDL  = "\n";
 
 __thread uint32_t LogHelper::tid = 0;
 __thread char LogHelper::tidstr[8]={0};
-__thread time_t LogHelper::time=0;
+
+__thread time_t LogHelper::time = 0;
+__thread time_t LogHelper::last_create = 0;
 __thread char LogHelper::datebuf[24]={0};
+__thread char LogHelper::format_datebuf[24]={0};
 
 bool is_sync = true;
 
@@ -120,18 +123,19 @@ void LogHelper:: OutPut(LogEntry* e)
     }
 
     //TODO opt the function
-    struct timespec tp;
-    clock_gettime(CLOCK_REALTIME, &tp);
+    struct timeval tp;
+    gettimeofday(&tp,NULL);
 
     if(tp.tv_sec != time)
     {
         time = tp.tv_sec;
         struct tm tmp;
         localtime_r(&tp.tv_sec, &tmp);
-        strftime(datebuf,sizeof(datebuf),"%F %T",&tmp);
+        strftime(datebuf, sizeof(datebuf),"%F %T",&tmp);
+        strftime(format_datebuf,sizeof(format_datebuf), "%Y-%m-%d-%H",&tmp);
     }
 
-    snprintf(e->prefix,sizeof(e->prefix)," - %s.%03ld - %s - ",datebuf,tp.tv_nsec/1000000,tidstr);
+    snprintf(e->prefix,sizeof(e->prefix)," - %s.%03ld - %s - ",datebuf,tp.tv_usec/1000, tidstr);
 
     if(is_sync){
         WriteLock<MutexLock> __(LogBacker::spin);
@@ -173,25 +177,26 @@ void CacheManger::free(LogBuffer* b){
 
 
 int LogBacker::fd = 1;
-std::string LogBacker::logfile;
+char LogBacker::logfile[256]={0};
 Worker*  LogBacker::worker = new Worker();
 SpinList<LogEntry*,SpinLock> LogBacker::_loglist;
 CacheManger * LogBacker::next = NULL;
 MutexLock LogBacker::spin;
 bool LogBacker::isruning = true;
-
+std::string LogBacker::dirname = "log";
+bool LogBacker::isinit = false;
 
 int LogBacker::Init(Json::Value & conf){
 
-    logfile = "a.log";
+    memcpy(logfile,"a.log",sizeof("a.log"));
 
     is_sync = false;
 
-    fd = open(logfile.c_str(),
+    fd = open(logfile,
               O_CREAT|O_TRUNC|O_WRONLY,
               S_IRWXU|S_IRWXG|S_IRWXO);
 
-    
+
     MioTask* task = NewExtClosure(LogBacker::DumperLogger, NULL);
     worker->RunTask(task);
     worker->start();
@@ -202,6 +207,22 @@ int LogBacker::Init(Json::Value & conf){
     INFO("start logger file:"<<logfile);
 
     atexit(LogBacker::Close);
+
+    return 0;
+}
+
+int LogBacker::Init()
+{
+    if (0 != access(dirname.c_str(), F_OK))
+    {
+       if (0 !=  mkdir(dirname.c_str(), S_IRWXU|S_IRWXG|S_IRWXO))
+       {
+           std::cout<<"mkdir dir log failed, errno is "<<errno<<std::endl;
+           return -1;
+       }
+    }
+
+    isinit = true;
     return 0;
 }
 
@@ -277,10 +298,29 @@ void LogBacker::OutPut(LogEntry* e){
     struct iovec iov[10];
     uint32_t iov_size = 0;
 
+    // create new file every 3600 second
+    if(LogHelper::time - LogHelper::last_create > 3600)
+    {
+        if(fd > 1)
+            close(fd);
+
+        LogHelper::last_create = LogHelper::time;
+
+        snprintf(logfile,
+                 sizeof(logfile),
+                 "info.log.%s",
+                 LogHelper::format_datebuf);
+
+        fd = open(logfile,
+                  O_CREAT|O_WRONLY|O_APPEND,
+                  S_IRWXU|S_IRWXG|S_IRWXO);
+    }
+
+
+
     e->toIovec(iov,iov_size);
 
-    ::writev(fd,iov,iov_size);
-
+    ::writev(fd, iov, iov_size);
 }
 
 void LogBacker::DumperLogger(void *ctx)
@@ -294,7 +334,7 @@ void LogBacker::DumperLogger(void *ctx)
         SpinList<LogEntry*,SpinLock> tmp;
 
         bool isout = false;
-        
+
         {
             WriteLock<MutexLock> sp(spin);
             while(m)
@@ -311,7 +351,7 @@ void LogBacker::DumperLogger(void *ctx)
                 }
             }
         }
-        
+
         LogEntry* e  = NULL;
         while(tmp.pop(e) && e)
         {

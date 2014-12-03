@@ -21,8 +21,10 @@ _stream(new MessageStream(fd))
 ServerConnect::~ServerConnect()
 {
     delete handlerGetServiceAndMethod;
-
     handlerGetServiceAndMethod = NULL;
+
+    delete handlerGetServiceList;
+    handlerGetServiceList = NULL;
 }
 
 
@@ -52,8 +54,50 @@ void ServerConnect::Start(Epoller* p,WorkGroup* g)
 
 }
 
+
+void ServerConnect::OnListServer(MessageStream* stream, Epoller* p){
+
+    // 1 get the register servers
+
+    std::list<std::string> servers;
+    handlerGetServiceList->Run(servers);
+
+    RpcServerController* controller = new RpcServerController();
+
+
+    controller->_seq  = stream->reqheader.GetSeq();
+    controller->_request = NULL;
+    controller->_response = NULL;
+    controller->_stream = _stream;
+    controller->_poller = p;
+    controller->SetStatus(OK);
+
+    if(servers.size() == 0)
+    {
+        controller->body = "No Serves find\r\n";
+    }else{
+         std::stringstream str;
+         for(std::list<std::string>::iterator it = servers.begin();
+             it != servers.end(); ++it)
+         {
+             str << *it;
+         }
+         controller->body = str.str();
+    }
+
+    SendMessage(stream, p, controller,NULL,NULL);
+}
+
 void ServerConnect::OnMessageRecived(MessageStream* sream,Epoller* p,int32_t buffer_size)
 {
+
+
+    if(sream->reqheader.path.size() <= 1)
+    {
+        OnListServer(sream, p);
+        return;
+    }
+
     const std::string& method_full_name = sream->reqheader.path.substr(1);
 
     //TRACE(sream->GetSockName()<<",method:"<<method_full_name<<"Seq:"<<sream->reqheader.GetSeq());
@@ -153,45 +197,80 @@ void ServerConnect::SendMessage(MessageStream* stream,Epoller* p,RpcServerContro
 
     //TRACE("send Seq:"<<cntl->_seq);
 
-    if(!buf.Reserve(MAX_HEADER_SIZE))
-    {
-        OnMessageError(stream,p,SERVER_WRIEBUFFER_FULL);
+    if(request){
 
-        delete request;
-        delete response;
-        delete cntl;
-        return;
+        if(!buf.Reserve(MAX_HEADER_SIZE))
+        {
+            OnMessageError(stream,p,SERVER_WRIEBUFFER_FULL);
+
+            delete request;
+            delete response;
+            delete cntl;
+            return;
+        }
+
+        WriteBuffer::Iterator packetStart = buf.writepos;
+        WriteBuffer::Iterator bodyStart   =  buf.AlignWritePos();
+
+        buf.BeginPacket();
+
+        TRACE("Serial buf,write:"<<bodyStart.toString()<<",read:"<<buf.readpos.toString()<<",used:"<<buf.GetBufferUsed()<<",left:"<<buf.GetBufferLeft());
+
+        if(!response->SerializeToZeroCopyStream(&buf))
+        {
+            //roll back
+            buf.writepos = packetStart;
+            OnMessageError(stream,p,SERVER_RES_SERIA_FAILED);
+
+            delete request;
+            delete response;
+            delete cntl;
+            return;
+        }
+
+        uint32_t content_length  = buf.writepos - bodyStart;
+
+        resheader.SetContentLength(content_length);
+        resheader.SetHeader("Content-Type"," application/x-protobuf");
+        resheader.SerializeHeader(packetStart);
+
+        cntl->_res_pack_size     = buf.writepos - packetStart;
+
+        TRACE("send,readpos:"<<buf.readpos.toString()<<",writepos:"<<buf.writepos.toString()<<",packetStart:"<<packetStart.toString()<<",body start:"<<bodyStart.toString()<<",beginpacket:"<<buf.beginWrite.toString()<<",pack size:"<<cntl->_res_pack_size<<",content_length:"<<content_length);
+
+    }else{
+
+        resheader.body_size = cntl->body.size();
+
+        resheader.SetHeader("Server"," MTRpc 1.0.0");
+        //resheader.SetHeader("Date",
+        //                    " Wed, 03 Dec 2014 08:32:40 GMT");
+        resheader.SetHeader("Content-Type"," text/plain");
+        resheader.SetHeader("Connection"," keep-alive");
+        resheader.SetContentLength(resheader.body_size);
+
+        TRACE("SerializeBody begin body_size:"<<resheader.body_size<<", writepos:"<<buf.writepos.toString());
+
+
+        if(!buf.Reserve(MAX_HEADER_SIZE))
+        {
+            OnMessageError(stream,p,SERVER_WRIEBUFFER_FULL);
+
+            delete request;
+            delete response;
+            delete cntl;
+            return;
+        }
+
+        WriteBuffer::Iterator packetStart = buf.writepos;
+        buf.AlignWritePos();
+
+        resheader.SerializeBody(cntl->body, buf.writepos);
+        resheader.SerializeHeader(packetStart);
+
+
+        TRACE("SerializeBody after body_size:"<<resheader.body_size<<", writepos:"<<buf.writepos.toString());
     }
-
-    WriteBuffer::Iterator packetStart = buf.writepos;
-    WriteBuffer::Iterator bodyStart   =  buf.AlignWritePos();
-
-    buf.BeginPacket();
-
-    TRACE("Serial buf,write:"<<bodyStart.toString()<<",read:"<<buf.readpos.toString()<<",used:"<<buf.GetBufferUsed()<<",left:"<<buf.GetBufferLeft());
-
-    if(!response->SerializeToZeroCopyStream(&buf))
-    {
-        //roll back
-        buf.writepos = packetStart;
-        OnMessageError(stream,p,SERVER_RES_SERIA_FAILED);
-
-        delete request;
-        delete response;
-        delete cntl;
-        return;
-    }
-
-
-
-    uint32_t content_length  = buf.writepos - bodyStart;
-
-    resheader.SetContentLength(content_length);
-    resheader.SerializeHeader(packetStart);
-
-    cntl->_res_pack_size     = buf.writepos - packetStart;
-
-   TRACE("send,readpos:"<<buf.readpos.toString()<<",writepos:"<<buf.writepos.toString()<<",packetStart:"<<packetStart.toString()<<",body start:"<<bodyStart.toString()<<",beginpacket:"<<buf.beginWrite.toString()<<",pack size:"<<cntl->_res_pack_size<<",content_length:"<<content_length);
 
     stream->ModEventAsync(p, true, true);
 

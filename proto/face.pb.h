@@ -1846,6 +1846,22 @@ class IdentifyRequest : public ::google::protobuf::Message {
   inline ::google::protobuf::int32 proto_type() const;
   inline void set_proto_type(::google::protobuf::int32 value);
 
+  // repeated bytes photo_data = 10;
+  inline int photo_data_size() const;
+  inline void clear_photo_data();
+  static const int kPhotoDataFieldNumber = 10;
+  inline const ::std::string& photo_data(int index) const;
+  inline ::std::string* mutable_photo_data(int index);
+  inline void set_photo_data(int index, const ::std::string& value);
+  inline void set_photo_data(int index, const char* value);
+  inline void set_photo_data(int index, const void* value, size_t size);
+  inline ::std::string* add_photo_data();
+  inline void add_photo_data(const ::std::string& value);
+  inline void add_photo_data(const char* value);
+  inline void add_photo_data(const void* value, size_t size);
+  inline const ::google::protobuf::RepeatedPtrField< ::std::string>& photo_data() const;
+  inline ::google::protobuf::RepeatedPtrField< ::std::string>* mutable_photo_data();
+
   // @@protoc_insertion_point(class_scope:youtu.IdentifyRequest)
  private:
   inline void set_has_uin();
@@ -1876,9 +1892,10 @@ class IdentifyRequest : public ::google::protobuf::Message {
   ::google::protobuf::uint64 rect_;
   ::std::string* name_;
   ::google::protobuf::RepeatedPtrField< ::std::string> candidate_;
+  ::google::protobuf::RepeatedPtrField< ::std::string> photo_data_;
 
   mutable int _cached_size_;
-  ::google::protobuf::uint32 _has_bits_[(9 + 31) / 32];
+  ::google::protobuf::uint32 _has_bits_[(10 + 31) / 32];
 
   friend void  protobuf_AddDesc_face_2eproto();
   friend void protobuf_AssignDesc_face_2eproto();
@@ -3149,6 +3166,10 @@ class IdentifyServer : public ::google::protobuf::Service {
                        const ::youtu::IdentifyRequest* request,
                        ::youtu::IdentifyResponse* response,
                        ::google::protobuf::Closure* done);
+  virtual void IdentifyDatas(::google::protobuf::RpcController* controller,
+                       const ::youtu::IdentifyRequest* request,
+                       ::youtu::IdentifyResponse* response,
+                       ::google::protobuf::Closure* done);
 
   // implements Service ----------------------------------------------
 
@@ -3187,6 +3208,10 @@ class IdentifyServer_Stub : public IdentifyServer {
                        ::youtu::IdentifyResponse* response,
                        ::google::protobuf::Closure* done);
   void Register(::google::protobuf::RpcController* controller,
+                       const ::youtu::IdentifyRequest* request,
+                       ::youtu::IdentifyResponse* response,
+                       ::google::protobuf::Closure* done);
+  void IdentifyDatas(::google::protobuf::RpcController* controller,
                        const ::youtu::IdentifyRequest* request,
                        ::youtu::IdentifyResponse* response,
                        ::google::protobuf::Closure* done);
@@ -5138,6 +5163,50 @@ inline ::google::protobuf::int32 IdentifyRequest::proto_type() const {
 inline void IdentifyRequest::set_proto_type(::google::protobuf::int32 value) {
   set_has_proto_type();
   proto_type_ = value;
+}
+
+// repeated bytes photo_data = 10;
+inline int IdentifyRequest::photo_data_size() const {
+  return photo_data_.size();
+}
+inline void IdentifyRequest::clear_photo_data() {
+  photo_data_.Clear();
+}
+inline const ::std::string& IdentifyRequest::photo_data(int index) const {
+  return photo_data_.Get(index);
+}
+inline ::std::string* IdentifyRequest::mutable_photo_data(int index) {
+  return photo_data_.Mutable(index);
+}
+inline void IdentifyRequest::set_photo_data(int index, const ::std::string& value) {
+  photo_data_.Mutable(index)->assign(value);
+}
+inline void IdentifyRequest::set_photo_data(int index, const char* value) {
+  photo_data_.Mutable(index)->assign(value);
+}
+inline void IdentifyRequest::set_photo_data(int index, const void* value, size_t size) {
+  photo_data_.Mutable(index)->assign(
+    reinterpret_cast<const char*>(value), size);
+}
+inline ::std::string* IdentifyRequest::add_photo_data() {
+  return photo_data_.Add();
+}
+inline void IdentifyRequest::add_photo_data(const ::std::string& value) {
+  photo_data_.Add()->assign(value);
+}
+inline void IdentifyRequest::add_photo_data(const char* value) {
+  photo_data_.Add()->assign(value);
+}
+inline void IdentifyRequest::add_photo_data(const void* value, size_t size) {
+  photo_data_.Add()->assign(reinterpret_cast<const char*>(value), size);
+}
+inline const ::google::protobuf::RepeatedPtrField< ::std::string>&
+IdentifyRequest::photo_data() const {
+  return photo_data_;
+}
+inline ::google::protobuf::RepeatedPtrField< ::std::string>*
+IdentifyRequest::mutable_photo_data() {
+  return &photo_data_;
 }
 
 // -------------------------------------------------------------------

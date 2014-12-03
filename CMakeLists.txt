@@ -77,6 +77,7 @@ add_library(mtrpc STATIC
             $<TARGET_OBJECTS:rpc>
             $<TARGET_OBJECTS:mio>
             $<TARGET_OBJECTS:proto>
+            $<TARGET_OBJECTS:http>
             $<TARGET_OBJECTS:thread>
             $<TARGET_OBJECTS:log>
             $<TARGET_OBJECTS:common>
@@ -87,6 +88,7 @@ else()
             $<TARGET_OBJECTS:rpc>
             $<TARGET_OBJECTS:mio>
             $<TARGET_OBJECTS:proto>
+            $<TARGET_OBJECTS:http>
             $<TARGET_OBJECTS:thread>
             $<TARGET_OBJECTS:log>
             $<TARGET_OBJECTS:common>

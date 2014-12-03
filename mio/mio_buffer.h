@@ -149,7 +149,9 @@ public:
            return _que[_idx];
        }
 
-
+       int left(){
+           return DEFAULT_BUFFER_SIZE - _pos;
+       }
 
        Iterator& operator ++ (){
 

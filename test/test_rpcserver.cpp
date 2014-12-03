@@ -31,11 +31,14 @@ public:
 };
 
 int main(int argc,char*argv[]){
+
+
     Json::Value conf;
     //LogBacker::Init(conf);
 
+
     RpcServerOptions opt;
-    opt.work_thread_num = 1;
+    opt.work_thread_num = 5;
     //if(argc > 1)
     //    opt.work_thread_num = atoi(argv[1]);
     std::cout<<"start :"<<opt.work_thread_num<<std::endl;
@@ -46,7 +49,10 @@ int main(int argc,char*argv[]){
     //SignalHelper::registerCallbak<RpcServer,&RpcServer::Stop>(&svr);
 
     svr.RegisterService(new A());
-    svr.Start(atoi(argv[1]));
+    if(argc > 1)
+        svr.Start(atoi(argv[1]));
+    else
+        svr.Start(8080);
     svr.Join();
     return 0;
 

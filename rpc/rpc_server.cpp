@@ -7,6 +7,7 @@ namespace  mtrpc {
 RpcServer::RpcServer(const RpcServerOptions& options)
     : _impl(new RpcServerImpl(options))
 {
+
 }
 
 RpcServer::~RpcServer()

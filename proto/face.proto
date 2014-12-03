@@ -147,6 +147,7 @@ message IdentifyRequest{
       optional bytes name        = 7;
       repeated string candidate   = 8;// if not 0,identity from this set 
       optional int32 proto_type    = 9;
+      repeated bytes photo_data = 10;
 }
 
 message IdentifyItem{
@@ -170,6 +171,7 @@ service IdentifyServer {
      rpc Identify(IdentifyRequest)        returns (IdentifyResponse);
      rpc IdentifyFriends(IdentifyRequest) returns (IdentifyResponse);
      rpc Register(IdentifyRequest)        returns (IdentifyResponse);
+     rpc IdentifyDatas(IdentifyRequest)   returns (IdentifyResponse);
 }
 
 

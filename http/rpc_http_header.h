@@ -40,6 +40,8 @@ public:
     virtual int SerializeHeader(WriteBuffer::Iterator& it) = 0;
 
 
+    virtual int SerializeBody(const std::string& body,
+                              WriteBuffer::Iterator& it);
 
     ///
     /// \brief SetContentLength
@@ -59,6 +61,10 @@ public:
     uint64_t GetSeq();
 
 
+    void SetHeader(const std::string &key,const std::string &value)
+    {
+        headers[key] = value;
+    }
     ///
     /// \brief toString for test
     /// \return
@@ -74,7 +80,7 @@ public:
     /// helper the parser
     void MoveBufTo(std::string& s);
     void MoveBufTo(uint32_t& s);
-
+    int GetPendSize();
     int header_size;
     int body_size;
 

@@ -6,6 +6,7 @@
 
 #include "thread/ext_closure.h"
 #include <queue>
+#include <list>
 
 namespace mtrpc {
 
@@ -41,16 +42,19 @@ public:
 
     void OnClose(SocketStream* sream,Epoller* p);
 
+    void OnListServer(MessageStream* stream, Epoller* p);
 
 public:
 
     ExtClosure<bool(const std::string & fulllname,
                     google::protobuf::Service** service,
                     google::protobuf::MethodDescriptor** method
-                    )>*  handlerGetServiceAndMethod;
+                    )> *handlerGetServiceAndMethod;
+
+    ExtClosure<bool(std::list<std::string>& servers)>
+                       *handlerGetServiceList;
 
 public:
-
     MessageStream *_stream;
     Epoller* _poller;
     WorkGroup* _group;
