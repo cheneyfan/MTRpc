@@ -92,13 +92,12 @@ int main(int argc,char* argv[]){
     }
     
     TRACE("all take:"<<TimerHelper::Now_Microsecond() - start);
-<<<<<<< HEAD
+
     //group.join();
-=======
+
     group.Stop();
     group.join();
 
->>>>>>> a8c4e21dde5bd0d301208e60bbda87f03a54e906
 
 ProfilerStop();
     return 0;

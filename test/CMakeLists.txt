@@ -25,11 +25,8 @@ if(TCMALLOC_ENABLE)
           mtrpc 
           gtest
           protobuf
-<<<<<<< HEAD
           tcmalloc unwind profiler
-=======
          # tcmalloc unwind
->>>>>>> a8c4e21dde5bd0d301208e60bbda87f03a54e906
           pthread rt gcc_s)
 else()
    add_exe_item(${testfile}
