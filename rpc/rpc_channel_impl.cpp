@@ -23,12 +23,19 @@ RpcChannelImpl::~RpcChannelImpl()
 
     if(_stream)
     {
-        if(_stream->_ConnectStatus == CLIENT_CONNECT_OK)
+        if(_stream->_ConnectStatus == CLIENT_CONNECT_OK 
+                && _stream->_isClosed == false)
         {
             _stream->OnClose(_poller);
         }
         //_stream->ReleaseRef();
+        
+        TRACE("~RpcChannelImpl"<<_stream->_fd<<" con status:"<<_stream->_ConnectStatus
+                <<",isclose:"<<_stream->_isClosed
+                <<",is_isConnected:"<<_stream->_isConnected<<",ref;"<<_stream->ref_count);
+
     }
+    TRACE("~RpcChannelImpl _stream:");
 }
 
 bool RpcChannelImpl::IsAddressValid()
@@ -256,7 +263,7 @@ void RpcChannelImpl::OnMessageRecived(ConnectStream *sream, Epoller* p,int32_t b
     RpcClientController * cntl = waitcall.front();
     waitcall.pop();
 
-    if(cntl->_seq !=  sream->resheader.GetSeq()
+    /*if(cntl->_seq !=  sream->resheader.GetSeq()
             && sream->resheader.GetSeq() !=0 )
     {
 
@@ -265,7 +272,7 @@ void RpcChannelImpl::OnMessageRecived(ConnectStream *sream, Epoller* p,int32_t b
         OnMessageError(sream,p,CLIENT_SEQ_NOT_MATCH);
         cntl->SetStatus(CLIENT_SEQ_NOT_MATCH);
         return;
-    }
+    }*/
     assert(cntl!=NULL);
 
     int ContentLength = sream->resheader.GetContentLength();

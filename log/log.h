@@ -43,12 +43,22 @@ extern const char* INFO__LEVEL;
 extern const char* WARN__LEVEL;
 extern const char* ERROR_LEVEL;
 
+
 namespace mtrpc {
 
 
 extern const char* SPLIT;
 extern const char* ENDL;
 
+class LogLevel
+{
+    public:
+       //static  char* TRACE_LEVEL;
+       
+       static void CloseTraceLevel(){
+            TRACE_LEVEL = NULL;
+       } 
+};
 
 class LogBuffer
 {
@@ -90,7 +100,7 @@ public:
 public:
     char * buf;
     char * ptr;
-    uint32_t size;
+    int32_t size;
     LogBuffer* next;
 };
 
@@ -463,6 +473,14 @@ public:
     };
 
 
+/*#define TRACE_FMG(format,args...) \
+    if(TRACE_LEVEL){ \
+    ::mtrpc::LogEntry * e = ::mtrpc::CacheManger::mallocEntry();\
+    e->Reset(TRACE_LEVEL,__FILE__,__LINE__,__PRETTY_FUNCTION__); \
+    e->Format(format,args);e->Format('\0'); \
+    ::mtrpc::LogHelper::OutPut(e); \
+    };
+*/
 #define TRACE_FMG(format,args...) \
     if(TRACE_LEVEL){ \
     ::mtrpc::LogEntry * e = ::mtrpc::CacheManger::mallocEntry();\
@@ -514,8 +532,15 @@ public:
     (*e)<<x<<'\0'; \
     ::mtrpc::LogHelper::OutPut(e); \
     };
-
-
+/*
+#define TRACE(x) \
+    if(::mtrpc::LogLevel::TRACE_LEVEL){ \
+    ::mtrpc::LogEntry * e = ::mtrpc::CacheManger::mallocEntry();\
+    e->Reset(::mtrpc::LogLevel::TRACE_LEVEL,__FILE__,__LINE__,__PRETTY_FUNCTION__); \
+    (*e)<<x<<'\0'; \
+    ::mtrpc::LogHelper::OutPut(e); \
+    };
+*/
 #define INFO(x) \
     if(INFO__LEVEL){ \
     ::mtrpc::LogEntry * e = ::mtrpc::CacheManger::mallocEntry();\

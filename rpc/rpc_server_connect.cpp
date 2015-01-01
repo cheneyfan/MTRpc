@@ -157,7 +157,7 @@ void ServerConnect::OnMessageRecived(MessageStream* sream,Epoller* p,int32_t buf
         INFO(method->full_name()<<",seq:"<<controller->_seq
              <<",req:"<<request->ShortDebugString()
              <<",res:"<<response->ShortDebugString()
-             <<",result:"<<controller->_msg<<",time:"<<elapse);
+             <<",result:"<<controller->_msg<<",time:"<<elapse<<",sock:"<<sream->GetSockName());
     }
 
     if(controller->Failed()){
@@ -339,7 +339,7 @@ void ServerConnect::OnMessageError(SocketStream* stream, Epoller* p, uint32_t er
       ms->resheader.SetContentLength(0);
       ms->resheader.SerializeHeader(packetStart);
       stream->ModEventAsync(p, true, true);
-      //stream->_close_when_empty = true;
+      stream->_close_when_empty = true;
 
       if(cntl){
           delete cntl->_request;

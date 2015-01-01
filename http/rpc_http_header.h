@@ -8,6 +8,11 @@ namespace mtrpc {
 
 #define MAX_KEY_LEN 256
 #define MAX_HEADER_SIZE 1024
+#define MAX_METHOD_LEN 8
+
+#define HTTP_METHOD_GET_S "GET "
+#define HTTP_METHOD_POST_S "POST "
+
 ///
 /// \brief The HttpHeader class
 ///
@@ -80,9 +85,11 @@ public:
     /// helper the parser
     void MoveBufTo(std::string& s);
     void MoveBufTo(uint32_t& s);
+    bool isMethodFound(char c);
     int GetPendSize();
     int header_size;
     int body_size;
+
 
 public:
     int state;

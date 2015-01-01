@@ -13,12 +13,12 @@ using namespace youtu;
 
 
 
-void Test(RpcClient& client)
+void Test(RpcClient* client)
 {
 
 
-    const std::string addr = "127.0.0.1:8003";
-    RpcChannel* channel = client.GetChannel(addr);
+    const std::string addr = "10.25.66.36:8081";
+    RpcChannel* channel = client->GetChannel(addr);
     TRACE("get channel ok"<<channel);
 
 
@@ -36,18 +36,24 @@ void Test(RpcClient& client)
            // while(true){
                 ServerState::StateTimeMs("test");
                 stub.Import(cntl,&req,&res,NULL);
+
+                if(cntl->Failed())
+                {
+                    TRACE("cntl->Failed:"<<cntl->ErrorCode()<<","<<cntl->ErrorText());
+                    delete cntl;
+                    client->ReleaseChannel(channel);
+                    return ;
+                }
                 TRACE("res  num:"<<res.faceid_size()<<",faceid:"<<res.faceid(0))
                 cntl->Reset();
            // }
         }
+
         std::cout<<"error:"<<cntl->ErrorText()<<std::endl;
-
-
-        std::cout<<",result:"<<res.faceid_size()<<std::endl;
         delete cntl;
     }
 
-    client.ReleaseChannel(channel);
+    client->ReleaseChannel(channel);
 }
 
 
@@ -64,18 +70,18 @@ int main(int argc,char*argv[]){
 
     std::cout<<"start :"<<opt.work_thread_num<<std::endl;
 
-    RpcClient client(opt);
+    RpcClient* client = new RpcClient(opt);
 
     WorkGroup group;
     group.Init( opt.work_thread_num);
     for(int i=0;i<opt.work_thread_num;++i)
-        group.Post(NewExtClosure(Test,client));
+        group.Post(NewExtClosure(Test, client));
 
     group.join();
 
-    client.Shutdown();
-    client.Join();
-
+    client->Shutdown();
+    client->Join();
+    delete client;
     return 0;
 
 }

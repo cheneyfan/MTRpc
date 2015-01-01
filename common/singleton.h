@@ -51,7 +51,7 @@ private:
     ///
     static void destroy()
     {
-        typedef char T_must_be_complete_type[sizeof(T) == 0 ? -1 : 1];
+        typedef char T_must_be_complete_type[sizeof(T) == 0 ? -1 : 1] __attribute__ ((unused));
         delete value_;
     }
 
@@ -119,7 +119,7 @@ private:
     static void destructor(void *x)
     {
         T* obj = static_cast<T*>(x);
-        typedef char T_must_be_complete_type[sizeof(T) == 0 ? -1 : 1];
+        typedef char T_must_be_complete_type[sizeof(T) == 0 ? -1 : 1] __attribute__ ((unused));
         delete obj;
     }
 
@@ -159,7 +159,8 @@ private:
     static void destructor(void* obj)
     {
         assert(obj == t_value_);
-        typedef char T_must_be_complete_type[sizeof(T) == 0 ? -1 : 1];
+        typedef char T_must_be_complete_type[sizeof(T) == 0 ? -1 : 1] __attribute__ ((unused));
+
         delete t_value_;
         t_value_ = 0;
     }

@@ -235,6 +235,7 @@ void IOBuffer::Reset(){
         return ;
     }
 
+    //reset the buffer size
     for(int tidx  = MOD_PIECES(start_idx+1);
         tidx != end_idx;
         tidx  = MOD_PIECES(tidx +1))

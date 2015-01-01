@@ -32,22 +32,26 @@ int MessageStream::OnRecived(Epoller *p, int32_t buffer_size){
     //consume the buffer
     do{
 
-        //TRACE(GetSockName()<<",recv,read:"<<readbuf.readpos.toString()<<",write:"<<readbuf.writepos.toString()<<",buffer_size:"<<buffer_size);
+      TRACE(GetSockName()<<",recv,read:"<<readbuf.readpos.toString()<<",write:"<<readbuf.writepos.toString()<<",buffer_size:"<<buffer_size);
 
         IOBuffer::Iterator begin_parser = readbuf.readpos;
         int ret = reqheader.ParserHeader(readbuf);
+
+        TRACE(GetSockName()<<"ParserHeader,ret:"<<ret<<", state:"<<reqheader.state);
+
         buffer_size -= (readbuf.readpos - begin_parser);
 
 
         if(ret == HTTP_PARSER_FAIL )
         {
-            this->handerMessageError->Run(this,p,HTTP_PARSER_FAIL);
-            WARN(GetSockName()<<"HTTP_PARSER_FAIL");
+            this->handerMessageError->Run(this, p, HTTP_PARSER_FAIL);
+            WARN(GetSockName()<<"HTTP_PARSER_FAIL,state:"<<reqheader.state);
             return -1;
         }
 
         if(ret == HTTP_PASER_HALF)
         {
+            WARN(GetSockName()<<"HTTP_PASER_HALF,state:"<<reqheader.state);
             return 0;
         }
 
@@ -59,7 +63,7 @@ int MessageStream::OnRecived(Epoller *p, int32_t buffer_size){
         }*/
 
 
-        int body_size = readbuf.writepos - reqheader.bodyStart;
+        int body_size = readbuf.writepos - reqheader.bodyStart -1;
 
 
         TRACE(GetSockName()<<"conteng length:"<<reqheader.GetContentLength()<<",recv body_size:"<<body_size);
@@ -86,9 +90,9 @@ int MessageStream::OnRecived(Epoller *p, int32_t buffer_size){
         buffer_size = buffer_size -(readbuf.readpos - beginpacket);
 
         if(this->_close_when_empty)
+        {
             break;
-
-
+        }
 
     }while(buffer_size > 0);
 

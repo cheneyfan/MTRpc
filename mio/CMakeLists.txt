@@ -13,3 +13,6 @@ add_library(${libname} OBJECT ${SRC} ${HEADERS})
 #add_library(${libname}_static STATIC $<TARGET_OBJECTS:${libname}>)
 
 #INSTALL(TARGETS ${libname}_static DESTINATION "./lib/")
+ 
+file(GLOB_RECURSE MIO_HEADES "*.h")
+INSTALL(FILES ${MIO_HEADES} DESTINATION "./include/mio/")

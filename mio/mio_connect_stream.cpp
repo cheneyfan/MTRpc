@@ -100,7 +100,7 @@ int ConnectStream::OnRecived(Epoller *p, int32_t buffer_size){
             return -1;
         }
 
-        int body_size = readbuf.writepos - resheader.bodyStart;
+        int body_size = readbuf.writepos - resheader.bodyStart-1;
 
         TRACE(GetSockName()<<"conteng length:"<<resheader.GetContentLength()<<",recv body_size:"<<body_size);
 

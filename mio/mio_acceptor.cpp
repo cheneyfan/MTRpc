@@ -46,7 +46,7 @@ void Acceptor::OnEvent(Epoller* p,uint32_t events)
         TcpSocket::getpeer(sockfd,ip,port);
         TRACE("accept a new connection: sockfd:"<<sockfd<<",ip:"<<ip<<port);
 
-    }while(sockfd <= 0);
+    }while(sockfd >= 0);
 
 }
 

@@ -149,7 +149,7 @@ void Worker::join(){
 void Worker::Stop(){
     WriteLock<MutexLock> wl(mutex);
     isruning = false;
-    cv.notifyOne();
+    cv.notifyAll();
 }
 
 

@@ -126,6 +126,24 @@ public:
         return mktime(&now_tm)*1000;
 
     }
+    
+    ///
+    /// \brief get_Now_day_s
+    /// \return
+    ///
+    static uint64_t Now_Day_second(){
+
+        time_t now_t = time(NULL);
+        struct tm now_tm;
+        localtime_r(&now_t,&now_tm);
+
+        now_tm.tm_hour = 0;
+        now_tm.tm_min  = 0;
+        now_tm.tm_sec  = 0;
+
+        return mktime(&now_tm);
+
+    }
 
     ///
     /// \brief get_ms_at

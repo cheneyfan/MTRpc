@@ -15,15 +15,17 @@ const char* WARN__LEVEL = "WARN_";
 const char* ERROR_LEVEL = "ERROR";
 #else
 const char* DEBUG_LEVEL = NULL;
-const char* TRACE_LEVEL = NULL;
+//const char* TRACE_LEVEL = NULL;
 const char* INFO__LEVEL = NULL;
 const char* WARN__LEVEL = NULL;
 const char* ERROR_LEVEL = NULL;
 #endif
 
+
 namespace mtrpc {
 
 
+//char * LogLevel::TRACE_LEVEL = "TRACE";
 
 const char* SPLIT = " - ";
 const char* ENDL  = "\n";
@@ -186,7 +188,7 @@ bool LogBacker::isruning = true;
 std::string LogBacker::dirname = "log";
 bool LogBacker::isinit = false;
 
-int LogBacker::Init(Json::Value & conf){
+int LogBacker::Init(Json::Value & conf __attribute__((unused))){
 
     memcpy(logfile,"a.log",sizeof("a.log"));
 
@@ -323,7 +325,7 @@ void LogBacker::OutPut(LogEntry* e){
     ::writev(fd, iov, iov_size);
 }
 
-void LogBacker::DumperLogger(void *ctx)
+void LogBacker::DumperLogger(void *ctx __attribute__((unused)))
 {
 
     //Trace every thread
@@ -368,9 +370,8 @@ void LogBacker::DumperLogger(void *ctx)
 }
 
 
-int LogBacker::DumperDefault(void *ctx,int error)
+int LogBacker::DumperDefault(void *ctx __attribute__((unused)) , int error __attribute__((unused)))
 {
-
 
     LogEntry* e  = NULL;
 

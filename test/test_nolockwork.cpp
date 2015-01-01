@@ -8,7 +8,7 @@
 #include "thread/nolock_workpool.h"
 #include "common/signalhelper.h"
 #include "common/timerhelper.h"
-#include "gperftools/profiler.h"
+
 using namespace mtrpc;
 
 
@@ -47,6 +47,7 @@ int testDelay(Delay * d)
     usleep(1000);
     //TRACE("do:"<<d->id);
     d->done  = TimerHelper::Now_Microsecond(); 
+    return 0;
 }
 
 int main(int argc,char* argv[]){
@@ -74,7 +75,6 @@ int main(int argc,char* argv[]){
     delay.resize(testnum);
     res.resize(testnum);
     
-    ProfilerStart("a.out");
     uint64_t start = TimerHelper::Now_Microsecond();
     for(int i = 0; i < testnum; i++)
     {
@@ -92,13 +92,9 @@ int main(int argc,char* argv[]){
     }
     
     TRACE("all take:"<<TimerHelper::Now_Microsecond() - start);
-
-    //group.join();
-
     group.Stop();
     group.join();
 
 
-ProfilerStop();
     return 0;
 }

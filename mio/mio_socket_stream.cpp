@@ -196,6 +196,9 @@ int SocketStream::OnReadable(Epoller *p)
             //nead read when next event trigger
             TRACE(GetSockName()<<",ret:"<<ret<<",errorno:"<<errno<<",str:"<<strerror(errno));
             break;
+        }else if(ret ==0 && ( errno == EAGAIN)){
+            TRACE(GetSockName()<<",ret:"<<ret<<",errorno:"<<errno<<",str:"<<strerror(errno));
+            break;
         }else if(ret <= 0){
 
             //some error in socket,need to close
@@ -203,7 +206,9 @@ int SocketStream::OnReadable(Epoller *p)
             return -1;
         }
 
-        TRACE(GetSockName()<<" read:"<<ret<<",buffer:"<<readbuf.end().getBuffer());
+        TRACE(GetSockName()<<" read:"<<ret<<",readpos:"
+              <<readbuf.readpos.toString()<<",writepos:"
+              <<readbuf.writepos.toString());
         readbuf.MoveRecivePtr(ret);
 
         read_size += ret;

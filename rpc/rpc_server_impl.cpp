@@ -35,7 +35,7 @@ RpcServerImpl::RpcServerImpl(const RpcServerOptions& options):
     group (new WorkGroup()),
     _service_pool(new ServicePool())
 {
-    google::protobuf::SetLogHandler(ServerLogHander);
+   // google::protobuf::SetLogHandler(ServerLogHander);
 }
 
 RpcServerImpl::~RpcServerImpl()
@@ -262,7 +262,7 @@ bool RpcServerImpl::listAllRegisterService(std::list<std::string>& servers)
         ServiceBoard* b = it->second;
 
         for( int i = b->_svc_desc->method_count() -1; i>=0; --i){
-            const google::protobuf::MethodDescriptor* m = b->_svc_desc->method(0);
+            const google::protobuf::MethodDescriptor* m = b->_svc_desc->method(i);
 
             const std::string & request = m->input_type()->full_name();
             const std::string & response = m->output_type()->full_name();

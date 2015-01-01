@@ -51,7 +51,6 @@ void HttpHeader::Reset(){
 void HttpHeader::SetContentLength(uint32_t length)
 {
     {
-
         char buf[32] = {0};
         snprintf(buf, sizeof(buf), "%u", length);
         headers[Content_Length_key]=std::string(buf);
@@ -76,6 +75,7 @@ void HttpHeader::SetSeq(uint64_t seq){
 }
 
 
+
 uint64_t HttpHeader::GetSeq(){
 
 
@@ -84,6 +84,51 @@ uint64_t HttpHeader::GetSeq(){
         return -1;
     return strtoull(it->second.c_str(),NULL,10);
 
+}
+
+
+bool HttpHeader::isMethodFound(char c){
+
+
+    *pos = c;
+    pos++;
+
+    int size = pos - buf;
+
+    if(size >= MAX_KEY_LEN)
+    {
+        memmove(buf, pos - MAX_METHOD_LEN, MAX_METHOD_LEN);
+        pos = MAX_METHOD_LEN + buf;
+    }
+
+
+    int method_len = (sizeof(HTTP_METHOD_GET_S) -1);
+
+    if(size >= method_len){
+        // sizeof include the '\0'
+        char *get_start = pos - method_len;
+
+        if (memcmp(get_start, HTTP_METHOD_GET_S, method_len) == 0)
+        {
+            TRACE("find new method:"<<std::string(get_start, method_len)<<",size:"<<size);
+            pos = buf;
+            return true;
+        }
+    }
+
+    method_len = (sizeof(HTTP_METHOD_POST_S) -1);
+    if(size >= method_len){
+
+        char *post_start = pos - method_len;
+        if (memcmp(post_start, HTTP_METHOD_POST_S, method_len) == 0)
+        {
+            TRACE("find new method:"<<std::string(post_start, method_len)<<",size:"<<size);
+            pos = buf;
+            return true;
+        }
+    }
+
+    return false;
 }
 
 
@@ -201,7 +246,9 @@ int HttpRequestHeader::ParserHeader(ReadBuffer & buf){
     std::string key;
     std::string value;
 
-    for(; begin!=end && state!= END ; ++begin)
+    // is a new parser
+
+    for(; begin != end; ++begin)
     {
 
         char c = *begin;
@@ -217,7 +264,7 @@ int HttpRequestHeader::ParserHeader(ReadBuffer & buf){
         {
 
         case START:
-            switch(c)
+/*            switch(c)
             {
             case ' ':
 
@@ -232,6 +279,13 @@ int HttpRequestHeader::ParserHeader(ReadBuffer & buf){
             default:
                 *pos++ = c;
                 break;
+            }
+*/
+            if(isMethodFound(c))
+            {
+                method.clear();
+                MoveBufTo(method);
+                state = REQ_PATH;
             }
             break;
 
@@ -334,12 +388,22 @@ int HttpRequestHeader::ParserHeader(ReadBuffer & buf){
                 return HTTP_PARSER_FAIL;
             }
             break;
+        case END:
+            // find the 'POST space '
+            // begin a new packet process
+            if(isMethodFound(c))
+            {
+                state = REQ_PATH;
+            }
+            break;
         }// switch
+
 
     }//end for
 
     return state == END  ? HTTP_PASER_FINISH : HTTP_PASER_HALF;
 }
+
 
 int HttpRequestHeader::SerializeHeader(WriteBuffer::Iterator& it){
 

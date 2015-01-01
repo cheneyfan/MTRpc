@@ -17,7 +17,7 @@ void TaskEntry::Put(ExtClosure<void()>* task)
     //set
     __sync_lock_test_and_set(&_task,task);
 
-    NoLockWorker* w = __sync_val_compare_and_swap(&worker,NULL,NULL);
+    NoLockWorker* w = (NoLockWorker*)__sync_val_compare_and_swap(&worker,NULL,NULL);
 
     if(w)
     {
@@ -264,7 +264,7 @@ int NoLockWorkGroup::Post(MioTask* task)
 }
 
 
-void NoLockWorkGroup::AddIdle(NoLockWorker* w)
+void NoLockWorkGroup::AddIdle(NoLockWorker* w __attribute__ ((unused)))
 {
 
 }

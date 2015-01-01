@@ -83,11 +83,12 @@ class TaskEntry
 
     void Get(ExtClosure<void()>* &task,NoLockWorker* w)
     {
-        task = __sync_lock_test_and_set(&_task,NULL);
+        task = (ExtClosure<void()>*)__sync_lock_test_and_set(&_task,NULL);
         if(task == NULL)
         {
-            __sync_lock_test_and_set(&worker,w);
+            __sync_lock_test_and_set(&worker, w);
         }
+
     }
 public:
     volatile ExtClosure<void()>* _task;
