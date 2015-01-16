@@ -60,6 +60,8 @@ public:
 
     int SendToServer(const google::protobuf::MethodDescriptor *method, RpcClientController* controller, const google::protobuf::Message *request);
 
+
+    int Close();
 public:
 
     void OnMessageRecived(ConnectStream* sream,Epoller* p,int32_t buffer_size);
@@ -71,6 +73,8 @@ public:
 
     void OnWriteable(SocketStream* sream,Epoller* p);
 
+    void OnSendTimeout(SocketStream* sream,Epoller* p);
+    void OnRecvTimeout(SocketStream* sream,Epoller* p);
 public:
     RpcChannelOptions _options;
     ConnectStream * _stream;
@@ -79,9 +83,8 @@ public:
 
     //Use SpinList make sure thread safety
     SpinList<RpcClientController*,MutexLock> sendcall;
-
     std::queue<RpcClientController*> waitcall;
-
+    std::queue<RpcClientController*> donecall;
 };
 
 }

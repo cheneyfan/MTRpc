@@ -16,7 +16,7 @@ ConnectStream::ConnectStream()
 
     TcpSocket::setNoblock(_fd,true);
     TcpSocket::setNoTcpDelay(_fd,true);
-    TcpSocket::setKeepAlive(_fd,true);
+    //TcpSocket::setKeepAlive(_fd,true);
     
     _ConnectStatus = CLIENT_CONNECT_FAIL;
 }
@@ -102,7 +102,7 @@ int ConnectStream::OnRecived(Epoller *p, int32_t buffer_size){
 
         int body_size = readbuf.writepos - resheader.bodyStart-1;
 
-        TRACE(GetSockName()<<"conteng length:"<<resheader.GetContentLength()<<",recv body_size:"<<body_size);
+        //TRACE(GetSockName()<<"conteng length:"<<resheader.GetContentLength()<<",recv body_size:"<<body_size);
 
         // need read more
         if(resheader.GetContentLength() > body_size)
@@ -115,7 +115,7 @@ int ConnectStream::OnRecived(Epoller *p, int32_t buffer_size){
         //process packet
         if(handerMessageRecived)
         {
-            TRACE("beging handerMessageRecived:"<<buffer_size<<",beginpacket:"<<beginpacket.toString());
+            //TRACE("beging handerMessageRecived:"<<buffer_size<<",beginpacket:"<<beginpacket.toString());
 
             handerMessageRecived->Run(this, p,buffer_size);
 
@@ -124,7 +124,7 @@ int ConnectStream::OnRecived(Epoller *p, int32_t buffer_size){
             //begin next parser
         }
 
-        TRACE("beginpacket:"<<beginpacket.toString()<<",end:"<<readbuf.readpos.toString());
+        //TRACE("beginpacket:"<<beginpacket.toString()<<",end:"<<readbuf.readpos.toString());
 
         buffer_size = buffer_size -(readbuf.readpos - beginpacket);
 
@@ -140,9 +140,11 @@ int ConnectStream::OnRecived(Epoller *p, int32_t buffer_size){
 
 int ConnectStream::OnSended(Epoller *p, int32_t buffer_size)
 {
+    //TRACE(GetSockName()<<",OnSended :"<<buffer_size);
 
     if(handerMessageSended)
         handerMessageSended->Run(this,p,buffer_size);
+
     return 0;
 }
 

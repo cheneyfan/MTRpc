@@ -13,7 +13,7 @@
 
 #define ngx_thread_volatile volatile
 #define ngx_inline inline
-#define ngx_uint_t uint32_t
+#define ngx_uint_t uint64_t
 #define ngx_int_t int
 #define u_char unsigned char
 

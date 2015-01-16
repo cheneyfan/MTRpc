@@ -55,7 +55,7 @@ endif()
 
 if(TCMALLOC_ENABLE)
     set(TCMALLOCPATH ${THIRD_PATH}/gperf)
-    add_thirdparty_library(${TCMALLOCPATH} tcmalloc profiler)
+    add_thirdparty_library(${TCMALLOCPATH} tcmalloc)
     if(NOT EXISTS ${TCMALLOCPATH}/lib/tcmalloc.a)
         include(thirdparty/gperf/CMakeLists.txt)
     endif()

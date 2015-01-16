@@ -248,7 +248,7 @@ int HttpRequestHeader::ParserHeader(ReadBuffer & buf){
 
     // is a new parser
 
-    for(; begin != end; ++begin)
+    for(; begin != end && state!= END; ++begin)
     {
 
         char c = *begin;
@@ -388,7 +388,7 @@ int HttpRequestHeader::ParserHeader(ReadBuffer & buf){
                 return HTTP_PARSER_FAIL;
             }
             break;
-        case END:
+/*        case END:
             // find the 'POST space '
             // begin a new packet process
             if(isMethodFound(c))
@@ -396,6 +396,9 @@ int HttpRequestHeader::ParserHeader(ReadBuffer & buf){
                 state = REQ_PATH;
             }
             break;
+
+*/
+
         }// switch
 
 

@@ -12,32 +12,14 @@ class RpcChannel;
 
 struct RpcClientOptions
 {
-    int work_thread_num;         // num of threads used for network handing, default 4.
-    int callback_thread_num;     // num of threads used for async callback, default 4.
-
-    int keep_alive_time;         // keep alive time of idle connections.
-                                 // idle connections will be closed if no read/write for this time.
-                                 // in seconds, should >= -1, -1 means for ever, default 65.
-
-    int max_pending_buffer_size; // max buffer size of the pending send queue for each connection.
-                                 // in MB, should >= 0, 0 means no buffer, default 2.
-
-    // Network throughput limit.
-    // The network bandwidth is shared by all connections:
-    // * busy connections get more bandwidth.
-    // * the total bandwidth of all connections will not exceed the limit.
-    int max_throughput_in;       // max network in throughput for all connections.
-                                 // in MB/s, should >= -1, -1 means no limit, default -1.
-    int max_throughput_out;      // max network out throughput for all connections.
-                                 // in MB/s, should >= -1, -1 means no limit, default -1.
+    int work_thread_num;
+    int send_timeout_sec;
+    int recv_timeout_sec;
 
     RpcClientOptions()
         : work_thread_num(4)
-        , callback_thread_num(4)
-        , keep_alive_time(65)
-        , max_pending_buffer_size(2)
-        , max_throughput_in(-1)
-        , max_throughput_out(-1)
+        , send_timeout_sec(3)
+        , recv_timeout_sec(3)
     {
 
     }
@@ -78,7 +60,7 @@ public:
 
     void Join();
 
-    RpcChannel* GetChannel(const std::string& server_addr);
+    RpcChannel* GetChannel(const std::string& server_addr, const RpcChannelOptions &opt=RpcChannelOptions());
 
     void ReleaseChannel(RpcChannel* channel);
 

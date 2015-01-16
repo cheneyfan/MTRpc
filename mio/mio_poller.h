@@ -57,7 +57,7 @@ public:
     /// \param ev
     /// \return
     ///
-    void SetReadTimeOut(IOEvent* ev);
+    void SetReadTimeOut(IOEvent* ev, uint32_t time_sec);
 
 
     ///
@@ -66,7 +66,11 @@ public:
     /// \param wsec
     /// \return
     ///
-    void SetWriteTimeOut(IOEvent* ev);
+    void SetWriteTimeOut(IOEvent* ev,uint32_t time_sec);
+
+
+    void DelReadTimeOut(IOEvent* ev);
+    void DelWriteTimeOut(IOEvent* ev);
 
     ///
     /// \brief ProcessTimeOut

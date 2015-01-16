@@ -189,7 +189,21 @@ public:
                  now_tm.tm_hour,now_tm.tm_min,now_tm.tm_sec,int(tv.tv_usec/1000));
 
     }
+    
+    static void Now_Millisecond_Second_String(char *buffer,uint32_t size){
 
+
+        struct timeval tv;
+        struct timezone tz;
+        gettimeofday(&tv, &tz);
+
+        struct tm now_tm;
+        localtime_r(&tv.tv_sec,&now_tm);
+        snprintf(buffer,size,"%04d%02d%02d_%02d%02d%02d.%03d",
+                now_tm.tm_year+1900,now_tm.tm_mon+1,now_tm.tm_mday,
+                now_tm.tm_hour,now_tm.tm_min,now_tm.tm_sec,int(tv.tv_usec/1000));
+
+    }
 
     /**
      * @brief now_string
@@ -202,8 +216,8 @@ public:
         localtime_r((const time_t *)&timestamp,(struct tm *)&now_tm);
 
         snprintf(buffer,size,"%04d-%02d-%02d %02d:%02d:%02d.%03d",
-                 now_tm.tm_year+1900,now_tm.tm_mon+1,now_tm.tm_mday,
-                 now_tm.tm_hour,now_tm.tm_min,now_tm.tm_sec,mills);
+                now_tm.tm_year+1900,now_tm.tm_mon+1,now_tm.tm_mday,
+                now_tm.tm_hour,now_tm.tm_min,now_tm.tm_sec,mills);
     }
 
     /**
@@ -216,8 +230,8 @@ public:
         time_t nows=time(NULL);
         localtime_r(&nows,&now_tm);
         snprintf(buffer,size,"%04d%02d%02d_%02d%02d%02d",
-                 now_tm.tm_year+1900,now_tm.tm_mon+1,now_tm.tm_mday,
-                 now_tm.tm_hour,now_tm.tm_min,now_tm.tm_sec);
+                now_tm.tm_year+1900,now_tm.tm_mon+1,now_tm.tm_mday,
+                now_tm.tm_hour,now_tm.tm_min,now_tm.tm_sec);
 
     }
 
@@ -231,7 +245,7 @@ public:
         time_t nows=time(NULL);
         localtime_r(&nows,&now_tm);
         snprintf(buffer,size,"%04d%02d%02d",
-                 now_tm.tm_year+1900,now_tm.tm_mon+1,now_tm.tm_mday);
+                now_tm.tm_year+1900,now_tm.tm_mon+1,now_tm.tm_mday);
 
     }
 
@@ -268,14 +282,14 @@ public:
  * @brief The TimeMoniter class
  */
 class TimeMoniter {
-public:
+    public:
 
 #ifdef __x86_64__
-    template<typename T1,typename... T2>
-    TimeMoniter(unsigned int ms,T1 t1,T2... t2):_ms(ms)
-    {
+        template<typename T1,typename... T2>
+            TimeMoniter(unsigned int ms,T1 t1,T2... t2):_ms(ms)
+        {
 
-        start = TimerHelper::Now_Millisecond();
+            start = TimerHelper::Now_Millisecond();
         Append(t1,t2...);
 
     }

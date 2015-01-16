@@ -8,6 +8,9 @@
 #include "common/serverstat.h"
 #include "google/protobuf/message.h"
 
+#define HTTP_MAX_REQUEST_PENDING 5
+
+
 namespace mtrpc {
 
 ServerConnect::ServerConnect(int fd):
@@ -91,16 +94,18 @@ void ServerConnect::OnListServer(MessageStream* stream, Epoller* p){
 void ServerConnect::OnMessageRecived(MessageStream* sream,Epoller* p,int32_t buffer_size)
 {
 
-
     if(sream->reqheader.path.size() <= 1)
     {
+
+        TRACE(sream->GetSockName()<<",path:"<<sream->reqheader.path<<",buffer size:"<<buffer_size);
+
         OnListServer(sream, p);
         return;
     }
 
     const std::string& method_full_name = sream->reqheader.path.substr(1);
 
-    //TRACE(sream->GetSockName()<<",method:"<<method_full_name<<"Seq:"<<sream->reqheader.GetSeq());
+    TRACE(sream->GetSockName()<<",method:"<<method_full_name<<"Seq:"<<sream->reqheader.GetSeq());
 
     if(method_full_name.size() == 0)
     {
@@ -125,9 +130,12 @@ void ServerConnect::OnMessageRecived(MessageStream* sream,Epoller* p,int32_t buf
             = service->GetRequestPrototype(method).New();
 
     _stream->readbuf.BeginPacket();
+
+    TRACE(sream->GetSockName()<<"begin,read:"<<_stream->readbuf.readpos.toString()<<",write:"<<_stream->readbuf.writepos.toString());
+
     if(!request->ParseFromZeroCopyStream(&_stream->readbuf))
     {
-        WARN(sream->GetSockName()<<"paser error,read:"<<_stream->readbuf.readpos.toString()<<",write:"<<_stream->readbuf.writepos.toString());
+        WARN(sream->GetSockName()<<"paser error,read:"<<_stream->readbuf.readpos.toString()<<",beginRead:"<<_stream->readbuf.begin().toString());
         OnMessageError(sream,p,SERVER_REQ_PARSER_FAILED);
         delete request;
         return;
@@ -155,8 +163,6 @@ void ServerConnect::OnMessageRecived(MessageStream* sream,Epoller* p,int32_t buf
 
         //TRACE(sream->GetSockName()<<"call result:"<<controller->_msg);
         INFO(method->full_name()<<",seq:"<<controller->_seq
-             <<",req:"<<request->ShortDebugString()
-             <<",res:"<<response->ShortDebugString()
              <<",result:"<<controller->_msg<<",time:"<<elapse<<",sock:"<<sream->GetSockName());
     }
 
@@ -179,8 +185,15 @@ void ServerConnect::SendMessage(MessageStream* stream,Epoller* p,RpcServerContro
     if(!pending.empty() )
     {
         pending.push(cntl);
-        TRACE(stream->GetSockName()<<"pending");
+        stream->ModEventAsync(p, true, true);
+        TRACE(stream->GetSockName()<<",pending:"<<pending.size());
         return ;
+    }
+
+    if(pending.size() > HTTP_MAX_REQUEST_PENDING)
+    {
+        OnMessageError(stream, p, HTTP_REQUEST_OVERFLOW);
+        return;
     }
 
     //pending
@@ -284,6 +297,12 @@ void ServerConnect::OnMessageSended(MessageStream* stream, Epoller* p,int32_t bu
         return;
     }
 
+    if(stream->_close_when_empty)
+    {
+        TRACE(stream->GetSockName()<<" _close_when_empty send cancel");
+        return;
+    }
+
     RpcServerController* cntl = pending.front();
 
    TRACE(stream->GetSockName()<<",OnMessageSended,send:"<<cntl ->_res_send_size<<",pack:"<<cntl ->_res_pack_size<<",buffer_size:"<<buffer_size);
@@ -320,7 +339,7 @@ void ServerConnect::OnMessageError(SocketStream* stream, Epoller* p, uint32_t er
       if(!pending.empty())
       {
           cntl = pending.front();
-          pending.pop();
+          //pending.pop();
       }
 
       //2 send fail header
@@ -339,13 +358,15 @@ void ServerConnect::OnMessageError(SocketStream* stream, Epoller* p, uint32_t er
       ms->resheader.SetContentLength(0);
       ms->resheader.SerializeHeader(packetStart);
       stream->ModEventAsync(p, true, true);
+
       stream->_close_when_empty = true;
 
+      /* defer release the cntl;
       if(cntl){
           delete cntl->_request;
           delete cntl->_response;
           delete cntl;
-      }
+      }*/
 }
 
 void ServerConnect::OnClose(SocketStream* sream,Epoller* p){
@@ -354,10 +375,11 @@ void ServerConnect::OnClose(SocketStream* sream,Epoller* p){
     {
         RpcServerController* cntl = pending.front();
         pending.pop();
-
+        TRACE(_stream->GetSockName()<<",release cntl error:"<<cntl->ErrorCode()<<",seq:"<<cntl->_seq);
         delete cntl->_request;
         delete cntl->_response;
         delete cntl;
+
     }
 
      TRACE(_stream->GetSockName()<<",ServerConnect down!");

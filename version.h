@@ -2,9 +2,9 @@
 
 #define PROJECT_NAME   ""
 #define PROJECT_VESION "1.1.0"
-#define SVN_VESION     ""
+#define SVN_VESION     "Path: /home/guofutan/workspace/MTRpc_proj \nWorking Copy Root Path: /home/guofutan/workspace/MTRpc_proj \nURL: http://tc-svn.tencent.com/pub/pub_MTRpc_rep/MTRpc_proj/trunk \nRelative URL: ^/MTRpc_proj/trunk \nRepository Root: http://tc-svn.tencent.com/pub/pub_MTRpc_rep \nRepository UUID: d1354fd6-07e0-11e4-a2a2-158d611bd191 \nRevision: 307 \nNode Kind: directory \nSchedule: normal \nLast Changed Author: albertjiang \nLast Changed Rev: 307 \nLast Changed Date: 2015-01-15 09:42:50 +0800 (Thu, 15 Jan 2015)"
 #define BUILD_TIME     __DATE__ " " __TIME__
-#define BUILD_FLAGS    "/usr/bin/c++  -ggdb -g3 -fPIC -rdynamic  -fpermissive -Wall -Wextra -Wl,--eh-frame-hdr -msse -msse2 -msse3 -msse4.1  -std=c++0x  -g "
+#define BUILD_FLAGS    "/usr/bin/c++  -ggdb -g3 -fPIC -rdynamic  -fpermissive -Wall -Wextra -Wl,--eh-frame-hdr -msse -msse2 -msse3 -msse4.1  -std=c++0x  -O2 -g -DNDEBUG"
 
 static void print_version()
 {

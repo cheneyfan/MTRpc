@@ -2,7 +2,7 @@ project(MTRpc_SVN CXX)
 cmake_minimum_required(VERSION 2.8.9)
 
 
-option(CMAKE_BUILD_RELEASE "build release version" OFF)
+option(CMAKE_BUILD_RELEASE "build release version" ON)
 option(CMAKE_BUILD_TEST "build test " ON)
 option(TCMALLOC_ENABLE "use tcmalloc " ON)
 
@@ -12,7 +12,7 @@ set(VERSION_PATCH "0")
 set(VERSION_FULL "${VERSION_MAJOR}.${VERSION_MINOR}.${VERSION_PATCH}")
 set(PKGVERSION_FULL "${VERSION_MAJOR}_${VERSION_MINOR}_${VERSION_PATCH}")
 
-IF(EXISTS "${CMAKE_SOURCE_DIR}/.svn/")
+#IF(EXISTS "${CMAKE_SOURCE_DIR}/.svn/")
    FIND_PACKAGE(Subversion)
    IF(SUBVERSION_FOUND)
      Subversion_WC_INFO(${CMAKE_SOURCE_DIR} MT)
@@ -20,9 +20,9 @@ IF(EXISTS "${CMAKE_SOURCE_DIR}/.svn/")
    ELSE()
      MESSAGE("No found svn package")
    ENDIF(SUBVERSION_FOUND)
-ELSE()
-   MESSAGE("No svn project")
-ENDIF(EXISTS "${CMAKE_SOURCE_DIR}/.svn/")
+#ELSE()
+#   MESSAGE("No svn project")
+#ENDIF(EXISTS "${CMAKE_SOURCE_DIR}/.svn/")
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -ggdb -g3 -fPIC -rdynamic ")
 

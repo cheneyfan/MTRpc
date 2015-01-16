@@ -33,7 +33,8 @@ public:
 
     int ConnectionCount();
 
-    RpcChannel* GetChannel(const std::string& server_addr);
+    RpcChannel* GetChannel(const std::string& server_addr,const RpcChannelOptions& ropt = RpcChannelOptions());
+
     void ReleaseChannel(RpcChannel* channel);
 
 

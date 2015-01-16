@@ -16,7 +16,7 @@ int RpcChannel::Connect(const std::string& server_ip,
 
 RpcChannel::~RpcChannel()
 {
-    delete _impl;
+     _impl->Close();
 }
 
 bool RpcChannel::IsAddressValid()
@@ -42,4 +42,10 @@ RpcController *RpcChannel::GetController(){
     return _impl->GetController();
 }
 
+
+/*int RpcChannel::Close(){
+
+      return _impl->Close();
+  }
+*/
 } // namespace pbrpc

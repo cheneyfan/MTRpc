@@ -34,7 +34,7 @@ void RpcClientImpl::Start(){
 
     _group->Init(_options.work_thread_num);
 
-    MioTask* task = NewExtClosure(_poller,&Epoller::Poll);
+    MioTask* task = NewExtClosure(_poller, &Epoller::Poll);
     _group->Post(task);
 }
 
@@ -65,14 +65,12 @@ int RpcClientImpl::ConnectionCount(){
 }
 
 
-RpcChannel* RpcClientImpl::GetChannel(const std::string& server_addr){
+RpcChannel* RpcClientImpl::GetChannel(const std::string& server_addr,const RpcChannelOptions &ropt){
 
-     RpcChannel* channel =  new RpcChannel();
+     RpcChannel* channel =  new RpcChannel(ropt);
 
      channel->_impl->_poller = _poller;
      channel->_impl->_group  = _group;
-
-
 
      char host[64]= {0};
      int  port = 0;
@@ -91,6 +89,7 @@ RpcChannel* RpcClientImpl::GetChannel(const std::string& server_addr){
 void RpcClientImpl::ReleaseChannel(RpcChannel *channel)
 {
     delete channel;
+    //channel->Close();
 }
 
 

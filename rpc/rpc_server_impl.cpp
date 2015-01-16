@@ -35,7 +35,7 @@ RpcServerImpl::RpcServerImpl(const RpcServerOptions& options):
     group (new WorkGroup()),
     _service_pool(new ServicePool())
 {
-   // google::protobuf::SetLogHandler(ServerLogHander);
+    google::protobuf::SetLogHandler(ServerLogHander);
 }
 
 RpcServerImpl::~RpcServerImpl()
@@ -45,7 +45,7 @@ RpcServerImpl::~RpcServerImpl()
 
 
 
-google::protobuf::LogHandler* RpcServerImpl::ServerLogHander(
+void RpcServerImpl::ServerLogHander(
         google::protobuf::LogLevel level,
         const char* filename, int line,
         const std::string& message)
@@ -97,17 +97,17 @@ int RpcServerImpl::Start(const std::string& server_address)
 {
 
     //build in
-    RegisterService(new inspect::MachineImpl());
-    RegisterService(new inspect::ProcessImpl());
-    RegisterService(new inspect::ServiceImpl());
-    RegisterService(new inspect::ApplicationImpl());
+    //RegisterService(new inspect::MachineImpl());
+    //RegisterService(new inspect::ProcessImpl());
+    //RegisterService(new inspect::ServiceImpl());
+    //RegisterService(new inspect::ApplicationImpl());
 
 
     /// init work group
     group->Init(_options.work_thread_num);
 
     /// start listen
-    acceptor.handerAccept = NewPermanentExtClosure(this,&RpcServerImpl::OnAccept);
+    acceptor.handerAccept = NewPermanentExtClosure(this, &RpcServerImpl::OnAccept);
 
     int ret = acceptor.StartListen(server_address);
 
@@ -123,7 +123,7 @@ int RpcServerImpl::Start(const std::string& server_address)
     poller->AddEvent(&acceptor,true,false);
 
 
-    group->Post(NewExtClosure(poller,&Epoller::Poll));
+    group->Post(NewExtClosure(poller, &Epoller::Poll));
 
 
     INFO("server listen at:"<<server_address<<",worker num:"<<_options.work_thread_num);
@@ -217,9 +217,10 @@ std::string RpcServerImpl::getHostIp()
     {
         return ip;
     }
-
+    
     struct ifaddrs * if_addr_back = if_addr;
-
+    
+    std::string local_ip = "";
     for(; if_addr != NULL; if_addr = if_addr->ifa_next)
     {
         // not ipv4
@@ -232,14 +233,14 @@ std::string RpcServerImpl::getHostIp()
 
         inet_ntop(AF_INET, tmp, buffer, INET_ADDRSTRLEN);
 
-        ip = buffer;
+        local_ip = buffer;
 
-        if(ip.size() == 0 || ip.find("127.0")== 0 || ip.find("10.") != 0)
+        if(local_ip.size() == 0 || local_ip.find("127.0")== 0)
         {
-            WARN("not use foriegn "<<ip);
+            WARN("not use foriegn "<<local_ip);
             continue;
         }
-
+        ip = local_ip;
         break;
     }
 

@@ -40,16 +40,17 @@ void RpcClient::Join(){
     _impl->Join();
 }
 
-RpcChannel* RpcClient::GetChannel(const std::string& server_addr)
+RpcChannel* RpcClient::GetChannel(const std::string& server_addr,const RpcChannelOptions& opt)
 {
-    return _impl->GetChannel(server_addr);
+    return _impl->GetChannel(server_addr, opt);
 }
 
 
 
 void RpcClient::ReleaseChannel(RpcChannel* channel)
 {
-    return _impl->ReleaseChannel(channel);
+    delete channel;
+    //return _impl->ReleaseChannel(channel);
 }
 
 }

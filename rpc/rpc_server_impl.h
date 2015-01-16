@@ -63,7 +63,7 @@ public:
             std::string &service_full_name, std::string &method_name);
 
 
-    static google::protobuf::LogHandler* ServerLogHander(
+    static void ServerLogHander(
                            google::protobuf::LogLevel level,
                            const char* filename, int line,
                            const std::string& message);

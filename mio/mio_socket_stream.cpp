@@ -11,7 +11,7 @@ SocketStream::SocketStream():
     handerWriteable(NULL),
     handerClose(NULL),
     handerReadTimeOut(NULL),
-    handerWriteimeOut(NULL),
+    handerWriteTimeOut(NULL),
     handerMessageError(NULL),
     _isConnected(false),
     _isClosed(false),
@@ -27,7 +27,7 @@ SocketStream:: ~SocketStream(){
     delete handerWriteable;
     delete handerClose;
     delete handerReadTimeOut;
-    delete handerWriteimeOut;
+    delete handerWriteTimeOut;
     delete handerMessageError;
 }
 
@@ -102,11 +102,13 @@ void SocketStream::OnEvent(Epoller* p,uint32_t mask)
     if(mask & READ_TIME_OUT )
     {
         this->OnReadTimeOut(p);
+        this->ReleaseRef();
     }
 
     if(mask & WRITE_TIME_OUT)
     {
-        this->OnWriteimeOut(p);
+        this->OnWriteTimeOut(p);
+        this->ReleaseRef();
     }
 
     if(mask & EVENT_CLOSE || this->_close_when_empty)
@@ -196,9 +198,6 @@ int SocketStream::OnReadable(Epoller *p)
             //nead read when next event trigger
             TRACE(GetSockName()<<",ret:"<<ret<<",errorno:"<<errno<<",str:"<<strerror(errno));
             break;
-        }else if(ret ==0 && ( errno == EAGAIN)){
-            TRACE(GetSockName()<<",ret:"<<ret<<",errorno:"<<errno<<",str:"<<strerror(errno));
-            break;
         }else if(ret <= 0){
 
             //some error in socket,need to close
@@ -206,9 +205,10 @@ int SocketStream::OnReadable(Epoller *p)
             return -1;
         }
 
-        TRACE(GetSockName()<<" read:"<<ret<<",readpos:"
+        /*TRACE(GetSockName()<<" read:"<<ret<<",readpos:"
               <<readbuf.readpos.toString()<<",writepos:"
               <<readbuf.writepos.toString());
+              */
         readbuf.MoveRecivePtr(ret);
 
         read_size += ret;
@@ -227,7 +227,7 @@ int SocketStream::OnWriteable(Epoller *p)
 
     if(writebuf.isEmpty())
     {
-        TRACE(GetSockName()<<":no buffer to send, disable write");
+        //TRACE(GetSockName()<<":no buffer to send, disable write");
         ModEventAsync(p,true,false);
     }
 
@@ -236,7 +236,7 @@ int SocketStream::OnWriteable(Epoller *p)
     
     if(writebuf.isEmpty())
     {
-        TRACE(GetSockName()<<":no buffer to send, disable write");
+        //TRACE(GetSockName()<<":no buffer to send, disable write");
         return 0;
     }
 
@@ -250,9 +250,9 @@ int SocketStream::OnWriteable(Epoller *p)
         struct iovec outvec[MAX_BUFFER_PIECES];
         int out_num = MAX_BUFFER_PIECES;
 
-        TRACE(GetSockName()
+        /*TRACE(GetSockName()
               <<",writebuf rp:"<<writebuf.readpos.toString()
-              <<",writebuf wp:"<<writebuf.writepos.toString());
+              <<",writebuf wp:"<<writebuf.writepos.toString());*/
 
         if(!writebuf.GetSendBuffer(outvec,out_num))
         {
@@ -279,10 +279,10 @@ int SocketStream::OnWriteable(Epoller *p)
             return -1;
         }
 
-        /*
-        TRACE(GetSockName()<<",send :"<<ret
-              <<",writebuf rp:"<<writebuf.readpos.toString()
-              <<",writebuf wp:"<<writebuf.writepos.toString());*/
+
+       // TRACE(GetSockName()<<",send :"<<ret
+       //       <<",writebuf rp:"<<writebuf.readpos.toString()
+       //       <<",writebuf wp:"<<writebuf.writepos.toString());
 
         writebuf.MoveSendPtr(ret);
 
@@ -316,12 +316,12 @@ int SocketStream::OnClose(Epoller *p)
         _isConnected = false;
 
         //epoll_ctl(p->epollfd, EPOLL_CTL_DEL,this->_fd, NULL);
-        TRACE(GetSockName()<<":closing :fd:"<<this->_fd);
-
+        TRACE(GetSockName()<<":closing, fd:"<<this->_fd);
         if(handerClose)
             handerClose->Run(this,p);
 
         DelEventAsync(p);
+
     }else{
          TRACE(GetSockName()<<":already closed! :fd:"<<this->_fd);
     }
@@ -332,16 +332,21 @@ int SocketStream::OnClose(Epoller *p)
 
 int SocketStream::OnReadTimeOut(Epoller* p)
 {
+    TRACE(GetSockName()<<" OnReadTimeOut,read:"<<this->rtimernode.key<<",cur:"<<(uint64_t)time(NULL));
+
     if(handerReadTimeOut)
         handerReadTimeOut->Run(this,p);
 
     return 0;
 }
 
-int SocketStream::OnWriteimeOut(Epoller* p)
+int SocketStream::OnWriteTimeOut(Epoller* p)
 {
-    if(handerWriteimeOut)
-        handerWriteimeOut->Run(this,p);
+    TRACE(GetSockName()<<" OnWriteTimeOut,writeout:"<<this->wtimernode.key<<",cur:"<<(uint64_t)time(NULL));
+
+    if(handerWriteTimeOut)
+        handerWriteTimeOut->Run(this,p);
+
     return 0;
 }
 

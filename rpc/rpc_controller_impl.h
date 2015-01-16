@@ -46,6 +46,8 @@ public:
     virtual void SetFailed(const std::string& reason);
 
 
+    virtual void Wait(){}
+    virtual void Wait(int ms){}
 public:
     uint64_t _seq;
     std::string _msg;
@@ -79,7 +81,8 @@ public:
     ///
     /// \brief Wait the call done
     ///
-    void Wait();
+    virtual void Wait();
+    virtual void Wait(int ms);
 
 
 

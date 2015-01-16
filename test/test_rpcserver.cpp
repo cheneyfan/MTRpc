@@ -25,6 +25,7 @@ public:
         printf("buffer:%s",buffer);
 
         */
+        sleep(2);
         response->add_faceid(123456);
 
     }

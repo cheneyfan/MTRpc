@@ -129,6 +129,8 @@ public:
     int SetReadTimeOutAsync(Epoller* p, uint32_t time_sec);
     int SetWriteTimeOutAsync(Epoller* p,uint32_t time_sec);
 
+    int DelReadTimeOutAsync(Epoller* p);
+    int DelWriteTimeOutAsync(Epoller* p);
 
 public:
     //thread safe

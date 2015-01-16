@@ -13,8 +13,14 @@ class RpcClientController;
 
 class RpcChannelOptions{
 public:
-      uint64_t connect_timeout;
-      RpcChannelOptions():connect_timeout(10)
+      uint64_t connect_timeout_sec;
+      uint64_t read_timeout_sec;
+      uint64_t write_timeout_sec;
+
+      RpcChannelOptions():
+          connect_timeout_sec(60),
+          read_timeout_sec(60),
+          write_timeout_sec(60)
       {
       }
 };
@@ -55,6 +61,7 @@ public:
     ///
     RpcController *GetController();
 
+    //int Close();
 
 public:
     RpcChannelImpl* _impl;

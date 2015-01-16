@@ -16,8 +16,13 @@ IOEvent::IOEvent()
     _events = 0;
     _fd = 0;
 
+    wtimernode.key = 0;
+    rtimernode.key = 0;
+
+
     wtimernode.parent = NULL;
     rtimernode.parent = NULL;
+
 
     group = NULL;
 
@@ -68,17 +73,11 @@ int IOEvent::SetEvent(bool readable,bool writeable,int trigger){
 
     if(old != ev.events)
     {
-
         return true;
     }
 
     return false;
 }
-
-
-
-
-
 
 void IOEvent::OnEventWrapper(Epoller* p){
     do{
@@ -174,29 +173,34 @@ int IOEvent::DelEventAsync(Epoller* p)
 int IOEvent::SetReadTimeOutAsync(Epoller* p,uint32_t time_sec)
 {
 
-    rtimernode.data = this;
-    rtimernode.key = time(NULL) + time_sec;
     MioTask * closure =
-            NewExtClosure(p,&Epoller::SetReadTimeOut,this);
-
+            NewExtClosure(p,&Epoller::SetReadTimeOut,this,time_sec);
     p->PostTask(closure);
-
     return 0;
 
 }
 
 int IOEvent::SetWriteTimeOutAsync(Epoller* p,uint32_t time_sec)
 {
-
-    wtimernode.data = this;
-    wtimernode.key = time(NULL) + time_sec;
-
     MioTask * closure =
-            NewExtClosure(p,&Epoller::SetWriteTimeOut,this);
-
+            NewExtClosure(p,&Epoller::SetWriteTimeOut,this,time_sec);
     p->PostTask(closure);
-
     return 0;
+}
+
+int IOEvent::DelReadTimeOutAsync(Epoller* p)
+{
+    MioTask * closure =
+            NewExtClosure(p, &Epoller::DelReadTimeOut, this);
+    p->PostTask(closure);
+    return 0;
+}
+
+int IOEvent::DelWriteTimeOutAsync(Epoller* p)
+{
+    MioTask * closure =
+            NewExtClosure(p,&Epoller::DelWriteTimeOut, this);
+    p->PostTask(closure);
 }
 
 

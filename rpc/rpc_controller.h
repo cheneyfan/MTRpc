@@ -50,6 +50,8 @@ public:
     virtual void SetFailed(const std::string& reason){}
     virtual  uint64_t GenerateSeq();
 
+    virtual void Wait(){}
+    virtual void Wait(int ms){}
 }; // class RpcController
 
 }

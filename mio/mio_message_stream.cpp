@@ -37,7 +37,7 @@ int MessageStream::OnRecived(Epoller *p, int32_t buffer_size){
         IOBuffer::Iterator begin_parser = readbuf.readpos;
         int ret = reqheader.ParserHeader(readbuf);
 
-        TRACE(GetSockName()<<"ParserHeader,ret:"<<ret<<", state:"<<reqheader.state);
+        TRACE(GetSockName()<<"ParserHeader,ret:"<<ret<<", state:"<<reqheader.state<<",read:"<<readbuf.readpos.toString()<<",write:"<<readbuf.writepos.toString()<<",buffer_size:"<<buffer_size);
 
         buffer_size -= (readbuf.readpos - begin_parser);
 
@@ -54,7 +54,14 @@ int MessageStream::OnRecived(Epoller *p, int32_t buffer_size){
             WARN(GetSockName()<<"HTTP_PASER_HALF,state:"<<reqheader.state);
             return 0;
         }
-
+        
+        int32_t max_length = DEFAULT_BUFFER_SIZE * MAX_BUFFER_PIECES;
+        TRACE("MessageStream::OnRecived, max_length is "<< max_length);
+        if (reqheader.GetContentLength() > max_length) {
+            this->handerMessageError->Run(this, p, HTTP_REQUEST_OVERFLOW);
+            WARN(GetSockName()<<"HTTP_REQUEST_OVERFLOW, max_length is :"<<max_length); 
+            return -1; 
+        }
         /*
         if(reqheader.GetContentLength() < 0)
         {

@@ -42,7 +42,7 @@ public:
     virtual int OnClose(Epoller* p);
 
     virtual int OnReadTimeOut(Epoller* p);
-    virtual int OnWriteimeOut(Epoller* p);
+    virtual int OnWriteTimeOut(Epoller* p);
 
 
 public:
@@ -52,7 +52,7 @@ public:
     ExtClosure<void(SocketStream* sream,Epoller* p)>* handerWriteable;
     ExtClosure<void(SocketStream* sream,Epoller* p)>* handerClose;
     ExtClosure<void(SocketStream* sream,Epoller* p)>* handerReadTimeOut;
-    ExtClosure<void(SocketStream* sream,Epoller* p)>* handerWriteimeOut;
+    ExtClosure<void(SocketStream* sream,Epoller* p)>* handerWriteTimeOut;
     ExtClosure<void(SocketStream* sream,Epoller* p,uint32_t error_code)>* handerMessageError;
 
 public:

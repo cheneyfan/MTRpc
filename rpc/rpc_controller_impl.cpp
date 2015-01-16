@@ -110,6 +110,19 @@ void RpcClientController::Wait()
 }
 
 
+void RpcClientController::Wait(int ms)
+{
+    while(_status == -1)
+    {
+        WriteLock<MutexLock> lock(mutex);
+        int err = cv.wait(&mutex._mutex, ms);
+        if (err == ETIMEDOUT) {
+            break;
+        }
+    }
+}
+
+
 void RpcClientController::SetStatus(int status)
 {
     WriteLock<MutexLock> lock(mutex);

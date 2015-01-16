@@ -25,7 +25,6 @@ if(TCMALLOC_ENABLE)
           mtrpc 
           gtest
           protobuf
-          tcmalloc unwind profiler
          # tcmalloc unwind
           pthread rt gcc_s)
 else()
